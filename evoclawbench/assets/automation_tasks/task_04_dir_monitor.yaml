@@ -1,0 +1,28 @@
+task_id: task_04_dir_monitor
+name: Directory Change Monitor with Alerting
+description: |
+  Create a shell script that monitors a directory for new or modified files
+  and sends an alert when changes are detected.
+
+requirements:
+  - watch_dir: /var/app/uploads
+  - poll_interval_seconds: 30
+  - state_file: /tmp/dir_monitor_state.txt  # stores last-seen file hashes
+  - alert_method: write alert message to /var/log/dir_alerts.log AND print to stdout
+  - alert_format: "[ALERT] <timestamp> New/modified file detected: <filepath> (size: <bytes>)"
+  - ignore_patterns:
+      - "*.tmp"
+      - ".DS_Store"
+      - "*.swp"
+  - max_runtime_minutes: 60  # script should exit after this duration
+  - on_first_run: baseline the directory (no alerts), create state_file
+
+constraints:
+  - must work without inotify (use md5sum/sha256sum for change detection)
+  - must handle files added and files modified (content change)
+  - must not alert for files matching ignore_patterns
+  - must be killable with Ctrl+C (trap SIGINT)
+
+expected_output:
+  script_file: outputs/dir_monitor.sh
+  readme_file: outputs/dir_monitor_readme.md

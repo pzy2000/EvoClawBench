@@ -1,0 +1,21 @@
+sensor_id,device_id,location,metric,value,unit,timestamp,status
+SEN-001,DEV-401,Server Room A,temperature,24.5,celsius,2024-03-01T00:00:00,normal
+SEN-001,DEV-401,Server Room A,temperature,24.8,celsius,2024-03-01T01:00:00,normal
+SEN-001,DEV-401,Server Room A,temperature,35.2,celsius,2024-03-01T02:00:00,warning
+SEN-001,DEV-401,Server Room A,temperature,42.1,celsius,2024-03-01T03:00:00,critical
+SEN-001,DEV-401,Server Room A,temperature,25.1,celsius,2024-03-01T04:00:00,normal
+SEN-002,DEV-402,Server Room B,cpu_usage,45.2,percent,2024-03-01T00:00:00,normal
+SEN-002,DEV-402,Server Room B,cpu_usage,52.8,percent,2024-03-01T01:00:00,normal
+SEN-002,DEV-402,Server Room B,cpu_usage,89.5,percent,2024-03-01T02:00:00,warning
+SEN-002,DEV-402,Server Room B,cpu_usage,96.3,percent,2024-03-01T03:00:00,critical
+SEN-002,DEV-402,Server Room B,cpu_usage,48.1,percent,2024-03-01T04:00:00,normal
+SEN-003,DEV-403,Network Hub,bandwidth_mbps,850.0,mbps,2024-03-01T00:00:00,normal
+SEN-003,DEV-403,Network Hub,bandwidth_mbps,920.5,mbps,2024-03-01T01:00:00,normal
+SEN-003,DEV-403,Network Hub,bandwidth_mbps,1200.0,mbps,2024-03-01T02:00:00,warning
+SEN-003,DEV-403,Network Hub,bandwidth_mbps,750.3,mbps,2024-03-01T03:00:00,normal
+SEN-003,DEV-403,Network Hub,bandwidth_mbps,890.2,mbps,2024-03-01T04:00:00,normal
+SEN-004,DEV-404,Storage Array,disk_usage_pct,65.4,percent,2024-03-01T00:00:00,normal
+SEN-004,DEV-404,Storage Array,disk_usage_pct,65.6,percent,2024-03-01T01:00:00,normal
+SEN-004,DEV-404,Storage Array,disk_usage_pct,65.9,percent,2024-03-01T02:00:00,normal
+SEN-004,DEV-404,Storage Array,disk_usage_pct,66.1,percent,2024-03-01T03:00:00,normal
+SEN-004,DEV-404,Storage Array,disk_usage_pct,66.3,percent,2024-03-01T04:00:00,normal

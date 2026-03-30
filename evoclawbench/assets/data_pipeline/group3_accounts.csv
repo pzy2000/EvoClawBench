@@ -1,0 +1,6 @@
+account_id,owner_name,account_type,balance_usd,credit_limit,opened_date,status
+ACC-201,Patricia Moore,checking,12450.80,0,2020-03-15,active
+ACC-202,Kenneth Harris,checking,3200.00,0,2021-07-10,active
+ACC-203,Sandra Clark,savings,28750.50,0,2019-11-20,active
+ACC-204,George Lewis,checking,8900.25,15000,2022-01-05,active
+ACC-205,Barbara White,checking,1200.00,5000,2023-06-15,active

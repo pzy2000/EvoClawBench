@@ -1,0 +1,31 @@
+{
+  "app_id": "app_03",
+  "name": "go-http-gateway",
+  "language": "go",
+  "framework": "net/http",
+  "go_version": "1.22",
+  "package_manager": "go mod",
+  "dependencies_file": "go.mod",
+  "port": 8080,
+  "entry_point": "./bin/gateway",
+  "build_command": "CGO_ENABLED=0 GOOS=linux go build -o bin/gateway ./cmd/gateway",
+  "test_command": "go test ./... -race -coverprofile=coverage.out",
+  "lint_command": "golangci-lint run ./...",
+  "docker": {
+    "base_image_build": "golang:1.22-alpine",
+    "base_image_run": "scratch",
+    "working_dir": "/app",
+    "non_root_user": null,
+    "health_check": "GET /ping",
+    "multi_stage": true
+  },
+  "ci": {
+    "trigger_branches": ["main"],
+    "trigger_on_pr": true,
+    "steps": ["lint", "test", "build", "push"],
+    "registry": "ghcr.io",
+    "image_name": "myorg/go-http-gateway",
+    "deploy_on_branch": "main",
+    "deploy_command": "helm upgrade --install go-gateway ./charts/go-gateway --set image.tag=$IMAGE_TAG -n production"
+  }
+}

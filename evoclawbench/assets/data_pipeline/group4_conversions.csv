@@ -1,0 +1,6 @@
+conversion_id,session_id,user_id,event_type,product_tier,revenue_usd,converted_at
+CONV-001,SES-0006,USR-301,signup,free,0,2024-02-01T11:05:00
+CONV-002,SES-0012,USR-302,signup,free,0,2024-02-01T12:35:00
+CONV-003,SES-0016,USR-305,signup,pro,49,2024-02-01T13:42:00
+CONV-004,SES-0009,USR-308,trial_start,enterprise,0,2024-02-01T11:52:00
+CONV-005,SES-0019,USR-316,signup,pro,49,2024-02-01T14:55:00

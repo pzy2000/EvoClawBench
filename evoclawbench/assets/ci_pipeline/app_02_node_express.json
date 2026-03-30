@@ -1,0 +1,30 @@
+{
+  "app_id": "app_02",
+  "name": "node-express-api",
+  "language": "javascript",
+  "framework": "express",
+  "node_version": "20",
+  "package_manager": "npm",
+  "dependencies_file": "package.json",
+  "port": 3000,
+  "entry_point": "node dist/server.js",
+  "build_command": "npm run build",
+  "test_command": "npm test -- --coverage",
+  "lint_command": "npm run lint",
+  "docker": {
+    "base_image": "node:20-alpine",
+    "working_dir": "/usr/src/app",
+    "non_root_user": "node",
+    "health_check": "GET /api/health",
+    "multi_stage": true
+  },
+  "ci": {
+    "trigger_branches": ["main", "staging"],
+    "trigger_on_pr": true,
+    "steps": ["lint", "test", "build", "push", "deploy"],
+    "registry": "docker.io",
+    "image_name": "myorg/node-express-api",
+    "deploy_on_branch": "main",
+    "deploy_command": "kubectl set image deployment/node-express-api app=myorg/node-express-api:$IMAGE_TAG -n production"
+  }
+}

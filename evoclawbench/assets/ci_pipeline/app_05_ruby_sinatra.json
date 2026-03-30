@@ -1,0 +1,30 @@
+{
+  "app_id": "app_05",
+  "name": "ruby-sinatra-webhook",
+  "language": "ruby",
+  "framework": "sinatra",
+  "ruby_version": "3.2",
+  "package_manager": "bundler",
+  "dependencies_file": "Gemfile",
+  "port": 4567,
+  "entry_point": "bundle exec ruby app.rb",
+  "test_command": "bundle exec rspec --format documentation",
+  "lint_command": "bundle exec rubocop",
+  "docker": {
+    "base_image": "ruby:3.2-slim",
+    "working_dir": "/app",
+    "non_root_user": "appuser",
+    "health_check": "GET /health",
+    "multi_stage": false
+  },
+  "ci": {
+    "trigger_branches": ["main"],
+    "trigger_on_pr": true,
+    "steps": ["lint", "test", "build", "push"],
+    "registry": "ghcr.io",
+    "image_name": "myorg/ruby-sinatra-webhook",
+    "deploy_on_branch": "main",
+    "deploy_command": "kubectl rollout restart deployment/ruby-sinatra-webhook -n production",
+    "cache": ["vendor/bundle"]
+  }
+}

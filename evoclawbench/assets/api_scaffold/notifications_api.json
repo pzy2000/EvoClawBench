@@ -1,0 +1,26 @@
+{
+  "name": "NotificationService",
+  "base_url": "https://notify.example.com/v1",
+  "auth": {
+    "type": "api_key",
+    "query_param": "key"
+  },
+  "endpoints": [
+    {
+      "path": "/send",
+      "method": "POST",
+      "body": ["recipient", "channel", "message"],
+      "description": "Send a notification to a recipient"
+    },
+    {
+      "path": "/status/{message_id}",
+      "method": "GET",
+      "params": [],
+      "description": "Check delivery status of a message"
+    }
+  ],
+  "rate_limit": {
+    "requests_per_minute": 200
+  },
+  "pagination": null
+}

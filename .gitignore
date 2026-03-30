@@ -1,0 +1,5 @@
+evoclawbench/results
+data/ZClawBench/ZClawBench.train.jsonl
+.DS_Store
+*.pyc
+uv.lock

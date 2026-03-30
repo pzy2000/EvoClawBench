@@ -1,0 +1,3105 @@
+{
+  "meta": {
+    "single_skill_tasks": 72,
+    "multi_skill_tasks": 36,
+    "total_tasks": 108
+  },
+  "tasks": [
+    {
+      "task_id": "single_coding_baidu-search",
+      "task_type": "single_skill",
+      "difficulty": "easy",
+      "capabilities": [
+        "coding"
+      ],
+      "skill_refs": [
+        "kd71egdpwxvbwez13d9ch5qcsd80j2as"
+      ],
+      "prompt_template": "You are given a user request related to 'Baidu Search'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Baidu Search",
+        "source_summary": "Search the web using Baidu AI Search Engine (BDSE). Use for live information, documentation, or research topics.",
+        "popularity_score": 6.89974458823671
+      }
+    },
+    {
+      "task_id": "single_coding_free-ride",
+      "task_type": "single_skill",
+      "difficulty": "easy",
+      "capabilities": [
+        "coding"
+      ],
+      "skill_refs": [
+        "kd7ca5p9c45ff1p0fsbpv5j3cs80j3ty"
+      ],
+      "prompt_template": "You are given a user request related to 'Free Ride - Unlimited free AI'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Free Ride - Unlimited free AI",
+        "source_summary": "Manages free AI models from OpenRouter for OpenClaw. Automatically ranks models by quality, configures fallbacks for rate-limit handling, and updates opencla...",
+        "popularity_score": 6.832130581241026
+      }
+    },
+    {
+      "task_id": "single_coding_api-gateway",
+      "task_type": "single_skill",
+      "difficulty": "easy",
+      "capabilities": [
+        "coding"
+      ],
+      "skill_refs": [
+        "kd7ans4j6fwb8zwr0qyct403n580bqh3"
+      ],
+      "prompt_template": "You are given a user request related to 'API Gateway'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "API Gateway",
+        "source_summary": "Connect to 100+ APIs (Google Workspace, Microsoft 365, GitHub, Notion, Slack, Airtable, HubSpot, etc.) with managed OAuth. Use this skill when users want to...",
+        "popularity_score": 6.824226284547967
+      }
+    },
+    {
+      "task_id": "single_coding_openai-whisper-api",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "coding"
+      ],
+      "skill_refs": [
+        "kd7334tnm8312yqgnfc03r51xn7yjktg"
+      ],
+      "prompt_template": "You are given a user request related to 'Openai Whisper Api'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Openai Whisper Api",
+        "source_summary": "Transcribe audio via OpenAI Audio Transcriptions API (Whisper).",
+        "popularity_score": 6.474727039186562
+      }
+    },
+    {
+      "task_id": "single_coding_admapix",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "coding"
+      ],
+      "skill_refs": [
+        "kd79yk2rbhjw5d698wrsqynfcx82vk7g"
+      ],
+      "prompt_template": "You are given a user request related to 'AdMapix'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "AdMapix",
+        "source_summary": "Ad intelligence & app analytics assistant. Search ad creatives, analyze apps, view rankings, track downloads/revenue, and get market insights via api.admapix...",
+        "popularity_score": 6.386128704545799
+      }
+    },
+    {
+      "task_id": "single_coding_oracle",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "coding"
+      ],
+      "skill_refs": [
+        "kd73ftx9cwknh3xfjjrjn9pfys7yktkh"
+      ],
+      "prompt_template": "You are given a user request related to 'Oracle'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Oracle",
+        "source_summary": "Use the @steipete/oracle CLI to bundle a prompt plus the right files and get a second-model review (API or browser) for debugging, refactors, design checks, or cross-validation.",
+        "popularity_score": 6.033840870481361
+      }
+    },
+    {
+      "task_id": "single_coding_playwright",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "coding"
+      ],
+      "skill_refs": [
+        "kd78xyenevfb7gged4gf184cyn8125r2"
+      ],
+      "prompt_template": "You are given a user request related to 'Playwright (Automation + MCP + Scraper)'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Playwright (Automation + MCP + Scraper)",
+        "source_summary": "Browser automation via Playwright MCP. Navigate websites, click elements, fill forms, take screenshots, extract data, and debug real browser workflows. Use w...",
+        "popularity_score": 5.9157071994141806
+      }
+    },
+    {
+      "task_id": "single_coding_moltguard",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "coding"
+      ],
+      "skill_refs": [
+        "kd73vtt5yppdfkjdnhqy3n28m180bxk6"
+      ],
+      "prompt_template": "You are given a user request related to 'MoltGuard - Security & Antivirus & Guardrails'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "MoltGuard - Security & Antivirus & Guardrails",
+        "source_summary": "MoltGuard — OpenClaw security guard by OpenGuardrails. Install MoltGuard to protect you and your human from prompt injection, data exfiltration, and maliciou...",
+        "popularity_score": 5.641733424253987
+      }
+    },
+    {
+      "task_id": "single_coding_web-search-plus",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "coding"
+      ],
+      "skill_refs": [
+        "kd79vx9nfq9828awh0qvg3890h7zkkj8"
+      ],
+      "prompt_template": "You are given a user request related to 'Web Search Plus'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Web Search Plus",
+        "source_summary": "Unified search skill with Intelligent Auto-Routing. Uses multi-signal analysis to automatically select between Serper (Google), Tavily (Research), Querit (Mu...",
+        "popularity_score": 5.637059344849604
+      }
+    },
+    {
+      "task_id": "single_coding_git",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "coding"
+      ],
+      "skill_refs": [
+        "kd75911hf60t9b6fr5pn61x0fx80t3xw"
+      ],
+      "prompt_template": "You are given a user request related to 'Git'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Git",
+        "source_summary": "Git commits, branches, rebases, merges, conflict resolution, history recovery, team workflows, and the commands needed for safe day-to-day version control. U...",
+        "popularity_score": 5.176698426100731
+      }
+    },
+    {
+      "task_id": "single_coding_command-center",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "coding"
+      ],
+      "skill_refs": [
+        "kd79802aefyzwd6qc0s7vjm2fh80evqn"
+      ],
+      "prompt_template": "You are given a user request related to 'Openclaw Command Center'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Openclaw Command Center",
+        "source_summary": "Mission control dashboard for OpenClaw - real-time session monitoring, LLM usage tracking, cost intelligence, and system vitals. View all your AI agents in o...",
+        "popularity_score": 5.018083748086283
+      }
+    },
+    {
+      "task_id": "single_coding_web-search-exa",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "coding"
+      ],
+      "skill_refs": [
+        "kd7dm1vw870vzd789683qt5gc57zzzj5"
+      ],
+      "prompt_template": "You are given a user request related to 'Web Search by Exa'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Web Search by Exa",
+        "source_summary": "Neural web search, content extraction, company and people research, code search, and deep research via the Exa MCP server. Use when you need to: (1) search t...",
+        "popularity_score": 4.814944750898586
+      }
+    },
+    {
+      "task_id": "multi_coding_001",
+      "task_type": "multi_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "coding"
+      ],
+      "skill_refs": [
+        "kd71egdpwxvbwez13d9ch5qcsd80j2as",
+        "kd7ca5p9c45ff1p0fsbpv5j3cs80j3ty",
+        "kd7ans4j6fwb8zwr0qyct403n580bqh3"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Baidu Search, Free Ride - Unlimited free AI, API Gateway.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Baidu Search",
+          "Free Ride - Unlimited free AI",
+          "API Gateway"
+        ],
+        "mean_popularity_score": 6.852033818008568
+      }
+    },
+    {
+      "task_id": "multi_coding_002",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "coding"
+      ],
+      "skill_refs": [
+        "kd7ca5p9c45ff1p0fsbpv5j3cs80j3ty",
+        "kd7ans4j6fwb8zwr0qyct403n580bqh3",
+        "kd7334tnm8312yqgnfc03r51xn7yjktg"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Free Ride - Unlimited free AI, API Gateway, Openai Whisper Api.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Free Ride - Unlimited free AI",
+          "API Gateway",
+          "Openai Whisper Api"
+        ],
+        "mean_popularity_score": 6.710361301658518
+      }
+    },
+    {
+      "task_id": "multi_coding_003",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "coding"
+      ],
+      "skill_refs": [
+        "kd7ans4j6fwb8zwr0qyct403n580bqh3",
+        "kd7334tnm8312yqgnfc03r51xn7yjktg",
+        "kd79yk2rbhjw5d698wrsqynfcx82vk7g"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: API Gateway, Openai Whisper Api, AdMapix.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "API Gateway",
+          "Openai Whisper Api",
+          "AdMapix"
+        ],
+        "mean_popularity_score": 6.561694009426776
+      }
+    },
+    {
+      "task_id": "multi_coding_004",
+      "task_type": "multi_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "coding"
+      ],
+      "skill_refs": [
+        "kd7334tnm8312yqgnfc03r51xn7yjktg",
+        "kd79yk2rbhjw5d698wrsqynfcx82vk7g",
+        "kd73ftx9cwknh3xfjjrjn9pfys7yktkh"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Openai Whisper Api, AdMapix, Oracle.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Openai Whisper Api",
+          "AdMapix",
+          "Oracle"
+        ],
+        "mean_popularity_score": 6.298232204737907
+      }
+    },
+    {
+      "task_id": "multi_coding_005",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "coding"
+      ],
+      "skill_refs": [
+        "kd79yk2rbhjw5d698wrsqynfcx82vk7g",
+        "kd73ftx9cwknh3xfjjrjn9pfys7yktkh",
+        "kd78xyenevfb7gged4gf184cyn8125r2"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: AdMapix, Oracle, Playwright (Automation + MCP + Scraper).",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "AdMapix",
+          "Oracle",
+          "Playwright (Automation + MCP + Scraper)"
+        ],
+        "mean_popularity_score": 6.111892258147113
+      }
+    },
+    {
+      "task_id": "multi_coding_006",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "coding"
+      ],
+      "skill_refs": [
+        "kd73ftx9cwknh3xfjjrjn9pfys7yktkh",
+        "kd78xyenevfb7gged4gf184cyn8125r2",
+        "kd73vtt5yppdfkjdnhqy3n28m180bxk6"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Oracle, Playwright (Automation + MCP + Scraper), MoltGuard - Security & Antivirus & Guardrails.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Oracle",
+          "Playwright (Automation + MCP + Scraper)",
+          "MoltGuard - Security & Antivirus & Guardrails"
+        ],
+        "mean_popularity_score": 5.863760498049842
+      }
+    },
+    {
+      "task_id": "single_research_ontology",
+      "task_type": "single_skill",
+      "difficulty": "easy",
+      "capabilities": [
+        "research"
+      ],
+      "skill_refs": [
+        "kd7fbkq8d21m09n3bzkz6yg2vd7zysgw"
+      ],
+      "prompt_template": "You are given a user request related to 'ontology'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "ontology",
+        "source_summary": "Typed knowledge graph for structured agent memory and composable skills. Use when creating/querying entities (Person, Project, Task, Event, Document), linkin...",
+        "popularity_score": 7.405615390346302
+      }
+    },
+    {
+      "task_id": "single_research_baidu-search",
+      "task_type": "single_skill",
+      "difficulty": "easy",
+      "capabilities": [
+        "research"
+      ],
+      "skill_refs": [
+        "kd71egdpwxvbwez13d9ch5qcsd80j2as"
+      ],
+      "prompt_template": "You are given a user request related to 'Baidu Search'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Baidu Search",
+        "source_summary": "Search the web using Baidu AI Search Engine (BDSE). Use for live information, documentation, or research topics.",
+        "popularity_score": 6.89974458823671
+      }
+    },
+    {
+      "task_id": "single_research_free-ride",
+      "task_type": "single_skill",
+      "difficulty": "easy",
+      "capabilities": [
+        "research"
+      ],
+      "skill_refs": [
+        "kd7ca5p9c45ff1p0fsbpv5j3cs80j3ty"
+      ],
+      "prompt_template": "You are given a user request related to 'Free Ride - Unlimited free AI'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Free Ride - Unlimited free AI",
+        "source_summary": "Manages free AI models from OpenRouter for OpenClaw. Automatically ranks models by quality, configures fallbacks for rate-limit handling, and updates opencla...",
+        "popularity_score": 6.832130581241026
+      }
+    },
+    {
+      "task_id": "single_research_api-gateway",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "research"
+      ],
+      "skill_refs": [
+        "kd7ans4j6fwb8zwr0qyct403n580bqh3"
+      ],
+      "prompt_template": "You are given a user request related to 'API Gateway'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "API Gateway",
+        "source_summary": "Connect to 100+ APIs (Google Workspace, Microsoft 365, GitHub, Notion, Slack, Airtable, HubSpot, etc.) with managed OAuth. Use this skill when users want to...",
+        "popularity_score": 6.824226284547967
+      }
+    },
+    {
+      "task_id": "single_research_discord",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "research"
+      ],
+      "skill_refs": [
+        "kd7e2wyr0whjbkwxxcraz7f5gs7ykpk2"
+      ],
+      "prompt_template": "You are given a user request related to 'Discord'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Discord",
+        "source_summary": "Use when you need to control Discord from Clawdbot via the discord tool: send messages, react, post or upload stickers, upload emojis, run polls, manage threads/pins/search, fetch permissions or member/role/channel info, or handle moderation actions in Discord DMs or channels.",
+        "popularity_score": 6.6982572173028885
+      }
+    },
+    {
+      "task_id": "single_research_clawdhub",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "research"
+      ],
+      "skill_refs": [
+        "kd79qg7e6gtpc140s549bk0x2s7yjrh9"
+      ],
+      "prompt_template": "You are given a user request related to 'Clawdhub'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Clawdhub",
+        "source_summary": "Use the ClawdHub CLI to search, install, update, and publish agent skills from clawdhub.com. Use when you need to fetch new skills on the fly, sync installed skills to latest or a specific version, or publish new/updated skill folders with the npm-installed clawdhub CLI.",
+        "popularity_score": 6.506201786711577
+      }
+    },
+    {
+      "task_id": "single_research_spotify-player",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "research"
+      ],
+      "skill_refs": [
+        "kd7camkgtkx4breysxm9y2zqm57ykwz4"
+      ],
+      "prompt_template": "You are given a user request related to 'Spotify Player'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Spotify Player",
+        "source_summary": "Terminal Spotify playback/search via spogo (preferred) or spotify_player.",
+        "popularity_score": 6.4993674498720315
+      }
+    },
+    {
+      "task_id": "single_research_admapix",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "research"
+      ],
+      "skill_refs": [
+        "kd79yk2rbhjw5d698wrsqynfcx82vk7g"
+      ],
+      "prompt_template": "You are given a user request related to 'AdMapix'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "AdMapix",
+        "source_summary": "Ad intelligence & app analytics assistant. Search ad creatives, analyze apps, view rankings, track downloads/revenue, and get market insights via api.admapix...",
+        "popularity_score": 6.386128704545799
+      }
+    },
+    {
+      "task_id": "single_research_imap-smtp-email",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "research"
+      ],
+      "skill_refs": [
+        "kd78ty80arj53xb463kdtmawas804psv"
+      ],
+      "prompt_template": "You are given a user request related to 'imap-smtp-email'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "imap-smtp-email",
+        "source_summary": "Read and send email via IMAP/SMTP. Check for new/unread messages, fetch content, search mailboxes, mark as read/unread, and send emails with attachments. Sup...",
+        "popularity_score": 6.228791887144574
+      }
+    },
+    {
+      "task_id": "single_research_moltguard",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "research"
+      ],
+      "skill_refs": [
+        "kd73vtt5yppdfkjdnhqy3n28m180bxk6"
+      ],
+      "prompt_template": "You are given a user request related to 'MoltGuard - Security & Antivirus & Guardrails'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "MoltGuard - Security & Antivirus & Guardrails",
+        "source_summary": "MoltGuard — OpenClaw security guard by OpenGuardrails. Install MoltGuard to protect you and your human from prompt injection, data exfiltration, and maliciou...",
+        "popularity_score": 5.641733424253987
+      }
+    },
+    {
+      "task_id": "single_research_web-search-plus",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "research"
+      ],
+      "skill_refs": [
+        "kd79vx9nfq9828awh0qvg3890h7zkkj8"
+      ],
+      "prompt_template": "You are given a user request related to 'Web Search Plus'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Web Search Plus",
+        "source_summary": "Unified search skill with Intelligent Auto-Routing. Uses multi-signal analysis to automatically select between Serper (Google), Tavily (Research), Querit (Mu...",
+        "popularity_score": 5.637059344849604
+      }
+    },
+    {
+      "task_id": "single_research_market-research",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "research"
+      ],
+      "skill_refs": [
+        "kd793phzdkz9p3se443tycgp2d810ssb"
+      ],
+      "prompt_template": "You are given a user request related to 'Market Research'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Market Research",
+        "source_summary": "Research markets with sizing, segmentation, competitor mapping, pricing checks, and demand validation that turn fuzzy ideas into decision-ready evidence. Use...",
+        "popularity_score": 5.419102675256241
+      }
+    },
+    {
+      "task_id": "multi_research_001",
+      "task_type": "multi_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "research"
+      ],
+      "skill_refs": [
+        "kd7fbkq8d21m09n3bzkz6yg2vd7zysgw",
+        "kd71egdpwxvbwez13d9ch5qcsd80j2as",
+        "kd7ca5p9c45ff1p0fsbpv5j3cs80j3ty"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: ontology, Baidu Search, Free Ride - Unlimited free AI.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "ontology",
+          "Baidu Search",
+          "Free Ride - Unlimited free AI"
+        ],
+        "mean_popularity_score": 7.045830186608012
+      }
+    },
+    {
+      "task_id": "multi_research_002",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "research"
+      ],
+      "skill_refs": [
+        "kd71egdpwxvbwez13d9ch5qcsd80j2as",
+        "kd7ca5p9c45ff1p0fsbpv5j3cs80j3ty",
+        "kd7ans4j6fwb8zwr0qyct403n580bqh3"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Baidu Search, Free Ride - Unlimited free AI, API Gateway.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Baidu Search",
+          "Free Ride - Unlimited free AI",
+          "API Gateway"
+        ],
+        "mean_popularity_score": 6.852033818008568
+      }
+    },
+    {
+      "task_id": "multi_research_003",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "research"
+      ],
+      "skill_refs": [
+        "kd7ca5p9c45ff1p0fsbpv5j3cs80j3ty",
+        "kd7ans4j6fwb8zwr0qyct403n580bqh3",
+        "kd7e2wyr0whjbkwxxcraz7f5gs7ykpk2"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Free Ride - Unlimited free AI, API Gateway, Discord.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Free Ride - Unlimited free AI",
+          "API Gateway",
+          "Discord"
+        ],
+        "mean_popularity_score": 6.7848713610306275
+      }
+    },
+    {
+      "task_id": "multi_research_004",
+      "task_type": "multi_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "research"
+      ],
+      "skill_refs": [
+        "kd7ans4j6fwb8zwr0qyct403n580bqh3",
+        "kd7e2wyr0whjbkwxxcraz7f5gs7ykpk2",
+        "kd79qg7e6gtpc140s549bk0x2s7yjrh9"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: API Gateway, Discord, Clawdhub.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "API Gateway",
+          "Discord",
+          "Clawdhub"
+        ],
+        "mean_popularity_score": 6.676228429520811
+      }
+    },
+    {
+      "task_id": "multi_research_005",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "research"
+      ],
+      "skill_refs": [
+        "kd7e2wyr0whjbkwxxcraz7f5gs7ykpk2",
+        "kd79qg7e6gtpc140s549bk0x2s7yjrh9",
+        "kd7camkgtkx4breysxm9y2zqm57ykwz4"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Discord, Clawdhub, Spotify Player.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Discord",
+          "Clawdhub",
+          "Spotify Player"
+        ],
+        "mean_popularity_score": 6.567942151295498
+      }
+    },
+    {
+      "task_id": "multi_research_006",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "research"
+      ],
+      "skill_refs": [
+        "kd79qg7e6gtpc140s549bk0x2s7yjrh9",
+        "kd7camkgtkx4breysxm9y2zqm57ykwz4",
+        "kd79yk2rbhjw5d698wrsqynfcx82vk7g"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Clawdhub, Spotify Player, AdMapix.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Clawdhub",
+          "Spotify Player",
+          "AdMapix"
+        ],
+        "mean_popularity_score": 6.463899313709803
+      }
+    },
+    {
+      "task_id": "single_data_ontology",
+      "task_type": "single_skill",
+      "difficulty": "easy",
+      "capabilities": [
+        "data"
+      ],
+      "skill_refs": [
+        "kd7fbkq8d21m09n3bzkz6yg2vd7zysgw"
+      ],
+      "prompt_template": "You are given a user request related to 'ontology'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "ontology",
+        "source_summary": "Typed knowledge graph for structured agent memory and composable skills. Use when creating/querying entities (Person, Project, Task, Event, Document), linkin...",
+        "popularity_score": 7.405615390346302
+      }
+    },
+    {
+      "task_id": "single_data_baidu-search",
+      "task_type": "single_skill",
+      "difficulty": "easy",
+      "capabilities": [
+        "data"
+      ],
+      "skill_refs": [
+        "kd71egdpwxvbwez13d9ch5qcsd80j2as"
+      ],
+      "prompt_template": "You are given a user request related to 'Baidu Search'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Baidu Search",
+        "source_summary": "Search the web using Baidu AI Search Engine (BDSE). Use for live information, documentation, or research topics.",
+        "popularity_score": 6.89974458823671
+      }
+    },
+    {
+      "task_id": "single_data_agent-browser-clawdbot",
+      "task_type": "single_skill",
+      "difficulty": "easy",
+      "capabilities": [
+        "data"
+      ],
+      "skill_refs": [
+        "kd73k6ckp22a61dnwn93rwdp2s7znp0a"
+      ],
+      "prompt_template": "You are given a user request related to 'Agent Browser'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Agent Browser",
+        "source_summary": "Headless browser automation CLI optimized for AI agents with accessibility tree snapshots and ref-based element selection",
+        "popularity_score": 6.442613928049422
+      }
+    },
+    {
+      "task_id": "single_data_excel-xlsx",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "data"
+      ],
+      "skill_refs": [
+        "kd78f02qbnmg9ffcg1y9aynp2h80xvab"
+      ],
+      "prompt_template": "You are given a user request related to 'Excel / XLSX'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Excel / XLSX",
+        "source_summary": "Create, inspect, and edit Microsoft Excel workbooks and XLSX files with reliable formulas, dates, types, formatting, recalculation, and template preservation...",
+        "popularity_score": 6.2980981832166805
+      }
+    },
+    {
+      "task_id": "single_data_playwright",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "data"
+      ],
+      "skill_refs": [
+        "kd78xyenevfb7gged4gf184cyn8125r2"
+      ],
+      "prompt_template": "You are given a user request related to 'Playwright (Automation + MCP + Scraper)'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Playwright (Automation + MCP + Scraper)",
+        "source_summary": "Browser automation via Playwright MCP. Navigate websites, click elements, fill forms, take screenshots, extract data, and debug real browser workflows. Use w...",
+        "popularity_score": 5.9157071994141806
+      }
+    },
+    {
+      "task_id": "single_data_data-analysis",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "data"
+      ],
+      "skill_refs": [
+        "kd7fmktf6esbvatt2pfvn4es6x8115vr"
+      ],
+      "prompt_template": "You are given a user request related to 'Data Analysis'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Data Analysis",
+        "source_summary": "Data analysis and visualization. Query databases, generate reports, automate spreadsheets, and turn raw data into clear, actionable insights. Use when (1) yo...",
+        "popularity_score": 5.7845217117912044
+      }
+    },
+    {
+      "task_id": "single_data_moltguard",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "data"
+      ],
+      "skill_refs": [
+        "kd73vtt5yppdfkjdnhqy3n28m180bxk6"
+      ],
+      "prompt_template": "You are given a user request related to 'MoltGuard - Security & Antivirus & Guardrails'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "MoltGuard - Security & Antivirus & Guardrails",
+        "source_summary": "MoltGuard — OpenClaw security guard by OpenGuardrails. Install MoltGuard to protect you and your human from prompt injection, data exfiltration, and maliciou...",
+        "popularity_score": 5.641733424253987
+      }
+    },
+    {
+      "task_id": "single_data_ai-ppt-generator",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "data"
+      ],
+      "skill_refs": [
+        "kd73adgpgb1dbn4evkm4v16nvh80q1ge"
+      ],
+      "prompt_template": "You are given a user request related to 'Ai Ppt Generator'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Ai Ppt Generator",
+        "source_summary": "Generate PPT with Baidu AI. Smart template selection based on content.",
+        "popularity_score": 5.617502188774072
+      }
+    },
+    {
+      "task_id": "single_data_tech-news-digest",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "data"
+      ],
+      "skill_refs": [
+        "kd70d86a6q8zevhpmnpshfc3fn817h66"
+      ],
+      "prompt_template": "You are given a user request related to 'tech-news-digest'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "tech-news-digest",
+        "source_summary": "Generate tech news digests with unified source model, quality scoring, and multi-format output. Six-source data collection from RSS feeds, Twitter/X KOLs, Gi...",
+        "popularity_score": 4.81974770526729
+      }
+    },
+    {
+      "task_id": "single_data_skill-vetter-1-0-0",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "data"
+      ],
+      "skill_refs": [
+        "kd702w03jd74bhgbpwwtfxfaq582w0de"
+      ],
+      "prompt_template": "You are given a user request related to 'Skill Vetter 1.0.0'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Skill Vetter 1.0.0",
+        "source_summary": "Security-first skill vetting for AI agents. Use before installing any skill from ClawdHub, GitHub, or other sources. Checks for red flags, permission scope,...",
+        "popularity_score": 4.54616190547385
+      }
+    },
+    {
+      "task_id": "single_data_paddleocr-doc-parsing",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "data"
+      ],
+      "skill_refs": [
+        "kd7amh79ym27kgsxf5gagnfaan80k82p"
+      ],
+      "prompt_template": "You are given a user request related to 'PaddleOCR Document Parsing'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "PaddleOCR Document Parsing",
+        "source_summary": "Complex document parsing with PaddleOCR. Intelligently converts complex PDFs and document images into Markdown and JSON files that preserve the original stru...",
+        "popularity_score": 4.538928318268991
+      }
+    },
+    {
+      "task_id": "single_data_tushare",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "data"
+      ],
+      "skill_refs": [
+        "kd7ecq0xfrkkt00xqwyd88q82x80f3gp"
+      ],
+      "prompt_template": "You are given a user request related to 'Tushare Pro'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Tushare Pro",
+        "source_summary": "Fetch Chinese stock and futures market data via Tushare API. Supports stock quotes, futures data, company fundamentals, and macroeconomic indicators. Use whe...",
+        "popularity_score": 4.319429960597729
+      }
+    },
+    {
+      "task_id": "multi_data_001",
+      "task_type": "multi_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "data"
+      ],
+      "skill_refs": [
+        "kd7fbkq8d21m09n3bzkz6yg2vd7zysgw",
+        "kd71egdpwxvbwez13d9ch5qcsd80j2as",
+        "kd73k6ckp22a61dnwn93rwdp2s7znp0a"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: ontology, Baidu Search, Agent Browser.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "ontology",
+          "Baidu Search",
+          "Agent Browser"
+        ],
+        "mean_popularity_score": 6.915991302210812
+      }
+    },
+    {
+      "task_id": "multi_data_002",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "data"
+      ],
+      "skill_refs": [
+        "kd71egdpwxvbwez13d9ch5qcsd80j2as",
+        "kd73k6ckp22a61dnwn93rwdp2s7znp0a",
+        "kd78f02qbnmg9ffcg1y9aynp2h80xvab"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Baidu Search, Agent Browser, Excel / XLSX.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Baidu Search",
+          "Agent Browser",
+          "Excel / XLSX"
+        ],
+        "mean_popularity_score": 6.546818899834271
+      }
+    },
+    {
+      "task_id": "multi_data_003",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "data"
+      ],
+      "skill_refs": [
+        "kd73k6ckp22a61dnwn93rwdp2s7znp0a",
+        "kd78f02qbnmg9ffcg1y9aynp2h80xvab",
+        "kd78xyenevfb7gged4gf184cyn8125r2"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Agent Browser, Excel / XLSX, Playwright (Automation + MCP + Scraper).",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Agent Browser",
+          "Excel / XLSX",
+          "Playwright (Automation + MCP + Scraper)"
+        ],
+        "mean_popularity_score": 6.218806436893428
+      }
+    },
+    {
+      "task_id": "multi_data_004",
+      "task_type": "multi_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "data"
+      ],
+      "skill_refs": [
+        "kd78f02qbnmg9ffcg1y9aynp2h80xvab",
+        "kd78xyenevfb7gged4gf184cyn8125r2",
+        "kd7fmktf6esbvatt2pfvn4es6x8115vr"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Excel / XLSX, Playwright (Automation + MCP + Scraper), Data Analysis.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Excel / XLSX",
+          "Playwright (Automation + MCP + Scraper)",
+          "Data Analysis"
+        ],
+        "mean_popularity_score": 5.999442364807355
+      }
+    },
+    {
+      "task_id": "multi_data_005",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "data"
+      ],
+      "skill_refs": [
+        "kd78xyenevfb7gged4gf184cyn8125r2",
+        "kd7fmktf6esbvatt2pfvn4es6x8115vr",
+        "kd73vtt5yppdfkjdnhqy3n28m180bxk6"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Playwright (Automation + MCP + Scraper), Data Analysis, MoltGuard - Security & Antivirus & Guardrails.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Playwright (Automation + MCP + Scraper)",
+          "Data Analysis",
+          "MoltGuard - Security & Antivirus & Guardrails"
+        ],
+        "mean_popularity_score": 5.78065411181979
+      }
+    },
+    {
+      "task_id": "multi_data_006",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "data"
+      ],
+      "skill_refs": [
+        "kd7fmktf6esbvatt2pfvn4es6x8115vr",
+        "kd73vtt5yppdfkjdnhqy3n28m180bxk6",
+        "kd73adgpgb1dbn4evkm4v16nvh80q1ge"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Data Analysis, MoltGuard - Security & Antivirus & Guardrails, Ai Ppt Generator.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Data Analysis",
+          "MoltGuard - Security & Antivirus & Guardrails",
+          "Ai Ppt Generator"
+        ],
+        "mean_popularity_score": 5.681252441606421
+      }
+    },
+    {
+      "task_id": "single_browser_peekaboo",
+      "task_type": "single_skill",
+      "difficulty": "easy",
+      "capabilities": [
+        "browser"
+      ],
+      "skill_refs": [
+        "kd75rnykn0smnjm0xqxaxyc7q57yks7j"
+      ],
+      "prompt_template": "You are given a user request related to 'Peekaboo'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Peekaboo",
+        "source_summary": "Capture and automate macOS UI with the Peekaboo CLI.",
+        "popularity_score": 6.72040288288679
+      }
+    },
+    {
+      "task_id": "single_browser_agent-browser-clawdbot",
+      "task_type": "single_skill",
+      "difficulty": "easy",
+      "capabilities": [
+        "browser"
+      ],
+      "skill_refs": [
+        "kd73k6ckp22a61dnwn93rwdp2s7znp0a"
+      ],
+      "prompt_template": "You are given a user request related to 'Agent Browser'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Agent Browser",
+        "source_summary": "Headless browser automation CLI optimized for AI agents with accessibility tree snapshots and ref-based element selection",
+        "popularity_score": 6.442613928049422
+      }
+    },
+    {
+      "task_id": "single_browser_oracle",
+      "task_type": "single_skill",
+      "difficulty": "easy",
+      "capabilities": [
+        "browser"
+      ],
+      "skill_refs": [
+        "kd73ftx9cwknh3xfjjrjn9pfys7yktkh"
+      ],
+      "prompt_template": "You are given a user request related to 'Oracle'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Oracle",
+        "source_summary": "Use the @steipete/oracle CLI to bundle a prompt plus the right files and get a second-model review (API or browser) for debugging, refactors, design checks, or cross-validation.",
+        "popularity_score": 6.033840870481361
+      }
+    },
+    {
+      "task_id": "single_browser_playwright",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "browser"
+      ],
+      "skill_refs": [
+        "kd78xyenevfb7gged4gf184cyn8125r2"
+      ],
+      "prompt_template": "You are given a user request related to 'Playwright (Automation + MCP + Scraper)'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Playwright (Automation + MCP + Scraper)",
+        "source_summary": "Browser automation via Playwright MCP. Navigate websites, click elements, fill forms, take screenshots, extract data, and debug real browser workflows. Use w...",
+        "popularity_score": 5.9157071994141806
+      }
+    },
+    {
+      "task_id": "single_browser_screenshot",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "browser"
+      ],
+      "skill_refs": [
+        "kd7c4jzzwmyed9vytt8m6928hs80w8sq"
+      ],
+      "prompt_template": "You are given a user request related to 'Screenshot'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Screenshot",
+        "source_summary": "Capture, inspect, and compare screenshots of screens, windows, regions, web pages, simulators, and CI runs with the right tool, wait strategy, viewport, and...",
+        "popularity_score": 5.1725727947680165
+      }
+    },
+    {
+      "task_id": "single_browser_image",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "browser"
+      ],
+      "skill_refs": [
+        "kd74t14dsbjae55tqz6jpt925n80vdn5"
+      ],
+      "prompt_template": "You are given a user request related to 'Image'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Image",
+        "source_summary": "Create, inspect, process, and optimize image files and visual assets with reliable format choice, resizing, compression, color-profile, metadata, and platfor...",
+        "popularity_score": 5.170492478274635
+      }
+    },
+    {
+      "task_id": "single_browser_frontend-design-pro",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "browser"
+      ],
+      "skill_refs": [
+        "kd7et8qp7460txnv6y9e9e6x7982msrv"
+      ],
+      "prompt_template": "You are given a user request related to 'Frontend Design Pro — 专业前端设计规范'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Frontend Design Pro — 专业前端设计规范",
+        "source_summary": "前端设计质量提升 skill。让 AI 生成的 UI/前端代码更专业，避免常见设计反模式。 参考 impeccable 项目的设计语言规范，提供 audit/polish/critique 等设计审查命令。 触发词：/audit /polish /critique /colorize /animate /bold...",
+        "popularity_score": 3.4462738329291094
+      }
+    },
+    {
+      "task_id": "single_browser_ui-design-system",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "browser"
+      ],
+      "skill_refs": [
+        "kd7ebraxwevb11rt0aephq2pb580nrmw"
+      ],
+      "prompt_template": "You are given a user request related to 'Ui Design System'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Ui Design System",
+        "source_summary": "UI design system toolkit for Senior UI Designer including design token generation, component documentation, responsive design calculations, and developer han...",
+        "popularity_score": 3.444444274303109
+      }
+    },
+    {
+      "task_id": "single_browser_paddleocr-text-recognition",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "browser"
+      ],
+      "skill_refs": [
+        "kd76m5t7h2kng44m5w7z77v6zd82n1t8"
+      ],
+      "prompt_template": "You are given a user request related to 'PaddleOCR Text Recognition'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "PaddleOCR Text Recognition",
+        "source_summary": "Extracts text (with locations) from images and PDF documents using PaddleOCR.",
+        "popularity_score": 3.3420001964302273
+      }
+    },
+    {
+      "task_id": "single_browser_web-search-ex-skill",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "browser"
+      ],
+      "skill_refs": [
+        "kd780kawef1xbcbyev439jph8d82m5j2"
+      ],
+      "prompt_template": "You are given a user request related to 'Web Search'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Web Search",
+        "source_summary": "通用网络搜索技能，支持多引擎搜索（百度、必应、DuckDuckGo），无需API密钥即可获取实时信息",
+        "popularity_score": 3.1336523505678384
+      }
+    },
+    {
+      "task_id": "single_browser_douyin-messager",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "browser"
+      ],
+      "skill_refs": [
+        "kd7dq6rh564mej87670fbgann5825m6a"
+      ],
+      "prompt_template": "You are given a user request related to 'Douyin Messager | 抖音私信'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Douyin Messager | 抖音私信",
+        "source_summary": "Douyin private messaging via browser automation. 抖音私信发送，通过浏览器自动化发送私信、获取聊天记录。Use when user needs to send 抖音私信、回复消息、查看聊天记录。Requires browser login. Triggers: 抖音...",
+        "popularity_score": 3.1007337564037343
+      }
+    },
+    {
+      "task_id": "single_browser_openclaw-twitter",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "browser"
+      ],
+      "skill_refs": [
+        "kd7dfrxrnn2gesjhb53x18jcpx80jye9"
+      ],
+      "prompt_template": "You are given a user request related to 'X/Twitter All-in-One: 30+ APIs, OAuth Post, One Key'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "X/Twitter All-in-One: 30+ APIs, OAuth Post, One Key",
+        "source_summary": "Searches and reads X (Twitter): profiles, timelines, mentions, followers, tweet search, trends, lists, communities, and Spaces. Publishes posts after the use...",
+        "popularity_score": 3.074054780114362
+      }
+    },
+    {
+      "task_id": "multi_browser_001",
+      "task_type": "multi_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "browser"
+      ],
+      "skill_refs": [
+        "kd75rnykn0smnjm0xqxaxyc7q57yks7j",
+        "kd73k6ckp22a61dnwn93rwdp2s7znp0a",
+        "kd73ftx9cwknh3xfjjrjn9pfys7yktkh"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Peekaboo, Agent Browser, Oracle.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Peekaboo",
+          "Agent Browser",
+          "Oracle"
+        ],
+        "mean_popularity_score": 6.398952560472524
+      }
+    },
+    {
+      "task_id": "multi_browser_002",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "browser"
+      ],
+      "skill_refs": [
+        "kd73k6ckp22a61dnwn93rwdp2s7znp0a",
+        "kd73ftx9cwknh3xfjjrjn9pfys7yktkh",
+        "kd78xyenevfb7gged4gf184cyn8125r2"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Agent Browser, Oracle, Playwright (Automation + MCP + Scraper).",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Agent Browser",
+          "Oracle",
+          "Playwright (Automation + MCP + Scraper)"
+        ],
+        "mean_popularity_score": 6.130720665981655
+      }
+    },
+    {
+      "task_id": "multi_browser_003",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "browser"
+      ],
+      "skill_refs": [
+        "kd73ftx9cwknh3xfjjrjn9pfys7yktkh",
+        "kd78xyenevfb7gged4gf184cyn8125r2",
+        "kd7c4jzzwmyed9vytt8m6928hs80w8sq"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Oracle, Playwright (Automation + MCP + Scraper), Screenshot.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Oracle",
+          "Playwright (Automation + MCP + Scraper)",
+          "Screenshot"
+        ],
+        "mean_popularity_score": 5.707373621554519
+      }
+    },
+    {
+      "task_id": "multi_browser_004",
+      "task_type": "multi_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "browser"
+      ],
+      "skill_refs": [
+        "kd78xyenevfb7gged4gf184cyn8125r2",
+        "kd7c4jzzwmyed9vytt8m6928hs80w8sq",
+        "kd74t14dsbjae55tqz6jpt925n80vdn5"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Playwright (Automation + MCP + Scraper), Screenshot, Image.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Playwright (Automation + MCP + Scraper)",
+          "Screenshot",
+          "Image"
+        ],
+        "mean_popularity_score": 5.419590824152277
+      }
+    },
+    {
+      "task_id": "multi_browser_005",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "browser"
+      ],
+      "skill_refs": [
+        "kd7c4jzzwmyed9vytt8m6928hs80w8sq",
+        "kd74t14dsbjae55tqz6jpt925n80vdn5",
+        "kd7et8qp7460txnv6y9e9e6x7982msrv"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Screenshot, Image, Frontend Design Pro — 专业前端设计规范.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Screenshot",
+          "Image",
+          "Frontend Design Pro — 专业前端设计规范"
+        ],
+        "mean_popularity_score": 4.596446368657253
+      }
+    },
+    {
+      "task_id": "multi_browser_006",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "browser"
+      ],
+      "skill_refs": [
+        "kd74t14dsbjae55tqz6jpt925n80vdn5",
+        "kd7et8qp7460txnv6y9e9e6x7982msrv",
+        "kd7ebraxwevb11rt0aephq2pb580nrmw"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Image, Frontend Design Pro — 专业前端设计规范, Ui Design System.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Image",
+          "Frontend Design Pro — 专业前端设计规范",
+          "Ui Design System"
+        ],
+        "mean_popularity_score": 4.0204035285022846
+      }
+    },
+    {
+      "task_id": "single_mcp_mcporter",
+      "task_type": "single_skill",
+      "difficulty": "easy",
+      "capabilities": [
+        "mcp"
+      ],
+      "skill_refs": [
+        "kd7avvp5d3bdahm3jdr6hwhcvh7ykgg7"
+      ],
+      "prompt_template": "You are given a user request related to 'Mcporter'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Mcporter",
+        "source_summary": "Use the mcporter CLI to list, configure, auth, and call MCP servers/tools directly (HTTP or stdio), including ad-hoc servers, config edits, and CLI/type generation.",
+        "popularity_score": 7.279331195148163
+      }
+    },
+    {
+      "task_id": "single_mcp_playwright",
+      "task_type": "single_skill",
+      "difficulty": "easy",
+      "capabilities": [
+        "mcp"
+      ],
+      "skill_refs": [
+        "kd78xyenevfb7gged4gf184cyn8125r2"
+      ],
+      "prompt_template": "You are given a user request related to 'Playwright (Automation + MCP + Scraper)'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Playwright (Automation + MCP + Scraper)",
+        "source_summary": "Browser automation via Playwright MCP. Navigate websites, click elements, fill forms, take screenshots, extract data, and debug real browser workflows. Use w...",
+        "popularity_score": 5.9157071994141806
+      }
+    },
+    {
+      "task_id": "single_mcp_web-search-plus",
+      "task_type": "single_skill",
+      "difficulty": "easy",
+      "capabilities": [
+        "mcp"
+      ],
+      "skill_refs": [
+        "kd79vx9nfq9828awh0qvg3890h7zkkj8"
+      ],
+      "prompt_template": "You are given a user request related to 'Web Search Plus'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Web Search Plus",
+        "source_summary": "Unified search skill with Intelligent Auto-Routing. Uses multi-signal analysis to automatically select between Serper (Google), Tavily (Research), Querit (Mu...",
+        "popularity_score": 5.637059344849604
+      }
+    },
+    {
+      "task_id": "single_mcp_web-search-exa",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "mcp"
+      ],
+      "skill_refs": [
+        "kd7dm1vw870vzd789683qt5gc57zzzj5"
+      ],
+      "prompt_template": "You are given a user request related to 'Web Search by Exa'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Web Search by Exa",
+        "source_summary": "Neural web search, content extraction, company and people research, code search, and deep research via the Exa MCP server. Use when you need to: (1) search t...",
+        "popularity_score": 4.814944750898586
+      }
+    },
+    {
+      "task_id": "single_mcp_dingtalk-ai-table",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "mcp"
+      ],
+      "skill_refs": [
+        "kd705vjqzty3pgqrwcevgzythn81wtze"
+      ],
+      "prompt_template": "You are given a user request related to 'Dingtalk Ai Table'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Dingtalk Ai Table",
+        "source_summary": "钉钉 AI 表格（多维表）操作技能。使用 mcporter CLI 连接钉钉官方新版 AI 表格 MCP server，基于 baseId / tableId / fieldId / recordId 体系执行 Base、Table、Field、Record 的查询与增删改。适用于创建 AI 表格、搜索表格、读取...",
+        "popularity_score": 3.838183452373386
+      }
+    },
+    {
+      "task_id": "single_mcp_google-maps",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "mcp"
+      ],
+      "skill_refs": [
+        "kd7e21t4nzqhdty2awgrsx4g0d80ep79"
+      ],
+      "prompt_template": "You are given a user request related to 'Google Maps'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Google Maps",
+        "source_summary": "Google Maps integration for OpenClaw with Routes API. Use for: (1) Distance/travel time calculations with traffic prediction, (2) Turn-by-turn directions, (3...",
+        "popularity_score": 3.7262760562424404
+      }
+    },
+    {
+      "task_id": "single_mcp_klaviyo",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "mcp"
+      ],
+      "skill_refs": [
+        "kd741wt0dgj94974ssr4vy1yv580gy00"
+      ],
+      "prompt_template": "You are given a user request related to 'Klaviyo'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Klaviyo",
+        "source_summary": "Klaviyo API integration with managed OAuth. Access profiles, lists, segments, campaigns, flows, events, metrics, templates, catalogs, and webhooks. Use this...",
+        "popularity_score": 3.5576047605168624
+      }
+    },
+    {
+      "task_id": "single_mcp_agent-commerce-engine",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "mcp"
+      ],
+      "skill_refs": [
+        "kd7fcstgmd5qfz8f655748t4b97zy0yj"
+      ],
+      "prompt_template": "You are given a user request related to 'Agent Commerce Engine'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Agent Commerce Engine",
+        "source_summary": "A production-ready universal engine for Agentic Commerce. This tool enables autonomous agents to interact with any compatible headless e-commerce backend thr...",
+        "popularity_score": 3.466690751041173
+      }
+    },
+    {
+      "task_id": "single_mcp_moltrade",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "mcp"
+      ],
+      "skill_refs": [
+        "kd7ae3dsmj2vgz6faeyw2800t980n7r5"
+      ],
+      "prompt_template": "You are given a user request related to 'moltrade'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "moltrade",
+        "source_summary": "Operate the Moltrade trading bot (config, backtest, test-mode runs, Nostr signal broadcast, exchange adapters, strategy integration) in OpenClaw.",
+        "popularity_score": 3.4437296162008963
+      }
+    },
+    {
+      "task_id": "single_mcp_tavily-search-skill",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "mcp"
+      ],
+      "skill_refs": [
+        "kd737vqam6rsqyy63mxmcbhzh582kbtq"
+      ],
+      "prompt_template": "You are given a user request related to 'Tavily Search Skill'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Tavily Search Skill",
+        "source_summary": "Tavily API integration with real-time quota management and paid mode toggle. Use when web search is needed.",
+        "popularity_score": 3.265128872502568
+      }
+    },
+    {
+      "task_id": "single_mcp_web-search-ex-skill",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "mcp"
+      ],
+      "skill_refs": [
+        "kd780kawef1xbcbyev439jph8d82m5j2"
+      ],
+      "prompt_template": "You are given a user request related to 'Web Search'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Web Search",
+        "source_summary": "通用网络搜索技能，支持多引擎搜索（百度、必应、DuckDuckGo），无需API密钥即可获取实时信息",
+        "popularity_score": 3.1336523505678384
+      }
+    },
+    {
+      "task_id": "single_mcp_senior-qa",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "mcp"
+      ],
+      "skill_refs": [
+        "kd7bhf0yr3q2mm0zc2dpg4q15x80n8fb"
+      ],
+      "prompt_template": "You are given a user request related to 'Senior Qa'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Senior Qa",
+        "source_summary": "Generates unit tests, integration tests, and E2E tests for React/Next.js applications. Scans components to create Jest + React Testing Library test stubs, an...",
+        "popularity_score": 2.979651010454168
+      }
+    },
+    {
+      "task_id": "multi_mcp_001",
+      "task_type": "multi_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "mcp"
+      ],
+      "skill_refs": [
+        "kd7avvp5d3bdahm3jdr6hwhcvh7ykgg7",
+        "kd78xyenevfb7gged4gf184cyn8125r2",
+        "kd79vx9nfq9828awh0qvg3890h7zkkj8"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Mcporter, Playwright (Automation + MCP + Scraper), Web Search Plus.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Mcporter",
+          "Playwright (Automation + MCP + Scraper)",
+          "Web Search Plus"
+        ],
+        "mean_popularity_score": 6.2773659131373165
+      }
+    },
+    {
+      "task_id": "multi_mcp_002",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "mcp"
+      ],
+      "skill_refs": [
+        "kd78xyenevfb7gged4gf184cyn8125r2",
+        "kd79vx9nfq9828awh0qvg3890h7zkkj8",
+        "kd7dm1vw870vzd789683qt5gc57zzzj5"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Playwright (Automation + MCP + Scraper), Web Search Plus, Web Search by Exa.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Playwright (Automation + MCP + Scraper)",
+          "Web Search Plus",
+          "Web Search by Exa"
+        ],
+        "mean_popularity_score": 5.455903765054123
+      }
+    },
+    {
+      "task_id": "multi_mcp_003",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "mcp"
+      ],
+      "skill_refs": [
+        "kd79vx9nfq9828awh0qvg3890h7zkkj8",
+        "kd7dm1vw870vzd789683qt5gc57zzzj5",
+        "kd705vjqzty3pgqrwcevgzythn81wtze"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Web Search Plus, Web Search by Exa, Dingtalk Ai Table.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Web Search Plus",
+          "Web Search by Exa",
+          "Dingtalk Ai Table"
+        ],
+        "mean_popularity_score": 4.763395849373858
+      }
+    },
+    {
+      "task_id": "multi_mcp_004",
+      "task_type": "multi_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "mcp"
+      ],
+      "skill_refs": [
+        "kd7dm1vw870vzd789683qt5gc57zzzj5",
+        "kd705vjqzty3pgqrwcevgzythn81wtze",
+        "kd7e21t4nzqhdty2awgrsx4g0d80ep79"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Web Search by Exa, Dingtalk Ai Table, Google Maps.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Web Search by Exa",
+          "Dingtalk Ai Table",
+          "Google Maps"
+        ],
+        "mean_popularity_score": 4.126468086504804
+      }
+    },
+    {
+      "task_id": "multi_mcp_005",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "mcp"
+      ],
+      "skill_refs": [
+        "kd705vjqzty3pgqrwcevgzythn81wtze",
+        "kd7e21t4nzqhdty2awgrsx4g0d80ep79",
+        "kd741wt0dgj94974ssr4vy1yv580gy00"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Dingtalk Ai Table, Google Maps, Klaviyo.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Dingtalk Ai Table",
+          "Google Maps",
+          "Klaviyo"
+        ],
+        "mean_popularity_score": 3.7073547563775633
+      }
+    },
+    {
+      "task_id": "multi_mcp_006",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "mcp"
+      ],
+      "skill_refs": [
+        "kd7e21t4nzqhdty2awgrsx4g0d80ep79",
+        "kd741wt0dgj94974ssr4vy1yv580gy00",
+        "kd7fcstgmd5qfz8f655748t4b97zy0yj"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Google Maps, Klaviyo, Agent Commerce Engine.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Google Maps",
+          "Klaviyo",
+          "Agent Commerce Engine"
+        ],
+        "mean_popularity_score": 3.583523855933492
+      }
+    },
+    {
+      "task_id": "single_other_self-improving",
+      "task_type": "single_skill",
+      "difficulty": "easy",
+      "capabilities": [
+        "other"
+      ],
+      "skill_refs": [
+        "kd79502q5bvsfq0pkj19wd25p1818h85"
+      ],
+      "prompt_template": "You are given a user request related to 'Self-Improving + Proactive Agent'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Self-Improving + Proactive Agent",
+        "source_summary": "Self-reflection + Self-criticism + Self-learning + Self-organizing memory. Agent evaluates its own work, catches mistakes, and improves permanently. Use when...",
+        "popularity_score": 7.828263770162383
+      }
+    },
+    {
+      "task_id": "single_other_obsidian",
+      "task_type": "single_skill",
+      "difficulty": "easy",
+      "capabilities": [
+        "other"
+      ],
+      "skill_refs": [
+        "kd7azbj921cxvnvb8f90j8hbzn7ykdxr"
+      ],
+      "prompt_template": "You are given a user request related to 'Obsidian'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Obsidian",
+        "source_summary": "Work with Obsidian vaults (plain Markdown notes) and automate via obsidian-cli.",
+        "popularity_score": 7.6590120457497015
+      }
+    },
+    {
+      "task_id": "single_other_nano-banana-pro",
+      "task_type": "single_skill",
+      "difficulty": "easy",
+      "capabilities": [
+        "other"
+      ],
+      "skill_refs": [
+        "kd7dcr6a98x26ykz8zxevaw22s7yjcgt"
+      ],
+      "prompt_template": "You are given a user request related to 'Nano Banana Pro'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Nano Banana Pro",
+        "source_summary": "Generate/edit images with Nano Banana Pro (Gemini 3 Pro Image). Use for image create/modify requests incl. edits. Supports text-to-image + image-to-image; 1K/2K/4K; use --input-image.",
+        "popularity_score": 7.5352097020238675
+      }
+    },
+    {
+      "task_id": "single_other_word-docx",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "other"
+      ],
+      "skill_refs": [
+        "kd70y7yre7z1ngbnw6x3ft54ax80xga2"
+      ],
+      "prompt_template": "You are given a user request related to 'Word / DOCX'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Word / DOCX",
+        "source_summary": "Create, inspect, and edit Microsoft Word documents and DOCX files with reliable styles, numbering, tracked changes, tables, sections, and compatibility check...",
+        "popularity_score": 6.398705636753176
+      }
+    },
+    {
+      "task_id": "single_other_imsg",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "other"
+      ],
+      "skill_refs": [
+        "kd7aczrffpzdpr162408sa4jcs7yjbmg"
+      ],
+      "prompt_template": "You are given a user request related to 'Imsg'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Imsg",
+        "source_summary": "iMessage/SMS CLI for listing chats, history, watch, and sending.",
+        "popularity_score": 6.166094077376943
+      }
+    },
+    {
+      "task_id": "single_other_camsnap",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "other"
+      ],
+      "skill_refs": [
+        "kd7d6rghjnynxjaet2a0dx0yes7ykr6m"
+      ],
+      "prompt_template": "You are given a user request related to 'Camsnap'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Camsnap",
+        "source_summary": "Capture frames or clips from RTSP/ONVIF cameras.",
+        "popularity_score": 5.978872115891392
+      }
+    },
+    {
+      "task_id": "single_other_powerpoint-pptx",
+      "task_type": "single_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "other"
+      ],
+      "skill_refs": [
+        "kd79b0zpa6er9c32v56ht47w0h81gdmh"
+      ],
+      "prompt_template": "You are given a user request related to 'Powerpoint / PPTX'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Powerpoint / PPTX",
+        "source_summary": "Create, inspect, and edit Microsoft PowerPoint presentations and PPTX decks with reliable layouts, templates, placeholders, notes, charts, and visual QA. Use...",
+        "popularity_score": 5.742080320284328
+      }
+    },
+    {
+      "task_id": "single_other_skill-finder-cn",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "other"
+      ],
+      "skill_refs": [
+        "kd7e8btm839dy7ak8zmvh3m7rn81bp1m"
+      ],
+      "prompt_template": "You are given a user request related to 'Skill Finder Cn'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Skill Finder Cn",
+        "source_summary": "Skill 查找器 | Skill Finder. 帮助发现和安装 ClawHub Skills | Discover and install ClawHub Skills. 回答'有什么技能可以X'、'找一个技能' | Answers 'what skill can X', 'find a skill'. 触发...",
+        "popularity_score": 5.620807078323499
+      }
+    },
+    {
+      "task_id": "single_other_productivity",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "other"
+      ],
+      "skill_refs": [
+        "kd77qecn5737bvqss8g3bnv0nd810qg4"
+      ],
+      "prompt_template": "You are given a user request related to 'Productivity'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Productivity",
+        "source_summary": "Plan, focus, and complete work with energy management, time blocking, goals, projects, tasks, habits, reviews, priorities, and context-specific productivity...",
+        "popularity_score": 5.539930957742979
+      }
+    },
+    {
+      "task_id": "single_other_ordercli",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "other"
+      ],
+      "skill_refs": [
+        "kd77w80rk92agj5xrbx5e7kfbn7yjqxk"
+      ],
+      "prompt_template": "You are given a user request related to 'Ordercli'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Ordercli",
+        "source_summary": "Foodora-only CLI for checking past orders and active order status (Deliveroo WIP).",
+        "popularity_score": 5.537278078155879
+      }
+    },
+    {
+      "task_id": "single_other_food-order",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "other"
+      ],
+      "skill_refs": [
+        "kd74jhvbphve42xe5qa3s8qwex7yjcsq"
+      ],
+      "prompt_template": "You are given a user request related to 'Food Order'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Food Order",
+        "source_summary": "Reorder Foodora orders + track ETA/status with ordercli. Never confirm without explicit user approval. Triggers: order food, reorder, track ETA.",
+        "popularity_score": 5.198064946632998
+      }
+    },
+    {
+      "task_id": "single_other_video-transcript-downloader",
+      "task_type": "single_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "other"
+      ],
+      "skill_refs": [
+        "kd7d4csqr0c6tnp4xa34r20xhs7ymb4j"
+      ],
+      "prompt_template": "You are given a user request related to 'Video Transcript Downloader'. Provide a complete, concise response with explicit assumptions, structured output, and a final answer.",
+      "acceptance": [
+        "Follows required output structure",
+        "Addresses core user goal",
+        "No fabricated claims about unavailable tools/data"
+      ],
+      "failure_conditions": [
+        "Misses key constraints",
+        "Output not actionable",
+        "Unsafe or overconfident unsupported claims"
+      ],
+      "metadata": {
+        "source_skill": "Video Transcript Downloader",
+        "source_summary": "Download videos, audio, subtitles, and clean paragraph-style transcripts from YouTube and any other yt-dlp supported site. Use when asked to “download this video”, “save this clip”, “rip audio”, “get subtitles”, “get transcript”, or to troubleshoot yt-dlp/ffmpeg and formats/playlists.",
+        "popularity_score": 5.1431394520212805
+      }
+    },
+    {
+      "task_id": "multi_other_001",
+      "task_type": "multi_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "other"
+      ],
+      "skill_refs": [
+        "kd79502q5bvsfq0pkj19wd25p1818h85",
+        "kd7azbj921cxvnvb8f90j8hbzn7ykdxr",
+        "kd7dcr6a98x26ykz8zxevaw22s7yjcgt"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Self-Improving + Proactive Agent, Obsidian, Nano Banana Pro.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Self-Improving + Proactive Agent",
+          "Obsidian",
+          "Nano Banana Pro"
+        ],
+        "mean_popularity_score": 7.674161839311984
+      }
+    },
+    {
+      "task_id": "multi_other_002",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "other"
+      ],
+      "skill_refs": [
+        "kd7azbj921cxvnvb8f90j8hbzn7ykdxr",
+        "kd7dcr6a98x26ykz8zxevaw22s7yjcgt",
+        "kd70y7yre7z1ngbnw6x3ft54ax80xga2"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Obsidian, Nano Banana Pro, Word / DOCX.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Obsidian",
+          "Nano Banana Pro",
+          "Word / DOCX"
+        ],
+        "mean_popularity_score": 7.197642461508916
+      }
+    },
+    {
+      "task_id": "multi_other_003",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "other"
+      ],
+      "skill_refs": [
+        "kd7dcr6a98x26ykz8zxevaw22s7yjcgt",
+        "kd70y7yre7z1ngbnw6x3ft54ax80xga2",
+        "kd7aczrffpzdpr162408sa4jcs7yjbmg"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Nano Banana Pro, Word / DOCX, Imsg.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Nano Banana Pro",
+          "Word / DOCX",
+          "Imsg"
+        ],
+        "mean_popularity_score": 6.700003138717996
+      }
+    },
+    {
+      "task_id": "multi_other_004",
+      "task_type": "multi_skill",
+      "difficulty": "medium",
+      "capabilities": [
+        "other"
+      ],
+      "skill_refs": [
+        "kd70y7yre7z1ngbnw6x3ft54ax80xga2",
+        "kd7aczrffpzdpr162408sa4jcs7yjbmg",
+        "kd7d6rghjnynxjaet2a0dx0yes7ykr6m"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Word / DOCX, Imsg, Camsnap.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Word / DOCX",
+          "Imsg",
+          "Camsnap"
+        ],
+        "mean_popularity_score": 6.181223943340503
+      }
+    },
+    {
+      "task_id": "multi_other_005",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "other"
+      ],
+      "skill_refs": [
+        "kd7aczrffpzdpr162408sa4jcs7yjbmg",
+        "kd7d6rghjnynxjaet2a0dx0yes7ykr6m",
+        "kd79b0zpa6er9c32v56ht47w0h81gdmh"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Imsg, Camsnap, Powerpoint / PPTX.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Imsg",
+          "Camsnap",
+          "Powerpoint / PPTX"
+        ],
+        "mean_popularity_score": 5.962348837850887
+      }
+    },
+    {
+      "task_id": "multi_other_006",
+      "task_type": "multi_skill",
+      "difficulty": "hard",
+      "capabilities": [
+        "other"
+      ],
+      "skill_refs": [
+        "kd7d6rghjnynxjaet2a0dx0yes7ykr6m",
+        "kd79b0zpa6er9c32v56ht47w0h81gdmh",
+        "kd7e8btm839dy7ak8zmvh3m7rn81bp1m"
+      ],
+      "prompt_template": "Solve a composite request requiring planning, execution order, and cross-checking. Use the following skill themes as context: Camsnap, Powerpoint / PPTX, Skill Finder Cn.",
+      "acceptance": [
+        "Produces an explicit step-by-step plan",
+        "Integrates multiple capability signals coherently",
+        "Includes validation step before final answer"
+      ],
+      "failure_conditions": [
+        "No decomposition of sub-goals",
+        "Contradictory intermediate reasoning",
+        "Final answer not aligned with plan"
+      ],
+      "metadata": {
+        "source_skills": [
+          "Camsnap",
+          "Powerpoint / PPTX",
+          "Skill Finder Cn"
+        ],
+        "mean_popularity_score": 5.780586504833072
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "benchmark": "openclaw_popular_skills",
+  "version": "0.1.0",
+  "created_at": 1774338762.394927,
+  "config": {
+    "skills_json": "/Volumes/T7/EvoClaw/evoclawbench/scripts/skills_popular.json",
+    "top_k": null,
+    "top_percent": 0.2,
+    "singles_per_capability": 12,
+    "multis_per_capability": 6
+  }
+}

@@ -1,0 +1,340 @@
+{
+  "meta": {
+    "mode": "highlighted",
+    "source_url": "https://clawhub.ai",
+    "convex_url": "https://wry-manatee-359.convex.cloud",
+    "fetched_at": "2026-03-24T07:23:02.787401+00:00",
+    "stats": {
+      "mode": "highlighted",
+      "total_seen": 5,
+      "added": 5,
+      "updated": 0,
+      "skipped": 0,
+      "failed_requests": 0,
+      "retries": 0,
+      "pages": 1
+    }
+  },
+  "items": [
+    {
+      "fetched_at": "2026-03-24T07:23:02.787138+00:00",
+      "source_url": "https://clawhub.ai",
+      "crawl_mode": "highlighted",
+      "raw": {
+        "latestVersion": {
+          "_creationTime": 1773970789565.0,
+          "_id": "k97dh7kfn3pm4hq3m6rhdj4fzs8383jw",
+          "changelog": "- Created X Search skill that calls Grok to perform keyword search, semantic search, user search, and thread fetch on X",
+          "changelogSource": "user",
+          "createdAt": 1773970789565.0,
+          "parsed": {
+            "clawdis": {
+              "emoji": "𝕏",
+              "install": [
+                {
+                  "bins": [
+                    "python3"
+                  ],
+                  "formula": "python",
+                  "id": "python-brew",
+                  "kind": "brew",
+                  "label": "Install Python (brew)"
+                }
+              ],
+              "primaryEnv": "XAI_API_KEY",
+              "requires": {
+                "bins": [
+                  "python3"
+                ],
+                "env": [
+                  "XAI_API_KEY"
+                ]
+              }
+            }
+          },
+          "version": "1.0.0"
+        },
+        "owner": {
+          "_creationTime": 1773929228289.0173,
+          "_id": "publishers:jaaneek",
+          "displayName": "Jaaneek",
+          "handle": "jaaneek",
+          "image": "https://avatars.githubusercontent.com/u/25470423?v=4",
+          "kind": "user",
+          "linkedUserId": "kn7ashtwsjfzjzfz11zjsar4dn837v27"
+        },
+        "ownerHandle": "jaaneek",
+        "skill": {
+          "_creationTime": 1773970789565.9016,
+          "_id": "kd70rq9y70frhnydaxawd1sb9583810q",
+          "badges": {
+            "highlighted": {
+              "at": 1773981893502.0,
+              "byUserId": "kn749wfk1gv41cpqjx38tarwhh7yk4xa"
+            },
+            "official": {
+              "at": 1773981931433.0,
+              "byUserId": "kn749wfk1gv41cpqjx38tarwhh7yk4xa"
+            }
+          },
+          "createdAt": 1773970789565.0,
+          "displayName": "X Search",
+          "latestVersionId": "k97dh7kfn3pm4hq3m6rhdj4fzs8383jw",
+          "ownerUserId": "kn7ashtwsjfzjzfz11zjsar4dn837v27",
+          "slug": "x-search",
+          "stats": {
+            "comments": 0.0,
+            "downloads": 2212.0,
+            "installsAllTime": 6.0,
+            "installsCurrent": 6.0,
+            "stars": 23.0,
+            "versions": 1.0
+          },
+          "summary": "Search X (Twitter) posts using the xAI API. Use when the user wants to find tweets, search X/Twitter, look up what people are saying on X, or find social med...",
+          "tags": {
+            "latest": "k97dh7kfn3pm4hq3m6rhdj4fzs8383jw"
+          },
+          "updatedAt": 1773981931433.0
+        }
+      }
+    },
+    {
+      "fetched_at": "2026-03-24T07:23:02.787262+00:00",
+      "source_url": "https://clawhub.ai",
+      "crawl_mode": "highlighted",
+      "raw": {
+        "latestVersion": {
+          "_creationTime": 1767545389426.0,
+          "_id": "k972ztzdw6e8fsz0f3vpj3dzhh7yj8kw",
+          "changelog": "",
+          "createdAt": 1767545389426.0,
+          "parsed": {
+            "clawdis": {
+              "emoji": "📋",
+              "requires": {
+                "bins": [
+                  "jq"
+                ],
+                "env": [
+                  "TRELLO_API_KEY",
+                  "TRELLO_TOKEN"
+                ]
+              }
+            }
+          },
+          "version": "1.0.0"
+        },
+        "owner": {
+          "_creationTime": 1767472433734.8093,
+          "_id": "publishers:steipete",
+          "displayName": "Peter Steinberger",
+          "handle": "steipete",
+          "image": "https://avatars.githubusercontent.com/u/58493?v=4",
+          "kind": "user",
+          "linkedUserId": "kn70pywhg0fyz996kpa8xj89s57yhv26"
+        },
+        "ownerHandle": "steipete",
+        "skill": {
+          "_creationTime": 1767545389426.3916,
+          "_id": "kd79hv7wxce5yjamakdh9wymmn7yjmzc",
+          "badges": {
+            "highlighted": {
+              "at": 1769572021645.0,
+              "byUserId": "kn70pywhg0fyz996kpa8xj89s57yhv26"
+            }
+          },
+          "createdAt": 1767545389426.0,
+          "displayName": "Trello",
+          "latestVersionId": "k972ztzdw6e8fsz0f3vpj3dzhh7yj8kw",
+          "ownerUserId": "kn70pywhg0fyz996kpa8xj89s57yhv26",
+          "slug": "trello",
+          "stats": {
+            "comments": 9.0,
+            "downloads": 29029.0,
+            "installsAllTime": 1119.0,
+            "installsCurrent": 1088.0,
+            "stars": 116.0,
+            "versions": 1.0
+          },
+          "summary": "Manage Trello boards, lists, and cards via the Trello REST API.",
+          "tags": {
+            "latest": "k972ztzdw6e8fsz0f3vpj3dzhh7yj8kw"
+          },
+          "updatedAt": 1774272444903.0
+        }
+      }
+    },
+    {
+      "fetched_at": "2026-03-24T07:23:02.787306+00:00",
+      "source_url": "https://clawhub.ai",
+      "crawl_mode": "highlighted",
+      "raw": {
+        "latestVersion": {
+          "_creationTime": 1767545378002.0,
+          "_id": "k974s2nwqdrhhcyyetbj0d3x8h7ykacv",
+          "changelog": "",
+          "createdAt": 1767545378002.0,
+          "version": "1.0.0"
+        },
+        "owner": {
+          "_creationTime": 1767472433734.8093,
+          "_id": "publishers:steipete",
+          "displayName": "Peter Steinberger",
+          "handle": "steipete",
+          "image": "https://avatars.githubusercontent.com/u/58493?v=4",
+          "kind": "user",
+          "linkedUserId": "kn70pywhg0fyz996kpa8xj89s57yhv26"
+        },
+        "ownerHandle": "steipete",
+        "skill": {
+          "_creationTime": 1767545378001.9133,
+          "_id": "kd7aqq9ye7nqa4wwecyvshc5bx7yjz2s",
+          "badges": {
+            "highlighted": {
+              "at": 1769571860347.0,
+              "byUserId": "kn70pywhg0fyz996kpa8xj89s57yhv26"
+            }
+          },
+          "createdAt": 1767545378002.0,
+          "displayName": "Slack",
+          "latestVersionId": "k974s2nwqdrhhcyyetbj0d3x8h7ykacv",
+          "ownerUserId": "kn70pywhg0fyz996kpa8xj89s57yhv26",
+          "slug": "slack",
+          "stats": {
+            "comments": 11.0,
+            "downloads": 31732.0,
+            "installsAllTime": 1166.0,
+            "installsCurrent": 1141.0,
+            "stars": 104.0,
+            "versions": 1.0
+          },
+          "summary": "Use when you need to control Slack from Clawdbot via the slack tool, including reacting to messages or pinning/unpinning items in Slack channels or DMs.",
+          "tags": {
+            "latest": "k974s2nwqdrhhcyyetbj0d3x8h7ykacv"
+          },
+          "updatedAt": 1772064940106.0
+        }
+      }
+    },
+    {
+      "fetched_at": "2026-03-24T07:23:02.787335+00:00",
+      "source_url": "https://clawhub.ai",
+      "crawl_mode": "highlighted",
+      "raw": {
+        "latestVersion": {
+          "_creationTime": 1767663916915.0,
+          "_id": "k97fq1c2r7nmqhm39y10jh8gxx7yq0h5",
+          "changelog": "Added more instruction for how to update events",
+          "changelogSource": "user",
+          "createdAt": 1767663916915.0,
+          "parsed": {
+            "clawdis": {
+              "emoji": "📅",
+              "os": [
+                "linux"
+              ],
+              "requires": {
+                "bins": [
+                  "vdirsyncer",
+                  "khal"
+                ]
+              }
+            }
+          },
+          "version": "1.0.1"
+        },
+        "owner": {
+          "_creationTime": 1767580330275.0266,
+          "_id": "publishers:asleep123",
+          "displayName": "Asleep",
+          "handle": "asleep123",
+          "image": "https://avatars.githubusercontent.com/u/122379135?v=4",
+          "kind": "user",
+          "linkedUserId": "kn7bxdhae07mn5rkhw363hyen17ymt5m"
+        },
+        "ownerHandle": "asleep123",
+        "skill": {
+          "_creationTime": 1767580455543.7837,
+          "_id": "kd71z6ryt8kbf3z1g7cdaag5t97ymj2x",
+          "badges": {
+            "highlighted": {
+              "at": 1769571676632.0,
+              "byUserId": "kn7bxdhae07mn5rkhw363hyen17ymt5m"
+            }
+          },
+          "createdAt": 1767580455544.0,
+          "displayName": "Caldav Calendar",
+          "latestVersionId": "k97fq1c2r7nmqhm39y10jh8gxx7yq0h5",
+          "ownerUserId": "kn7bxdhae07mn5rkhw363hyen17ymt5m",
+          "slug": "caldav-calendar",
+          "stats": {
+            "comments": 19.0,
+            "downloads": 21712.0,
+            "installsAllTime": 206.0,
+            "installsCurrent": 203.0,
+            "stars": 184.0,
+            "versions": 2.0
+          },
+          "summary": "Sync and query CalDAV calendars (iCloud, Google, Fastmail, Nextcloud, etc.) using vdirsyncer + khal. Works on Linux.",
+          "tags": {
+            "latest": "k97fq1c2r7nmqhm39y10jh8gxx7yq0h5"
+          },
+          "updatedAt": 1772074835576.0
+        }
+      }
+    },
+    {
+      "fetched_at": "2026-03-24T07:23:02.787373+00:00",
+      "source_url": "https://clawhub.ai",
+      "crawl_mode": "highlighted",
+      "raw": {
+        "latestVersion": {
+          "_creationTime": 1769561820919.0,
+          "_id": "k97776eph594qhd3pqb5xhwq19803yg4",
+          "changelog": "Add description frontmatter",
+          "changelogSource": "user",
+          "createdAt": 1769561820919.0,
+          "version": "1.0.2"
+        },
+        "owner": {
+          "_creationTime": 1769561783671.2173,
+          "_id": "publishers:rhyssullivan",
+          "displayName": "RhysSullivan",
+          "handle": "rhyssullivan",
+          "image": "https://avatars.githubusercontent.com/u/39114868?v=4",
+          "kind": "user",
+          "linkedUserId": "kn7ehk5erw07et6p0vq4k451ws802vgd"
+        },
+        "ownerHandle": "rhyssullivan",
+        "skill": {
+          "_creationTime": 1769560708311.6172,
+          "_id": "kd7chjwkwcc4hsr8zr6rbwfrqd803hk0",
+          "badges": {
+            "highlighted": {
+              "at": 1769571020925.0,
+              "byUserId": "kn7ehk5erw07et6p0vq4k451ws802vgd"
+            }
+          },
+          "createdAt": 1769560708311.0,
+          "displayName": "Answer Overflow",
+          "latestVersionId": "k97776eph594qhd3pqb5xhwq19803yg4",
+          "ownerUserId": "kn7ehk5erw07et6p0vq4k451ws802vgd",
+          "slug": "answeroverflow",
+          "stats": {
+            "comments": 0.0,
+            "downloads": 13994.0,
+            "installsAllTime": 171.0,
+            "installsCurrent": 159.0,
+            "stars": 135.0,
+            "versions": 3.0
+          },
+          "summary": "Search indexed Discord community discussions via Answer Overflow. Find solutions to coding problems, library issues, and community Q&A that only exist in Discord conversations.",
+          "tags": {
+            "latest": "k97776eph594qhd3pqb5xhwq19803yg4"
+          },
+          "updatedAt": 1772065840450.0
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "WeatherAPI",
+  "base_url": "https://api.weather.example.com/v1",
+  "auth": {
+    "type": "api_key",
+    "header": "X-API-Key"
+  },
+  "endpoints": [
+    {
+      "path": "/forecast",
+      "method": "GET",
+      "params": ["city", "days"],
+      "description": "Get weather forecast for a city"
+    },
+    {
+      "path": "/current",
+      "method": "GET",
+      "params": ["lat", "lon"],
+      "description": "Get current weather by coordinates"
+    }
+  ],
+  "rate_limit": {
+    "requests_per_minute": 60
+  },
+  "pagination": null
+}

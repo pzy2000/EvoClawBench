@@ -1,0 +1,61 @@
+{
+  "app_name": "ml-inference",
+  "description": "Machine learning model serving API",
+  "output_format": "yaml",
+  "base_config": {
+    "server": {
+      "host": "0.0.0.0",
+      "port": 9000,
+      "workers": 2,
+      "max_batch_size": 32
+    },
+    "model": {
+      "name": "recommendation-v2",
+      "path": "/models/recommendation",
+      "device": "cpu",
+      "precision": "float32",
+      "warmup_on_start": true
+    },
+    "cache": {
+      "enabled": true,
+      "backend": "redis",
+      "host": "redis.internal",
+      "port": 6379,
+      "ttl_seconds": 600
+    },
+    "monitoring": {
+      "enabled": true,
+      "metrics_port": 9090,
+      "trace_sample_rate": 0.1
+    },
+    "logging": {
+      "level": "INFO",
+      "format": "json"
+    }
+  },
+  "environment_overrides": {
+    "dev": {
+      "server.workers": 1,
+      "server.max_batch_size": 4,
+      "model.path": "/tmp/models/recommendation",
+      "model.warmup_on_start": false,
+      "cache.host": "localhost",
+      "monitoring.enabled": false,
+      "logging.level": "DEBUG"
+    },
+    "staging": {
+      "server.workers": 2,
+      "model.name": "recommendation-v2-staging",
+      "monitoring.trace_sample_rate": 0.5,
+      "cache.ttl_seconds": 300
+    },
+    "prod": {
+      "server.workers": 4,
+      "server.max_batch_size": 64,
+      "model.device": "cuda",
+      "model.precision": "float16",
+      "monitoring.trace_sample_rate": 0.01,
+      "logging.level": "WARN"
+    }
+  }
+}

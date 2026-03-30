@@ -1,0 +1,6 @@
+user_id,name,email,signup_date,location,age
+USR001,Alice Johnson,alice.johnson@gmail.com,03/15/2023,United States,29
+USR002,Carlos Mendez,carlos.mendez@yahoo.com,11/02/2022,Mexico,34
+USR003,Yuki Tanaka,yuki.tanaka@outlook.jp,07/21/2024,Japan,27
+USR004,Fatima Al-Hassan,fatima.alhassan@mail.com,01/08/2023,Egypt,31
+USR005,Liam O'Brien,liam.obrien@proton.me,09/30/2024,Ireland,42

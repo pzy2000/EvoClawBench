@@ -1,0 +1,82 @@
+SERVICE AGREEMENT
+
+This Service Agreement ("Agreement") is entered into as of January 8, 2025
+("Effective Date") by and between:
+
+SERVICE PROVIDER:
+  Pinnacle Digital Services LLC
+  2100 Market Street, Floor 14
+  Philadelphia, PA 19103
+  Contact: Robert Vasquez, Director of Client Services
+  Email: contracts@pinnacledigital.com
+
+CLIENT:
+  Northwind Trading Corporation
+  4500 Commerce Way
+  Chicago, IL 60601
+  Contact: Diana Kowalski, VP of Technology
+  Email: d.kowalski@northwindtrading.com
+
+1. SCOPE OF WORK
+   The Service Provider agrees to deliver the following services:
+   a) Custom web application development (e-commerce platform)
+   b) Mobile application development (iOS and Android)
+   c) Cloud infrastructure setup and management (AWS)
+   d) Quality assurance and testing
+   e) Post-launch technical support and maintenance
+
+2. PAYMENT TERMS
+   Total Contract Value: $485,000.00
+   Payment Schedule:
+     - 20% upon signing ($97,000.00) - Due January 15, 2025
+     - 25% at Design Approval milestone ($121,250.00) - Due March 1, 2025
+     - 25% at Beta Launch milestone ($121,250.00) - Due June 1, 2025
+     - 20% at Final Delivery ($97,000.00) - Due August 15, 2025
+     - 10% upon 30-day acceptance period ($48,500.00) - Due September 15, 2025
+
+   Late Payment: Interest of 1.5% per month on overdue amounts.
+   Expenses: Client shall reimburse pre-approved expenses within 30 days.
+
+3. DURATION
+   Start Date: January 15, 2025
+   Estimated Completion: August 15, 2025
+   Support Period: 12 months following Final Delivery
+
+4. TERMINATION
+   Either party may terminate this Agreement with 30 days written notice.
+   Upon termination:
+     a) Client pays for all work completed to date
+     b) Provider delivers all work product and source code
+     c) Provider retains right to use general knowledge gained
+   For-cause termination: Immediate upon material breach if not cured within
+   15 business days of written notice.
+
+5. INTELLECTUAL PROPERTY
+   All deliverables and source code become the property of the Client upon
+   full payment. Provider retains rights to pre-existing tools and frameworks.
+
+6. CONFIDENTIALITY
+   Both parties agree to maintain confidentiality of proprietary information
+   for a period of 3 years following termination of this Agreement.
+
+7. LIABILITY
+   Provider's total liability shall not exceed the total contract value.
+   Neither party shall be liable for indirect, incidental, or consequential
+   damages.
+
+8. GOVERNING LAW
+   This Agreement shall be governed by and construed in accordance with the
+   laws of the State of Pennsylvania, without regard to conflict of law
+   principles.
+
+9. DISPUTE RESOLUTION
+   Any disputes shall first be submitted to mediation. If mediation fails,
+   disputes shall be resolved by binding arbitration in Philadelphia, PA.
+
+IN WITNESS WHEREOF, the parties have executed this Agreement as of the
+Effective Date.
+
+Pinnacle Digital Services LLC        Northwind Trading Corporation
+By: Robert Vasquez                   By: Diana Kowalski
+Title: Director of Client Services   Title: VP of Technology
+Date: January 8, 2025               Date: January 8, 2025

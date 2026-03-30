@@ -1,0 +1,21 @@
+{
+  "mailer.name": "EmailService",
+  "mailer.from_address": "noreply@example.com",
+  "mailer.from_name": "Example Notifications",
+  "mailer.max_batch_size": 500,
+  "smtp.host": "smtp.mailprovider.com",
+  "smtp.port": 587,
+  "smtp.username": "apikey",
+  "smtp.use_tls": true,
+  "smtp.timeout": 30.0,
+  "templates.directory": "/opt/mailer/templates",
+  "templates.cache_enabled": true,
+  "templates.default_locale": "en_US",
+  "queue.enabled": true,
+  "queue.broker": "redis://mail-queue.internal:6379/1",
+  "queue.max_retries": 3,
+  "queue.retry_delay": 60,
+  "tracking.open_tracking": true,
+  "tracking.click_tracking": true,
+  "tracking.unsubscribe_url": "https://example.com/unsubscribe"
+}

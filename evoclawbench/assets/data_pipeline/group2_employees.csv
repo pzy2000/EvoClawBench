@@ -1,0 +1,17 @@
+employee_id,name,department,manager_id,salary,hire_date,location
+EMP-001,Sarah Mitchell,Engineering,MGR-001,120000,2019-03-15,SF
+EMP-002,James Hartwell,Product,MGR-002,135000,2018-07-20,SF
+EMP-003,Priya Sharma,Engineering,MGR-001,115000,2020-01-10,SF
+EMP-004,Marcus Johnson,Engineering,EMP-003,98000,2021-05-15,Remote
+EMP-005,Elena Rodriguez,Design,MGR-003,105000,2020-09-01,NYC
+EMP-006,Kevin Tanaka,QA,MGR-001,92000,2021-11-20,SF
+EMP-007,Lisa Park,DevOps,MGR-001,118000,2019-08-14,SF
+EMP-008,Tom Bradley,Engineering,EMP-003,95000,2022-02-28,Remote
+EMP-009,Diana Patel,Data Science,MGR-004,128000,2020-06-10,NYC
+EMP-010,Evan Torres,Security,MGR-001,125000,2019-12-01,SF
+EMP-011,Frank Liu,Engineering,EMP-003,88000,2023-03-15,Remote
+EMP-012,Grace Okonkwo,Marketing,MGR-002,95000,2022-07-01,Chicago
+MGR-001,Jennifer Walsh,Engineering,,175000,2017-06-01,SF
+MGR-002,Robert Chen,Product,,165000,2018-01-15,SF
+MGR-003,Amy Stone,Design,,145000,2018-03-20,NYC
+MGR-004,Carlos Reyes,Data,,155000,2019-02-01,NYC

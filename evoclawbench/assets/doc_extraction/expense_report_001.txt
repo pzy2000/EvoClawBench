@@ -1,0 +1,60 @@
+EXPENSE REPORT
+
+Employee Information:
+  Name: Michael Torres
+  Employee ID: EMP-20198
+  Department: Engineering
+  Manager: Jennifer Walsh
+  Submission Date: February 28, 2025
+
+Reporting Period: February 1, 2025 - February 28, 2025
+Purpose: Client meetings, conference attendance, and team offsite
+
+===========================================================================
+DATE         CATEGORY          DESCRIPTION                       AMOUNT
+===========================================================================
+2025-02-03   Transportation    Uber to client site (Acme Corp)     $34.50
+2025-02-03   Meals             Lunch with client (Acme Corp)       $87.25
+2025-02-05   Supplies          USB-C hub for presentation setup    $45.99
+2025-02-07   Transportation    Flight to Seattle (DevOps Con)     $342.00
+2025-02-07   Lodging           Hotel - Marriott Seattle (2 nts)   $478.00
+2025-02-08   Meals             Dinner - team networking event      $62.40
+2025-02-08   Conference        DevOps Con registration fee        $599.00
+2025-02-09   Transportation    Uber to/from conference venue       $28.75
+2025-02-09   Meals             Lunch at conference                 $21.50
+2025-02-10   Transportation    Flight return from Seattle         $298.00
+2025-02-14   Meals             Team lunch (Valentine's sprint)     $156.80
+2025-02-18   Supplies          Ergonomic keyboard                 $129.99
+2025-02-20   Transportation    Taxi to downtown office             $22.00
+2025-02-20   Meals             Client dinner (Northwind Corp)     $195.30
+2025-02-24   Software          JetBrains annual license           $249.00
+2025-02-25   Transportation    Parking - client visit               $18.00
+2025-02-26   Team Activity     Team offsite bowling event          $85.00
+2025-02-27   Supplies          Webcam for remote meetings          $79.99
+===========================================================================
+
+EXPENSE SUMMARY BY CATEGORY:
+  Transportation:     $743.25
+  Meals:              $523.25
+  Lodging:            $478.00
+  Conference:         $599.00
+  Supplies:           $255.97
+  Software:           $249.00
+  Team Activity:       $85.00
+  ----------------------------------
+  TOTAL:            $2,933.47
+
+Receipts Attached: 18 of 18
+
+Employee Signature: Michael Torres
+Date Signed: February 28, 2025
+
+Approval Status: PENDING REVIEW
+Manager Approval: _________________________
+Finance Approval: _________________________
+
+Notes:
+  - DevOps Con attendance pre-approved by Jennifer Walsh (email Feb 1, 2025)
+  - Team lunch on Feb 14 split across 8 attendees (total was $156.80 for my share)
+  - Ergonomic keyboard approved under workplace wellness program
+  - All receipts scanned and uploaded to ExpenseTracker system

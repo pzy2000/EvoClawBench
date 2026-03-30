@@ -1,0 +1,24 @@
+task_id: task_02_log_rotation
+name: Log Rotation and Cleanup
+description: |
+  Create a shell script that rotates log files in a specified directory,
+  compresses old logs, and removes logs older than a configured age.
+
+requirements:
+  - log_dir: /var/log/myapp
+  - rotate_size_mb: 100
+  - compress_after_days: 3
+  - delete_after_days: 30
+  - log_pattern: "*.log"
+  - compressed_extension: .gz
+  - keep_last_n_uncompressed: 5
+  - report: print a summary table (filename, size, age, action_taken) to stdout
+
+constraints:
+  - must handle the case where log_dir does not exist (create it or exit gracefully)
+  - must not delete files that are currently being written to (check with lsof)
+  - must be idempotent (safe to run multiple times)
+
+expected_output:
+  script_file: outputs/log_rotation.sh
+  readme_file: outputs/log_rotation_readme.md

@@ -1,0 +1,39 @@
+{
+  "thread_id": "thread_05",
+  "subject": "【跨部门协作】新版APP上线前安全测试资源申请",
+  "participants": [
+    {"name": "李明", "email": "li.ming@product-dept.com", "role": "requester"},
+    {"name": "孙雪", "email": "sun.xue@security-dept.com", "role": "security_lead"},
+    {"name": "郭涛", "email": "guo.tao@infra-dept.com", "role": "infra_lead"}
+  ],
+  "messages": [
+    {
+      "from": "li.ming@product-dept.com",
+      "to": "sun.xue@security-dept.com",
+      "cc": ["guo.tao@infra-dept.com"],
+      "date": "2024-03-12T11:00:00+08:00",
+      "body": "孙雪，郭涛，\n\n我们的新版APP（v3.2.0）计划于4月15日正式上线，需要在4月10日前完成安全测试和性能压测。\n\n具体需求：\n1. 【安全部 - 孙雪】渗透测试：接口权限验证、SQL注入、XSS漏洞扫描，预计需要3个工作日\n2. 【基础架构部 - 郭涛】压力测试环境：独立K8s命名空间，支持1000并发，保留7天\n\n测试环境地址：https://staging.app-v320.internal\n\n能否确认资源可用时间？最晚需要在4月5日开始测试。\n\n李明\n产品技术部"
+    },
+    {
+      "from": "sun.xue@security-dept.com",
+      "to": "li.ming@product-dept.com",
+      "cc": ["guo.tao@infra-dept.com"],
+      "date": "2024-03-12T15:45:00+08:00",
+      "body": "李明，\n\n安全测试资源可以安排。我们4月7日-9日（3个工作日）为APP v3.2.0做专项测试。\n\n请提前提供：\n1. 接口文档（Swagger/Postman Collection）\n2. 测试账号（需要管理员权限和普通用户权限各一组）\n3. 已知的高危业务场景说明\n\n请在3月29日前发送上述材料，否则无法保证测试时间节点。\n\n孙雪\n信息安全部"
+    },
+    {
+      "from": "guo.tao@infra-dept.com",
+      "to": "li.ming@product-dept.com",
+      "cc": ["sun.xue@security-dept.com"],
+      "date": "2024-03-13T09:20:00+08:00",
+      "body": "李明，\n\n压测环境资源已预留，时间：4月5日-11日。\n\n配置说明：\n- K8s命名空间：app-v320-perf-test\n- 最大Pod数：20个，CPU 40核/内存80G\n- 压测工具：JMeter + Grafana监控面板已配置\n- 访问地址：https://perf.app-v320.internal（4月5日前可用）\n\n注意：压测期间请勿在staging环境做代码发布，会影响测试数据准确性。\n\n郭涛\n基础架构部"
+    },
+    {
+      "from": "li.ming@product-dept.com",
+      "to": "sun.xue@security-dept.com",
+      "cc": ["guo.tao@infra-dept.com"],
+      "date": "2024-03-13T11:00:00+08:00",
+      "body": "两位，非常感谢！\n\n材料和账号将于3月26日前发给孙雪。压测期间会通知团队暂停staging发布。\n\n时间节点确认：\n- 3月26日：提交安全测试材料\n- 4月5日：压测开始\n- 4月7日-9日：安全测试\n- 4月10日：所有测试报告汇总\n- 4月15日：上线\n\n李明"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:pinchbench.com)",
+      "Bash(find /Volumes/T7 -type f -name *skill*)",
+      "Bash(find /Volumes/T7 -type f -name README* -o -name *.md)",
+      "Bash(grep -r \"OpenClaw\\\\|EvoClaw\" /Volumes/T7 --include=*.py --include=*.md --include=*.txt --include=*.json)",
+      "Bash(find /Volumes/T7 -type f -name *.py)",
+      "Bash(find /Volumes/T7 -maxdepth 3 -type f -name *.md)",
+      "Bash(grep -r \"OpenClaw\\\\|openclaw\" /Volumes/T7/EvoClaw --include=*.md --include=*.py)",
+      "Bash(find /Volumes/T7/EvoClaw -type f \\\\\\(-name *.json -o -name *.yml -o -name *.yaml -o -name .env* \\\\\\))",
+      "Bash(wc -l /Volumes/T7/EvoClaw/skill/scripts/*.py)",
+      "Bash(find /Volumes/T7/EvoClaw/openclaw -type d -name *skill* -o -type d -name *agent*)",
+      "Bash(grep -r \"loadSkill\\\\|createSkill\\\\|skill.*runtime\" /Volumes/T7/EvoClaw/openclaw/src/agents/*.ts)",
+      "Bash(grep -r \"resolveSkillsPromptForRun\\\\|buildWorkspaceSkillSnapshot\" /Volumes/T7/EvoClaw/openclaw/src/agents/*.ts)",
+      "Bash(grep -r \"syncSkillsToWorkspace\\\\|refreshSkills\\\\|loadSkills\" /Volumes/T7/EvoClaw/openclaw/src/agents/*.ts)",
+      "Bash(find /Volumes/T7/EvoClaw/openclaw/.agents -name *.ts -o -name *.js)",
+      "Bash(ls -la /Volumes/T7/EvoClaw/evoclawbench/tasks/task_0[1-4]*.md)",
+      "Bash(ls -la /Volumes/T7/EvoClaw/evoclawbench/tasks/task_0[5-8]*.md)",
+      "Bash(python3 -c \"import ast; [ast.parse\\(open\\(f\\).read\\(\\)\\) for f in [''lib_tasks.py'', ''lib_metrics.py'', ''lib_grading.py'', ''lib_agent.py'', ''benchmark.py'']]; print\\(''All scripts pass syntax check''\\)\")",
+      "Bash(python3 -m pytest tests/ -v --tb=short)",
+      "Bash(uv run:*)",
+      "Bash(grep -A5 \"workspace_files\" tasks/task_0[1-8]*.md)",
+      "Bash(jq .baseline_results[0:1])",
+      "Bash(python3:*)",
+      "Bash(ls -lh /Volumes/T7/EvoClaw/evoclawbench/ANALYSIS_*)",
+      "Bash(wc -l /Volumes/T7/EvoClaw/evoclawbench/ANALYSIS_*)",
+      "Bash(wc:*)",
+      "Bash(ls -1 /Volumes/T7/EvoClaw/evoclawbench/tasks/task_*.md)",
+      "Bash(ls -1 tasks/task_*.md)"
+    ]
+  }
+}

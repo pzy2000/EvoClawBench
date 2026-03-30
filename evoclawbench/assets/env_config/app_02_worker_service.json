@@ -1,0 +1,54 @@
+{
+  "app_name": "worker-service",
+  "description": "Async task worker using Celery/Redis",
+  "output_format": "yaml",
+  "base_config": {
+    "broker": {
+      "url": "redis://redis.internal:6379/0",
+      "connection_pool_size": 5
+    },
+    "worker": {
+      "concurrency": 4,
+      "max_tasks_per_child": 1000,
+      "task_timeout_seconds": 300,
+      "queues": ["default", "high_priority", "email"]
+    },
+    "database": {
+      "driver": "postgresql",
+      "host": "db.internal",
+      "port": 5432,
+      "name": "tasks_db",
+      "pool_size": 5
+    },
+    "logging": {
+      "level": "INFO",
+      "format": "json"
+    },
+    "retry": {
+      "max_retries": 3,
+      "retry_backoff_seconds": 60
+    }
+  },
+  "environment_overrides": {
+    "dev": {
+      "broker.url": "redis://localhost:6379/0",
+      "worker.concurrency": 1,
+      "worker.task_timeout_seconds": 600,
+      "database.host": "localhost",
+      "database.pool_size": 2,
+      "logging.level": "DEBUG",
+      "retry.max_retries": 1
+    },
+    "staging": {
+      "worker.concurrency": 2,
+      "database.name": "tasks_db_staging",
+      "retry.retry_backoff_seconds": 30
+    },
+    "prod": {
+      "worker.concurrency": 8,
+      "worker.max_tasks_per_child": 500,
+      "database.pool_size": 10,
+      "retry.max_retries": 5
+    }
+  }
+}

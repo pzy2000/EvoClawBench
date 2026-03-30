@@ -1,0 +1,6 @@
+return_id,order_id,customer_id,product_id,reason,return_date,refund_amount
+RET-001,ORD-0002,CUST-102,PROD-B,Defective,2024-01-13,199.99
+RET-002,ORD-0005,CUST-105,PROD-B,Wrong item,2024-01-18,199.99
+RET-003,ORD-0008,CUST-107,PROD-B,Changed mind,2024-01-26,199.99
+RET-004,ORD-0010,CUST-108,PROD-C,Defective,2024-02-02,89.99
+RET-005,ORD-0016,CUST-112,PROD-C,Not as described,2024-02-18,89.99

@@ -1,0 +1,20 @@
+[2024-03-15 10:23:45] [INFO] [notification] [req-n001] Service started successfully
+[2024-03-15 10:24:15] [INFO] [notification] [req-n002] Email template cache loaded (23 templates)
+[2024-03-15 10:25:30] [INFO] [notification] [req-n003] Email sent to user@example.com: Welcome email
+[2024-03-15 10:26:12] [WARN] [notification] [req-n004] SMTP server response slow: 2500ms (threshold: 2000ms)
+[2024-03-15 10:27:05] [ERROR] [notification] [req-n005] Failed to send email: SMTP timeout connecting to smtp.provider.com:587
+[2024-03-15 10:28:18] [INFO] [notification] [req-n006] SMS sent to +1-555-0123: Verification code
+[2024-03-15 10:29:33] [INFO] [notification] [req-n007] Push notification delivered to device dev-abc123
+[2024-03-15 10:30:45] [ERROR] [notification] [req-n008] Push notification failed: device token expired for user usr-4567
+[2024-03-15 10:31:10] [WARN] [notification] [req-n009] SMS provider rate limit: 80% of hourly quota used
+[2024-03-15 10:32:22] [INFO] [notification] [req-n010] Batch email job started: campaign-march-2024 (5000 recipients)
+[2024-03-15 10:33:40] [ERROR] [notification] [req-n011] Template rendering failed: variable 'user.name' not found in template welcome_v2
+[2024-03-15 10:34:55] [INFO] [notification] [req-n012] Webhook callback received: email delivered msg-id-789
+[2024-03-15 10:35:18] [WARN] [notification] [req-n013] Email bounce detected for invalid@nonexistent.com: mailbox not found
+[2024-03-15 10:36:30] [INFO] [notification] [req-n014] In-app notification created for user usr-8901
+[2024-03-15 10:37:45] [ERROR] [notification] [req-n015] Failed to connect to Redis cache: connection refused at redis.internal:6379
+[2024-03-15 10:38:20] [INFO] [notification] [req-n016] Notification preferences updated for user usr-2345
+[2024-03-15 10:39:10] [WARN] [notification] [req-n017] Duplicate notification suppressed for user usr-6789 (same content within 5min)
+[2024-03-15 10:40:35] [INFO] [notification] [req-n018] Batch email job completed: campaign-march-2024 (4987/5000 delivered)
+[2024-03-15 10:41:20] [ERROR] [notification] [req-n019] Slack integration webhook returned 500: internal server error
+[2024-03-15 10:42:00] [INFO] [notification] [req-n020] Health check passed - all channels operational

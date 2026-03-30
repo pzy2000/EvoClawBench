@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+  <user id="X3001">
+    <fullname>Elena Petrova</fullname>
+    <mail>elena.petrova@yandex.ru</mail>
+    <date format="DD-MM-YYYY">25-03-2023</date>
+    <region>Russia</region>
+    <years_old>33</years_old>
+  </user>
+  <user id="X3002">
+    <fullname>James Cooper</fullname>
+    <mail>j.cooper@outlook.com</mail>
+    <date format="DD-MM-YYYY">14-08-2022</date>
+    <region>Australia</region>
+    <years_old>45</years_old>
+  </user>
+  <user id="X3003">
+    <fullname>Min-Ji Park</fullname>
+    <mail>minji.park@naver.com</mail>
+    <date format="DD-MM-YYYY">01-12-2024</date>
+    <region>South Korea</region>
+    <years_old>26</years_old>
+  </user>
+  <user id="X3004">
+    <fullname>Rafael Santos</fullname>
+    <mail>rafael.santos@uol.com.br</mail>
+    <date format="DD-MM-YYYY">19-05-2023</date>
+    <region>Brazil</region>
+    <years_old>38</years_old>
+  </user>
+  <user id="X3005">
+    <fullname>Aisha Mohammed</fullname>
+    <mail>aisha.m@gmail.com</mail>
+    <date format="DD-MM-YYYY">07-10-2024</date>
+    <region>Kenya</region>
+    <years_old>24</years_old>
+  </user>
+</users>
