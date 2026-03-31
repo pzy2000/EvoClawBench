@@ -1,4 +1,5 @@
 evoclawbench/results
+evoclawbench/workspaces
 data/ZClawBench/ZClawBench.train.jsonl
 .DS_Store
 *.pyc

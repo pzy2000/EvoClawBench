@@ -1,5 +1,7 @@
 """Tests for lib_agent.py"""
 
+import json
+import logging
 import sys
 from pathlib import Path
 
@@ -12,6 +14,8 @@ from lib_agent import (
     EVOLUTION_PREFIX_BASE,
     _coerce,
     _extract_usage,
+    _load_openclaw_transcript,
+    _verify_bench_skills_loaded,
     get_mode_prefix,
     prepare_workspace,
     slugify_model,
@@ -117,6 +121,8 @@ class TestExtractUsage:
                         "input": 100,
                         "output": 50,
                         "totalTokens": 150,
+                        "cacheRead": 10,
+                        "cacheWrite": 2,
                         "cost": {"total": 0.01},
                     },
                 },
@@ -139,6 +145,8 @@ class TestExtractUsage:
         assert usage["input_tokens"] == 300
         assert usage["output_tokens"] == 130
         assert usage["total_tokens"] == 430
+        assert usage["cache_read_tokens"] == 10
+        assert usage["cache_write_tokens"] == 2
         assert usage["cost_usd"] == pytest.approx(0.03)
         assert usage["request_count"] == 2
 
@@ -248,3 +256,190 @@ class TestPrepareWorkspace:
         )
         workspace = prepare_workspace(tmp_path, "run_008", task, "baseline")
         assert (workspace / "subdir" / "deep" / "config.json").exists()
+
+    def test_uses_workspace_root_when_provided(self, tmp_path):
+        """workspace_root overrides the /tmp/evoclawbench/... default path."""
+        task = _make_task()
+        custom_root = tmp_path / "custom_root"
+        workspace = prepare_workspace(
+            tmp_path, "run_009", task, "baseline", workspace_root=custom_root
+        )
+        assert workspace == custom_root / f"{task.task_id}_baseline"
+        assert workspace.exists()
+
+    def test_workspace_root_bench_copies_skill_creator(self, tmp_path):
+        """workspace_root parameter works correctly in bench mode."""
+        repo = tmp_path / "repo"
+        bundle = repo / "skills" / "skill-creator"
+        bundle.mkdir(parents=True)
+        (bundle / "SKILL.md").write_text("---\nname: skill-creator\n---\n")
+        skill_dir = repo / "evoclawbench"
+        skill_dir.mkdir()
+
+        custom_root = tmp_path / "workspaces" / "2026_03_31_bench" / "0031"
+        task = _make_task()
+        workspace = prepare_workspace(
+            skill_dir, "ignored_run_id", task, "bench", workspace_root=custom_root
+        )
+        assert workspace == custom_root / f"{task.task_id}_bench"
+        seeded = workspace / "skills" / "skill-creator" / "SKILL.md"
+        assert seeded.exists()
+
+
+# ---------------------------------------------------------------------------
+# _load_openclaw_transcript
+# ---------------------------------------------------------------------------
+
+
+def _write_sessions_json(sessions_dir: Path, session_id: str, session_file: Path) -> None:
+    """Helper: write a sessions.json that maps session_id to session_file."""
+    data = {
+        "agent:test-agent:main": {
+            "sessionId": session_id,
+            "sessionFile": str(session_file),
+            "updatedAt": 9999999999999,
+        }
+    }
+    (sessions_dir / "sessions.json").write_text(json.dumps(data))
+
+
+def _make_transcript_lines(*entries: dict) -> str:
+    return "\n".join(json.dumps(e) for e in entries)
+
+
+_SAMPLE_TRANSCRIPT = [
+    {"type": "session", "version": 3, "id": "sess-1", "timestamp": "2026-01-01T00:00:00Z"},
+    {
+        "type": "message",
+        "message": {
+            "role": "assistant",
+            "content": [{"type": "text", "text": "done"}],
+            "usage": {"input": 100, "output": 50, "totalTokens": 150, "cost": {"total": 0.01}},
+        },
+    },
+]
+
+
+class TestLoadOpenclawTranscript:
+    def _make_agent_dir(self, tmp_path: Path, agent_id: str = "test-agent") -> Path:
+        agent_dir = tmp_path / ".openclaw" / "agents" / agent_id / "sessions"
+        agent_dir.mkdir(parents=True)
+        return agent_dir
+
+    def test_loads_direct_path_when_session_id_matches_filename(self, tmp_path, monkeypatch):
+        """Direct {session_id}.jsonl path is found and returned."""
+        monkeypatch.setattr("lib_agent.Path.home", lambda: tmp_path)
+        sessions_dir = self._make_agent_dir(tmp_path)
+        session_id = "task_01_test_1700000000000"
+        transcript_file = sessions_dir / f"{session_id}.jsonl"
+        transcript_file.write_text(_make_transcript_lines(*_SAMPLE_TRANSCRIPT))
+
+        result = _load_openclaw_transcript("test-agent", session_id, 0.0)
+        assert len(result) == 2
+        assert result[0]["type"] == "session"
+
+    def test_loads_via_sessions_json_sessionfile(self, tmp_path, monkeypatch):
+        """When {session_id}.jsonl is absent, sessions.json sessionFile is used."""
+        monkeypatch.setattr("lib_agent.Path.home", lambda: tmp_path)
+        sessions_dir = self._make_agent_dir(tmp_path)
+        session_id = "task_01_test_1700000000000"
+        # OpenClaw writes a UUID-named file, NOT {session_id}.jsonl
+        uuid_file = sessions_dir / "b55b39ec-08c5-44b6-bf59-54fb312ae93a.jsonl"
+        uuid_file.write_text(_make_transcript_lines(*_SAMPLE_TRANSCRIPT))
+        _write_sessions_json(sessions_dir, session_id, uuid_file)
+
+        result = _load_openclaw_transcript("test-agent", session_id, 0.0)
+        assert len(result) == 2
+        assert result[1]["message"]["role"] == "assistant"
+
+    def test_sessions_json_usage_data_extractable(self, tmp_path, monkeypatch):
+        """Usage fields from UUID-backed transcript are parsed correctly."""
+        monkeypatch.setattr("lib_agent.Path.home", lambda: tmp_path)
+        sessions_dir = self._make_agent_dir(tmp_path)
+        session_id = "task_token_test_1700000000000"
+        uuid_file = sessions_dir / "abc123.jsonl"
+        uuid_file.write_text(_make_transcript_lines(*_SAMPLE_TRANSCRIPT))
+        _write_sessions_json(sessions_dir, session_id, uuid_file)
+
+        result = _load_openclaw_transcript("test-agent", session_id, 0.0)
+        usage = _extract_usage(result)
+        assert usage["input_tokens"] == 100
+        assert usage["total_tokens"] == 150
+
+    def test_returns_empty_when_no_file_found(self, tmp_path, monkeypatch):
+        monkeypatch.setattr("lib_agent.Path.home", lambda: tmp_path)
+        self._make_agent_dir(tmp_path)
+        result = _load_openclaw_transcript("test-agent", "nonexistent_session", 0.0)
+        assert result == []
+
+    def test_sessions_json_wrong_session_id_not_used(self, tmp_path, monkeypatch):
+        """sessions.json entry with different sessionId is skipped."""
+        monkeypatch.setattr("lib_agent.Path.home", lambda: tmp_path)
+        sessions_dir = self._make_agent_dir(tmp_path)
+        uuid_file = sessions_dir / "wrong.jsonl"
+        uuid_file.write_text(_make_transcript_lines(*_SAMPLE_TRANSCRIPT))
+        _write_sessions_json(sessions_dir, "OTHER_SESSION", uuid_file)
+
+        result = _load_openclaw_transcript("test-agent", "task_01_test_1700000000000", 0.0)
+        assert result == []
+
+
+# ---------------------------------------------------------------------------
+# _verify_bench_skills_loaded
+# ---------------------------------------------------------------------------
+
+
+class TestVerifyBenchSkillsLoaded:
+    def _make_agent_sessions(self, tmp_path: Path, agent_id: str = "test-agent") -> Path:
+        sessions_dir = tmp_path / ".openclaw" / "agents" / agent_id / "sessions"
+        sessions_dir.mkdir(parents=True)
+        return sessions_dir
+
+    def _write_sessions_json_with_skills(self, sessions_dir: Path, skill_names: list) -> None:
+        entries = [{"name": n} for n in skill_names]
+        data = {
+            "agent:test-agent:main": {
+                "sessionId": "some-session",
+                "sessionFile": str(sessions_dir / "dummy.jsonl"),
+                "systemPromptReport": {"skills": {"promptChars": 100, "entries": entries}},
+            }
+        }
+        (sessions_dir / "sessions.json").write_text(json.dumps(data))
+
+    def test_no_warning_when_skill_creator_present(self, tmp_path, monkeypatch, caplog):
+        monkeypatch.setattr("lib_agent.Path.home", lambda: tmp_path)
+        sessions_dir = self._make_agent_sessions(tmp_path)
+        workspace = tmp_path / "ws"
+        self._write_sessions_json_with_skills(sessions_dir, ["skill-creator", "other-skill"])
+
+        with caplog.at_level(logging.WARNING, logger="evoclawbench"):
+            _verify_bench_skills_loaded("test-agent", workspace)
+
+        assert not any(
+            "skill-creator" in r.message for r in caplog.records if r.levelno >= logging.WARNING
+        )
+
+    def test_warns_when_skill_creator_missing(self, tmp_path, monkeypatch, caplog):
+        monkeypatch.setattr("lib_agent.Path.home", lambda: tmp_path)
+        sessions_dir = self._make_agent_sessions(tmp_path)
+        workspace = tmp_path / "ws"
+        self._write_sessions_json_with_skills(sessions_dir, ["some-other-skill"])
+
+        with caplog.at_level(logging.WARNING, logger="evoclawbench"):
+            _verify_bench_skills_loaded("test-agent", workspace)
+
+        assert any(
+            "skill-creator" in r.message for r in caplog.records if r.levelno >= logging.WARNING
+        )
+
+    def test_warns_when_no_sessions_json(self, tmp_path, monkeypatch, caplog):
+        monkeypatch.setattr("lib_agent.Path.home", lambda: tmp_path)
+        self._make_agent_sessions(tmp_path)
+        workspace = tmp_path / "ws"
+
+        with caplog.at_level(logging.WARNING, logger="evoclawbench"):
+            _verify_bench_skills_loaded("test-agent", workspace)
+
+        assert any(
+            "skill-creator" in r.message for r in caplog.records if r.levelno >= logging.WARNING
+        )

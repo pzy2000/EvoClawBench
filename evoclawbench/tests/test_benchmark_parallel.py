@@ -414,9 +414,9 @@ class TestParallelExecutionFix:
         total_time = time.time() - start_time
 
         assert len(execution_times) == 4
-        assert total_time < 0.5, (
-            f"Expected parallel execution <0.5s, got {total_time:.2f}s (sequential detected)"
-        )
+        assert (
+            total_time < 0.5
+        ), f"Expected parallel execution <0.5s, got {total_time:.2f}s (sequential detected)"
 
     def test_run_contexts_contain_environment_when_specified(self):
         """Test that TaskRunContext properly stores the environment object."""
@@ -618,11 +618,12 @@ class TestRunSingleModeIntegration:
                                                     run_id="run_001",
                                                     skill_dir=tmp_path,
                                                     agent_id=None,
+                                                    run_start_ts="2026_01_01_00_00_00",
                                                 )
 
-        assert len(created_environments) == 1, (
-            f"Expected 1 environment, got {len(created_environments)}"
-        )
+        assert (
+            len(created_environments) == 1
+        ), f"Expected 1 environment, got {len(created_environments)}"
         assert created_environments[0] is fake_docker_env
         assert isinstance(created_environments[0], LocalEnvironment) is False
 
@@ -706,6 +707,7 @@ class TestRunSingleModeIntegration:
                                                     run_id="run_001",
                                                     skill_dir=tmp_path,
                                                     agent_id=None,
+                                                    run_start_ts="2026_01_01_00_00_00",
                                                 )
 
         assert len(executor_instances) == 1, (
@@ -784,6 +786,7 @@ class TestRunSingleModeIntegration:
                                                     run_id="run_001",
                                                     skill_dir=tmp_path,
                                                     agent_id=None,
+                                                    run_start_ts="2026_01_01_00_00_00",
                                                 )
 
         mock_live.assert_called_once()
@@ -859,6 +862,7 @@ class TestRunSingleModeIntegration:
                                                     run_id="run_001",
                                                     skill_dir=tmp_path,
                                                     agent_id=None,
+                                                    run_start_ts="2026_01_01_00_00_00",
                                                 )
 
         mock_live.assert_not_called()

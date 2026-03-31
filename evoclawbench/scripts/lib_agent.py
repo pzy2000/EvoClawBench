@@ -16,6 +16,7 @@ import time
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
+from lib_model_pricing import enrich_usage_with_estimated_cost
 from lib_tasks import Task
 
 if TYPE_CHECKING:
@@ -264,9 +265,15 @@ def _load_openclaw_transcript(
     """
     Load the OpenClaw session transcript for this run.
 
-    OpenClaw writes `~/.openclaw/agents/<agentId>/sessions/<sessionId>.jsonl` when
-    `openclaw agent --session-id ...` is used. Loading that path avoids picking an
-    unrelated older session when several `*.jsonl` files exist.
+    Resolution order:
+    1. Direct path: ``sessions/{session_id}.jsonl`` (used if OpenClaw ever names files
+       after the --session-id flag).
+    2. sessions.json index: OpenClaw writes a ``sessions.json`` file whose entries carry a
+       ``sessionFile`` key (absolute path to the UUID-named ``.jsonl``) and a ``sessionId``
+       matching the value passed to ``--session-id``.  We scan that index for a matching
+       ``sessionId`` and load the referenced file.
+    3. Legacy fallback: newest ``.jsonl`` by mtime (opt-in via
+       ``EVOCLAW_OPENCLAW_TRANSCRIPT_LEGACY_FALLBACK=1``).
     """
     sid = session_id.strip()
     if not sid:
@@ -274,8 +281,9 @@ def _load_openclaw_transcript(
         return []
 
     sessions_dir = _openclaw_agent_sessions_dir(agent_id)
-    transcript_path = sessions_dir / f"{sid}.jsonl"
 
+    # 1. Direct path — in case OpenClaw uses the session-id as the filename
+    transcript_path = sessions_dir / f"{sid}.jsonl"
     attempts = 30
     sleep_s = 0.05
     for attempt in range(attempts):
@@ -286,12 +294,30 @@ def _load_openclaw_transcript(
         if attempt + 1 < attempts:
             time.sleep(sleep_s)
 
+    # 2. sessions.json index — OpenClaw stores sessionFile -> absolute UUID path
+    sessions_json = sessions_dir / "sessions.json"
+    if sessions_json.is_file():
+        try:
+            index: Dict[str, Any] = json.loads(sessions_json.read_text(encoding="utf-8"))
+            for entry in index.values():
+                if not isinstance(entry, dict):
+                    continue
+                if entry.get("sessionId") == sid:
+                    sf = entry.get("sessionFile", "")
+                    if sf:
+                        data = _read_ndjson_transcript(Path(sf))
+                        if data:
+                            return data
+        except Exception as exc:
+            logger.debug("OpenClaw transcript: error reading sessions.json: %s", exc)
+
     logger.warning(
-        "OpenClaw transcript: missing or empty file for session %s under %s after %s attempts",
+        "OpenClaw transcript: missing or empty file for session %s under %s",
         sid,
         sessions_dir,
-        attempts,
     )
+
+    # 3. Legacy fallback (opt-in)
     legacy = os.environ.get("EVOCLAW_OPENCLAW_TRANSCRIPT_LEGACY_FALLBACK", "").strip().lower()
     if legacy in {"1", "true", "yes"}:
         logger.warning(
@@ -333,12 +359,13 @@ def execute_openclaw_task(
     mode: str = "baseline",
     verbose: bool = False,
     environment: Optional["Environment"] = None,
+    workspace_root: Optional[Path] = None,
 ) -> Dict[str, Any]:
     logger.info("[OpenClaw] Agent [%s] task: %s (mode=%s)", agent_id, task.task_id, mode)
 
     cleanup_openclaw_sessions(agent_id)
     start_time = time.time()
-    workspace = prepare_workspace(skill_dir, run_id, task, mode)
+    workspace = prepare_workspace(skill_dir, run_id, task, mode, workspace_root=workspace_root)
 
     if environment is None:
         _reset_openclaw_agent_workspace(agent_id, model_id, workspace)
@@ -396,8 +423,11 @@ def execute_openclaw_task(
 
     transcript = _load_openclaw_transcript(agent_id, session_id, start_time)
     transcript = _normalize_transcript_workspace(transcript, str(workspace))
-    usage = _extract_usage(transcript)
+    usage = enrich_usage_with_estimated_cost(model_id, _extract_usage(transcript))
     execution_time = time.time() - start_time
+
+    if mode == "bench":
+        _verify_bench_skills_loaded(agent_id, workspace)
 
     status = "success"
     if timed_out:
@@ -436,11 +466,12 @@ def execute_nanobot_task(
     mode: str = "baseline",
     verbose: bool = False,
     environment: Optional["Environment"] = None,
+    workspace_root: Optional[Path] = None,
 ) -> Dict[str, Any]:
     logger.info("[nanobot] task: %s (mode=%s)", task.task_id, mode)
 
     start_time = time.time()
-    workspace = prepare_workspace(skill_dir, run_id, task, mode)
+    workspace = prepare_workspace(skill_dir, run_id, task, mode, workspace_root=workspace_root)
     timeout_seconds = task.timeout_seconds * timeout_multiplier
 
     prompt = get_mode_prefix(mode) + task.prompt
@@ -503,7 +534,7 @@ def execute_nanobot_task(
             stderr = "nanobot command not found (tried CLI and python -m)"
 
     transcript = _load_nanobot_transcript(workspace, stdout)
-    usage = _extract_usage(transcript)
+    usage = enrich_usage_with_estimated_cost(model_id, _extract_usage(transcript))
     execution_time = time.time() - start_time
 
     status = "success"
@@ -560,9 +591,70 @@ def _load_nanobot_transcript(workspace: Path, stdout: str) -> List[Dict[str, Any
 # ---------------------------------------------------------------------------
 
 
-def prepare_workspace(skill_dir: Path, run_id: str, task: Task, mode: str = "baseline") -> Path:
-    """Prepare isolated workspace for a task run."""
-    workspace = Path(f"/tmp/evoclawbench/{run_id}/{task.task_id}_{mode}")
+def _verify_bench_skills_loaded(agent_id: str, workspace: Path) -> None:
+    """Log a warning if sessions.json shows that skill-creator was NOT in the system prompt.
+
+    Called after a bench-mode task completes.  OpenClaw should have auto-discovered
+    ``{workspace}/skills/skill-creator/SKILL.md`` and listed it under
+    ``systemPromptReport.skills.entries`` in sessions.json.
+    """
+    sessions_dir = _openclaw_agent_sessions_dir(agent_id)
+    sessions_json = sessions_dir / "sessions.json"
+    if not sessions_json.is_file():
+        logger.warning(
+            "Bench skills check: sessions.json not found for agent %s — "
+            "cannot confirm skill-creator was loaded from workspace %s",
+            agent_id,
+            workspace,
+        )
+        return
+
+    try:
+        index: Dict[str, Any] = json.loads(sessions_json.read_text(encoding="utf-8"))
+    except Exception as exc:
+        logger.warning("Bench skills check: error reading sessions.json for %s: %s", agent_id, exc)
+        return
+
+    for entry in index.values():
+        if not isinstance(entry, dict):
+            continue
+        report = entry.get("systemPromptReport") or {}
+        skills_section = report.get("skills") or {}
+        entries = skills_section.get("entries") or []
+        loaded_names = {e.get("name") for e in entries if isinstance(e, dict)}
+        if "skill-creator" in loaded_names:
+            logger.debug(
+                "Bench skills check OK: skill-creator found in system prompt for agent %s",
+                agent_id,
+            )
+            return
+
+    logger.warning(
+        "Bench skills check: skill-creator NOT found in sessions.json for agent %s (workspace=%s). "
+        "Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.",
+        agent_id,
+        workspace,
+    )
+
+
+def prepare_workspace(
+    skill_dir: Path,
+    run_id: str,
+    task: Task,
+    mode: str = "baseline",
+    workspace_root: Optional[Path] = None,
+) -> Path:
+    """Prepare isolated workspace for a task run.
+
+    Args:
+        workspace_root: When provided, the workspace is created as
+            ``workspace_root / "{task_id}_{mode}"``, overriding the default
+            ``/tmp/evoclawbench/{run_id}/{task.task_id}_{mode}`` path.
+    """
+    if workspace_root is not None:
+        workspace = workspace_root / f"{task.task_id}_{mode}"
+    else:
+        workspace = Path(f"/tmp/evoclawbench/{run_id}/{task.task_id}_{mode}")
 
     if workspace.exists():
         shutil.rmtree(workspace)
@@ -635,12 +727,15 @@ def execute_task(
     agent_id: Optional[str] = None,
     verbose: bool = False,
     environment: Optional["Environment"] = None,
+    workspace_root: Optional[Path] = None,
 ) -> Dict[str, Any]:
     """Unified task execution dispatcher for both runtimes.
 
     Args:
         environment: Optional Environment instance (e.g., DockerEnvironment) for isolated execution.
                     If provided, agent commands will be executed within this environment.
+        workspace_root: When provided, task workspaces are created under this directory instead of
+                    the default ``/tmp/evoclawbench/{run_id}/`` path.
     """
     if runtime == "openclaw":
         if agent_id is None:
@@ -655,6 +750,7 @@ def execute_task(
             mode=mode,
             verbose=verbose,
             environment=environment,
+            workspace_root=workspace_root,
         )
     elif runtime == "nanobot":
         return execute_nanobot_task(
@@ -666,6 +762,7 @@ def execute_task(
             mode=mode,
             verbose=verbose,
             environment=environment,
+            workspace_root=workspace_root,
         )
     else:
         raise ValueError(f"Unknown runtime: {runtime}. Use 'openclaw' or 'nanobot'.")
@@ -684,6 +781,8 @@ def _extract_usage(transcript: List[Dict[str, Any]]) -> Dict[str, Any]:
         "input_tokens": 0,
         "output_tokens": 0,
         "total_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
         "cost_usd": 0.0,
         "request_count": 0,
     }
@@ -695,9 +794,11 @@ def _extract_usage(transcript: List[Dict[str, Any]]) -> Dict[str, Any]:
             continue
         totals["request_count"] += 1
         usage = msg.get("usage", {})
-        totals["input_tokens"] += usage.get("input", 0)
-        totals["output_tokens"] += usage.get("output", 0)
-        totals["total_tokens"] += usage.get("totalTokens", 0)
+        totals["input_tokens"] += int(usage.get("input", 0) or 0)
+        totals["output_tokens"] += int(usage.get("output", 0) or 0)
+        totals["total_tokens"] += int(usage.get("totalTokens", 0) or 0)
+        totals["cache_read_tokens"] += int(usage.get("cacheRead", 0) or 0)
+        totals["cache_write_tokens"] += int(usage.get("cacheWrite", 0) or 0)
         cost = usage.get("cost", {})
-        totals["cost_usd"] += cost.get("total", 0.0)
+        totals["cost_usd"] += float(cost.get("total", 0.0) or 0.0)
     return totals

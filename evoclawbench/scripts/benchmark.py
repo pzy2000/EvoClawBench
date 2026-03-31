@@ -202,6 +202,7 @@ class TaskRunContext:
         agent_id: Optional[str],
         environment: Optional[LocalEnvironment | DockerEnvironment] = None,
         progress: Optional[BenchmarkBatchProgress] = None,
+        workspace_root: Optional[Path] = None,
     ):
         self.task = task
         self.mode = mode
@@ -212,6 +213,7 @@ class TaskRunContext:
         self.agent_id = agent_id
         self.environment = environment
         self.progress = progress
+        self.workspace_root = workspace_root
         self.trajectory_run_id = f"{run_id}-{mode}-{run_idx + 1}"
 
 
@@ -285,6 +287,7 @@ def _execute_single_task_run(ctx: TaskRunContext) -> tuple[Task, int, GradeResul
             agent_id=effective_agent_id,
             verbose=args.verbose,
             environment=environment,
+            workspace_root=ctx.workspace_root,
         )
         exec_time = time.time() - exec_start_time
         exec_status = "success" if exec_result.get("exit_code", -1) == 0 else "error"
@@ -416,6 +419,7 @@ def _run_single_mode(
     run_id: str,
     skill_dir: Path,
     agent_id: Optional[str],
+    run_start_ts: str,
 ) -> Dict[str, Dict[str, Any]]:
     """Run all tasks in one mode (baseline, evolution, or bench).
 
@@ -429,12 +433,21 @@ def _run_single_mode(
         logger.info("Using Docker environment with image: %s", args.docker_image)
         logger.info("Note: Each task will run in its own Docker container")
 
+    # Per-mode workspace root: workspaces/{timestamp}_{mode}/{run_id}/
+    workspace_mode_root = Path("workspaces") / f"{run_start_ts}_{mode}" / run_id
+
     all_contexts = []
     for i, task in enumerate(tasks_to_run, 1):
         for run_idx in range(runs_per_task):
             environment = None
             if args.environment == "docker":
                 environment = _create_environment(args.docker_image, task.task_id)
+
+            trajectory_run_id = f"{run_id}-{mode}-{run_idx + 1}"
+            if runs_per_task > 1:
+                workspace_root = workspace_mode_root / trajectory_run_id
+            else:
+                workspace_root = workspace_mode_root
 
             ctx = TaskRunContext(
                 task=task,
@@ -445,6 +458,7 @@ def _run_single_mode(
                 skill_dir=skill_dir,
                 agent_id=agent_id,
                 environment=environment,
+                workspace_root=workspace_root,
             )
             all_contexts.append(ctx)
 
@@ -601,13 +615,15 @@ def main():
     logger.info("Tasks to run: %d", len(tasks_to_run))
 
     model_slug = slugify_model(args.model)
-    run_root = Path("/tmp/evoclawbench")
-    run_id = _next_run_id(run_root)
+    run_start_ts = time.strftime("%Y_%m_%d_%H_%M_%S")
+    output_dir = Path(args.output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    run_id = _next_run_id(output_dir)
 
     agent_id = None
     if args.runtime == "openclaw":
         agent_id = f"evobench-{model_slug}"
-        workspace_base = Path(f"/tmp/evoclawbench/{run_id}/agent_workspace")
+        workspace_base = Path("workspaces") / "init" / run_id / "agent_workspace"
         workers_n = max(1, args.workers)
         _OPENCLAW_NEXT_THREAD_SLOT[0] = 0
         if workers_n <= 1:
@@ -633,6 +649,7 @@ def main():
             run_id=run_id,
             skill_dir=skill_root,
             agent_id=agent_id,
+            run_start_ts=run_start_ts,
         )
 
     if args.mode in ("both", "evolution"):
@@ -644,6 +661,7 @@ def main():
             run_id=run_id,
             skill_dir=skill_root,
             agent_id=agent_id,
+            run_start_ts=run_start_ts,
         )
 
     if args.mode == "bench":
@@ -659,6 +677,7 @@ def main():
             run_id=run_id,
             skill_dir=skill_root,
             agent_id=agent_id,
+            run_start_ts=run_start_ts,
         )
 
     if args.mode == "both" and baseline_results and evolution_results:
@@ -684,9 +703,6 @@ def main():
         _log_metrics_summary(metrics, baseline_results, evolution_results)
     else:
         metrics = {}
-
-    output_dir = Path(args.output_dir)
-    output_dir.mkdir(parents=True, exist_ok=True)
 
     aggregate = {
         "benchmark": "evoclawbench",
