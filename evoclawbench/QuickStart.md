@@ -1,6 +1,6 @@
 # EvoClawBench — Bench mode quick start
 
-This guide covers **bench mode only** (`--mode bench`): the agent receives a **bench-specific prefix** (skill-creator workflow: recognize repetition, follow `skills/skill-creator/SKILL.md`, add reusable skills) **plus** the task prompt — not the baseline/evolution A/B prefixes. The workspace is seeded with the monorepo **`skills/skill-creator`** bundle. Composite metrics such as **EvoScore** and **fail2pass** are **not** computed in this mode (they require `--mode both`).
+This guide covers **bench mode only** (`--mode bench`): the agent receives a **bench-specific prefix** (skill-creator workflow: recognize repetition, follow `skills/skill-creator/SKILL.md`, add reusable skills) **plus** the task prompt — not the baseline/evolution A/B prefixes. The workspace is seeded with the monorepo **`skills/skill-creator`** bundle. Composite metrics such as **EvoScore** and **fail2pass** are **not** computed in this mode; they are computed only in `--mode both`, which now compares **baseline + bench**.
 
 ## Requirements
 
@@ -78,7 +78,7 @@ flowchart LR
 ### Top-level JSON aggregate
 
 - **`bench_results`**: Per-task payloads (grades, execution results, mean score across `--runs`, optional `created_skills`, `skill_quality_score`).
-- **`metrics`**: In bench-only runs this object is **empty** `{}` — no EvoScore, fail2pass, or cross-mode consistency (see [`scripts/benchmark.py`](scripts/benchmark.py): `aggregate_metrics` runs only for `--mode both`).
+- **`metrics`**: In bench-only runs this object is **empty** `{}` — no EvoScore, fail2pass, or cross-mode consistency (see [`scripts/benchmark.py`](scripts/benchmark.py): `aggregate_metrics` runs only for `--mode both`, which compares baseline against bench). Some metric field names still use legacy `evolution_*` labels for compatibility.
 - **`baseline_results` / `evolution_results`**: Empty objects when `--mode bench`.
 
 ### Per-task grading (unchanged by mode)

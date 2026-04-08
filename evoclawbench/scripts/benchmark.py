@@ -126,7 +126,7 @@ def _parse_args() -> argparse.Namespace:
         "--mode",
         default="both",
         choices=["both", "baseline", "evolution", "bench"],
-        help="Evaluation mode",
+        help="Evaluation mode (both = baseline + bench)",
     )
     parser.add_argument("--suite", default="all", help='Tasks: "all" or comma-separated IDs')
     parser.add_argument("--output-dir", default="results", help="Results directory")
@@ -564,13 +564,40 @@ def _store_task_result(
             "task_id": task_id,
             "grades": [],
             "results": [],
-            "usage": {},
+            "usage": {
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "total_tokens": 0,
+                "cache_read_tokens": 0,
+                "cache_write_tokens": 0,
+                "request_count": 0,
+                "cost_usd": 0.0,
+                "total_cost_usd": 0.0,
+                "total_execution_time_seconds": 0.0,
+            },
             "execution_time": 0.0,
             "workspace": "",
+            "sub_problem_scores": [],
         }
     results[task_id]["grades"].append(grade.to_dict())
     results[task_id]["results"].append(exec_result)
-    results[task_id]["execution_time"] += exec_result.get("execution_time", 0)
+    execution_time = float(exec_result.get("execution_time", 0.0) or 0.0)
+    results[task_id]["execution_time"] += execution_time
+    results[task_id]["usage"]["total_execution_time_seconds"] += execution_time
+    usage = exec_result.get("usage") or {}
+    for key in (
+        "input_tokens",
+        "output_tokens",
+        "total_tokens",
+        "cache_read_tokens",
+        "cache_write_tokens",
+        "request_count",
+    ):
+        results[task_id]["usage"][key] += int(usage.get(key, 0) or 0)
+    cost_usd = float(usage.get("cost_usd", 0.0) or 0.0)
+    results[task_id]["usage"]["cost_usd"] += cost_usd
+    results[task_id]["usage"]["total_cost_usd"] += cost_usd
+    results[task_id]["sub_problem_scores"] = list(grade.sub_problem_scores)
     if exec_result.get("workspace"):
         results[task_id]["workspace"] = exec_result.get("workspace")
 
@@ -652,19 +679,7 @@ def main():
             run_start_ts=run_start_ts,
         )
 
-    if args.mode in ("both", "evolution"):
-        logger.info("\n%s\n  EVOLUTION MODE (skill creation encouraged)\n%s", "=" * 70, "=" * 70)
-        evolution_results = _run_single_mode(
-            tasks_to_run=tasks_to_run,
-            mode="evolution",
-            args=args,
-            run_id=run_id,
-            skill_dir=skill_root,
-            agent_id=agent_id,
-            run_start_ts=run_start_ts,
-        )
-
-    if args.mode == "bench":
+    if args.mode in ("both", "bench"):
         logger.info(
             "\n%s\n  BENCH MODE (skill-creator workflow prompt; skills/skill-creator seeded)\n%s",
             "=" * 70,
@@ -680,27 +695,29 @@ def main():
             run_start_ts=run_start_ts,
         )
 
-    if args.mode == "both" and baseline_results and evolution_results:
+    if args.mode == "both" and baseline_results and bench_results:
         combined_task_results = []
         for task_id in baseline_results:
             b = baseline_results[task_id]
-            e = evolution_results.get(task_id, {})
+            bench = bench_results.get(task_id, {})
             combined_task_results.append(
                 {
                     "task_id": task_id,
                     "baseline_grade": {"score": b.get("mean_score", 0.0)},
-                    "evolution_grade": {"score": e.get("mean_score", 0.0)},
+                    # aggregate_metrics uses legacy "evolution" field names; in --mode both
+                    # the comparison arm now comes from bench mode.
+                    "evolution_grade": {"score": bench.get("mean_score", 0.0)},
                     "baseline_usage": b.get("usage", {}),
-                    "evolution_usage": e.get("usage", {}),
+                    "evolution_usage": bench.get("usage", {}),
                     "sub_problem_scores_baseline": b.get("sub_problem_scores", []),
-                    "sub_problem_scores_evolution": e.get("sub_problem_scores", []),
-                    "created_skills": e.get("created_skills", []),
-                    "skill_quality_score": e.get("skill_quality_score", 0.0),
+                    "sub_problem_scores_evolution": bench.get("sub_problem_scores", []),
+                    "created_skills": bench.get("created_skills", []),
+                    "skill_quality_score": bench.get("skill_quality_score", 0.0),
                 }
             )
 
         metrics = aggregate_metrics(combined_task_results)
-        _log_metrics_summary(metrics, baseline_results, evolution_results)
+        _log_metrics_summary(metrics, comparison_label="Bench")
     else:
         metrics = {}
 
@@ -749,8 +766,8 @@ def main():
 
 def _log_metrics_summary(
     metrics: Dict[str, Any],
-    baseline_results: Dict[str, Dict[str, Any]],
-    evolution_results: Dict[str, Dict[str, Any]],
+    *,
+    comparison_label: str = "Evolution",
 ) -> None:
     f2p = metrics.get("fail2pass", {}).get("overall", {})
     consistency = metrics.get("consistency", {})
@@ -764,11 +781,11 @@ def _log_metrics_summary(
     print(f"\n  EvoScore: {metrics.get('evoscore', 0.0):.4f}")
 
     print(f"\n  Baseline pass rate:  {f2p.get('baseline_mean', 0):.2%}")
-    print(f"  Evolution pass rate: {f2p.get('evolution_mean', 0):.2%}")
+    print(f"  {comparison_label} pass rate: {f2p.get('evolution_mean', 0):.2%}")
     print(f"  fail2pass ratio:    {f2p.get('fail2pass', 'N/A')}")
 
     print(f"\n  Consistency (baseline):  {consistency.get('baseline', 0):.4f}")
-    print(f"  Consistency (evolution): {consistency.get('evolution', 0):.4f}")
+    print(f"  Consistency ({comparison_label.lower()}): {consistency.get('evolution', 0):.4f}")
 
     token_eff = efficiency.get("token_efficiency_gain")
     if token_eff is not None:
@@ -779,7 +796,7 @@ def _log_metrics_summary(
 
     per_task = metrics.get("fail2pass", {}).get("per_task", {})
     if per_task:
-        print(f"\n  {'TASK':<35} {'BASELINE':>10} {'EVOLUTION':>10} {'F2P':>8}")
+        print(f"\n  {'TASK':<35} {'BASELINE':>10} {comparison_label.upper():>10} {'F2P':>8}")
         print("  " + "-" * 65)
         for task_id, data in sorted(per_task.items()):
             print(

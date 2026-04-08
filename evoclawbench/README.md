@@ -22,7 +22,7 @@ Both use the SKILL.md format for skill definitions.
 ## Quick Start
 
 ```bash
-# Run all tasks in both modes (baseline + evolution)
+# Run all tasks in both modes (baseline + bench)
 uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime nanobot --mode both
 
 # Run specific tasks
@@ -103,18 +103,23 @@ Different providers support different models. Common models:
 Agent is **forbidden** from creating skills. System prompt includes:
 > "You must NOT create any skills or SKILL.md files. Solve each sub-problem independently from scratch."
 
-### Evolution Mode ("pass")
+### Evolution Mode
 Agent is **encouraged** to create skills. System prompt includes:
 > "You are encouraged to create reusable skills (SKILL.md files) when you notice repeating patterns."
 
+This mode still exists as a standalone option (`--mode evolution`), but it is no longer part of `--mode both`.
+
 ### Bench Mode
-A **skill-creator workflow** prefix is prepended (spot repeating patterns across sub-problems, follow `skills/skill-creator/SKILL.md`, add task-specific skills under `skills/<name>/`), then the task prompt. The workspace is prepared with `skills/skill-creator/` copied from the monorepo (`<repo>/skills/skill-creator` adjacent to the `evoclawbench/` directory). Results are written under `bench_results` in the output JSON. fail2pass/EvoScore aggregation is only computed for `--mode both`.
+A **skill-creator workflow** prefix is prepended (spot repeating patterns across sub-problems, follow `skills/skill-creator/SKILL.md`, add task-specific skills under `skills/<name>/`), then the task prompt. The workspace is prepared with `skills/skill-creator/` copied from the monorepo (`<repo>/skills/skill-creator` adjacent to the `evoclawbench/` directory). Results are written under `bench_results` in the output JSON.
+
+### Both Mode
+`--mode both` now runs **baseline first, then bench**, preserving that execution order. Cross-mode metrics such as fail2pass, consistency, efficiency gain, and EvoScore are computed from that baseline-vs-bench comparison.
 
 ## Metrics
 
 ### Core: fail2pass Ratio
 ```
-fail2pass = pass_rate_evolution / pass_rate_baseline
+fail2pass = pass_rate_bench / pass_rate_baseline
 ```
 - `> 1.0`: Skill creation helps
 - `= 1.0`: No difference
@@ -128,7 +133,7 @@ Measures how uniformly the agent performs across sub-problems. Skills should imp
 
 ### Efficiency Gain
 ```
-token_efficiency = tokens_baseline / tokens_evolution
+token_efficiency = tokens_baseline / tokens_bench
 ```
 Measures whether skill reuse reduces token consumption.
 
@@ -141,7 +146,7 @@ Evaluates created skills on:
 
 ### EvoScore (Composite)
 ```
-EvoScore = 0.4 * evolution_pass_rate
+EvoScore = 0.4 * bench_pass_rate
          + 0.2 * fail2pass_normalized
          + 0.2 * consistency
          + 0.1 * efficiency_gain
@@ -172,7 +177,7 @@ Results are saved as JSON to `results/`:
   "runtime": "nanobot",
   "mode": "both",
   "baseline_results": { ... },
-  "evolution_results": { ... },
+  "evolution_results": {},
   "bench_results": { ... },
   "metrics": {
     "evoscore": 0.72,
@@ -184,6 +189,8 @@ Results are saved as JSON to `results/`:
   }
 }
 ```
+
+For compatibility, some top-level JSON keys and metric labels still use historical `evolution_*` naming. In `--mode both`, those values now refer to the **bench** comparison arm unless otherwise noted.
 
 ## Project Structure
 
@@ -217,7 +224,7 @@ evoclawbench/
 
 ### All Tasks Scoring 0%
 
-**Problem**: Baseline and evolution modes both return 0% scores.
+**Problem**: Baseline and bench modes both return 0% scores.
 
 **Causes & Solutions**:
 

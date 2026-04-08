@@ -231,6 +231,79 @@ class TestProgressTracking:
         assert set(submitted) == set(completed)
 
 
+class TestTaskResultAggregation:
+    def test_store_task_result_rolls_up_usage_and_subscores(self):
+        from benchmark import _store_task_result
+        from lib_grading import GradeResult
+
+        results = {}
+        _store_task_result(
+            results,
+            "task_01_test",
+            GradeResult(
+                task_id="task_01_test",
+                score=0.5,
+                max_score=1.0,
+                grading_type="automated",
+                breakdown={},
+                notes="",
+                sub_problem_scores=[0.5, 1.0],
+            ),
+            {
+                "usage": {
+                    "input_tokens": 10,
+                    "output_tokens": 5,
+                    "total_tokens": 15,
+                    "cache_read_tokens": 2,
+                    "cache_write_tokens": 1,
+                    "request_count": 1,
+                    "cost_usd": 0.1,
+                },
+                "execution_time": 1.5,
+                "workspace": "/tmp/run1",
+            },
+        )
+        _store_task_result(
+            results,
+            "task_01_test",
+            GradeResult(
+                task_id="task_01_test",
+                score=1.0,
+                max_score=1.0,
+                grading_type="automated",
+                breakdown={},
+                notes="",
+                sub_problem_scores=[1.0, 1.0],
+            ),
+            {
+                "usage": {
+                    "input_tokens": 4,
+                    "output_tokens": 6,
+                    "total_tokens": 10,
+                    "cache_read_tokens": 0,
+                    "cache_write_tokens": 3,
+                    "request_count": 2,
+                    "cost_usd": 0.25,
+                },
+                "execution_time": 2.0,
+                "workspace": "/tmp/run2",
+            },
+        )
+
+        task_result = results["task_01_test"]
+        assert task_result["usage"]["input_tokens"] == 14
+        assert task_result["usage"]["output_tokens"] == 11
+        assert task_result["usage"]["total_tokens"] == 25
+        assert task_result["usage"]["cache_read_tokens"] == 2
+        assert task_result["usage"]["cache_write_tokens"] == 4
+        assert task_result["usage"]["request_count"] == 3
+        assert task_result["usage"]["cost_usd"] == 0.35
+        assert task_result["usage"]["total_cost_usd"] == 0.35
+        assert task_result["usage"]["total_execution_time_seconds"] == 3.5
+        assert task_result["sub_problem_scores"] == [1.0, 1.0]
+        assert task_result["workspace"] == "/tmp/run2"
+
+
 class TestWorkerIsolation:
     """Test that workers don't interfere with each other."""
 
@@ -313,6 +386,118 @@ class TestBenchmarkIntegration:
         ):
             args = _parse_args()
             assert args.mode == "bench"
+
+    def test_main_both_runs_baseline_then_bench(self, tmp_path):
+        from argparse import Namespace
+
+        import benchmark
+        from lib_tasks import Task
+
+        task = Task(
+            task_id="task_01_test",
+            name="Test Task",
+            category="test",
+            grading_type="automated",
+            timeout_seconds=120,
+            workspace_files=[],
+            prompt="Do something",
+            expected_behavior="Works",
+            grading_criteria=["done"],
+        )
+
+        args = Namespace(
+            model="test/model",
+            runtime="nanobot",
+            mode="both",
+            suite="all",
+            output_dir=str(tmp_path),
+            timeout_multiplier=1.0,
+            runs=1,
+            judge=None,
+            verbose=False,
+            no_fail_fast=False,
+            workers=1,
+            environment="local",
+            docker_image="evoclawbench/runtime",
+            no_progress=True,
+            no_bench_report=True,
+        )
+
+        loader = MagicMock()
+        loader.load_all_tasks.return_value = [task]
+        run_modes = []
+
+        def fake_run_single_mode(*, mode, **kwargs):
+            run_modes.append(mode)
+            if mode == "baseline":
+                return {
+                    "task_01_test": {
+                        "mean_score": 0.25,
+                        "usage": {
+                            "total_tokens": 10,
+                            "total_cost_usd": 0.01,
+                            "total_execution_time_seconds": 1.0,
+                        },
+                        "sub_problem_scores": [0.25],
+                        "created_skills": [],
+                        "skill_quality_score": 0.0,
+                    }
+                }
+            if mode == "bench":
+                return {
+                    "task_01_test": {
+                        "mean_score": 0.75,
+                        "usage": {
+                            "total_tokens": 8,
+                            "total_cost_usd": 0.02,
+                            "total_execution_time_seconds": 0.5,
+                        },
+                        "sub_problem_scores": [0.5, 1.0],
+                        "created_skills": [{"name": "bench-skill"}],
+                        "skill_quality_score": 0.8,
+                    }
+                }
+            raise AssertionError(f"Unexpected mode: {mode}")
+
+        with patch("benchmark._parse_args", return_value=args):
+            with patch("benchmark.TaskLoader", return_value=loader):
+                with patch("benchmark._next_run_id", return_value="0001"):
+                    with patch("benchmark._run_single_mode", side_effect=fake_run_single_mode):
+                        with patch(
+                            "benchmark.aggregate_metrics",
+                            return_value={"fail2pass": {"overall": {}}, "consistency": {}},
+                        ) as mock_metrics:
+                            with patch("benchmark._log_metrics_summary") as mock_summary:
+                                with patch("benchmark.save_trajectories"):
+                                    benchmark.main()
+
+        assert run_modes == ["baseline", "bench"]
+        combined = mock_metrics.call_args.args[0]
+        assert combined == [
+            {
+                "task_id": "task_01_test",
+                "baseline_grade": {"score": 0.25},
+                "evolution_grade": {"score": 0.75},
+                "baseline_usage": {
+                    "total_tokens": 10,
+                    "total_cost_usd": 0.01,
+                    "total_execution_time_seconds": 1.0,
+                },
+                "evolution_usage": {
+                    "total_tokens": 8,
+                    "total_cost_usd": 0.02,
+                    "total_execution_time_seconds": 0.5,
+                },
+                "sub_problem_scores_baseline": [0.25],
+                "sub_problem_scores_evolution": [0.5, 1.0],
+                "created_skills": [{"name": "bench-skill"}],
+                "skill_quality_score": 0.8,
+            }
+        ]
+        mock_summary.assert_called_once_with(
+            {"fail2pass": {"overall": {}}, "consistency": {}},
+            comparison_label="Bench",
+        )
 
 
 class TestExecuteSingleTaskRun:
