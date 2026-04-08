@@ -31,7 +31,7 @@ uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime openclaw
 # Baseline only (no skill creation allowed)
 uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime nanobot --mode baseline
 
-# Bench: no injected baseline/evolution prefix; workspace seeds skills/skill-creator from monorepo
+# Bench: skill-creator workflow prefix + task prompt; workspace seeds skills/skill-creator from monorepo
 # (requires ../skills/skill-creator next to evoclawbench/)
 uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime nanobot --mode bench
 
@@ -108,7 +108,7 @@ Agent is **encouraged** to create skills. System prompt includes:
 > "You are encouraged to create reusable skills (SKILL.md files) when you notice repeating patterns."
 
 ### Bench Mode
-No extra system prompt is prepended (the task prompt is sent as-is). The workspace is prepared with `skills/skill-creator/` copied from the monorepo (`<repo>/skills/skill-creator` adjacent to the `evoclawbench/` directory). Results are written under `bench_results` in the output JSON. fail2pass/EvoScore aggregation is only computed for `--mode both`.
+A **skill-creator workflow** prefix is prepended (spot repeating patterns across sub-problems, follow `skills/skill-creator/SKILL.md`, add task-specific skills under `skills/<name>/`), then the task prompt. The workspace is prepared with `skills/skill-creator/` copied from the monorepo (`<repo>/skills/skill-creator` adjacent to the `evoclawbench/` directory). Results are written under `bench_results` in the output JSON. fail2pass/EvoScore aggregation is only computed for `--mode both`.
 
 ## Metrics
 

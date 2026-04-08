@@ -11,6 +11,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 
 from lib_agent import (
     BASELINE_PREFIX,
+    BENCH_PREFIX,
     EVOLUTION_PREFIX_BASE,
     _coerce,
     _extract_usage,
@@ -73,7 +74,10 @@ class TestGetModePrefix:
         assert "CRITICAL PRIORITY ORDER" in prefix
 
     def test_bench(self):
-        assert get_mode_prefix("bench") == ""
+        prefix = get_mode_prefix("bench")
+        assert prefix == BENCH_PREFIX
+        assert "skill-creator" in prefix
+        assert "repeating" in prefix.lower()
 
     def test_unknown(self):
         assert get_mode_prefix("unknown") == ""

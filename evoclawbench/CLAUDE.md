@@ -10,7 +10,7 @@ The core evaluation mechanism compares agent performance in two primary modes:
 - **Baseline mode**: Agent is forbidden from creating skills (baseline pass rate)
 - **Evolution mode**: Agent is encouraged to create skills (evolution pass rate)
 
-**Bench mode** runs tasks with no benchmark-injected prompt prefix and seeds `workspace/skills/skill-creator/` from `<repo>/skills/skill-creator` (next to the `evoclawbench/` root). Use it when you want the raw task prompt plus a bundled skill-creator tree. Output lands in `bench_results`; composite fail2pass/EvoScore metrics apply only to `--mode both`.
+**Bench mode** prepends a skill-creator workflow prompt (pattern recognition + follow `skills/skill-creator/SKILL.md` + add task skills) and seeds `workspace/skills/skill-creator/` from `<repo>/skills/skill-creator` (next to the `evoclawbench/` root). Output lands in `bench_results`; composite fail2pass/EvoScore metrics apply only to `--mode both`.
 
 The **fail2pass ratio** (`evolution_pass_rate / baseline_pass_rate`) measures whether skill creation improves performance. Values > 1.0 indicate skill creation benefits the agent.
 
@@ -129,12 +129,12 @@ All three must be supported for backward compatibility.
 
 ### Mode Prefix Injection
 
-`lib_agent.py:get_mode_prefix()` returns system prompt prefixes:
+`lib_agent.py:get_mode_prefix()` returns prompt prefixes prepended to the task prompt before sending to the agent:
 - **Baseline**: "You must NOT create any skills or SKILL.md files..."
 - **Evolution**: "You are encouraged to create reusable skills..."
-- **Bench**: `""` (no prefix; task prompt only)
+- **Bench**: `BENCH_PREFIX` (skill-creator workflow; not the baseline/evolution A/B strings)
 
-These are prepended to the task prompt BEFORE sending to the agent (except bench). Workspace layout for skills is controlled by `prepare_workspace()` mode (`baseline` / `evolution` / `bench`).
+Workspace layout for skills is controlled by `prepare_workspace()` mode (`baseline` / `evolution` / `bench`).
 
 ### Sub-Problem Scoring Aggregation
 

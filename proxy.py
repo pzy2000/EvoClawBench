@@ -10,7 +10,7 @@ timeout = httpx.Timeout(300.0, connect=60.0)
 client = httpx.AsyncClient(timeout=timeout)
 
 # ── 认证 Token（两个路由共用） ──────────────────────────────────────────────────
-TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjdXJyZW50VGltZSI6MTc3NDg4MTY4MDE3MywiZXhwIjoxNzc1NDg2NDgwLCJ1c2VybmFtZSI6IjExOCJ9.JbdHam7j3ASArlya03RgkfUpD0QcAkqF5Tl3kMY74EA"
+TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjdXJyZW50VGltZSI6MTc3NTQ5OTYzMzI1OCwiZXhwIjoxNzc2MTA0NDMzLCJ1c2VybmFtZSI6IjExOCJ9.8YyCYdN8QjnfNCQZ8mdgFKjwrbThMIp2zLo09PWQu90"
 
 # ── 上游端点 ────────────────────────────────────────────────────────────────────
 GOOGLE_URL = (

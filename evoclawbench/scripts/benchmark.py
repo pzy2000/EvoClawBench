@@ -666,7 +666,7 @@ def main():
 
     if args.mode == "bench":
         logger.info(
-            "\n%s\n  BENCH MODE (no prompt prefix; skills/skill-creator seeded)\n%s",
+            "\n%s\n  BENCH MODE (skill-creator workflow prompt; skills/skill-creator seeded)\n%s",
             "=" * 70,
             "=" * 70,
         )

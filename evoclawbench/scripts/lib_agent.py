@@ -71,6 +71,21 @@ EVOLUTION_GUARDRAILS = (
     "- Excel analytics: confirm each workbook exists and has exactly 3 sheets named Raw Data, Summary, Quarterly; totals rows must be Excel formulas, numeric cells must be numbers.\n\n"
 )
 
+BENCH_PREFIX = (
+    "BENCH MODE — SKILL-CREATOR WORKFLOW:\n"
+    "This workspace seeds `skills/skill-creator/` with instructions for authoring new skills. "
+    "Across this task, actively notice repeating structure between sub-problems (same kinds "
+    "of steps, file shapes, validation, or tooling). When you spot a pattern, read "
+    "`skills/skill-creator/SKILL.md`, follow that workflow, and create task-specific reusable "
+    "skills under `skills/<your-skill-name>/SKILL.md`. Do not replace or delete the "
+    "skill-creator bundle; add sibling skills and reuse them on later sub-problems instead of "
+    "re-deriving everything from scratch each time.\n\n"
+    "PRIORITY ORDER:\n"
+    "1) Produce all required grader-visible outputs (paths, formats, sheet names, schemas).\n"
+    "2) Then extend or polish skills if time allows — skills should speed correct outputs, "
+    "not replace them.\n\n"
+)
+
 
 def _evolution_prefix() -> str:
     """
@@ -100,7 +115,7 @@ def get_mode_prefix(mode: str) -> str:
     if mode == "evolution":
         return _evolution_prefix()
     if mode == "bench":
-        return ""
+        return BENCH_PREFIX
     return ""
 
 
