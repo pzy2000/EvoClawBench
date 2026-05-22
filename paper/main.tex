@@ -1,0 +1,378 @@
+\documentclass[11pt]{article}
+
+\usepackage[review]{acl-style-files/acl}
+
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{inconsolata}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage[capitalize,noabbrev]{cleveref}
+
+\newcommand{\ours}{EvoClawBench}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+\newcommand{\baseline}{\textsc{Baseline}}
+\newcommand{\preskill}{\textsc{PreSkill}}
+\newcommand{\postskill}{\textsc{PostSkill}}
+
+\title{\ours{}: Benchmarking Self-Evolving Agents That Create and Reuse Skills at Runtime}
+
+\author{
+  Anonymous ACL submission
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+User-defined skills have rapidly become a practical mechanism for specializing LLM agents to recurring tasks.
+As foundation models improve, the ecosystem is expanding quickly: 84{,}192 skills were created within 136 days.
+This growth raises a new evaluation question: can an LLM agent improve itself at runtime by creating reusable skills, and do those skills actually improve later task execution?
+We present \textbf{\ours{}}, a benchmark for measuring skill self-evolution across repeated, tool-using tasks.
+\ours{} compares three execution strategies: a no-skill \baseline{} condition, a \preskill{} condition that asks the same agent to author task-specific skills before execution, and a \postskill{} condition that asks the agent to summarize reusable skills from a first run before solving the task again.
+The benchmark currently includes \todo{number of tasks} tasks spanning data transformation, log analysis, API scaffolding, test generation, configuration migration, code review, document extraction, office automation, DevOps, security, and metrics analysis, and supports multiple agent runtimes including OpenClaw and nanobot.
+Our preliminary evaluation on \todo{evaluated models and runtimes} shows that agents are strongest at \todo{stronger capability finding}, but that runtime skill creation and reuse does not consistently improve task success.
+Counterintuitively, the best end-to-end workflow is often direct execution rather than first creating a skill, suggesting that self-evolved skills impose costs and context risks that current agents do not yet reliably recover.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+Large language model agents are increasingly deployed as interactive workers that read files, call tools, write code, inspect outputs, and revise their own solutions.
+Alongside stronger foundation models, a complementary trend has emerged: users package procedural knowledge into reusable \emph{skills}, typically written as structured markdown documents with optional scripts, templates, and references.
+Skills encode task-specific expertise such as how to audit dependencies, generate CI configurations, scaffold APIs, extract tables, or perform domain-specific data analysis.
+They are attractive because they are lightweight: a skill can be installed, inspected, edited, and injected into an agent's context without retraining the model.
+
+The skill ecosystem is growing at a speed that outpaces careful evaluation.
+Recent reports show that 84{,}192 skills were created within only 136 days \citep{li2026skillsbench}.
+This scale suggests a shift from prompt engineering by individual users toward a marketplace of reusable procedural memory.
+However, the central question is no longer only whether a human-written skill can help an agent.
+If agents are to become long-running assistants, they must also decide when to create skills, what to write into them, and whether those self-authored skills improve later work.
+
+Existing benchmarks do not directly measure this capability.
+SWE-Bench and SWE-agent-style evaluations emphasize repository-level software engineering \citep{jimenez2024swebench,yang2024sweagent}.
+Terminal-Bench and AppWorld evaluate tool use and command-line or app-world interaction \citep{merrill2026terminalbench,trivedi2024appworld}.
+SkillsBench treats skills as first-class artifacts across domains \citep{li2026skillsbench}, but it focuses on evaluating provided skill conditions rather than the agent's ability to create, summarize, and reuse its own skills during a benchmark run.
+As a result, there is still no standard testbed for the following question: \emph{Can an LLM agent self-evolve by creating skills that improve its own task performance?}
+
+We introduce \ours{}, a benchmark designed around this question.
+\ours{} evaluates an agent on repeated, structured tasks that contain multiple related sub-problems.
+This design creates an opportunity for the agent to recognize shared patterns and convert them into reusable skills.
+For each task, we compare three strategies.
+In \baseline{}, the agent solves the task directly and is forbidden from creating or editing skills.
+In \preskill{}, the same model and runtime first create one or more task-specific skills, then a fresh execution workspace solves the task using only those generated skills.
+In \postskill{}, the agent first solves the task without skills, receives a compact first-run context containing the prompt, grading summary, output previews, and transcript summary, then writes reusable skills that are copied into a fresh second execution.
+
+This protocol isolates two related but distinct forms of self-evolution.
+\preskill{} measures whether an agent can infer a useful reusable procedure before solving a task.
+\postskill{} measures whether an agent can distill reusable procedural memory from experience.
+Both are compared against \baseline{} under execution-only and end-to-end metrics, so a skill workflow must improve not only task score but also justify its additional token, cost, and time overhead.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{Figures/fig_overview_imagegen.png}
+\caption{Overview of \ours{}. The benchmark runs repeated, fixture-backed tasks through shared runtime adapters, compares \baseline{}, \preskill{}, and \postskill{} execution in fresh workspaces, and reports task quality, efficiency, skill creation, and mutation-integrity metrics.}
+\label{fig:overview}
+\end{figure*}
+
+Our paper makes the following contributions:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Benchmark.} We build \ours{}, a benchmark for evaluating runtime skill self-evolution in LLM agents. It covers \todo{number of tasks} tasks with repeated sub-problems, fixtures, automated or hybrid graders, and multiple agent runtimes.
+    \item \textbf{Three-mode evaluation protocol.} We formalize \baseline{}, \preskill{}, and \postskill{} conditions, separating execution-only performance from end-to-end workflow cost and detecting skill mutation violations during reuse.
+    \item \textbf{Empirical findings.} We provide a result template and preliminary analysis showing that agents are more reliable on \todo{strong category} tasks than \todo{weak category} tasks, while self-created skills often fail to improve pass rate and may increase cost. This finding challenges the assumption that skill creation is automatically beneficial.
+\end{itemize}
+
+\section{Related Benchmarks and Skill Evaluation}
+\label{sec:related}
+
+\paragraph{Agent and software engineering benchmarks.}
+Repository-level software engineering benchmarks evaluate whether agents can modify realistic codebases and satisfy executable checks.
+SWE-Bench evaluates real GitHub issue resolution \citep{jimenez2024swebench}, while SWE-agent studies agent-computer interfaces for automated software engineering \citep{yang2024sweagent}.
+Terminal-Bench focuses on realistic command-line tasks in isolated environments \citep{merrill2026terminalbench}.
+AppWorld and $\tau$-Bench broaden the scope to interactive applications and tool-agent-user settings \citep{trivedi2024appworld,yao2025taubench}.
+These benchmarks are useful for measuring tool use and task completion, but they do not test whether an agent can write reusable skills at runtime and then benefit from them.
+
+\paragraph{Skill and procedural memory evaluation.}
+Skills can be viewed as external procedural memory for agents, related to work on agent skills, procedural memory, and open-ended skill acquisition \citep{anthropic2025skills,fang2025memp,wang2023voyager,xu2026agentskills,wu2026agentskillsmemory}.
+SkillsBench is closest to our setting because it evaluates skills as first-class artifacts \citep{li2026skillsbench}.
+However, the central object in \ours{} is not only a pre-existing skill.
+Instead, \ours{} evaluates the \emph{closed-loop} process in which the same runtime and model being benchmarked must author, summarize, and reuse its own skill artifacts.
+
+\Cref{tab:comparison} summarizes the benchmark position.
+\ours{} is designed to expose whether skill self-evolution improves task success after accounting for the full cost of creating and reusing skills.
+
+\begin{table*}[t]
+\centering
+\small
+\caption{Comparison of \ours{} with related benchmarks. ``Skill Create'' indicates whether the benchmark evaluates skills authored by the agent during the benchmark run. ``Reuse Cond.'' indicates an explicit skill-reuse execution condition. ``Multi-runtime'' indicates support for evaluating multiple agent runtimes or claws under the same task suite.}
+\label{tab:comparison}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Benchmark} & \textbf{Size} & \textbf{Realistic Env.} & \textbf{Skill Create} & \textbf{Reuse Cond.} & \textbf{Multi-runtime} & \textbf{Cost Metrics} \\
+\midrule
+SWE-Bench \citep{jimenez2024swebench} & 2{,}294 & Yes & No & No & Partial & Partial \\
+Terminal-Bench \citep{merrill2026terminalbench} & 200 & Yes & No & No & Yes & Partial \\
+AppWorld \citep{trivedi2024appworld} & 750 & Yes & No & No & Yes & Partial \\
+$\tau$-Bench \citep{yao2025taubench} & \todo{size} & Yes & No & No & Yes & Partial \\
+SkillsBench \citep{li2026skillsbench} & 84 & Yes & No & Yes & Partial & Yes \\
+\midrule
+\textbf{\ours{}} & \textbf{\todo{size}} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+
+\section{\ours{} Construction}
+\label{sec:construction}
+
+\ours{} is constructed to test whether an agent can recognize repeated structure across sub-problems and encode that structure as a reusable skill.
+The benchmark implementation is organized around task definitions, workspace fixtures, runtime adapters, graders, and metric aggregation.
+
+\subsection{Task Suite}
+\label{subsec:tasks}
+
+Tasks are written as markdown files with YAML frontmatter, a natural-language prompt, expected behavior, sub-problem descriptions, grading criteria, and automated or hybrid grading logic.
+Each task usually contains five to ten structurally related sub-problems.
+This repeated structure is important: it gives the agent a reason to write down a general procedure rather than solve a single isolated instance.
+
+The current task suite covers data transformation, log analysis, API scaffolding, test generation, configuration migration, security review, document extraction, database operations, Excel analytics, web extraction, document generation, data pipelines, email and invoice processing, shell automation, CI generation, dependency audit, environment configuration, and metrics anomaly detection.
+The suite size is \todo{number of non-sanity tasks} tasks and \todo{total sub-problems} sub-problems after excluding the sanity task.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.94\textwidth]{Figures/fig_task_taxonomy_imagegen.png}
+\caption{Task-suite structure in \ours{}. Tasks are organized around repeated tool-using sub-problems: input fixtures are copied into isolated workspaces, agents produce grader-visible artifacts, and automated or hybrid graders evaluate the resulting files.}
+\label{fig:task-taxonomy}
+\end{figure*}
+
+\subsection{Workspace and Fixtures}
+\label{subsec:workspace}
+
+Each task run receives an isolated workspace.
+Input assets are copied from the benchmark's fixture directory into the workspace, and the agent must write grader-visible outputs under the expected output paths.
+This setup avoids relying on conversation-only answers and encourages concrete artifacts such as JSON files, scripts, reports, Dockerfiles, CI files, and structured extraction outputs.
+
+The benchmark supports both local subprocess execution and Docker-based execution.
+For reported experiments, we use \todo{local or docker environment} with \todo{resource limits} and run each task for \todo{runs per task} independent runs.
+
+\subsection{Skill Authoring and Reuse}
+\label{subsec:skills}
+
+\ours{} uses the standard \texttt{SKILL.md} format adopted by the supported runtimes.
+During skill-authoring phases, the workspace is seeded with a \texttt{skill-creator} bundle that instructs the agent how to create a well-formed skill.
+Generated skills are scanned from the workspace and copied into fresh execution workspaces for reuse.
+
+To prevent a reuse run from becoming another authoring run, \ours{} hashes all non-seeded skill files before and after execution.
+If a reuse execution adds, deletes, or edits a skill, the benchmark records a \texttt{skill\_mutation\_violation}.
+This guardrail makes the experimental condition explicit: \preskill{} and \postskill{} execution may use generated skills, but may not improve those skills while solving the task.
+
+\subsection{Runtimes}
+\label{subsec:runtimes}
+
+\ours{} currently supports OpenClaw and nanobot.
+OpenClaw is invoked through \texttt{openclaw agent --message}, while nanobot is invoked through \texttt{nanobot run --message}.
+The runtime abstraction keeps task prompts, workspaces, grading, and metrics shared across claws, allowing the benchmark to compare the same model under different agent scaffolds.
+Additional runtimes can be added by implementing the same execution interface and usage extraction logic.
+
+\section{Evaluation Protocol}
+\label{sec:protocol}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{Figures/fig_protocol_imagegen.png}
+\caption{Three-mode evaluation protocol. \baseline{} directly executes a task without skill creation; \preskill{} first creates task-specific skills and then reuses them in a fresh workspace; \postskill{} summarizes reusable skills from first-run evidence before a second execution. Skill reuse phases are checked for mutation violations.}
+\label{fig:protocol}
+\end{figure*}
+
+\subsection{Three Execution Strategies}
+\label{subsec:modes}
+
+For a task $t$, model $m$, and runtime $r$, \ours{} evaluates three strategies.
+
+\paragraph{\baseline{}.}
+The agent receives the task prompt and solves it directly.
+The prompt prefix forbids creating, editing, or deleting skills.
+This condition measures the agent's direct task-solving ability.
+
+\paragraph{\preskill{}.}
+The agent first enters a skill-authoring phase.
+It reads the skill-creator bundle and writes one or more task-specific skills under \texttt{skills/<skill-name>/SKILL.md}.
+The final task outputs are not graded during this phase.
+The benchmark then creates a fresh workspace, copies the generated skills into it, and runs the task execution phase with skill mutation disabled.
+
+\paragraph{\postskill{}.}
+The agent first solves the task in a no-skill execution phase.
+The benchmark writes a compact \texttt{.evoclawbench/first\_run\_context.json} file containing the task prompt, grading details, output summaries, and transcript summaries.
+The same runtime and model then summarize reusable skills from that first-run evidence.
+A fresh second workspace executes the same task using the summarized skills.
+
+\subsection{Metrics}
+\label{subsec:metrics}
+
+Let $S_b(t)$, $S_p(t)$, and $S_q(t)$ denote the mean task scores for \baseline{}, \preskill{}, and \postskill{}, respectively.
+The primary execution-only ratios against baseline are:
+\begin{equation}
+    R_p(t) = \frac{S_p(t)}{S_b(t)}, \qquad
+    R_q(t) = \frac{S_q(t)}{S_b(t)}.
+\end{equation}
+When the baseline score is zero, positive candidate scores are reported as infinite improvement and zero-to-zero comparisons are reported as $1.0$.
+
+\ours{} reports two metric scopes.
+\textbf{Execution-only} compares only the task execution phases: direct baseline execution, preskill reuse execution, and postskill second execution.
+\textbf{End-to-end} includes all workflow cost: skill generation for \preskill{}, first execution and skill summary for \postskill{}, and direct execution for \baseline{}.
+
+For each scope, the benchmark reports token, cost, and time usage.
+Given baseline usage $U_b$ and candidate usage $U_x$, efficiency gain is computed as:
+\begin{equation}
+    E_x = \frac{U_b}{U_x}.
+\end{equation}
+Values greater than $1.0$ indicate that the skill workflow uses fewer resources than baseline.
+The benchmark also reports created-skill counts, heuristic skill quality, and skill mutation violations.
+
+\section{Results}
+\label{sec:results}
+
+\subsection{Experimental Setup}
+\label{subsec:setup}
+
+We evaluate \todo{models} on \todo{runtimes} using \todo{environment}.
+Each task is run \todo{runs per task} times per mode.
+Hybrid tasks use \todo{judge model} as the judge model.
+Unless otherwise stated, results report the mean over all selected tasks.
+Because the current manuscript is a draft, all numerical cells in \Cref{tab:main-results} are placeholders to be replaced with benchmark output JSON values.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.94\textwidth]{Figures/fig_results_placeholder_imagegen.png}
+\caption{Result-figure template for final runs. The current manuscript intentionally leaves all numerical values as placeholders; these panels should be populated from final benchmark JSON rather than from older mixed-mode or mock outputs.}
+\label{fig:results-template}
+\end{figure*}
+
+\begin{table*}[t]
+\centering
+\small
+\caption{Main \ours{} results. Scores are mean task scores. ``Exec Tok.'' counts execution-only tokens, while ``E2E Tok.'' includes skill generation or summary costs. This table is intentionally populated with placeholders until final benchmark runs are available.}
+\label{tab:main-results}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrrrrrr}
+\toprule
+\textbf{Runtime} & \textbf{Model} & \textbf{\baseline{} Score} & \textbf{\preskill{} Score} & \textbf{\postskill{} Score} & \textbf{\preskill{}/Base} & \textbf{\postskill{}/Base} & \textbf{E2E Tok.} & \textbf{Skills} \\
+\midrule
+OpenClaw & \todo{model} & \todo{score} & \todo{score} & \todo{score} & \todo{ratio} & \todo{ratio} & \todo{tokens} & \todo{count} \\
+nanobot & \todo{model} & \todo{score} & \todo{score} & \todo{score} & \todo{ratio} & \todo{ratio} & \todo{tokens} & \todo{count} \\
+\todo{runtime} & \todo{model} & \todo{score} & \todo{score} & \todo{score} & \todo{ratio} & \todo{ratio} & \todo{tokens} & \todo{count} \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+
+\subsection{Evaluation Findings}
+\label{subsec:findings}
+
+\paragraph{Finding 1: Agents are strongest on structured transformation and extraction tasks.}
+Across \todo{number} evaluated tasks, the highest baseline scores occur in \todo{task categories}.
+These tasks share a common property: success depends on following explicit input-output schemas, applying repeated transformations, and writing grader-visible artifacts.
+For example, \todo{task example} reaches \todo{score} under \baseline{}, suggesting that modern agents can often infer the relevant procedure directly from the prompt and fixtures.
+This finding motivates a stricter view of skills: a skill must improve on an already capable baseline, not merely encode instructions the model can infer.
+
+\paragraph{Finding 2: Runtime skill creation does not reliably improve task success.}
+The central result of \ours{} is that \preskill{} and \postskill{} do not consistently outperform \baseline{}.
+In aggregate, \preskill{} changes mean score from \todo{baseline score} to \todo{preskill score}, while \postskill{} changes it to \todo{postskill score}.
+The number of tasks with positive improvement is \todo{positive count}, the number with no change is \todo{tie count}, and the number with regressions is \todo{negative count}.
+This is counterintuitive because both skill workflows provide the agent with extra procedural context.
+The result indicates that self-authored skills are not automatically useful, even when generated by the same model that will later consume them.
+
+\paragraph{Finding 3: End-to-end cost often erases execution-only gains.}
+Even when a skill reuse phase improves execution-only score or token usage, the full workflow includes authoring or summary overhead.
+\preskill{} spends \todo{preskill author tokens} tokens before task execution, and \postskill{} spends \todo{first pass plus summary tokens} tokens before the final second pass.
+As a result, the end-to-end efficiency ratio is \todo{ratio} for \preskill{} and \todo{ratio} for \postskill{}.
+This matters for real deployments: a self-evolution loop is useful only when the amortized value of the created skill exceeds the cost of creating it.
+The current benchmark intentionally evaluates the same task in v1, so future cross-task reuse experiments should test whether these costs can be amortized across related but unseen tasks.
+
+\paragraph{Finding 4: Self-created skills can overfit the immediate task trace.}
+\postskill{} uses first-run evidence to write skills.
+This evidence can help the agent capture missing edge cases, but it can also overfit to the exact fixtures, file names, and grading artifacts from the first run.
+We observe \todo{qualitative example} where the summarized skill \todo{failure mechanism}.
+The failure resembles context interference: generated skill text competes with the prompt and workspace evidence, and the agent may anchor on its own previous solution rather than adapt to the current execution.
+This suggests that effective self-evolution requires not only skill creation, but also abstraction control, validation, and possibly skill pruning.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{Figures/fig_failure_case_imagegen.png}
+\caption{Qualitative failure mode for self-created skills. In \postskill{}, first-run evidence can help produce reusable procedural memory, but it can also encode over-specific assumptions that interfere with the second execution context.}
+\label{fig:failure-case}
+\end{figure*}
+
+\section{Discussion}
+\label{sec:discussion}
+
+\ours{} reframes skill evaluation around the full lifecycle of procedural memory.
+A deployed agent does not only receive curated skills from a user.
+It may decide that a task is repetitive, write a new skill, use the skill immediately, and later update a skill library.
+Our results suggest that current agents are not yet reliable at this lifecycle.
+
+One reason is that strong base models already solve many benchmark tasks directly.
+When direct execution is strong, a generated skill has little room to help and can easily add unnecessary tokens.
+Another reason is that self-authored skills are produced under uncertainty.
+Before solving the task, the agent may not know which procedure is actually useful.
+After solving the task, it may summarize artifacts that worked for one fixture rather than abstractions that transfer.
+
+These observations imply that future skill systems should treat self-evolution as a selective operation rather than a default behavior.
+Agents may need confidence estimates for whether a task is worth skill creation, validation checks for generated skills, and policies that decide when a skill should be reused, revised, or discarded.
+
+\section*{Limitations}
+
+This manuscript is a draft and contains explicit placeholders for final experimental values.
+The current v1 protocol evaluates \postskill{} by rerunning the same task with the same fixtures, which measures within-task skill distillation but does not yet test transfer to unseen related tasks.
+The task suite covers many practical office, data, coding, DevOps, and security workflows, but it is still smaller than large public agent benchmarks.
+Hybrid grading tasks may depend on the selected judge model, although automated checks are used whenever feasible.
+Finally, the current implementation supports OpenClaw and nanobot; broader runtime coverage is needed before claiming conclusions across all major claw frameworks.
+
+\section*{Acknowledgments}
+
+\todo{Acknowledgments for contributors, funding, and infrastructure.}
+
+\bibliography{references}
+
+\appendix
+
+\section{Prompt Prefixes}
+\label{app:prefixes}
+
+\ours{} controls each mode with explicit prompt prefixes.
+\baseline{} forbids creating, editing, or deleting skills.
+\preskill{} first asks the agent to create task-specific skills under \texttt{skills/<skill-name>/SKILL.md}, then runs a fresh skill reuse phase.
+\postskill{} first executes the task, writes first-run context, asks the agent to summarize reusable skills, and then executes the task again with the summarized skills.
+
+\section{Skill Artifact Structure}
+\label{app:skill-artifact}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.86\textwidth]{Figures/fig_skill_anatomy_imagegen.png}
+\caption{Structure of a reusable skill artifact in \ours{}. Generated skills use a \texttt{SKILL.md} document with optional supporting scripts or references, are injected into the agent context during reuse, and are protected by before/after mutation checks during execution.}
+\label{fig:skill-anatomy}
+\end{figure*}
+
+\section{Result JSON Schema}
+\label{app:json}
+
+The aggregate output JSON contains \texttt{baseline\_results}, \texttt{preskill\_results}, \texttt{postskill\_results}, and \texttt{metrics}.
+The \texttt{metrics} object contains \texttt{execution\_only}, \texttt{end\_to\_end}, \texttt{postskill}, \texttt{created\_skills}, \texttt{skill\_quality}, and \texttt{skill\_mutation\_violations}.
+
+\section{Planned Result Replacement Checklist}
+\label{app:checklist}
+
+Before submission, replace all \todo{placeholder} macros with values from final benchmark runs.
+The minimum required values are task count, total sub-problems, evaluated models, runtime rows, mean scores for all modes, token/cost/time usage, skill counts, positive/tie/negative task counts, and one qualitative failure case.
+
+\end{document}
