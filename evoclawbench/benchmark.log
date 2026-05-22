@@ -14277,3 +14277,852 @@
 2026-04-08 00:44:14,157 - WARNING - [ThreadPoolExecutor-0_3] OpenClaw transcript: missing or empty file for session task_03_api_scaffold_1775580251334 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w3/sessions
 2026-04-08 00:44:14,158 - WARNING - [ThreadPoolExecutor-0_3] Bench skills check: sessions.json not found for agent evobench-openai-minimax-minimax-m2-5-w3 — cannot confirm skill-creator was loaded from workspace workspaces/2026_04_08_00_43_58_bench/0001/task_03_api_scaffold_bench
 2026-04-08 00:44:14,159 - INFO - [ThreadPoolExecutor-0_3]   [x] task_03_api_scaffold: 0.0/1.0 (0%) - automated
+2026-04-21 20:35:02,060 - INFO - [MainThread] Runtime: openclaw
+2026-04-21 20:35:02,061 - INFO - [MainThread] Model: openai/MiniMax/MiniMax-M2.5
+2026-04-21 20:35:02,061 - INFO - [MainThread] Mode: bench
+2026-04-21 20:35:02,061 - INFO - [MainThread] Workers: 6
+2026-04-21 20:35:02,061 - INFO - [MainThread] Environment: local
+2026-04-21 20:35:02,061 - INFO - [MainThread] Initialized TaskLoader with directory: /Volumes/T7/EvoClaw/evoclawbench/tasks
+2026-04-21 20:35:02,061 - INFO - [MainThread] Found 22 task files
+2026-04-21 20:35:02,063 - INFO - [MainThread] Loaded task: task_00_sanity (0 sub-problems)
+2026-04-21 20:35:02,064 - INFO - [MainThread] Loaded task: task_01_batch_data_transform (6 sub-problems)
+2026-04-21 20:35:02,066 - INFO - [MainThread] Loaded task: task_02_log_analysis (5 sub-problems)
+2026-04-21 20:35:02,067 - INFO - [MainThread] Loaded task: task_03_api_scaffold (5 sub-problems)
+2026-04-21 20:35:02,069 - INFO - [MainThread] Loaded task: task_04_test_generation (6 sub-problems)
+2026-04-21 20:35:02,070 - INFO - [MainThread] Loaded task: task_05_config_migration (5 sub-problems)
+2026-04-21 20:35:02,072 - INFO - [MainThread] Loaded task: task_06_code_review (5 sub-problems)
+2026-04-21 20:35:02,073 - INFO - [MainThread] Loaded task: task_07_doc_extraction (5 sub-problems)
+2026-04-21 20:35:02,074 - INFO - [MainThread] Loaded task: task_08_schema_ops (5 sub-problems)
+2026-04-21 20:35:02,075 - INFO - [MainThread] Loaded task: task_09_excel_analytics (5 sub-problems)
+2026-04-21 20:35:02,077 - INFO - [MainThread] Loaded task: task_10_git_history_analysis (5 sub-problems)
+2026-04-21 20:35:02,078 - INFO - [MainThread] Loaded task: task_11_web_extraction (5 sub-problems)
+2026-04-21 20:35:02,079 - INFO - [MainThread] Loaded task: task_12_docx_generation (5 sub-problems)
+2026-04-21 20:35:02,080 - INFO - [MainThread] Loaded task: task_13_data_pipeline (5 sub-problems)
+2026-04-21 20:35:02,081 - INFO - [MainThread] Loaded task: task_14_email_processing (5 sub-problems)
+2026-04-21 20:35:02,084 - INFO - [MainThread] Loaded task: task_15_shell_automation (5 sub-problems)
+2026-04-21 20:35:02,085 - INFO - [MainThread] Loaded task: task_16_ci_pipeline (5 sub-problems)
+2026-04-21 20:35:02,086 - INFO - [MainThread] Loaded task: task_17_invoice_processing (5 sub-problems)
+2026-04-21 20:35:02,087 - INFO - [MainThread] Loaded task: task_18_dep_audit (5 sub-problems)
+2026-04-21 20:35:02,089 - INFO - [MainThread] Loaded task: task_19_meeting_notes (5 sub-problems)
+2026-04-21 20:35:02,090 - INFO - [MainThread] Loaded task: task_20_env_config (5 sub-problems)
+2026-04-21 20:35:02,094 - INFO - [MainThread] Loaded task: task_21_metrics_anomaly (5 sub-problems)
+2026-04-21 20:35:02,094 - INFO - [MainThread] Successfully loaded 22 tasks
+2026-04-21 20:35:02,094 - INFO - [MainThread] Found 22 task files
+2026-04-21 20:35:02,094 - INFO - [MainThread] Loaded task: task_00_sanity (0 sub-problems)
+2026-04-21 20:35:02,095 - INFO - [MainThread] Loaded task: task_01_batch_data_transform (6 sub-problems)
+2026-04-21 20:35:02,095 - INFO - [MainThread] Loaded task: task_02_log_analysis (5 sub-problems)
+2026-04-21 20:35:02,095 - INFO - [MainThread] Loaded task: task_03_api_scaffold (5 sub-problems)
+2026-04-21 20:35:02,096 - INFO - [MainThread] Loaded task: task_04_test_generation (6 sub-problems)
+2026-04-21 20:35:02,096 - INFO - [MainThread] Loaded task: task_05_config_migration (5 sub-problems)
+2026-04-21 20:35:02,096 - INFO - [MainThread] Loaded task: task_06_code_review (5 sub-problems)
+2026-04-21 20:35:02,097 - INFO - [MainThread] Loaded task: task_07_doc_extraction (5 sub-problems)
+2026-04-21 20:35:02,097 - INFO - [MainThread] Loaded task: task_08_schema_ops (5 sub-problems)
+2026-04-21 20:35:02,097 - INFO - [MainThread] Loaded task: task_09_excel_analytics (5 sub-problems)
+2026-04-21 20:35:02,098 - INFO - [MainThread] Loaded task: task_10_git_history_analysis (5 sub-problems)
+2026-04-21 20:35:02,098 - INFO - [MainThread] Loaded task: task_11_web_extraction (5 sub-problems)
+2026-04-21 20:35:02,098 - INFO - [MainThread] Loaded task: task_12_docx_generation (5 sub-problems)
+2026-04-21 20:35:02,099 - INFO - [MainThread] Loaded task: task_13_data_pipeline (5 sub-problems)
+2026-04-21 20:35:02,099 - INFO - [MainThread] Loaded task: task_14_email_processing (5 sub-problems)
+2026-04-21 20:35:02,100 - INFO - [MainThread] Loaded task: task_15_shell_automation (5 sub-problems)
+2026-04-21 20:35:02,100 - INFO - [MainThread] Loaded task: task_16_ci_pipeline (5 sub-problems)
+2026-04-21 20:35:02,101 - INFO - [MainThread] Loaded task: task_17_invoice_processing (5 sub-problems)
+2026-04-21 20:35:02,101 - INFO - [MainThread] Loaded task: task_18_dep_audit (5 sub-problems)
+2026-04-21 20:35:02,102 - INFO - [MainThread] Loaded task: task_19_meeting_notes (5 sub-problems)
+2026-04-21 20:35:02,102 - INFO - [MainThread] Loaded task: task_20_env_config (5 sub-problems)
+2026-04-21 20:35:02,103 - INFO - [MainThread] Loaded task: task_21_metrics_anomaly (5 sub-problems)
+2026-04-21 20:35:02,103 - INFO - [MainThread] Successfully loaded 22 tasks
+2026-04-21 20:35:02,103 - INFO - [MainThread] Tasks to run: 22
+2026-04-21 20:35:06,700 - INFO - [MainThread] Creating OpenClaw agent evobench-openai-minimax-minimax-m2-5-w0
+2026-04-21 20:35:15,242 - INFO - [MainThread] Creating OpenClaw agent evobench-openai-minimax-minimax-m2-5-w1
+2026-04-21 20:35:22,397 - INFO - [MainThread] Creating OpenClaw agent evobench-openai-minimax-minimax-m2-5-w2
+2026-04-21 20:35:27,388 - INFO - [MainThread] Creating OpenClaw agent evobench-openai-minimax-minimax-m2-5-w3
+2026-04-21 20:35:32,636 - INFO - [MainThread] Creating OpenClaw agent evobench-openai-minimax-minimax-m2-5-w4
+2026-04-21 20:35:37,757 - INFO - [MainThread] Creating OpenClaw agent evobench-openai-minimax-minimax-m2-5-w5
+2026-04-21 20:35:43,202 - INFO - [MainThread] 
+======================================================================
+  BENCH MODE (skill-creator workflow prompt; skills/skill-creator seeded)
+======================================================================
+2026-04-21 20:35:43,256 - INFO - [MainThread]   Running 22 task runs in parallel (workers=6)
+2026-04-21 20:35:43,261 - INFO - [ThreadPoolExecutor-0_0] 
+======================================================================
+  Task task_00_sanity [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:35:43,261 - INFO - [ThreadPoolExecutor-0_1] 
+======================================================================
+  Task task_01_batch_data_transform [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:35:43,261 - INFO - [ThreadPoolExecutor-0_0] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w0] task: task_00_sanity (mode=bench)
+2026-04-21 20:35:43,261 - INFO - [ThreadPoolExecutor-0_2] 
+======================================================================
+  Task task_02_log_analysis [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:35:43,261 - INFO - [ThreadPoolExecutor-0_1] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w1] task: task_01_batch_data_transform (mode=bench)
+2026-04-21 20:35:43,261 - INFO - [ThreadPoolExecutor-0_3] 
+======================================================================
+  Task task_03_api_scaffold [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:35:43,261 - INFO - [ThreadPoolExecutor-0_4] 
+======================================================================
+  Task task_04_test_generation [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:35:43,262 - INFO - [ThreadPoolExecutor-0_5] 
+======================================================================
+  Task task_05_config_migration [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:35:43,262 - INFO - [ThreadPoolExecutor-0_2] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w2] task: task_02_log_analysis (mode=bench)
+2026-04-21 20:35:43,262 - INFO - [ThreadPoolExecutor-0_3] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w3] task: task_03_api_scaffold (mode=bench)
+2026-04-21 20:35:43,262 - INFO - [ThreadPoolExecutor-0_4] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w4] task: task_04_test_generation (mode=bench)
+2026-04-21 20:35:43,262 - INFO - [ThreadPoolExecutor-0_5] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w5] task: task_05_config_migration (mode=bench)
+2026-04-21 20:36:01,090 - INFO - [ThreadPoolExecutor-0_5] Reset agent evobench-openai-minimax-minimax-m2-5-w5 workspace to workspaces/2026_04_21_20_35_02_bench/0001/task_05_config_migration_bench
+2026-04-21 20:36:01,249 - INFO - [ThreadPoolExecutor-0_1] Reset agent evobench-openai-minimax-minimax-m2-5-w1 workspace to workspaces/2026_04_21_20_35_02_bench/0001/task_01_batch_data_transform_bench
+2026-04-21 20:36:01,253 - INFO - [ThreadPoolExecutor-0_4] Reset agent evobench-openai-minimax-minimax-m2-5-w4 workspace to workspaces/2026_04_21_20_35_02_bench/0001/task_04_test_generation_bench
+2026-04-21 20:36:01,261 - INFO - [ThreadPoolExecutor-0_2] Reset agent evobench-openai-minimax-minimax-m2-5-w2 workspace to workspaces/2026_04_21_20_35_02_bench/0001/task_02_log_analysis_bench
+2026-04-21 20:36:01,293 - INFO - [ThreadPoolExecutor-0_3] Reset agent evobench-openai-minimax-minimax-m2-5-w3 workspace to workspaces/2026_04_21_20_35_02_bench/0001/task_03_api_scaffold_bench
+2026-04-21 20:36:01,330 - INFO - [ThreadPoolExecutor-0_0] Reset agent evobench-openai-minimax-minimax-m2-5-w0 workspace to workspaces/2026_04_21_20_35_02_bench/0001/task_00_sanity_bench
+2026-04-21 20:36:06,143 - WARNING - [ThreadPoolExecutor-0_1] OpenClaw transcript: missing or empty file for session task_01_batch_data_transform_1776774961249 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w1/sessions
+2026-04-21 20:36:06,143 - WARNING - [ThreadPoolExecutor-0_1] Bench skills check: sessions.json not found for agent evobench-openai-minimax-minimax-m2-5-w1 — cannot confirm skill-creator was loaded from workspace workspaces/2026_04_21_20_35_02_bench/0001/task_01_batch_data_transform_bench
+2026-04-21 20:36:06,145 - INFO - [ThreadPoolExecutor-0_1]   [x] task_01_batch_data_transform: 0.0/1.0 (0%) - automated
+2026-04-21 20:36:06,145 - INFO - [ThreadPoolExecutor-0_1] 
+======================================================================
+  Task task_06_code_review [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:36:06,146 - INFO - [ThreadPoolExecutor-0_1] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w1] task: task_06_code_review (mode=bench)
+2026-04-21 20:36:06,249 - WARNING - [ThreadPoolExecutor-0_2] OpenClaw transcript: missing or empty file for session task_02_log_analysis_1776774961261 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w2/sessions
+2026-04-21 20:36:06,249 - WARNING - [ThreadPoolExecutor-0_2] Bench skills check: sessions.json not found for agent evobench-openai-minimax-minimax-m2-5-w2 — cannot confirm skill-creator was loaded from workspace workspaces/2026_04_21_20_35_02_bench/0001/task_02_log_analysis_bench
+2026-04-21 20:36:09,501 - INFO - [ThreadPoolExecutor-0_2] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:36:09,553 - INFO - [ThreadPoolExecutor-0_2] Retrying request to /chat/completions in 0.452731 seconds
+2026-04-21 20:36:13,503 - INFO - [ThreadPoolExecutor-0_2] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:36:13,504 - INFO - [ThreadPoolExecutor-0_2] Retrying request to /chat/completions in 0.791612 seconds
+2026-04-21 20:36:17,444 - INFO - [ThreadPoolExecutor-0_2] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:36:17,452 - WARNING - [ThreadPoolExecutor-0_2] LLM judge failed for task_02_log_analysis (runtime=openclaw): Error code: 502
+2026-04-21 20:36:17,453 - INFO - [ThreadPoolExecutor-0_2]   [x] task_02_log_analysis: 0.0/1.0 (0%) - hybrid
+2026-04-21 20:36:17,453 - INFO - [ThreadPoolExecutor-0_2] 
+======================================================================
+  Task task_07_doc_extraction [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:36:17,453 - INFO - [ThreadPoolExecutor-0_2] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w2] task: task_07_doc_extraction (mode=bench)
+2026-04-21 20:36:17,543 - INFO - [ThreadPoolExecutor-0_1] Reset agent evobench-openai-minimax-minimax-m2-5-w1 workspace to workspaces/2026_04_21_20_35_02_bench/0001/task_06_code_review_bench
+2026-04-21 20:36:18,785 - WARNING - [ThreadPoolExecutor-0_5] OpenClaw transcript: missing or empty file for session task_05_config_migration_1776774961134 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w5/sessions
+2026-04-21 20:36:18,786 - WARNING - [ThreadPoolExecutor-0_5] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w5 (workspace=workspaces/2026_04_21_20_35_02_bench/0001/task_05_config_migration_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:36:18,787 - INFO - [ThreadPoolExecutor-0_5]   [x] task_05_config_migration: 0.0/1.0 (0%) - automated
+2026-04-21 20:36:18,787 - INFO - [ThreadPoolExecutor-0_5] 
+======================================================================
+  Task task_08_schema_ops [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:36:18,787 - INFO - [ThreadPoolExecutor-0_5] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w5] task: task_08_schema_ops (mode=bench)
+2026-04-21 20:36:18,803 - WARNING - [ThreadPoolExecutor-0_0] OpenClaw transcript: missing or empty file for session task_00_sanity_1776774961330 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w0/sessions
+2026-04-21 20:36:18,804 - WARNING - [ThreadPoolExecutor-0_0] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w0 (workspace=workspaces/2026_04_21_20_35_02_bench/0001/task_00_sanity_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:36:18,805 - INFO - [ThreadPoolExecutor-0_0]   [x] task_00_sanity: 0.0/1.0 (0%) - automated
+2026-04-21 20:36:18,805 - INFO - [ThreadPoolExecutor-0_0] 
+======================================================================
+  Task task_09_excel_analytics [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:36:18,806 - INFO - [ThreadPoolExecutor-0_0] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w0] task: task_09_excel_analytics (mode=bench)
+2026-04-21 20:36:19,054 - WARNING - [ThreadPoolExecutor-0_4] OpenClaw transcript: missing or empty file for session task_04_test_generation_1776774961253 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w4/sessions
+2026-04-21 20:36:19,055 - WARNING - [ThreadPoolExecutor-0_4] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w4 (workspace=workspaces/2026_04_21_20_35_02_bench/0001/task_04_test_generation_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:36:19,057 - INFO - [ThreadPoolExecutor-0_4]   [x] task_04_test_generation: 0.0/1.0 (0%) - automated
+2026-04-21 20:36:19,057 - INFO - [ThreadPoolExecutor-0_4] 
+======================================================================
+  Task task_10_git_history_analysis [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:36:19,057 - INFO - [ThreadPoolExecutor-0_4] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w4] task: task_10_git_history_analysis (mode=bench)
+2026-04-21 20:36:19,174 - WARNING - [ThreadPoolExecutor-0_3] OpenClaw transcript: missing or empty file for session task_03_api_scaffold_1776774961293 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w3/sessions
+2026-04-21 20:36:19,174 - WARNING - [ThreadPoolExecutor-0_3] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w3 (workspace=workspaces/2026_04_21_20_35_02_bench/0001/task_03_api_scaffold_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:36:19,176 - INFO - [ThreadPoolExecutor-0_3]   [x] task_03_api_scaffold: 0.0/1.0 (0%) - automated
+2026-04-21 20:36:19,176 - INFO - [ThreadPoolExecutor-0_3] 
+======================================================================
+  Task task_11_web_extraction [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:36:19,176 - INFO - [ThreadPoolExecutor-0_3] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w3] task: task_11_web_extraction (mode=bench)
+2026-04-21 20:36:32,448 - INFO - [ThreadPoolExecutor-0_2] Reset agent evobench-openai-minimax-minimax-m2-5-w2 workspace to workspaces/2026_04_21_20_35_02_bench/0001/task_07_doc_extraction_bench
+2026-04-21 20:36:34,794 - INFO - [ThreadPoolExecutor-0_5] Reset agent evobench-openai-minimax-minimax-m2-5-w5 workspace to workspaces/2026_04_21_20_35_02_bench/0001/task_08_schema_ops_bench
+2026-04-21 20:36:34,802 - WARNING - [ThreadPoolExecutor-0_1] OpenClaw transcript: missing or empty file for session task_06_code_review_1776774977543 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w1/sessions
+2026-04-21 20:36:34,803 - WARNING - [ThreadPoolExecutor-0_1] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w1 (workspace=workspaces/2026_04_21_20_35_02_bench/0001/task_06_code_review_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:36:35,153 - INFO - [ThreadPoolExecutor-0_0] Reset agent evobench-openai-minimax-minimax-m2-5-w0 workspace to workspaces/2026_04_21_20_35_02_bench/0001/task_09_excel_analytics_bench
+2026-04-21 20:36:35,156 - INFO - [ThreadPoolExecutor-0_3] Reset agent evobench-openai-minimax-minimax-m2-5-w3 workspace to workspaces/2026_04_21_20_35_02_bench/0001/task_11_web_extraction_bench
+2026-04-21 20:36:35,165 - INFO - [ThreadPoolExecutor-0_4] Reset agent evobench-openai-minimax-minimax-m2-5-w4 workspace to workspaces/2026_04_21_20_35_02_bench/0001/task_10_git_history_analysis_bench
+2026-04-21 20:36:37,649 - INFO - [ThreadPoolExecutor-0_1] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:36:37,649 - INFO - [ThreadPoolExecutor-0_1] Retrying request to /chat/completions in 0.401051 seconds
+2026-04-21 20:36:38,946 - WARNING - [ThreadPoolExecutor-0_5] OpenClaw transcript: missing or empty file for session task_08_schema_ops_1776774994794 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w5/sessions
+2026-04-21 20:36:38,946 - WARNING - [ThreadPoolExecutor-0_5] Bench skills check: sessions.json not found for agent evobench-openai-minimax-minimax-m2-5-w5 — cannot confirm skill-creator was loaded from workspace workspaces/2026_04_21_20_35_02_bench/0001/task_08_schema_ops_bench
+2026-04-21 20:36:38,947 - INFO - [ThreadPoolExecutor-0_5]   [x] task_08_schema_ops: 0.0/1.0 (0%) - automated
+2026-04-21 20:36:38,947 - INFO - [ThreadPoolExecutor-0_5] 
+======================================================================
+  Task task_12_docx_generation [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:36:38,947 - INFO - [ThreadPoolExecutor-0_5] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w5] task: task_12_docx_generation (mode=bench)
+2026-04-21 20:36:41,129 - INFO - [ThreadPoolExecutor-0_1] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:36:41,180 - INFO - [ThreadPoolExecutor-0_1] Retrying request to /chat/completions in 0.798857 seconds
+2026-04-21 20:36:45,281 - INFO - [ThreadPoolExecutor-0_1] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:36:45,286 - WARNING - [ThreadPoolExecutor-0_1] LLM judge failed for task_06_code_review (runtime=openclaw): Error code: 502
+2026-04-21 20:36:45,286 - INFO - [ThreadPoolExecutor-0_1]   [x] task_06_code_review: 0.0/1.0 (0%) - hybrid
+2026-04-21 20:36:45,286 - INFO - [ThreadPoolExecutor-0_1] 
+======================================================================
+  Task task_13_data_pipeline [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:36:45,287 - INFO - [ThreadPoolExecutor-0_1] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w1] task: task_13_data_pipeline (mode=bench)
+2026-04-21 20:36:49,272 - WARNING - [ThreadPoolExecutor-0_2] OpenClaw transcript: missing or empty file for session task_07_doc_extraction_1776774992451 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w2/sessions
+2026-04-21 20:36:49,272 - WARNING - [ThreadPoolExecutor-0_2] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w2 (workspace=workspaces/2026_04_21_20_35_02_bench/0001/task_07_doc_extraction_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:36:49,433 - INFO - [ThreadPoolExecutor-0_5] Reset agent evobench-openai-minimax-minimax-m2-5-w5 workspace to workspaces/2026_04_21_20_35_02_bench/0001/task_12_docx_generation_bench
+2026-04-21 20:36:52,944 - WARNING - [ThreadPoolExecutor-0_0] OpenClaw transcript: missing or empty file for session task_09_excel_analytics_1776774995153 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w0/sessions
+2026-04-21 20:36:52,993 - WARNING - [ThreadPoolExecutor-0_3] OpenClaw transcript: missing or empty file for session task_11_web_extraction_1776774995156 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w3/sessions
+2026-04-21 20:36:52,996 - WARNING - [ThreadPoolExecutor-0_3] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w3 (workspace=workspaces/2026_04_21_20_35_02_bench/0001/task_11_web_extraction_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:36:52,996 - WARNING - [ThreadPoolExecutor-0_0] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w0 (workspace=workspaces/2026_04_21_20_35_02_bench/0001/task_09_excel_analytics_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:36:53,060 - WARNING - [ThreadPoolExecutor-0_4] OpenClaw transcript: missing or empty file for session task_10_git_history_analysis_1776774995165 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w4/sessions
+2026-04-21 20:36:53,061 - WARNING - [ThreadPoolExecutor-0_4] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w4 (workspace=workspaces/2026_04_21_20_35_02_bench/0001/task_10_git_history_analysis_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:36:53,062 - INFO - [ThreadPoolExecutor-0_4]   [x] task_10_git_history_analysis: 0.0/1.0 (0%) - automated
+2026-04-21 20:36:53,062 - INFO - [ThreadPoolExecutor-0_4] 
+======================================================================
+  Task task_14_email_processing [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:36:53,062 - INFO - [ThreadPoolExecutor-0_4] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w4] task: task_14_email_processing (mode=bench)
+2026-04-21 20:36:53,205 - INFO - [ThreadPoolExecutor-0_2] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:36:53,228 - INFO - [ThreadPoolExecutor-0_2] Retrying request to /chat/completions in 0.449996 seconds
+2026-04-21 20:36:53,288 - INFO - [ThreadPoolExecutor-0_0]   [x] task_09_excel_analytics: 0.0/1.0 (0%) - automated
+2026-04-21 20:36:53,288 - INFO - [ThreadPoolExecutor-0_0] 
+======================================================================
+  Task task_15_shell_automation [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:36:53,289 - INFO - [ThreadPoolExecutor-0_0] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w0] task: task_15_shell_automation (mode=bench)
+2026-04-21 20:36:55,852 - INFO - [ThreadPoolExecutor-0_3] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:36:55,852 - INFO - [ThreadPoolExecutor-0_3] Retrying request to /chat/completions in 0.398477 seconds
+2026-04-21 20:36:56,127 - INFO - [ThreadPoolExecutor-0_2] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:36:56,127 - INFO - [ThreadPoolExecutor-0_2] Retrying request to /chat/completions in 0.958004 seconds
+2026-04-21 20:36:56,987 - INFO - [ThreadPoolExecutor-0_1] Reset agent evobench-openai-minimax-minimax-m2-5-w1 workspace to workspaces/2026_04_21_20_35_02_bench/0001/task_13_data_pipeline_bench
+2026-04-21 20:36:58,957 - INFO - [ThreadPoolExecutor-0_3] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:36:58,957 - INFO - [ThreadPoolExecutor-0_3] Retrying request to /chat/completions in 0.997533 seconds
+2026-04-21 20:36:59,260 - INFO - [ThreadPoolExecutor-0_2] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:36:59,260 - WARNING - [ThreadPoolExecutor-0_2] LLM judge failed for task_07_doc_extraction (runtime=openclaw): Error code: 502
+2026-04-21 20:36:59,260 - INFO - [ThreadPoolExecutor-0_2]   [x] task_07_doc_extraction: 0.0/1.0 (0%) - hybrid
+2026-04-21 20:36:59,261 - INFO - [ThreadPoolExecutor-0_2] 
+======================================================================
+  Task task_16_ci_pipeline [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:36:59,261 - INFO - [ThreadPoolExecutor-0_2] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w2] task: task_16_ci_pipeline (mode=bench)
+2026-04-21 20:37:01,628 - WARNING - [ThreadPoolExecutor-0_5] OpenClaw transcript: missing or empty file for session task_12_docx_generation_1776775009433 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w5/sessions
+2026-04-21 20:37:01,722 - WARNING - [ThreadPoolExecutor-0_5] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w5 (workspace=workspaces/2026_04_21_20_35_02_bench/0001/task_12_docx_generation_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:37:01,753 - INFO - [ThreadPoolExecutor-0_5]   [x] task_12_docx_generation: 0.0/1.0 (0%) - automated
+2026-04-21 20:37:01,753 - INFO - [ThreadPoolExecutor-0_5] 
+======================================================================
+  Task task_17_invoice_processing [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:37:01,754 - INFO - [ThreadPoolExecutor-0_5] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w5] task: task_17_invoice_processing (mode=bench)
+2026-04-21 20:37:02,823 - INFO - [ThreadPoolExecutor-0_3] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:37:02,824 - WARNING - [ThreadPoolExecutor-0_3] LLM judge failed for task_11_web_extraction (runtime=openclaw): Error code: 502
+2026-04-21 20:37:02,824 - INFO - [ThreadPoolExecutor-0_3]   [x] task_11_web_extraction: 0.0/1.0 (0%) - hybrid
+2026-04-21 20:37:02,824 - INFO - [ThreadPoolExecutor-0_3] 
+======================================================================
+  Task task_18_dep_audit [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:37:02,824 - INFO - [ThreadPoolExecutor-0_3] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w3] task: task_18_dep_audit (mode=bench)
+2026-04-21 20:37:04,296 - INFO - [ThreadPoolExecutor-0_4] Reset agent evobench-openai-minimax-minimax-m2-5-w4 workspace to workspaces/2026_04_21_20_35_02_bench/0001/task_14_email_processing_bench
+2026-04-21 20:37:04,304 - INFO - [ThreadPoolExecutor-0_0] Reset agent evobench-openai-minimax-minimax-m2-5-w0 workspace to workspaces/2026_04_21_20_35_02_bench/0001/task_15_shell_automation_bench
+2026-04-21 20:37:12,936 - WARNING - [ThreadPoolExecutor-0_1] OpenClaw transcript: missing or empty file for session task_13_data_pipeline_1776775016987 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w1/sessions
+2026-04-21 20:37:12,982 - WARNING - [ThreadPoolExecutor-0_1] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w1 (workspace=workspaces/2026_04_21_20_35_02_bench/0001/task_13_data_pipeline_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:37:14,277 - INFO - [ThreadPoolExecutor-0_2] Reset agent evobench-openai-minimax-minimax-m2-5-w2 workspace to workspaces/2026_04_21_20_35_02_bench/0001/task_16_ci_pipeline_bench
+2026-04-21 20:37:14,453 - INFO - [ThreadPoolExecutor-0_5] Reset agent evobench-openai-minimax-minimax-m2-5-w5 workspace to workspaces/2026_04_21_20_35_02_bench/0001/task_17_invoice_processing_bench
+2026-04-21 20:37:16,190 - INFO - [ThreadPoolExecutor-0_1] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:37:16,191 - INFO - [ThreadPoolExecutor-0_1] Retrying request to /chat/completions in 0.401946 seconds
+2026-04-21 20:37:16,942 - INFO - [ThreadPoolExecutor-0_3] Reset agent evobench-openai-minimax-minimax-m2-5-w3 workspace to workspaces/2026_04_21_20_35_02_bench/0001/task_18_dep_audit_bench
+2026-04-21 20:37:18,542 - INFO - [ThreadPoolExecutor-0_1] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:37:18,542 - INFO - [ThreadPoolExecutor-0_1] Retrying request to /chat/completions in 0.866731 seconds
+2026-04-21 20:37:21,300 - INFO - [ThreadPoolExecutor-0_1] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:37:21,386 - WARNING - [ThreadPoolExecutor-0_1] LLM judge failed for task_13_data_pipeline (runtime=openclaw): Error code: 502
+2026-04-21 20:37:21,387 - INFO - [ThreadPoolExecutor-0_1]   [x] task_13_data_pipeline: 0.0/1.0 (0%) - hybrid
+2026-04-21 20:37:21,387 - INFO - [ThreadPoolExecutor-0_1] 
+======================================================================
+  Task task_19_meeting_notes [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:37:21,387 - INFO - [ThreadPoolExecutor-0_1] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w1] task: task_19_meeting_notes (mode=bench)
+2026-04-21 20:37:21,997 - WARNING - [ThreadPoolExecutor-0_0] OpenClaw transcript: missing or empty file for session task_15_shell_automation_1776775024304 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w0/sessions
+2026-04-21 20:37:21,998 - WARNING - [ThreadPoolExecutor-0_0] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w0 (workspace=workspaces/2026_04_21_20_35_02_bench/0001/task_15_shell_automation_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:37:22,060 - WARNING - [ThreadPoolExecutor-0_4] OpenClaw transcript: missing or empty file for session task_14_email_processing_1776775024297 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w4/sessions
+2026-04-21 20:37:22,060 - WARNING - [ThreadPoolExecutor-0_4] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w4 (workspace=workspaces/2026_04_21_20_35_02_bench/0001/task_14_email_processing_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:37:23,845 - INFO - [ThreadPoolExecutor-0_0] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:37:23,845 - INFO - [ThreadPoolExecutor-0_0] Retrying request to /chat/completions in 0.404908 seconds
+2026-04-21 20:37:24,977 - INFO - [ThreadPoolExecutor-0_4] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:37:24,978 - INFO - [ThreadPoolExecutor-0_4] Retrying request to /chat/completions in 0.412263 seconds
+2026-04-21 20:37:26,718 - INFO - [ThreadPoolExecutor-0_0] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:37:26,718 - INFO - [ThreadPoolExecutor-0_0] Retrying request to /chat/completions in 0.831674 seconds
+2026-04-21 20:37:27,385 - WARNING - [ThreadPoolExecutor-0_2] OpenClaw transcript: missing or empty file for session task_16_ci_pipeline_1776775034277 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w2/sessions
+2026-04-21 20:37:27,412 - WARNING - [ThreadPoolExecutor-0_5] OpenClaw transcript: missing or empty file for session task_17_invoice_processing_1776775034453 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w5/sessions
+2026-04-21 20:37:27,436 - WARNING - [ThreadPoolExecutor-0_2] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w2 (workspace=workspaces/2026_04_21_20_35_02_bench/0001/task_16_ci_pipeline_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:37:27,436 - WARNING - [ThreadPoolExecutor-0_5] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w5 (workspace=workspaces/2026_04_21_20_35_02_bench/0001/task_17_invoice_processing_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:37:28,376 - INFO - [ThreadPoolExecutor-0_4] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:37:28,376 - INFO - [ThreadPoolExecutor-0_4] Retrying request to /chat/completions in 0.991268 seconds
+2026-04-21 20:37:28,806 - WARNING - [ThreadPoolExecutor-0_3] OpenClaw transcript: missing or empty file for session task_18_dep_audit_1776775036942 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w3/sessions
+2026-04-21 20:37:28,806 - WARNING - [ThreadPoolExecutor-0_3] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w3 (workspace=workspaces/2026_04_21_20_35_02_bench/0001/task_18_dep_audit_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:37:30,122 - INFO - [ThreadPoolExecutor-0_1] Reset agent evobench-openai-minimax-minimax-m2-5-w1 workspace to workspaces/2026_04_21_20_35_02_bench/0001/task_19_meeting_notes_bench
+2026-04-21 20:37:30,784 - INFO - [ThreadPoolExecutor-0_0] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:37:30,784 - WARNING - [ThreadPoolExecutor-0_0] LLM judge failed for task_15_shell_automation (runtime=openclaw): Error code: 502
+2026-04-21 20:37:30,784 - INFO - [ThreadPoolExecutor-0_0]   [x] task_15_shell_automation: 0.0/1.0 (0%) - hybrid
+2026-04-21 20:37:30,785 - INFO - [ThreadPoolExecutor-0_0] 
+======================================================================
+  Task task_20_env_config [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:37:30,785 - INFO - [ThreadPoolExecutor-0_0] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w0] task: task_20_env_config (mode=bench)
+2026-04-21 20:37:30,847 - INFO - [ThreadPoolExecutor-0_5] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:37:30,850 - INFO - [ThreadPoolExecutor-0_5] Retrying request to /chat/completions in 0.439548 seconds
+2026-04-21 20:37:30,933 - INFO - [ThreadPoolExecutor-0_2] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:37:30,934 - INFO - [ThreadPoolExecutor-0_2] Retrying request to /chat/completions in 0.450416 seconds
+2026-04-21 20:37:32,291 - INFO - [ThreadPoolExecutor-0_4] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:37:32,295 - WARNING - [ThreadPoolExecutor-0_4] LLM judge failed for task_14_email_processing (runtime=openclaw): Error code: 502
+2026-04-21 20:37:32,295 - INFO - [ThreadPoolExecutor-0_4]   [x] task_14_email_processing: 0.0/1.0 (0%) - hybrid
+2026-04-21 20:37:32,296 - INFO - [ThreadPoolExecutor-0_4] 
+======================================================================
+  Task task_21_metrics_anomaly [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:37:32,296 - INFO - [ThreadPoolExecutor-0_4] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w4] task: task_21_metrics_anomaly (mode=bench)
+2026-04-21 20:37:32,836 - INFO - [ThreadPoolExecutor-0_3] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:37:32,836 - INFO - [ThreadPoolExecutor-0_3] Retrying request to /chat/completions in 0.491162 seconds
+2026-04-21 20:37:34,277 - INFO - [ThreadPoolExecutor-0_5] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:37:34,277 - INFO - [ThreadPoolExecutor-0_5] Retrying request to /chat/completions in 0.890203 seconds
+2026-04-21 20:37:34,686 - INFO - [ThreadPoolExecutor-0_2] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:37:34,686 - INFO - [ThreadPoolExecutor-0_2] Retrying request to /chat/completions in 0.764927 seconds
+2026-04-21 20:37:36,876 - INFO - [ThreadPoolExecutor-0_3] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:37:36,876 - INFO - [ThreadPoolExecutor-0_3] Retrying request to /chat/completions in 0.855538 seconds
+2026-04-21 20:37:38,243 - INFO - [ThreadPoolExecutor-0_5] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:37:38,243 - WARNING - [ThreadPoolExecutor-0_5] LLM judge failed for task_17_invoice_processing (runtime=openclaw): Error code: 502
+2026-04-21 20:37:38,244 - INFO - [ThreadPoolExecutor-0_5]   [x] task_17_invoice_processing: 0.0/1.0 (0%) - hybrid
+2026-04-21 20:37:38,440 - INFO - [ThreadPoolExecutor-0_2] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:37:38,441 - WARNING - [ThreadPoolExecutor-0_2] LLM judge failed for task_16_ci_pipeline (runtime=openclaw): Error code: 502
+2026-04-21 20:37:38,441 - INFO - [ThreadPoolExecutor-0_2]   [x] task_16_ci_pipeline: 0.0/1.0 (0%) - hybrid
+2026-04-21 20:37:40,487 - INFO - [ThreadPoolExecutor-0_3] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:37:40,487 - WARNING - [ThreadPoolExecutor-0_3] LLM judge failed for task_18_dep_audit (runtime=openclaw): Error code: 502
+2026-04-21 20:37:40,488 - INFO - [ThreadPoolExecutor-0_3]   [x] task_18_dep_audit: 0.0/1.0 (0%) - hybrid
+2026-04-21 20:37:42,028 - INFO - [ThreadPoolExecutor-0_0] Reset agent evobench-openai-minimax-minimax-m2-5-w0 workspace to workspaces/2026_04_21_20_35_02_bench/0001/task_20_env_config_bench
+2026-04-21 20:37:43,878 - INFO - [ThreadPoolExecutor-0_4] Reset agent evobench-openai-minimax-minimax-m2-5-w4 workspace to workspaces/2026_04_21_20_35_02_bench/0001/task_21_metrics_anomaly_bench
+2026-04-21 20:37:44,987 - WARNING - [ThreadPoolExecutor-0_1] OpenClaw transcript: missing or empty file for session task_19_meeting_notes_1776775050122 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w1/sessions
+2026-04-21 20:37:44,988 - WARNING - [ThreadPoolExecutor-0_1] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w1 (workspace=workspaces/2026_04_21_20_35_02_bench/0001/task_19_meeting_notes_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:37:48,623 - INFO - [ThreadPoolExecutor-0_1] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:37:48,623 - INFO - [ThreadPoolExecutor-0_1] Retrying request to /chat/completions in 0.440566 seconds
+2026-04-21 20:37:52,466 - INFO - [ThreadPoolExecutor-0_1] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:37:52,466 - INFO - [ThreadPoolExecutor-0_1] Retrying request to /chat/completions in 0.962012 seconds
+2026-04-21 20:37:52,633 - WARNING - [ThreadPoolExecutor-0_0] OpenClaw transcript: missing or empty file for session task_20_env_config_1776775062029 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w0/sessions
+2026-04-21 20:37:52,634 - WARNING - [ThreadPoolExecutor-0_0] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w0 (workspace=workspaces/2026_04_21_20_35_02_bench/0001/task_20_env_config_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:37:52,638 - INFO - [ThreadPoolExecutor-0_0]   [x] task_20_env_config: 0.0/1.0 (0%) - automated
+2026-04-21 20:37:53,835 - WARNING - [ThreadPoolExecutor-0_4] OpenClaw transcript: missing or empty file for session task_21_metrics_anomaly_1776775063878 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w4/sessions
+2026-04-21 20:37:53,835 - WARNING - [ThreadPoolExecutor-0_4] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w4 (workspace=workspaces/2026_04_21_20_35_02_bench/0001/task_21_metrics_anomaly_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:37:56,483 - INFO - [ThreadPoolExecutor-0_1] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:37:56,483 - WARNING - [ThreadPoolExecutor-0_1] LLM judge failed for task_19_meeting_notes (runtime=openclaw): Error code: 502
+2026-04-21 20:37:56,483 - INFO - [ThreadPoolExecutor-0_1]   [x] task_19_meeting_notes: 0.0/1.0 (0%) - hybrid
+2026-04-21 20:37:56,762 - INFO - [MainThread] Cancelling pending tasks...
+2026-04-21 20:37:56,995 - INFO - [ThreadPoolExecutor-0_4] HTTP Request: POST http://localhost:8000/v1/chat/completions "HTTP/1.1 502 Bad Gateway"
+2026-04-21 20:37:56,996 - INFO - [ThreadPoolExecutor-0_4] Retrying request to /chat/completions in 0.473338 seconds
+2026-04-21 20:43:11,292 - INFO - [MainThread] Runtime: openclaw
+2026-04-21 20:43:11,292 - INFO - [MainThread] Model: openai/MiniMax/MiniMax-M2.5
+2026-04-21 20:43:11,293 - INFO - [MainThread] Mode: bench
+2026-04-21 20:43:11,293 - INFO - [MainThread] Workers: 6
+2026-04-21 20:43:11,293 - INFO - [MainThread] Environment: local
+2026-04-21 20:43:11,293 - INFO - [MainThread] Initialized TaskLoader with directory: /Volumes/T7/EvoClaw/evoclawbench/tasks
+2026-04-21 20:43:11,293 - INFO - [MainThread] Found 22 task files
+2026-04-21 20:43:11,294 - INFO - [MainThread] Loaded task: task_00_sanity (0 sub-problems)
+2026-04-21 20:43:11,296 - INFO - [MainThread] Loaded task: task_01_batch_data_transform (6 sub-problems)
+2026-04-21 20:43:11,298 - INFO - [MainThread] Loaded task: task_02_log_analysis (5 sub-problems)
+2026-04-21 20:43:11,300 - INFO - [MainThread] Loaded task: task_03_api_scaffold (5 sub-problems)
+2026-04-21 20:43:11,302 - INFO - [MainThread] Loaded task: task_04_test_generation (6 sub-problems)
+2026-04-21 20:43:11,303 - INFO - [MainThread] Loaded task: task_05_config_migration (5 sub-problems)
+2026-04-21 20:43:11,304 - INFO - [MainThread] Loaded task: task_06_code_review (5 sub-problems)
+2026-04-21 20:43:11,305 - INFO - [MainThread] Loaded task: task_07_doc_extraction (5 sub-problems)
+2026-04-21 20:43:11,306 - INFO - [MainThread] Loaded task: task_08_schema_ops (5 sub-problems)
+2026-04-21 20:43:11,308 - INFO - [MainThread] Loaded task: task_09_excel_analytics (5 sub-problems)
+2026-04-21 20:43:11,309 - INFO - [MainThread] Loaded task: task_10_git_history_analysis (5 sub-problems)
+2026-04-21 20:43:11,310 - INFO - [MainThread] Loaded task: task_11_web_extraction (5 sub-problems)
+2026-04-21 20:43:11,311 - INFO - [MainThread] Loaded task: task_12_docx_generation (5 sub-problems)
+2026-04-21 20:43:11,312 - INFO - [MainThread] Loaded task: task_13_data_pipeline (5 sub-problems)
+2026-04-21 20:43:11,314 - INFO - [MainThread] Loaded task: task_14_email_processing (5 sub-problems)
+2026-04-21 20:43:11,315 - INFO - [MainThread] Loaded task: task_15_shell_automation (5 sub-problems)
+2026-04-21 20:43:11,317 - INFO - [MainThread] Loaded task: task_16_ci_pipeline (5 sub-problems)
+2026-04-21 20:43:11,318 - INFO - [MainThread] Loaded task: task_17_invoice_processing (5 sub-problems)
+2026-04-21 20:43:11,319 - INFO - [MainThread] Loaded task: task_18_dep_audit (5 sub-problems)
+2026-04-21 20:43:11,320 - INFO - [MainThread] Loaded task: task_19_meeting_notes (5 sub-problems)
+2026-04-21 20:43:11,321 - INFO - [MainThread] Loaded task: task_20_env_config (5 sub-problems)
+2026-04-21 20:43:11,322 - INFO - [MainThread] Loaded task: task_21_metrics_anomaly (5 sub-problems)
+2026-04-21 20:43:11,322 - INFO - [MainThread] Successfully loaded 22 tasks
+2026-04-21 20:43:11,322 - INFO - [MainThread] Found 22 task files
+2026-04-21 20:43:11,323 - INFO - [MainThread] Loaded task: task_00_sanity (0 sub-problems)
+2026-04-21 20:43:11,323 - INFO - [MainThread] Loaded task: task_01_batch_data_transform (6 sub-problems)
+2026-04-21 20:43:11,323 - INFO - [MainThread] Loaded task: task_02_log_analysis (5 sub-problems)
+2026-04-21 20:43:11,323 - INFO - [MainThread] Loaded task: task_03_api_scaffold (5 sub-problems)
+2026-04-21 20:43:11,324 - INFO - [MainThread] Loaded task: task_04_test_generation (6 sub-problems)
+2026-04-21 20:43:11,324 - INFO - [MainThread] Loaded task: task_05_config_migration (5 sub-problems)
+2026-04-21 20:43:11,324 - INFO - [MainThread] Loaded task: task_06_code_review (5 sub-problems)
+2026-04-21 20:43:11,325 - INFO - [MainThread] Loaded task: task_07_doc_extraction (5 sub-problems)
+2026-04-21 20:43:11,325 - INFO - [MainThread] Loaded task: task_08_schema_ops (5 sub-problems)
+2026-04-21 20:43:11,325 - INFO - [MainThread] Loaded task: task_09_excel_analytics (5 sub-problems)
+2026-04-21 20:43:11,326 - INFO - [MainThread] Loaded task: task_10_git_history_analysis (5 sub-problems)
+2026-04-21 20:43:11,326 - INFO - [MainThread] Loaded task: task_11_web_extraction (5 sub-problems)
+2026-04-21 20:43:11,326 - INFO - [MainThread] Loaded task: task_12_docx_generation (5 sub-problems)
+2026-04-21 20:43:11,327 - INFO - [MainThread] Loaded task: task_13_data_pipeline (5 sub-problems)
+2026-04-21 20:43:11,327 - INFO - [MainThread] Loaded task: task_14_email_processing (5 sub-problems)
+2026-04-21 20:43:11,328 - INFO - [MainThread] Loaded task: task_15_shell_automation (5 sub-problems)
+2026-04-21 20:43:11,328 - INFO - [MainThread] Loaded task: task_16_ci_pipeline (5 sub-problems)
+2026-04-21 20:43:11,328 - INFO - [MainThread] Loaded task: task_17_invoice_processing (5 sub-problems)
+2026-04-21 20:43:11,329 - INFO - [MainThread] Loaded task: task_18_dep_audit (5 sub-problems)
+2026-04-21 20:43:11,329 - INFO - [MainThread] Loaded task: task_19_meeting_notes (5 sub-problems)
+2026-04-21 20:43:11,329 - INFO - [MainThread] Loaded task: task_20_env_config (5 sub-problems)
+2026-04-21 20:43:11,330 - INFO - [MainThread] Loaded task: task_21_metrics_anomaly (5 sub-problems)
+2026-04-21 20:43:11,330 - INFO - [MainThread] Successfully loaded 22 tasks
+2026-04-21 20:43:11,330 - INFO - [MainThread] Tasks to run: 22
+2026-04-21 20:43:15,117 - INFO - [MainThread] Agent evobench-openai-minimax-minimax-m2-5-w0 already exists
+2026-04-21 20:43:16,450 - INFO - [MainThread] Agent evobench-openai-minimax-minimax-m2-5-w1 already exists
+2026-04-21 20:43:17,811 - INFO - [MainThread] Agent evobench-openai-minimax-minimax-m2-5-w2 already exists
+2026-04-21 20:43:19,211 - INFO - [MainThread] Agent evobench-openai-minimax-minimax-m2-5-w3 already exists
+2026-04-21 20:43:20,595 - INFO - [MainThread] Agent evobench-openai-minimax-minimax-m2-5-w4 already exists
+2026-04-21 20:43:21,904 - INFO - [MainThread] Agent evobench-openai-minimax-minimax-m2-5-w5 already exists
+2026-04-21 20:43:21,904 - INFO - [MainThread] 
+======================================================================
+  BENCH MODE (skill-creator workflow prompt; skills/skill-creator seeded)
+======================================================================
+2026-04-21 20:43:21,905 - INFO - [MainThread]   Running 22 task runs in parallel (workers=6)
+2026-04-21 20:43:21,908 - INFO - [ThreadPoolExecutor-0_0] 
+======================================================================
+  Task task_00_sanity [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:43:21,908 - INFO - [ThreadPoolExecutor-0_1] 
+======================================================================
+  Task task_01_batch_data_transform [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:43:21,908 - INFO - [ThreadPoolExecutor-0_0] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w0] task: task_00_sanity (mode=bench)
+2026-04-21 20:43:21,908 - INFO - [ThreadPoolExecutor-0_2] 
+======================================================================
+  Task task_02_log_analysis [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:43:21,908 - INFO - [ThreadPoolExecutor-0_3] 
+======================================================================
+  Task task_03_api_scaffold [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:43:21,908 - INFO - [ThreadPoolExecutor-0_1] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w1] task: task_01_batch_data_transform (mode=bench)
+2026-04-21 20:43:21,908 - INFO - [ThreadPoolExecutor-0_4] 
+======================================================================
+  Task task_04_test_generation [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:43:21,908 - INFO - [ThreadPoolExecutor-0_5] 
+======================================================================
+  Task task_05_config_migration [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:43:21,908 - INFO - [ThreadPoolExecutor-0_2] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w2] task: task_02_log_analysis (mode=bench)
+2026-04-21 20:43:21,909 - INFO - [ThreadPoolExecutor-0_3] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w3] task: task_03_api_scaffold (mode=bench)
+2026-04-21 20:43:21,909 - INFO - [ThreadPoolExecutor-0_4] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w4] task: task_04_test_generation (mode=bench)
+2026-04-21 20:43:21,909 - INFO - [ThreadPoolExecutor-0_5] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w5] task: task_05_config_migration (mode=bench)
+2026-04-21 20:43:27,974 - INFO - [ThreadPoolExecutor-0_0] Reset agent evobench-openai-minimax-minimax-m2-5-w0 workspace to workspaces/2026_04_21_20_43_11_bench/0001/task_00_sanity_bench
+2026-04-21 20:43:27,984 - INFO - [ThreadPoolExecutor-0_2] Reset agent evobench-openai-minimax-minimax-m2-5-w2 workspace to workspaces/2026_04_21_20_43_11_bench/0001/task_02_log_analysis_bench
+2026-04-21 20:43:36,666 - INFO - [ThreadPoolExecutor-0_4] Reset agent evobench-openai-minimax-minimax-m2-5-w4 workspace to workspaces/2026_04_21_20_43_11_bench/0001/task_04_test_generation_bench
+2026-04-21 20:43:36,992 - INFO - [ThreadPoolExecutor-0_5] Reset agent evobench-openai-minimax-minimax-m2-5-w5 workspace to workspaces/2026_04_21_20_43_11_bench/0001/task_05_config_migration_bench
+2026-04-21 20:43:37,030 - INFO - [ThreadPoolExecutor-0_1] Reset agent evobench-openai-minimax-minimax-m2-5-w1 workspace to workspaces/2026_04_21_20_43_11_bench/0001/task_01_batch_data_transform_bench
+2026-04-21 20:43:37,040 - INFO - [ThreadPoolExecutor-0_3] Reset agent evobench-openai-minimax-minimax-m2-5-w3 workspace to workspaces/2026_04_21_20_43_11_bench/0001/task_03_api_scaffold_bench
+2026-04-21 20:43:41,223 - WARNING - [ThreadPoolExecutor-0_5] OpenClaw transcript: missing or empty file for session task_05_config_migration_1776775416992 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w5/sessions
+2026-04-21 20:43:41,223 - WARNING - [ThreadPoolExecutor-0_5] Bench skills check: sessions.json not found for agent evobench-openai-minimax-minimax-m2-5-w5 — cannot confirm skill-creator was loaded from workspace workspaces/2026_04_21_20_43_11_bench/0001/task_05_config_migration_bench
+2026-04-21 20:43:41,225 - INFO - [ThreadPoolExecutor-0_5]   [x] task_05_config_migration: 0.0/1.0 (0%) - automated
+2026-04-21 20:43:41,225 - INFO - [ThreadPoolExecutor-0_5] 
+======================================================================
+  Task task_06_code_review [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:43:41,225 - INFO - [ThreadPoolExecutor-0_5] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w5] task: task_06_code_review (mode=bench)
+2026-04-21 20:43:41,288 - WARNING - [ThreadPoolExecutor-0_1] OpenClaw transcript: missing or empty file for session task_01_batch_data_transform_1776775417032 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w1/sessions
+2026-04-21 20:43:41,288 - WARNING - [ThreadPoolExecutor-0_1] Bench skills check: sessions.json not found for agent evobench-openai-minimax-minimax-m2-5-w1 — cannot confirm skill-creator was loaded from workspace workspaces/2026_04_21_20_43_11_bench/0001/task_01_batch_data_transform_bench
+2026-04-21 20:43:41,289 - INFO - [ThreadPoolExecutor-0_1]   [x] task_01_batch_data_transform: 0.0/1.0 (0%) - automated
+2026-04-21 20:43:41,290 - INFO - [ThreadPoolExecutor-0_1] 
+======================================================================
+  Task task_07_doc_extraction [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:43:41,290 - INFO - [ThreadPoolExecutor-0_1] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w1] task: task_07_doc_extraction (mode=bench)
+2026-04-21 20:43:43,870 - WARNING - [ThreadPoolExecutor-0_0] OpenClaw transcript: missing or empty file for session task_00_sanity_1776775407975 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w0/sessions
+2026-04-21 20:43:43,870 - WARNING - [ThreadPoolExecutor-0_0] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w0 (workspace=workspaces/2026_04_21_20_43_11_bench/0001/task_00_sanity_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:43:43,871 - INFO - [ThreadPoolExecutor-0_0]   [x] task_00_sanity: 0.0/1.0 (0%) - automated
+2026-04-21 20:43:43,871 - INFO - [ThreadPoolExecutor-0_0] 
+======================================================================
+  Task task_08_schema_ops [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:43:43,871 - INFO - [ThreadPoolExecutor-0_0] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w0] task: task_08_schema_ops (mode=bench)
+2026-04-21 20:43:43,953 - WARNING - [ThreadPoolExecutor-0_2] OpenClaw transcript: missing or empty file for session task_02_log_analysis_1776775407984 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w2/sessions
+2026-04-21 20:43:43,953 - WARNING - [ThreadPoolExecutor-0_2] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w2 (workspace=workspaces/2026_04_21_20_43_11_bench/0001/task_02_log_analysis_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:43:48,003 - INFO - [ThreadPoolExecutor-0_2] HTTP Request: POST http://localhost:16666/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-21 20:43:48,123 - INFO - [ThreadPoolExecutor-0_2]   [x] task_02_log_analysis: 0.0/1.0 (0%) - hybrid
+2026-04-21 20:43:48,123 - INFO - [ThreadPoolExecutor-0_2] 
+======================================================================
+  Task task_09_excel_analytics [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:43:48,123 - INFO - [ThreadPoolExecutor-0_2] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w2] task: task_09_excel_analytics (mode=bench)
+2026-04-21 20:43:50,329 - WARNING - [ThreadPoolExecutor-0_4] OpenClaw transcript: missing or empty file for session task_04_test_generation_1776775416667 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w4/sessions
+2026-04-21 20:43:50,329 - WARNING - [ThreadPoolExecutor-0_4] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w4 (workspace=workspaces/2026_04_21_20_43_11_bench/0001/task_04_test_generation_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:43:50,331 - INFO - [ThreadPoolExecutor-0_4]   [x] task_04_test_generation: 0.0/1.0 (0%) - automated
+2026-04-21 20:43:50,331 - INFO - [ThreadPoolExecutor-0_4] 
+======================================================================
+  Task task_10_git_history_analysis [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:43:50,331 - INFO - [ThreadPoolExecutor-0_4] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w4] task: task_10_git_history_analysis (mode=bench)
+2026-04-21 20:43:50,633 - WARNING - [ThreadPoolExecutor-0_3] OpenClaw transcript: missing or empty file for session task_03_api_scaffold_1776775417041 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w3/sessions
+2026-04-21 20:43:50,633 - WARNING - [ThreadPoolExecutor-0_3] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w3 (workspace=workspaces/2026_04_21_20_43_11_bench/0001/task_03_api_scaffold_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:43:50,635 - INFO - [ThreadPoolExecutor-0_3]   [x] task_03_api_scaffold: 0.0/1.0 (0%) - automated
+2026-04-21 20:43:50,635 - INFO - [ThreadPoolExecutor-0_3] 
+======================================================================
+  Task task_11_web_extraction [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:43:50,635 - INFO - [ThreadPoolExecutor-0_3] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w3] task: task_11_web_extraction (mode=bench)
+2026-04-21 20:43:53,151 - INFO - [ThreadPoolExecutor-0_5] Reset agent evobench-openai-minimax-minimax-m2-5-w5 workspace to workspaces/2026_04_21_20_43_11_bench/0001/task_06_code_review_bench
+2026-04-21 20:43:53,172 - INFO - [ThreadPoolExecutor-0_1] Reset agent evobench-openai-minimax-minimax-m2-5-w1 workspace to workspaces/2026_04_21_20_43_11_bench/0001/task_07_doc_extraction_bench
+2026-04-21 20:43:57,330 - INFO - [ThreadPoolExecutor-0_0] Reset agent evobench-openai-minimax-minimax-m2-5-w0 workspace to workspaces/2026_04_21_20_43_11_bench/0001/task_08_schema_ops_bench
+2026-04-21 20:44:00,690 - INFO - [ThreadPoolExecutor-0_2] Reset agent evobench-openai-minimax-minimax-m2-5-w2 workspace to workspaces/2026_04_21_20_43_11_bench/0001/task_09_excel_analytics_bench
+2026-04-21 20:44:01,441 - WARNING - [ThreadPoolExecutor-0_0] OpenClaw transcript: missing or empty file for session task_08_schema_ops_1776775437331 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w0/sessions
+2026-04-21 20:44:01,442 - WARNING - [ThreadPoolExecutor-0_0] Bench skills check: sessions.json not found for agent evobench-openai-minimax-minimax-m2-5-w0 — cannot confirm skill-creator was loaded from workspace workspaces/2026_04_21_20_43_11_bench/0001/task_08_schema_ops_bench
+2026-04-21 20:44:01,443 - INFO - [ThreadPoolExecutor-0_0]   [x] task_08_schema_ops: 0.0/1.0 (0%) - automated
+2026-04-21 20:44:01,444 - INFO - [ThreadPoolExecutor-0_0] 
+======================================================================
+  Task task_12_docx_generation [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:44:01,444 - INFO - [ThreadPoolExecutor-0_0] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w0] task: task_12_docx_generation (mode=bench)
+2026-04-21 20:44:04,115 - INFO - [ThreadPoolExecutor-0_4] Reset agent evobench-openai-minimax-minimax-m2-5-w4 workspace to workspaces/2026_04_21_20_43_11_bench/0001/task_10_git_history_analysis_bench
+2026-04-21 20:44:04,801 - INFO - [ThreadPoolExecutor-0_3] Reset agent evobench-openai-minimax-minimax-m2-5-w3 workspace to workspaces/2026_04_21_20_43_11_bench/0001/task_11_web_extraction_bench
+2026-04-21 20:44:09,894 - WARNING - [ThreadPoolExecutor-0_5] OpenClaw transcript: missing or empty file for session task_06_code_review_1776775433152 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w5/sessions
+2026-04-21 20:44:09,895 - WARNING - [ThreadPoolExecutor-0_1] OpenClaw transcript: missing or empty file for session task_07_doc_extraction_1776775433173 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w1/sessions
+2026-04-21 20:44:10,034 - WARNING - [ThreadPoolExecutor-0_5] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w5 (workspace=workspaces/2026_04_21_20_43_11_bench/0001/task_06_code_review_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:44:10,035 - WARNING - [ThreadPoolExecutor-0_1] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w1 (workspace=workspaces/2026_04_21_20_43_11_bench/0001/task_07_doc_extraction_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:44:13,206 - INFO - [ThreadPoolExecutor-0_5] HTTP Request: POST http://localhost:16666/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-21 20:44:13,207 - INFO - [ThreadPoolExecutor-0_5]   [x] task_06_code_review: 0.0/1.0 (0%) - hybrid
+2026-04-21 20:44:13,207 - INFO - [ThreadPoolExecutor-0_5] 
+======================================================================
+  Task task_13_data_pipeline [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:44:13,207 - INFO - [ThreadPoolExecutor-0_5] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w5] task: task_13_data_pipeline (mode=bench)
+2026-04-21 20:44:13,323 - INFO - [ThreadPoolExecutor-0_0] Reset agent evobench-openai-minimax-minimax-m2-5-w0 workspace to workspaces/2026_04_21_20_43_11_bench/0001/task_12_docx_generation_bench
+2026-04-21 20:44:13,622 - INFO - [ThreadPoolExecutor-0_1] HTTP Request: POST http://localhost:16666/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-21 20:44:13,622 - INFO - [ThreadPoolExecutor-0_1]   [x] task_07_doc_extraction: 0.0/1.0 (0%) - hybrid
+2026-04-21 20:44:13,622 - INFO - [ThreadPoolExecutor-0_1] 
+======================================================================
+  Task task_14_email_processing [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:44:13,622 - INFO - [ThreadPoolExecutor-0_1] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w1] task: task_14_email_processing (mode=bench)
+2026-04-21 20:44:14,397 - WARNING - [ThreadPoolExecutor-0_2] OpenClaw transcript: missing or empty file for session task_09_excel_analytics_1776775440747 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w2/sessions
+2026-04-21 20:44:14,398 - WARNING - [ThreadPoolExecutor-0_2] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w2 (workspace=workspaces/2026_04_21_20_43_11_bench/0001/task_09_excel_analytics_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:44:14,554 - INFO - [ThreadPoolExecutor-0_2]   [x] task_09_excel_analytics: 0.0/1.0 (0%) - automated
+2026-04-21 20:44:14,554 - INFO - [ThreadPoolExecutor-0_2] 
+======================================================================
+  Task task_15_shell_automation [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:44:14,554 - INFO - [ThreadPoolExecutor-0_2] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w2] task: task_15_shell_automation (mode=bench)
+2026-04-21 20:44:17,280 - WARNING - [ThreadPoolExecutor-0_4] OpenClaw transcript: missing or empty file for session task_10_git_history_analysis_1776775444115 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w4/sessions
+2026-04-21 20:44:17,335 - WARNING - [ThreadPoolExecutor-0_4] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w4 (workspace=workspaces/2026_04_21_20_43_11_bench/0001/task_10_git_history_analysis_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:44:17,336 - INFO - [ThreadPoolExecutor-0_4]   [x] task_10_git_history_analysis: 0.0/1.0 (0%) - automated
+2026-04-21 20:44:17,336 - INFO - [ThreadPoolExecutor-0_4] 
+======================================================================
+  Task task_16_ci_pipeline [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:44:17,336 - INFO - [ThreadPoolExecutor-0_4] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w4] task: task_16_ci_pipeline (mode=bench)
+2026-04-21 20:44:17,746 - WARNING - [ThreadPoolExecutor-0_3] OpenClaw transcript: missing or empty file for session task_11_web_extraction_1776775444801 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w3/sessions
+2026-04-21 20:44:17,746 - WARNING - [ThreadPoolExecutor-0_3] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w3 (workspace=workspaces/2026_04_21_20_43_11_bench/0001/task_11_web_extraction_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:44:21,468 - INFO - [ThreadPoolExecutor-0_3] HTTP Request: POST http://localhost:16666/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-21 20:44:21,469 - INFO - [ThreadPoolExecutor-0_3]   [x] task_11_web_extraction: 0.0/1.0 (0%) - hybrid
+2026-04-21 20:44:21,469 - INFO - [ThreadPoolExecutor-0_3] 
+======================================================================
+  Task task_17_invoice_processing [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:44:21,470 - INFO - [ThreadPoolExecutor-0_3] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w3] task: task_17_invoice_processing (mode=bench)
+2026-04-21 20:44:26,021 - INFO - [ThreadPoolExecutor-0_5] Reset agent evobench-openai-minimax-minimax-m2-5-w5 workspace to workspaces/2026_04_21_20_43_11_bench/0001/task_13_data_pipeline_bench
+2026-04-21 20:44:26,295 - INFO - [ThreadPoolExecutor-0_1] Reset agent evobench-openai-minimax-minimax-m2-5-w1 workspace to workspaces/2026_04_21_20_43_11_bench/0001/task_14_email_processing_bench
+2026-04-21 20:44:28,155 - INFO - [ThreadPoolExecutor-0_2] Reset agent evobench-openai-minimax-minimax-m2-5-w2 workspace to workspaces/2026_04_21_20_43_11_bench/0001/task_15_shell_automation_bench
+2026-04-21 20:44:28,439 - WARNING - [ThreadPoolExecutor-0_0] OpenClaw transcript: missing or empty file for session task_12_docx_generation_1776775453324 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w0/sessions
+2026-04-21 20:44:28,440 - WARNING - [ThreadPoolExecutor-0_0] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w0 (workspace=workspaces/2026_04_21_20_43_11_bench/0001/task_12_docx_generation_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:44:28,473 - INFO - [ThreadPoolExecutor-0_0]   [x] task_12_docx_generation: 0.0/1.0 (0%) - automated
+2026-04-21 20:44:28,473 - INFO - [ThreadPoolExecutor-0_0] 
+======================================================================
+  Task task_18_dep_audit [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:44:28,474 - INFO - [ThreadPoolExecutor-0_0] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w0] task: task_18_dep_audit (mode=bench)
+2026-04-21 20:44:31,483 - INFO - [ThreadPoolExecutor-0_4] Reset agent evobench-openai-minimax-minimax-m2-5-w4 workspace to workspaces/2026_04_21_20_43_11_bench/0001/task_16_ci_pipeline_bench
+2026-04-21 20:44:34,690 - INFO - [ThreadPoolExecutor-0_3] Reset agent evobench-openai-minimax-minimax-m2-5-w3 workspace to workspaces/2026_04_21_20_43_11_bench/0001/task_17_invoice_processing_bench
+2026-04-21 20:44:42,068 - INFO - [ThreadPoolExecutor-0_0] Reset agent evobench-openai-minimax-minimax-m2-5-w0 workspace to workspaces/2026_04_21_20_43_11_bench/0001/task_18_dep_audit_bench
+2026-04-21 20:44:42,088 - WARNING - [ThreadPoolExecutor-0_5] OpenClaw transcript: missing or empty file for session task_13_data_pipeline_1776775466070 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w5/sessions
+2026-04-21 20:44:42,088 - WARNING - [ThreadPoolExecutor-0_5] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w5 (workspace=workspaces/2026_04_21_20_43_11_bench/0001/task_13_data_pipeline_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:44:42,177 - WARNING - [ThreadPoolExecutor-0_1] OpenClaw transcript: missing or empty file for session task_14_email_processing_1776775466295 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w1/sessions
+2026-04-21 20:44:42,180 - WARNING - [ThreadPoolExecutor-0_1] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w1 (workspace=workspaces/2026_04_21_20_43_11_bench/0001/task_14_email_processing_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:44:43,951 - WARNING - [ThreadPoolExecutor-0_2] OpenClaw transcript: missing or empty file for session task_15_shell_automation_1776775468155 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w2/sessions
+2026-04-21 20:44:43,951 - WARNING - [ThreadPoolExecutor-0_2] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w2 (workspace=workspaces/2026_04_21_20_43_11_bench/0001/task_15_shell_automation_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:44:44,589 - INFO - [ThreadPoolExecutor-0_1] HTTP Request: POST http://localhost:16666/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-21 20:44:44,590 - INFO - [ThreadPoolExecutor-0_1]   [x] task_14_email_processing: 0.0/1.0 (0%) - hybrid
+2026-04-21 20:44:44,590 - INFO - [ThreadPoolExecutor-0_1] 
+======================================================================
+  Task task_19_meeting_notes [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:44:44,590 - INFO - [ThreadPoolExecutor-0_1] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w1] task: task_19_meeting_notes (mode=bench)
+2026-04-21 20:44:45,399 - INFO - [ThreadPoolExecutor-0_5] HTTP Request: POST http://localhost:16666/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-21 20:44:45,400 - INFO - [ThreadPoolExecutor-0_5]   [x] task_13_data_pipeline: 0.0/1.0 (0%) - hybrid
+2026-04-21 20:44:45,400 - INFO - [ThreadPoolExecutor-0_5] 
+======================================================================
+  Task task_20_env_config [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:44:45,400 - INFO - [ThreadPoolExecutor-0_5] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w5] task: task_20_env_config (mode=bench)
+2026-04-21 20:44:47,863 - WARNING - [ThreadPoolExecutor-0_4] OpenClaw transcript: missing or empty file for session task_16_ci_pipeline_1776775471484 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w4/sessions
+2026-04-21 20:44:47,962 - WARNING - [ThreadPoolExecutor-0_4] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w4 (workspace=workspaces/2026_04_21_20_43_11_bench/0001/task_16_ci_pipeline_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:44:48,358 - INFO - [ThreadPoolExecutor-0_2] HTTP Request: POST http://localhost:16666/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-21 20:44:48,358 - INFO - [ThreadPoolExecutor-0_2]   [x] task_15_shell_automation: 0.0/1.0 (0%) - hybrid
+2026-04-21 20:44:48,359 - INFO - [ThreadPoolExecutor-0_2] 
+======================================================================
+  Task task_21_metrics_anomaly [bench mode] (Run 1)
+======================================================================
+2026-04-21 20:44:48,359 - INFO - [ThreadPoolExecutor-0_2] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w2] task: task_21_metrics_anomaly (mode=bench)
+2026-04-21 20:44:50,093 - WARNING - [ThreadPoolExecutor-0_3] OpenClaw transcript: missing or empty file for session task_17_invoice_processing_1776775474691 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w3/sessions
+2026-04-21 20:44:50,093 - WARNING - [ThreadPoolExecutor-0_3] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w3 (workspace=workspaces/2026_04_21_20_43_11_bench/0001/task_17_invoice_processing_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:44:50,992 - INFO - [ThreadPoolExecutor-0_4] HTTP Request: POST http://localhost:16666/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-21 20:44:50,992 - INFO - [ThreadPoolExecutor-0_4]   [x] task_16_ci_pipeline: 0.0/1.0 (0%) - hybrid
+2026-04-21 20:44:52,391 - INFO - [ThreadPoolExecutor-0_3] HTTP Request: POST http://localhost:16666/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-21 20:44:52,392 - INFO - [ThreadPoolExecutor-0_3]   [x] task_17_invoice_processing: 0.0/1.0 (0%) - hybrid
+2026-04-21 20:44:55,438 - WARNING - [ThreadPoolExecutor-0_0] OpenClaw transcript: missing or empty file for session task_18_dep_audit_1776775482069 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w0/sessions
+2026-04-21 20:44:55,486 - WARNING - [ThreadPoolExecutor-0_0] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w0 (workspace=workspaces/2026_04_21_20_43_11_bench/0001/task_18_dep_audit_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 20:44:55,855 - INFO - [ThreadPoolExecutor-0_1] Reset agent evobench-openai-minimax-minimax-m2-5-w1 workspace to workspaces/2026_04_21_20_43_11_bench/0001/task_19_meeting_notes_bench
+2026-04-21 20:44:56,121 - INFO - [ThreadPoolExecutor-0_5] Reset agent evobench-openai-minimax-minimax-m2-5-w5 workspace to workspaces/2026_04_21_20_43_11_bench/0001/task_20_env_config_bench
+2026-04-21 20:44:56,790 - INFO - [MainThread] Cancelling pending tasks...
+2026-04-21 20:44:57,176 - INFO - [ThreadPoolExecutor-0_0] HTTP Request: POST http://localhost:16666/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-21 20:44:57,177 - INFO - [ThreadPoolExecutor-0_0]   [x] task_18_dep_audit: 0.0/1.0 (0%) - hybrid
+2026-04-21 20:44:57,637 - INFO - [ThreadPoolExecutor-0_2] Reset agent evobench-openai-minimax-minimax-m2-5-w2 workspace to workspaces/2026_04_21_20_43_11_bench/0001/task_21_metrics_anomaly_bench
+2026-04-21 20:44:58,355 - WARNING - [ThreadPoolExecutor-0_1] OpenClaw transcript: missing or empty file for session task_19_meeting_notes_1776775495855 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w1/sessions
+2026-04-21 20:44:58,355 - WARNING - [ThreadPoolExecutor-0_1] Bench skills check: sessions.json not found for agent evobench-openai-minimax-minimax-m2-5-w1 — cannot confirm skill-creator was loaded from workspace workspaces/2026_04_21_20_43_11_bench/0001/task_19_meeting_notes_bench
+2026-04-21 20:44:58,360 - WARNING - [ThreadPoolExecutor-0_5] OpenClaw transcript: missing or empty file for session task_20_env_config_1776775496121 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w5/sessions
+2026-04-21 20:44:58,360 - WARNING - [ThreadPoolExecutor-0_5] Bench skills check: sessions.json not found for agent evobench-openai-minimax-minimax-m2-5-w5 — cannot confirm skill-creator was loaded from workspace workspaces/2026_04_21_20_43_11_bench/0001/task_20_env_config_bench
+2026-04-21 20:44:58,361 - INFO - [ThreadPoolExecutor-0_5]   [x] task_20_env_config: 0.0/1.0 (0%) - automated
+2026-04-21 20:45:00,562 - INFO - [ThreadPoolExecutor-0_1] HTTP Request: POST http://localhost:16666/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-21 20:45:00,562 - INFO - [ThreadPoolExecutor-0_1]   [x] task_19_meeting_notes: 0.0/1.0 (0%) - hybrid
+2026-04-21 20:45:00,764 - WARNING - [ThreadPoolExecutor-0_2] OpenClaw transcript: missing or empty file for session task_21_metrics_anomaly_1776775497637 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w2/sessions
+2026-04-21 20:45:00,764 - WARNING - [ThreadPoolExecutor-0_2] Bench skills check: sessions.json not found for agent evobench-openai-minimax-minimax-m2-5-w2 — cannot confirm skill-creator was loaded from workspace workspaces/2026_04_21_20_43_11_bench/0001/task_21_metrics_anomaly_bench
+2026-04-21 20:45:03,719 - INFO - [ThreadPoolExecutor-0_2] HTTP Request: POST http://localhost:16666/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-21 20:45:03,720 - INFO - [ThreadPoolExecutor-0_2]   [x] task_21_metrics_anomaly: 0.0/1.0 (0%) - hybrid
+2026-04-21 20:59:53,374 - INFO - [MainThread] Runtime: openclaw
+2026-04-21 20:59:53,375 - INFO - [MainThread] Model: openai/MiniMax/MiniMax-M2.5
+2026-04-21 20:59:53,375 - INFO - [MainThread] Mode: bench
+2026-04-21 20:59:53,375 - INFO - [MainThread] Workers: 6
+2026-04-21 20:59:53,375 - INFO - [MainThread] Environment: local
+2026-04-21 20:59:53,375 - INFO - [MainThread] Initialized TaskLoader with directory: /Volumes/T7/EvoClaw/evoclawbench/tasks
+2026-04-21 20:59:53,375 - INFO - [MainThread] Found 22 task files
+2026-04-21 20:59:53,376 - INFO - [MainThread] Loaded task: task_00_sanity (0 sub-problems)
+2026-04-21 20:59:53,377 - INFO - [MainThread] Loaded task: task_01_batch_data_transform (6 sub-problems)
+2026-04-21 20:59:53,378 - INFO - [MainThread] Loaded task: task_02_log_analysis (5 sub-problems)
+2026-04-21 20:59:53,379 - INFO - [MainThread] Loaded task: task_03_api_scaffold (5 sub-problems)
+2026-04-21 20:59:53,380 - INFO - [MainThread] Loaded task: task_04_test_generation (6 sub-problems)
+2026-04-21 20:59:53,381 - INFO - [MainThread] Loaded task: task_05_config_migration (5 sub-problems)
+2026-04-21 20:59:53,382 - INFO - [MainThread] Loaded task: task_06_code_review (5 sub-problems)
+2026-04-21 20:59:53,383 - INFO - [MainThread] Loaded task: task_07_doc_extraction (5 sub-problems)
+2026-04-21 20:59:53,384 - INFO - [MainThread] Loaded task: task_08_schema_ops (5 sub-problems)
+2026-04-21 20:59:53,385 - INFO - [MainThread] Loaded task: task_09_excel_analytics (5 sub-problems)
+2026-04-21 20:59:53,386 - INFO - [MainThread] Loaded task: task_10_git_history_analysis (5 sub-problems)
+2026-04-21 20:59:53,391 - INFO - [MainThread] Loaded task: task_11_web_extraction (5 sub-problems)
+2026-04-21 20:59:53,392 - INFO - [MainThread] Loaded task: task_12_docx_generation (5 sub-problems)
+2026-04-21 20:59:53,395 - INFO - [MainThread] Loaded task: task_13_data_pipeline (5 sub-problems)
+2026-04-21 20:59:53,396 - INFO - [MainThread] Loaded task: task_14_email_processing (5 sub-problems)
+2026-04-21 20:59:53,398 - INFO - [MainThread] Loaded task: task_15_shell_automation (5 sub-problems)
+2026-04-21 20:59:53,399 - INFO - [MainThread] Loaded task: task_16_ci_pipeline (5 sub-problems)
+2026-04-21 20:59:53,400 - INFO - [MainThread] Loaded task: task_17_invoice_processing (5 sub-problems)
+2026-04-21 20:59:53,402 - INFO - [MainThread] Loaded task: task_18_dep_audit (5 sub-problems)
+2026-04-21 20:59:53,403 - INFO - [MainThread] Loaded task: task_19_meeting_notes (5 sub-problems)
+2026-04-21 20:59:53,404 - INFO - [MainThread] Loaded task: task_20_env_config (5 sub-problems)
+2026-04-21 20:59:53,406 - INFO - [MainThread] Loaded task: task_21_metrics_anomaly (5 sub-problems)
+2026-04-21 20:59:53,406 - INFO - [MainThread] Successfully loaded 22 tasks
+2026-04-21 20:59:53,406 - INFO - [MainThread] Found 22 task files
+2026-04-21 20:59:53,408 - INFO - [MainThread] Loaded task: task_00_sanity (0 sub-problems)
+2026-04-21 20:59:53,409 - INFO - [MainThread] Loaded task: task_01_batch_data_transform (6 sub-problems)
+2026-04-21 20:59:53,412 - INFO - [MainThread] Loaded task: task_02_log_analysis (5 sub-problems)
+2026-04-21 20:59:53,412 - INFO - [MainThread] Loaded task: task_03_api_scaffold (5 sub-problems)
+2026-04-21 20:59:53,414 - INFO - [MainThread] Loaded task: task_04_test_generation (6 sub-problems)
+2026-04-21 20:59:53,415 - INFO - [MainThread] Loaded task: task_05_config_migration (5 sub-problems)
+2026-04-21 20:59:53,416 - INFO - [MainThread] Loaded task: task_06_code_review (5 sub-problems)
+2026-04-21 20:59:53,417 - INFO - [MainThread] Loaded task: task_07_doc_extraction (5 sub-problems)
+2026-04-21 20:59:53,417 - INFO - [MainThread] Loaded task: task_08_schema_ops (5 sub-problems)
+2026-04-21 20:59:53,417 - INFO - [MainThread] Loaded task: task_09_excel_analytics (5 sub-problems)
+2026-04-21 20:59:53,418 - INFO - [MainThread] Loaded task: task_10_git_history_analysis (5 sub-problems)
+2026-04-21 20:59:53,418 - INFO - [MainThread] Loaded task: task_11_web_extraction (5 sub-problems)
+2026-04-21 20:59:53,420 - INFO - [MainThread] Loaded task: task_12_docx_generation (5 sub-problems)
+2026-04-21 20:59:53,422 - INFO - [MainThread] Loaded task: task_13_data_pipeline (5 sub-problems)
+2026-04-21 20:59:53,423 - INFO - [MainThread] Loaded task: task_14_email_processing (5 sub-problems)
+2026-04-21 20:59:53,425 - INFO - [MainThread] Loaded task: task_15_shell_automation (5 sub-problems)
+2026-04-21 20:59:53,426 - INFO - [MainThread] Loaded task: task_16_ci_pipeline (5 sub-problems)
+2026-04-21 20:59:53,426 - INFO - [MainThread] Loaded task: task_17_invoice_processing (5 sub-problems)
+2026-04-21 20:59:53,426 - INFO - [MainThread] Loaded task: task_18_dep_audit (5 sub-problems)
+2026-04-21 20:59:53,427 - INFO - [MainThread] Loaded task: task_19_meeting_notes (5 sub-problems)
+2026-04-21 20:59:53,427 - INFO - [MainThread] Loaded task: task_20_env_config (5 sub-problems)
+2026-04-21 20:59:53,428 - INFO - [MainThread] Loaded task: task_21_metrics_anomaly (5 sub-problems)
+2026-04-21 20:59:53,428 - INFO - [MainThread] Successfully loaded 22 tasks
+2026-04-21 20:59:53,428 - INFO - [MainThread] Tasks to run: 22
+2026-04-21 20:59:59,382 - INFO - [MainThread] Agent evobench-openai-minimax-minimax-m2-5-w0 already exists
+2026-04-21 21:00:00,732 - INFO - [MainThread] Agent evobench-openai-minimax-minimax-m2-5-w1 already exists
+2026-04-21 21:00:02,040 - INFO - [MainThread] Creating OpenClaw agent evobench-openai-minimax-minimax-m2-5-w2
+2026-04-21 21:00:09,100 - INFO - [MainThread] Agent evobench-openai-minimax-minimax-m2-5-w3 already exists
+2026-04-21 21:00:10,458 - INFO - [MainThread] Agent evobench-openai-minimax-minimax-m2-5-w4 already exists
+2026-04-21 21:00:11,760 - INFO - [MainThread] Agent evobench-openai-minimax-minimax-m2-5-w5 already exists
+2026-04-21 21:00:11,761 - INFO - [MainThread] 
+======================================================================
+  BENCH MODE (skill-creator workflow prompt; skills/skill-creator seeded)
+======================================================================
+2026-04-21 21:00:11,762 - INFO - [MainThread]   Running 22 task runs in parallel (workers=6)
+2026-04-21 21:00:11,768 - INFO - [ThreadPoolExecutor-0_0] 
+======================================================================
+  Task task_00_sanity [bench mode] (Run 1)
+======================================================================
+2026-04-21 21:00:11,768 - INFO - [ThreadPoolExecutor-0_0] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w0] task: task_00_sanity (mode=bench)
+2026-04-21 21:00:11,768 - INFO - [ThreadPoolExecutor-0_1] 
+======================================================================
+  Task task_01_batch_data_transform [bench mode] (Run 1)
+======================================================================
+2026-04-21 21:00:11,768 - INFO - [ThreadPoolExecutor-0_2] 
+======================================================================
+  Task task_02_log_analysis [bench mode] (Run 1)
+======================================================================
+2026-04-21 21:00:11,768 - INFO - [ThreadPoolExecutor-0_1] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w1] task: task_01_batch_data_transform (mode=bench)
+2026-04-21 21:00:11,768 - INFO - [ThreadPoolExecutor-0_3] 
+======================================================================
+  Task task_03_api_scaffold [bench mode] (Run 1)
+======================================================================
+2026-04-21 21:00:11,768 - INFO - [ThreadPoolExecutor-0_2] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w2] task: task_02_log_analysis (mode=bench)
+2026-04-21 21:00:11,768 - INFO - [ThreadPoolExecutor-0_4] 
+======================================================================
+  Task task_04_test_generation [bench mode] (Run 1)
+======================================================================
+2026-04-21 21:00:11,769 - INFO - [ThreadPoolExecutor-0_5] 
+======================================================================
+  Task task_05_config_migration [bench mode] (Run 1)
+======================================================================
+2026-04-21 21:00:11,769 - INFO - [ThreadPoolExecutor-0_3] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w3] task: task_03_api_scaffold (mode=bench)
+2026-04-21 21:00:11,770 - INFO - [ThreadPoolExecutor-0_4] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w4] task: task_04_test_generation (mode=bench)
+2026-04-21 21:00:11,770 - INFO - [ThreadPoolExecutor-0_5] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w5] task: task_05_config_migration (mode=bench)
+2026-04-21 21:00:17,837 - INFO - [ThreadPoolExecutor-0_3] Reset agent evobench-openai-minimax-minimax-m2-5-w3 workspace to workspaces/2026_04_21_20_59_53_bench/0001/task_03_api_scaffold_bench
+2026-04-21 21:00:17,844 - INFO - [ThreadPoolExecutor-0_5] Reset agent evobench-openai-minimax-minimax-m2-5-w5 workspace to workspaces/2026_04_21_20_59_53_bench/0001/task_05_config_migration_bench
+2026-04-21 21:00:26,112 - INFO - [ThreadPoolExecutor-0_4] Reset agent evobench-openai-minimax-minimax-m2-5-w4 workspace to workspaces/2026_04_21_20_59_53_bench/0001/task_04_test_generation_bench
+2026-04-21 21:00:26,178 - INFO - [ThreadPoolExecutor-0_1] Reset agent evobench-openai-minimax-minimax-m2-5-w1 workspace to workspaces/2026_04_21_20_59_53_bench/0001/task_01_batch_data_transform_bench
+2026-04-21 21:00:26,290 - INFO - [ThreadPoolExecutor-0_0] Reset agent evobench-openai-minimax-minimax-m2-5-w0 workspace to workspaces/2026_04_21_20_59_53_bench/0001/task_00_sanity_bench
+2026-04-21 21:00:26,293 - INFO - [ThreadPoolExecutor-0_2] Reset agent evobench-openai-minimax-minimax-m2-5-w2 workspace to workspaces/2026_04_21_20_59_53_bench/0001/task_02_log_analysis_bench
+2026-04-21 21:00:40,581 - WARNING - [ThreadPoolExecutor-0_3] OpenClaw transcript: missing or empty file for session task_03_api_scaffold_1776776417938 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w3/sessions
+2026-04-21 21:00:40,591 - WARNING - [ThreadPoolExecutor-0_5] OpenClaw transcript: missing or empty file for session task_05_config_migration_1776776417939 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w5/sessions
+2026-04-21 21:00:40,632 - WARNING - [ThreadPoolExecutor-0_3] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w3 (workspace=workspaces/2026_04_21_20_59_53_bench/0001/task_03_api_scaffold_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 21:00:40,632 - WARNING - [ThreadPoolExecutor-0_5] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w5 (workspace=workspaces/2026_04_21_20_59_53_bench/0001/task_05_config_migration_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 21:00:40,634 - INFO - [ThreadPoolExecutor-0_5]   [x] task_05_config_migration: 0.0/1.0 (0%) - automated
+2026-04-21 21:00:40,635 - INFO - [ThreadPoolExecutor-0_5] 
+======================================================================
+  Task task_06_code_review [bench mode] (Run 1)
+======================================================================
+2026-04-21 21:00:40,636 - INFO - [ThreadPoolExecutor-0_5] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w5] task: task_06_code_review (mode=bench)
+2026-04-21 21:00:40,637 - INFO - [ThreadPoolExecutor-0_3]   [x] task_03_api_scaffold: 0.0/1.0 (0%) - automated
+2026-04-21 21:00:40,637 - INFO - [ThreadPoolExecutor-0_3] 
+======================================================================
+  Task task_07_doc_extraction [bench mode] (Run 1)
+======================================================================
+2026-04-21 21:00:40,637 - INFO - [ThreadPoolExecutor-0_3] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w3] task: task_07_doc_extraction (mode=bench)
+2026-04-21 21:00:48,391 - WARNING - [ThreadPoolExecutor-0_0] OpenClaw transcript: missing or empty file for session task_00_sanity_1776776426290 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w0/sessions
+2026-04-21 21:00:48,463 - WARNING - [ThreadPoolExecutor-0_0] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w0 (workspace=workspaces/2026_04_21_20_59_53_bench/0001/task_00_sanity_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 21:00:48,463 - INFO - [ThreadPoolExecutor-0_0]   [x] task_00_sanity: 0.0/1.0 (0%) - automated
+2026-04-21 21:00:48,464 - INFO - [ThreadPoolExecutor-0_0] 
+======================================================================
+  Task task_08_schema_ops [bench mode] (Run 1)
+======================================================================
+2026-04-21 21:00:48,464 - INFO - [ThreadPoolExecutor-0_0] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w0] task: task_08_schema_ops (mode=bench)
+2026-04-21 21:00:49,447 - WARNING - [ThreadPoolExecutor-0_2] OpenClaw transcript: missing or empty file for session task_02_log_analysis_1776776426293 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w2/sessions
+2026-04-21 21:00:49,447 - WARNING - [ThreadPoolExecutor-0_2] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w2 (workspace=workspaces/2026_04_21_20_59_53_bench/0001/task_02_log_analysis_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 21:00:53,263 - INFO - [ThreadPoolExecutor-0_2] HTTP Request: POST http://localhost:16666/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-21 21:00:53,280 - INFO - [ThreadPoolExecutor-0_2]   [x] task_02_log_analysis: 0.0/1.0 (0%) - hybrid
+2026-04-21 21:00:53,280 - INFO - [ThreadPoolExecutor-0_2] 
+======================================================================
+  Task task_09_excel_analytics [bench mode] (Run 1)
+======================================================================
+2026-04-21 21:00:53,280 - INFO - [ThreadPoolExecutor-0_2] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w2] task: task_09_excel_analytics (mode=bench)
+2026-04-21 21:00:56,108 - INFO - [ThreadPoolExecutor-0_5] Reset agent evobench-openai-minimax-minimax-m2-5-w5 workspace to workspaces/2026_04_21_20_59_53_bench/0001/task_06_code_review_bench
+2026-04-21 21:00:56,312 - INFO - [ThreadPoolExecutor-0_3] Reset agent evobench-openai-minimax-minimax-m2-5-w3 workspace to workspaces/2026_04_21_20_59_53_bench/0001/task_07_doc_extraction_bench
+2026-04-21 21:00:58,165 - WARNING - [ThreadPoolExecutor-0_4] OpenClaw transcript: missing or empty file for session task_04_test_generation_1776776426214 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w4/sessions
+2026-04-21 21:00:58,165 - WARNING - [ThreadPoolExecutor-0_4] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w4 (workspace=workspaces/2026_04_21_20_59_53_bench/0001/task_04_test_generation_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 21:00:58,167 - INFO - [ThreadPoolExecutor-0_4]   [x] task_04_test_generation: 0.0/1.0 (0%) - automated
+2026-04-21 21:00:58,167 - INFO - [ThreadPoolExecutor-0_4] 
+======================================================================
+  Task task_10_git_history_analysis [bench mode] (Run 1)
+======================================================================
+2026-04-21 21:00:58,167 - INFO - [ThreadPoolExecutor-0_4] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w4] task: task_10_git_history_analysis (mode=bench)
+2026-04-21 21:01:00,942 - INFO - [ThreadPoolExecutor-0_0] Reset agent evobench-openai-minimax-minimax-m2-5-w0 workspace to workspaces/2026_04_21_20_59_53_bench/0001/task_08_schema_ops_bench
+2026-04-21 21:01:02,029 - WARNING - [ThreadPoolExecutor-0_1] OpenClaw transcript: missing or empty file for session task_01_batch_data_transform_1776776426214 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w1/sessions
+2026-04-21 21:01:02,030 - WARNING - [ThreadPoolExecutor-0_1] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w1 (workspace=workspaces/2026_04_21_20_59_53_bench/0001/task_01_batch_data_transform_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 21:01:02,031 - INFO - [ThreadPoolExecutor-0_1]   [x] task_01_batch_data_transform: 0.0/1.0 (0%) - automated
+2026-04-21 21:01:02,031 - INFO - [ThreadPoolExecutor-0_1] 
+======================================================================
+  Task task_11_web_extraction [bench mode] (Run 1)
+======================================================================
+2026-04-21 21:01:02,031 - INFO - [ThreadPoolExecutor-0_1] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w1] task: task_11_web_extraction (mode=bench)
+2026-04-21 21:01:06,708 - INFO - [ThreadPoolExecutor-0_2] Reset agent evobench-openai-minimax-minimax-m2-5-w2 workspace to workspaces/2026_04_21_20_59_53_bench/0001/task_09_excel_analytics_bench
+2026-04-21 21:01:12,898 - INFO - [ThreadPoolExecutor-0_4] Reset agent evobench-openai-minimax-minimax-m2-5-w4 workspace to workspaces/2026_04_21_20_59_53_bench/0001/task_10_git_history_analysis_bench
+2026-04-21 21:01:13,861 - WARNING - [ThreadPoolExecutor-0_3] OpenClaw transcript: missing or empty file for session task_07_doc_extraction_1776776456312 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w3/sessions
+2026-04-21 21:01:13,861 - WARNING - [ThreadPoolExecutor-0_3] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w3 (workspace=workspaces/2026_04_21_20_59_53_bench/0001/task_07_doc_extraction_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 21:01:16,575 - INFO - [ThreadPoolExecutor-0_1] Reset agent evobench-openai-minimax-minimax-m2-5-w1 workspace to workspaces/2026_04_21_20_59_53_bench/0001/task_11_web_extraction_bench
+2026-04-21 21:01:16,880 - WARNING - [ThreadPoolExecutor-0_5] OpenClaw transcript: missing or empty file for session task_06_code_review_1776776456108 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w5/sessions
+2026-04-21 21:01:16,880 - WARNING - [ThreadPoolExecutor-0_5] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w5 (workspace=workspaces/2026_04_21_20_59_53_bench/0001/task_06_code_review_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 21:01:17,037 - INFO - [ThreadPoolExecutor-0_3] HTTP Request: POST http://localhost:16666/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-21 21:01:17,039 - INFO - [ThreadPoolExecutor-0_3]   [x] task_07_doc_extraction: 0.0/1.0 (0%) - hybrid
+2026-04-21 21:01:17,039 - INFO - [ThreadPoolExecutor-0_3] 
+======================================================================
+  Task task_12_docx_generation [bench mode] (Run 1)
+======================================================================
+2026-04-21 21:01:17,040 - INFO - [ThreadPoolExecutor-0_3] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w3] task: task_12_docx_generation (mode=bench)
+2026-04-21 21:01:21,460 - INFO - [ThreadPoolExecutor-0_5] HTTP Request: POST http://localhost:16666/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-21 21:01:21,536 - INFO - [ThreadPoolExecutor-0_5]   [x] task_06_code_review: 0.0/1.0 (0%) - hybrid
+2026-04-21 21:01:21,536 - INFO - [ThreadPoolExecutor-0_5] 
+======================================================================
+  Task task_13_data_pipeline [bench mode] (Run 1)
+======================================================================
+2026-04-21 21:01:21,536 - INFO - [ThreadPoolExecutor-0_5] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w5] task: task_13_data_pipeline (mode=bench)
+2026-04-21 21:01:23,106 - WARNING - [ThreadPoolExecutor-0_0] OpenClaw transcript: missing or empty file for session task_08_schema_ops_1776776460943 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w0/sessions
+2026-04-21 21:01:23,107 - WARNING - [ThreadPoolExecutor-0_0] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w0 (workspace=workspaces/2026_04_21_20_59_53_bench/0001/task_08_schema_ops_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 21:01:23,109 - INFO - [ThreadPoolExecutor-0_0]   [x] task_08_schema_ops: 0.0/1.0 (0%) - automated
+2026-04-21 21:01:23,109 - INFO - [ThreadPoolExecutor-0_0] 
+======================================================================
+  Task task_14_email_processing [bench mode] (Run 1)
+======================================================================
+2026-04-21 21:01:23,109 - INFO - [ThreadPoolExecutor-0_0] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w0] task: task_14_email_processing (mode=bench)
+2026-04-21 21:01:26,957 - WARNING - [ThreadPoolExecutor-0_2] OpenClaw transcript: missing or empty file for session task_09_excel_analytics_1776776466712 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w2/sessions
+2026-04-21 21:01:27,042 - WARNING - [ThreadPoolExecutor-0_2] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w2 (workspace=workspaces/2026_04_21_20_59_53_bench/0001/task_09_excel_analytics_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 21:01:27,210 - INFO - [ThreadPoolExecutor-0_2]   [x] task_09_excel_analytics: 0.0/1.0 (0%) - automated
+2026-04-21 21:01:27,210 - INFO - [ThreadPoolExecutor-0_2] 
+======================================================================
+  Task task_15_shell_automation [bench mode] (Run 1)
+======================================================================
+2026-04-21 21:01:27,210 - INFO - [ThreadPoolExecutor-0_2] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w2] task: task_15_shell_automation (mode=bench)
+2026-04-21 21:01:29,560 - INFO - [ThreadPoolExecutor-0_3] Reset agent evobench-openai-minimax-minimax-m2-5-w3 workspace to workspaces/2026_04_21_20_59_53_bench/0001/task_12_docx_generation_bench
+2026-04-21 21:01:31,204 - WARNING - [ThreadPoolExecutor-0_4] OpenClaw transcript: missing or empty file for session task_10_git_history_analysis_1776776472899 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w4/sessions
+2026-04-21 21:01:31,204 - WARNING - [ThreadPoolExecutor-0_4] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w4 (workspace=workspaces/2026_04_21_20_59_53_bench/0001/task_10_git_history_analysis_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 21:01:31,206 - INFO - [ThreadPoolExecutor-0_4]   [x] task_10_git_history_analysis: 0.0/1.0 (0%) - automated
+2026-04-21 21:01:31,206 - INFO - [ThreadPoolExecutor-0_4] 
+======================================================================
+  Task task_16_ci_pipeline [bench mode] (Run 1)
+======================================================================
+2026-04-21 21:01:31,207 - INFO - [ThreadPoolExecutor-0_4] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w4] task: task_16_ci_pipeline (mode=bench)
+2026-04-21 21:01:33,806 - INFO - [ThreadPoolExecutor-0_5] Reset agent evobench-openai-minimax-minimax-m2-5-w5 workspace to workspaces/2026_04_21_20_59_53_bench/0001/task_13_data_pipeline_bench
+2026-04-21 21:01:35,210 - WARNING - [ThreadPoolExecutor-0_1] OpenClaw transcript: missing or empty file for session task_11_web_extraction_1776776476575 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w1/sessions
+2026-04-21 21:01:35,210 - WARNING - [ThreadPoolExecutor-0_1] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w1 (workspace=workspaces/2026_04_21_20_59_53_bench/0001/task_11_web_extraction_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 21:01:35,808 - INFO - [ThreadPoolExecutor-0_0] Reset agent evobench-openai-minimax-minimax-m2-5-w0 workspace to workspaces/2026_04_21_20_59_53_bench/0001/task_14_email_processing_bench
+2026-04-21 21:01:38,538 - INFO - [ThreadPoolExecutor-0_1] HTTP Request: POST http://localhost:16666/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-21 21:01:38,539 - INFO - [ThreadPoolExecutor-0_1]   [x] task_11_web_extraction: 0.0/1.0 (0%) - hybrid
+2026-04-21 21:01:38,539 - INFO - [ThreadPoolExecutor-0_1] 
+======================================================================
+  Task task_17_invoice_processing [bench mode] (Run 1)
+======================================================================
+2026-04-21 21:01:38,539 - INFO - [ThreadPoolExecutor-0_1] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w1] task: task_17_invoice_processing (mode=bench)
+2026-04-21 21:01:40,656 - INFO - [ThreadPoolExecutor-0_2] Reset agent evobench-openai-minimax-minimax-m2-5-w2 workspace to workspaces/2026_04_21_20_59_53_bench/0001/task_15_shell_automation_bench
+2026-04-21 21:01:43,630 - INFO - [ThreadPoolExecutor-0_4] Reset agent evobench-openai-minimax-minimax-m2-5-w4 workspace to workspaces/2026_04_21_20_59_53_bench/0001/task_16_ci_pipeline_bench
+2026-04-21 21:01:44,945 - WARNING - [ThreadPoolExecutor-0_3] OpenClaw transcript: missing or empty file for session task_12_docx_generation_1776776489560 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w3/sessions
+2026-04-21 21:01:44,945 - WARNING - [ThreadPoolExecutor-0_3] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w3 (workspace=workspaces/2026_04_21_20_59_53_bench/0001/task_12_docx_generation_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 21:01:44,977 - INFO - [ThreadPoolExecutor-0_3]   [x] task_12_docx_generation: 0.0/1.0 (0%) - automated
+2026-04-21 21:01:44,977 - INFO - [ThreadPoolExecutor-0_3] 
+======================================================================
+  Task task_18_dep_audit [bench mode] (Run 1)
+======================================================================
+2026-04-21 21:01:44,977 - INFO - [ThreadPoolExecutor-0_3] [OpenClaw] Agent [evobench-openai-minimax-minimax-m2-5-w3] task: task_18_dep_audit (mode=bench)
+2026-04-21 21:01:49,269 - INFO - [ThreadPoolExecutor-0_1] Reset agent evobench-openai-minimax-minimax-m2-5-w1 workspace to workspaces/2026_04_21_20_59_53_bench/0001/task_17_invoice_processing_bench
+2026-04-21 21:01:57,064 - INFO - [MainThread] Cancelling pending tasks...
+2026-04-21 21:01:57,107 - INFO - [ThreadPoolExecutor-0_3] Reset agent evobench-openai-minimax-minimax-m2-5-w3 workspace to workspaces/2026_04_21_20_59_53_bench/0001/task_18_dep_audit_bench
+2026-04-21 21:01:57,189 - WARNING - [ThreadPoolExecutor-0_5] OpenClaw transcript: missing or empty file for session task_13_data_pipeline_1776776493808 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w5/sessions
+2026-04-21 21:01:57,189 - WARNING - [ThreadPoolExecutor-0_5] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w5 (workspace=workspaces/2026_04_21_20_59_53_bench/0001/task_13_data_pipeline_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 21:01:57,426 - WARNING - [ThreadPoolExecutor-0_0] OpenClaw transcript: missing or empty file for session task_14_email_processing_1776776495808 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w0/sessions
+2026-04-21 21:01:57,426 - WARNING - [ThreadPoolExecutor-0_0] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w0 (workspace=workspaces/2026_04_21_20_59_53_bench/0001/task_14_email_processing_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 21:01:59,275 - WARNING - [ThreadPoolExecutor-0_3] OpenClaw transcript: missing or empty file for session task_18_dep_audit_1776776517107 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w3/sessions
+2026-04-21 21:01:59,297 - WARNING - [ThreadPoolExecutor-0_3] Bench skills check: sessions.json not found for agent evobench-openai-minimax-minimax-m2-5-w3 — cannot confirm skill-creator was loaded from workspace workspaces/2026_04_21_20_59_53_bench/0001/task_18_dep_audit_bench
+2026-04-21 21:02:00,071 - INFO - [ThreadPoolExecutor-0_0] HTTP Request: POST http://localhost:16666/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-21 21:02:00,071 - INFO - [ThreadPoolExecutor-0_0]   [x] task_14_email_processing: 0.0/1.0 (0%) - hybrid
+2026-04-21 21:02:00,157 - WARNING - [ThreadPoolExecutor-0_2] OpenClaw transcript: missing or empty file for session task_15_shell_automation_1776776500776 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w2/sessions
+2026-04-21 21:02:00,157 - WARNING - [ThreadPoolExecutor-0_2] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w2 (workspace=workspaces/2026_04_21_20_59_53_bench/0001/task_15_shell_automation_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 21:02:00,775 - INFO - [ThreadPoolExecutor-0_5] HTTP Request: POST http://localhost:16666/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-21 21:02:00,775 - INFO - [ThreadPoolExecutor-0_5]   [x] task_13_data_pipeline: 0.0/1.0 (0%) - hybrid
+2026-04-21 21:02:02,176 - WARNING - [ThreadPoolExecutor-0_4] OpenClaw transcript: missing or empty file for session task_16_ci_pipeline_1776776503630 under /Users/pzy/.openclaw/agents/evobench-openai-minimax-minimax-m2-5-w4/sessions
+2026-04-21 21:02:02,176 - WARNING - [ThreadPoolExecutor-0_4] Bench skills check: skill-creator NOT found in sessions.json for agent evobench-openai-minimax-minimax-m2-5-w4 (workspace=workspaces/2026_04_21_20_59_53_bench/0001/task_16_ci_pipeline_bench). Verify that workspace/skills/skill-creator/ exists and OpenClaw scanned it.
+2026-04-21 21:02:02,717 - INFO - [ThreadPoolExecutor-0_2] HTTP Request: POST http://localhost:16666/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-21 21:02:02,717 - INFO - [ThreadPoolExecutor-0_2]   [x] task_15_shell_automation: 0.0/1.0 (0%) - hybrid

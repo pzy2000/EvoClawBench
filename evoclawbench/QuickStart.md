@@ -1,12 +1,12 @@
-# EvoClawBench — Bench mode quick start
+# EvoClawBench Quick Start
 
-This guide covers **bench mode only** (`--mode bench`): the agent receives a **bench-specific prefix** (skill-creator workflow: recognize repetition, follow `skills/skill-creator/SKILL.md`, add reusable skills) **plus** the task prompt — not the baseline/evolution A/B prefixes. The workspace is seeded with the monorepo **`skills/skill-creator`** bundle. Composite metrics such as **EvoScore** and **fail2pass** are **not** computed in this mode; they are computed only in `--mode both`, which now compares **baseline + bench**.
+This guide covers the current three-way benchmark:
 
-## Requirements
+- `baseline`: execute a task directly without creating or editing skills.
+- `preskill`: generate skills first, then execute with those skills in a fresh workspace.
+- `postskill`: execute once, summarize skills from that run, then execute the same task again.
 
-- Python **3.10+**
-- [`uv`](https://github.com/astral-sh/uv) for the environment
-- Repo layout: **`skills/skill-creator`** at the repository root, **sibling of** `evoclawbench/` (bench mode copies from `(repo)/skills/skill-creator` into each task workspace). If that directory is missing, preparation fails with `FileNotFoundError`.
+The default `--mode all` runs all three.
 
 ## Install
 
@@ -15,119 +15,94 @@ cd evoclawbench
 uv sync --extra dev
 ```
 
-## Run (bench mode)
+`preskill` and `postskill` skill-authoring phases require the repository-level
+`skills/skill-creator/` bundle next to `evoclawbench/`.
+
+## Run
 
 ```bash
-# Full suite, nanobot
-uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime nanobot --mode bench
+# Full three-way benchmark
+uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime nanobot
+
+# Explicit full mode
+uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime openclaw --mode all
+
+# One mode only
+uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime nanobot --mode baseline
+uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime nanobot --mode preskill
+uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime nanobot --mode postskill
 
 # Subset of tasks
-uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime openclaw --mode bench \
+uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime openclaw \
   --suite task_01_batch_data_transform,task_02_log_analysis
 
-# Statistical repeats (mean/std over grades per task)
-uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime nanobot --mode bench --runs 3
-
-# Parallel workers (OpenClaw uses distinct agent IDs per worker when workers > 1)
-uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime openclaw --mode bench --workers 4
+# More stable aggregate numbers
+uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime nanobot --runs 3
 ```
 
 Useful flags:
 
 | Flag | Purpose |
 |------|---------|
-| `--output-dir` | Results directory (default: `results`) |
-| `--timeout-multiplier` | Scales task timeouts |
+| `--mode all|baseline|preskill|postskill` | Select the benchmark mode |
+| `--suite` | `all` or comma-separated task ids |
+| `--output-dir` | Results directory, default `results` |
+| `--timeout-multiplier` | Scale task timeouts |
 | `--judge` | Judge model for `llm_judge` / `hybrid` tasks |
-| `--environment docker` | Isolated runs (`--docker-image`, default `evoclawbench/runtime`) |
-| `--no-bench-report` | Skip Markdown/HTML report and terminal bench summary |
+| `--workers` | Parallel task pipelines, default `4` |
+| `--environment docker` | Run commands in Docker (`--docker-image`) |
 | `--no-progress` | Disable Rich live progress |
 | `-v` / `--verbose` | Verbose logging |
 
-### LLM providers
-
-Routing matches the main [README.md](README.md) (“Configuring LLM Providers”). Typical variables:
-
-- **OpenRouter**: `OPENROUTER_API_KEY`, optional `OPENROUTER_API_BASE`
-- **Anthropic**: `ANTHROPIC_API_KEY`, optional `ANTHROPIC_API_URL`
-- **OpenAI**: `OPENAI_API_KEY`, optional `OPENAI_API_BASE`
-
-## What bench mode does (behavior)
-
-1. **Bench prompt prefix** — `get_mode_prefix("bench")` returns `BENCH_PREFIX` prepended before **`task.prompt`** (see [`scripts/lib_agent.py`](scripts/lib_agent.py)).
-2. **Workspace** — Under `evoclawbench/`, each run uses:
-   - Root: `workspaces/{YYYY_MM_DD_HH_MM_SS}_bench/{run_id}/`
-   - If `--runs` > 1: an extra level `{run_id}-bench-{k}/` per run index.
-   - Per task: `{workspace_root}/{task_id}_bench/` (assets from `assets/`, `outputs/` pre-created, and in bench mode `skills/skill-creator/` copied from the monorepo). Orchestration: [`scripts/benchmark.py`](scripts/benchmark.py) `_run_single_mode`; layout: [`prepare_workspace`](scripts/lib_agent.py).
-3. **`run_id` passed to the agent layer** — For each execution, `execute_task(..., run_id=ctx.trajectory_run_id)` with `trajectory_run_id = f"{run_id}-bench-{run_idx + 1}"` (1-based run number). That string is still passed into `prepare_workspace`; because **`workspace_root` is always set** by `benchmark.py` for orchestrated runs, the on-disk path is **`workspace_root / "{task_id}_bench"`**, not `/tmp/evoclawbench/{trajectory_run_id}/...`.
-4. **OpenClaw post-check** — After a bench run, [`_verify_bench_skills_loaded`](scripts/lib_agent.py) reads `~/.openclaw/agents/<agent>/sessions/sessions.json` and warns if **skill-creator** does not appear in the reported loaded skills. This is diagnostic only (run does not fail). **nanobot** has no equivalent check.
+## What Each Mode Does
 
 ```mermaid
 flowchart LR
-  loadTasks[Load tasks]
-  prepWS[prepare_workspace plus skill-creator]
-  exec[execute_task]
-  grade[grade_task]
-  benchRes[bench_results JSON]
-  report[bench report MD or HTML]
-  loadTasks --> prepWS --> exec --> grade --> benchRes --> report
+  baseline["baseline: execute + grade"]
+  preA["preskill: generate skill"]
+  preB["execute with generated skill + grade"]
+  postA["postskill: first execute + grade"]
+  postB["summarize skill"]
+  postC["second execute with summarized skill + grade"]
+  preA --> preB
+  postA --> postB --> postC
 ```
 
-## Metrics and scoring (bench)
+Skill reuse execution phases copy only generated skills into the new workspace. The seeded
+`skill-creator` bundle is excluded. Skill files are hashed before and after reuse execution; any
+skill mutation is recorded as `skill_mutation_violation=true`.
 
-### Top-level JSON aggregate
+Postskill writes `.evoclawbench/first_run_context.json` after the first pass. The summary phase
+uses that file to create reusable skills, then the second pass runs the same task and fixtures.
 
-- **`bench_results`**: Per-task payloads (grades, execution results, mean score across `--runs`, optional `created_skills`, `skill_quality_score`).
-- **`metrics`**: In bench-only runs this object is **empty** `{}` — no EvoScore, fail2pass, or cross-mode consistency (see [`scripts/benchmark.py`](scripts/benchmark.py): `aggregate_metrics` runs only for `--mode both`, which compares baseline against bench). Some metric field names still use legacy `evolution_*` labels for compatibility.
-- **`baseline_results` / `evolution_results`**: Empty objects when `--mode bench`.
+## Metrics
 
-### Per-task grading (unchanged by mode)
+The aggregate JSON includes two performance scopes:
 
-[`grade_task`](scripts/lib_grading.py) uses each task’s `grading_type`:
+| Scope | What it counts |
+|-------|----------------|
+| `execution_only` | Only the task execution being compared |
+| `end_to_end` | Full workflow cost, including skill generation or summary |
 
-- **automated** — Runs embedded `grade(transcript, workspace_path)`; numeric breakdown keys **`sub_N_*`** are aggregated into **`sub_problem_scores`**; overall score is derived via `_average_scores` (typically `max_score` 1.0).
-- **llm_judge** / **hybrid** — LLM rubric and/or merge with automated; `--judge` selects the judge model when applicable.
-
-### Bench report summary (terminal + `.bench-report.md` / `.bench-report.html`)
-
-Built by [`build_bench_report`](scripts/lib_bench_report.py) from `bench_results`:
-
-| Field | Definition |
-|-------|------------|
-| **Mean score %** | Mean over tasks of `(mean_score / max_score) * 100`; `mean_score` averages grades when `--runs` > 1. |
-| **Total tokens / cost** | Sum over tasks of per-run **`usage`** (`_sum_usage_across_runs`). |
-| **Skills detected** | Count of **`skills/<name>/SKILL.md`** entries **excluding** seeded names; bench excludes **`skill-creator`** via [`BENCH_SEEDED_SKILL_NAMES`](scripts/lib_agent.py). |
-| **Skill quality (heuristic)** | [`grade_skill_quality`](scripts/lib_grading.py): per-skill checklist (frontmatter, content length, `scripts/`, `references/`), averaged across detected non-seed skills; **0** if none. |
-
-Per-task sections in the report include `sub_problem_scores`, numeric **breakdown**, **exit_code**, **timed_out**, **workspace** path, and notes when present.
+Both scopes include mean scores, token/cost/time usage, ratios versus baseline, and efficiency
+versus baseline. `metrics.postskill` includes first-pass mean, second-pass mean, and
+second-vs-first delta/ratio.
 
 ## Artifacts
 
-After a successful run (default `results/`, four-digit `run_id`, `model_slug` from the model id):
+Default output names:
 
 | Artifact | Description |
 |----------|-------------|
-| `{run_id}_{model_slug}_{runtime}.json` | Full aggregate (including `bench_results`) |
-| `{run_id}_{model_slug}_{runtime}.trajectories.json` | Trajectory bundle from [`save_trajectories`](scripts/benchmark.py) |
-| `{run_id}_{model_slug}_{runtime}.bench-report.md` | Human-readable Markdown report |
-| `{run_id}_{model_slug}_{runtime}.bench-report.html` | HTML report |
+| `{run_id}_{model_slug}_{runtime}.json` | Aggregate results and metrics |
+| `{run_id}_{model_slug}_{runtime}.trajectories.json` | Transcripts, workspace previews, grading details |
 
-Logs also append to **`benchmark.log`** in the current working directory (typically `evoclawbench/` when invoked from there).
+Logs append to `benchmark.log` in the current working directory.
 
 ## Troubleshooting
 
-1. **`FileNotFoundError` for skill-creator** — Ensure `<repo>/skills/skill-creator` exists next to `evoclawbench/`.
-2. **All scores 0%** — Confirm API keys, runtime install (`openclaw` / `nanobot`), workspace write access, and that task **outputs** match what **Automated Checks** expect (`sub_N_*` keys, numeric 0–1). Run a single task with `-v`:  
-   `uv run scripts/benchmark.py --model ... --runtime ... --mode bench --suite task_00_sanity -v`
-3. **OpenClaw: “skill-creator NOT found in sessions.json”** — Workspace may still have the tree; OpenClaw may not have exposed it in the session index. Verify `skills/skill-creator` under the reported **workspace** path and agent discovery settings.
-4. **No EvoScore in JSON** — Expected for bench-only; use mean score % and per-task breakdowns in the bench report and `bench_results`.
-
-## Source reference
-
-| Area | File |
-|------|------|
-| CLI, aggregate JSON, bench report invocation | [`scripts/benchmark.py`](scripts/benchmark.py) |
-| Modes, workspace, runtimes, bench skill verify | [`scripts/lib_agent.py`](scripts/lib_agent.py) |
-| Grading and skill quality heuristic | [`scripts/lib_grading.py`](scripts/lib_grading.py) |
-| Bench report numbers and rendering | [`scripts/lib_bench_report.py`](scripts/lib_bench_report.py) |
-| fail2pass / EvoScore (not used in bench-only) | [`scripts/lib_metrics.py`](scripts/lib_metrics.py) |
+- Missing `skill-creator`: ensure `<repo>/skills/skill-creator` exists next to `evoclawbench/`.
+- All scores are zero: run one task with `-v`, inspect the reported workspace, and compare files
+  under `outputs/` with the task's automated checks.
+- Skill mutation violations: inspect the reuse execution workspace and compare
+  `skill_hash_before` / `skill_hash_after` in the result JSON.

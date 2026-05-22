@@ -8,7 +8,7 @@ Tests that:
 4. Breakdown contains both 'automated.*' and 'llm_judge.*' keys
 
 Run from the scripts/ directory:
-    OPENAI_BASE_URL=http://localhost:8000/v1 OPENAI_API_KEY=dummy \
+    OPENAI_BASE_URL=http://localhost:16666/v1 OPENAI_API_KEY=dummy \
     python test_llm_judge_integration.py
 """
 
@@ -279,7 +279,7 @@ def test_helpers() -> None:
 
 def test_llm_api_call() -> None:
     print("\n[Test 2] Real LLM API call via proxy")
-    base_url = os.environ.get("OPENAI_BASE_URL", "http://localhost:8000/v1")
+    base_url = os.environ.get("OPENAI_BASE_URL", "http://localhost:16666/v1")
     _print(INFO, f"Using OPENAI_BASE_URL={base_url}, model={JUDGE_MODEL}")
 
     prompt = (

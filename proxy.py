@@ -1,8 +1,9 @@
+import argparse
 import httpx
 import time
 from datetime import datetime
 from fastapi import FastAPI, Request
-from fastapi.responses import StreamingResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 
 app = FastAPI()
 
@@ -10,7 +11,7 @@ timeout = httpx.Timeout(300.0, connect=60.0)
 client = httpx.AsyncClient(timeout=timeout)
 
 # ── 认证 Token（两个路由共用） ──────────────────────────────────────────────────
-TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjdXJyZW50VGltZSI6MTc3NTQ5OTYzMzI1OCwiZXhwIjoxNzc2MTA0NDMzLCJ1c2VybmFtZSI6IjExOCJ9.8YyCYdN8QjnfNCQZ8mdgFKjwrbThMIp2zLo09PWQu90"
+TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjdXJyZW50VGltZSI6MTc3ODA1NzIzNDc2NiwiZXhwIjoxNzc4NjYyMDM0LCJ1c2VybmFtZSI6IjExOCJ9.t-HFEoFO4ku9xmFVpHG4gOvKM8hK1NAuApvqnCvOp30"
 
 # ── 上游端点 ────────────────────────────────────────────────────────────────────
 GOOGLE_URL = (
@@ -101,6 +102,28 @@ async def log_requests(request: Request, call_next):
     return response
 
 
+# ── 路由 0：模型列表 ─────────────────────────────────────────────────────────────
+_KNOWN_MODELS = [
+    # GPT / OpenAI
+    "gpt-4.1", "gpt-4.1-mini", "gpt-4o", "gpt-4o-mini", "gpt-4", "gpt-3.5-turbo",
+    "gpt-5", "o1", "o1-mini", "o1-preview", "o3", "o3-mini", "o4-mini",
+    # Qwen / DeepSeek / MiniMax
+    "qwen-plus", "qwen-max", "qwen3-235b-a22b", "qwq-32b",
+    "deepseek-v3", "deepseek-r1", "minimax-text-01",
+    # Kimi
+    "moonshot-v1-8k", "moonshot-v1-32k", "moonshot-v1-128k",
+]
+
+@app.get("/v1/models")
+async def list_models():
+    now = int(time.time())
+    data = [
+        {"id": m, "object": "model", "created": now, "owned_by": "proxy"}
+        for m in _KNOWN_MODELS
+    ]
+    return JSONResponse({"object": "list", "data": data})
+
+
 # ── 路由 1：Google GenAI（保留原有逻辑） ──────────────────────────────────────────
 @app.post("/v1beta/models/{model}:generateContent")
 async def proxy_genai(request: Request, model: str):
@@ -156,4 +179,11 @@ async def proxy_chat(request: Request):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+
+    parser = argparse.ArgumentParser(add_help=False)
+    parser.add_argument("--host", default="0.0.0.0")
+    parser.add_argument("--port", type=int, default=16666)
+    parser.add_argument("--print-llm", default=None)  # accepted but unused
+    args, _ = parser.parse_known_args()
+
+    uvicorn.run(app, host=args.host, port=args.port)

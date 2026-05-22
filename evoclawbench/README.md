@@ -1,308 +1,159 @@
 # EvoClawBench
 
-**Benchmark for evaluating LLM agent skill evolution capabilities.**
+**Benchmark for evaluating general agent task performance with and without reusable skills.**
 
-EvoClawBench measures whether LLM agents can identify repeating patterns in complex tasks, create reusable skills (SKILL.md files) at runtime, and effectively reuse them — a capability we call **auto-evolution**.
+EvoClawBench runs the same task suite through OpenClaw or nanobot and compares three
+execution strategies:
 
-## Key Idea
+- **baseline**: complete the task directly; skill creation and skill edits are forbidden.
+- **preskill**: generate task-specific skills first, then execute the task in a fresh workspace
+  using those skills; execution must not modify skills.
+- **postskill**: execute once without skills, summarize reusable skills from that first run, then
+  execute the same task again in a fresh workspace using those skills.
 
-Traditional benchmarks test one-shot task completion. EvoClawBench tests something harder: can an agent **learn from repetition** within a session?
+The default `--mode all` runs all three strategies and reports execution-only and end-to-end
+performance.
 
-Each task contains 5-10 structurally similar sub-problems. An agent that recognizes the pattern and creates a reusable skill will outperform one that solves each sub-problem from scratch.
+## Decision Log
 
-## Supported Runtimes
+These are the v1 benchmark decisions selected during design review. They are intentionally placed
+near the top because they define how results should be interpreted.
 
-| Runtime | Skill Storage | CLI |
-|---------|--------------|-----|
-| **OpenClaw** | `<workspace>/skills/` | `openclaw agent --message` |
-| **nanobot** | `~/.nanobot/workspace/skills/` | `nanobot run --message` |
-
-Both use the SKILL.md format for skill definitions.
+| Question | Selected answer | Impact |
+|----------|-----------------|--------|
+| What replaces the old `baseline/evolution/bench/both` semantics? | Direct replacement with `baseline`, `preskill`, `postskill`, and `all`; no legacy CLI mode compatibility. | New result JSON uses `baseline_results`, `preskill_results`, `postskill_results`, and `metrics`. |
+| What is the default CLI mode? | `--mode all`. | A default run compares all three strategies in order: baseline -> preskill -> postskill. |
+| Who creates or summarizes skills? | The same runtime and model being benchmarked. | Skill generation is part of agent performance, not an external judge/summarizer step. |
+| What does `postskill` rerun in v1? | The same task with the same fixtures. | No similar-task variants are introduced in v1. |
+| What counts as performance? | Task score, token usage, cost, and elapsed time. | Metrics are reported for both execution-only and end-to-end scopes. |
+| Can baseline or execution phases edit skills? | No. Baseline and skill reuse execution phases must not create, edit, or delete skills. | Skill files are hashed before and after execution; mutations set `skill_mutation_violation=true`. |
+| How does `postskill` learn from the first run? | The first workspace receives `.evoclawbench/first_run_context.json` with task, grading, output, and transcript summaries. | The summary phase uses first-run evidence without rerunning the task. |
+| How much should tasks and graders change? | Keep existing tasks, assets, and grading behavior unless required by orchestration. | The benchmark change is focused on orchestration, prompts, skill flow, result shape, metrics, and docs. |
 
 ## Quick Start
 
 ```bash
-# Run all tasks in both modes (baseline + bench)
-uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime nanobot --mode both
+cd evoclawbench
+uv sync --extra dev
 
-# Run specific tasks
-uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime openclaw --suite task_01_batch_data_transform,task_02_log_analysis
+# Run the full three-way benchmark
+uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime nanobot
 
-# Baseline only (no skill creation allowed)
-uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime nanobot --mode baseline
+# Run a subset on OpenClaw
+uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime openclaw \
+  --suite task_01_batch_data_transform,task_02_log_analysis
 
-# Bench: skill-creator workflow prefix + task prompt; workspace seeds skills/skill-creator from monorepo
-# (requires ../skills/skill-creator next to evoclawbench/)
-uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime nanobot --mode bench
+# Run one mode only
+uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime nanobot --mode preskill
 
-# Multiple runs for statistical significance
-uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime nanobot --mode both --runs 3
+# Multiple runs per task
+uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime nanobot --runs 3
 ```
 
-## Configuring LLM Providers
+## Modes
 
-By default, EvoClawBench routes requests through **OpenRouter** (a unified LLM API gateway). To use different LLM providers directly or configure custom endpoints, set environment variables before running:
+| Mode | Phases | Skill behavior |
+|------|--------|----------------|
+| `baseline` | execute -> grade | No skill creation or mutation |
+| `preskill` | skill generation -> execute -> grade | Generation seeds `skills/skill-creator`; execution loads generated skills only |
+| `postskill` | first execute -> grade -> skill summary -> second execute -> grade | Summary uses `.evoclawbench/first_run_context.json`; second execution loads summarized skills |
+| `all` | baseline + preskill + postskill | Default full comparison |
 
-### Anthropic
+Skill authoring phases are performed by the same runtime and model being benchmarked. Reuse
+execution phases hash skill files before and after execution; if skills are added, removed, or
+edited during execution, the result is marked with `skill_mutation_violation=true`.
 
-```bash
-# Use Anthropic API directly (requires ANTHROPIC_API_KEY)
-export ANTHROPIC_API_KEY="sk-ant-xxx..."
-export ANTHROPIC_API_URL="https://api.anthropic.com"  # Optional, default is https://api.anthropic.com
+## Supported Runtimes
 
-uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime nanobot --mode both
-```
+| Runtime | CLI |
+|---------|-----|
+| **OpenClaw** | `openclaw agent --message` |
+| **nanobot** | `nanobot run --message` |
 
-### OpenAI
-
-```bash
-# Use OpenAI API directly (requires OPENAI_API_KEY)
-export OPENAI_API_KEY="sk-proj-xxx..."
-export OPENAI_API_BASE="https://api.openai.com/v1"  # Optional custom endpoint
-
-uv run scripts/benchmark.py --model gpt-4o --runtime nanobot --mode both
-```
-
-### Google (Vertex AI / Gemini)
-
-```bash
-# Use Google Vertex AI (requires authentication)
-export GOOGLE_APPLICATION_CREDENTIALS="/path/to/service-account-key.json"
-export GOOGLE_CLOUD_PROJECT="your-project-id"
-export GOOGLE_API_URL="https://vertexai.googleapis.com/v1"  # Optional custom endpoint
-
-uv run scripts/benchmark.py --model gemini-2.0-flash --runtime nanobot --mode both
-```
-
-### Custom Base URL (OpenRouter or compatible proxy)
-
-```bash
-# Route through a custom proxy or self-hosted endpoint
-export OPENROUTER_API_KEY="your-key"
-export OPENROUTER_API_BASE="https://your-proxy.com/api"  # Default: https://openrouter.ai/api
-
-uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime nanobot --mode both
-```
-
-### View Available Models
-
-Different providers support different models. Common models:
-
-| Provider | Model ID | Example |
-|----------|----------|---------|
-| **Anthropic** | claude-\* | `anthropic/claude-sonnet-4`, `anthropic/claude-opus-4.6` |
-| **OpenAI** | gpt-\* | `openai/gpt-4o`, `openai/gpt-4-turbo` |
-| **Google** | gemini-\* | `google/gemini-2.0-flash`, `google/gemini-pro` |
-| **OpenRouter** | provider/model | `anthropic/claude-sonnet-4`, `openai/gpt-4o` |
-
-**Note**: When using OpenRouter, you must set `OPENROUTER_API_KEY`. Other providers require their respective API keys.
-
-## Evaluation Modes
-
-### Baseline Mode ("fail")
-Agent is **forbidden** from creating skills. System prompt includes:
-> "You must NOT create any skills or SKILL.md files. Solve each sub-problem independently from scratch."
-
-### Evolution Mode
-Agent is **encouraged** to create skills. System prompt includes:
-> "You are encouraged to create reusable skills (SKILL.md files) when you notice repeating patterns."
-
-This mode still exists as a standalone option (`--mode evolution`), but it is no longer part of `--mode both`.
-
-### Bench Mode
-A **skill-creator workflow** prefix is prepended (spot repeating patterns across sub-problems, follow `skills/skill-creator/SKILL.md`, add task-specific skills under `skills/<name>/`), then the task prompt. The workspace is prepared with `skills/skill-creator/` copied from the monorepo (`<repo>/skills/skill-creator` adjacent to the `evoclawbench/` directory). Results are written under `bench_results` in the output JSON.
-
-### Both Mode
-`--mode both` now runs **baseline first, then bench**, preserving that execution order. Cross-mode metrics such as fail2pass, consistency, efficiency gain, and EvoScore are computed from that baseline-vs-bench comparison.
+Both runtimes use the `SKILL.md` format. Skill authoring requires the monorepo
+`skills/skill-creator/` directory next to `evoclawbench/`.
 
 ## Metrics
 
-### Core: fail2pass Ratio
-```
-fail2pass = pass_rate_bench / pass_rate_baseline
-```
-- `> 1.0`: Skill creation helps
-- `= 1.0`: No difference
-- `< 1.0`: Skill creation hurts
+The output JSON contains:
 
-### Consistency Score
-```
-consistency = 1 - std(sub_problem_scores) / mean(sub_problem_scores)
-```
-Measures how uniformly the agent performs across sub-problems. Skills should improve consistency.
+- `baseline_results`
+- `preskill_results`
+- `postskill_results`
+- `metrics`
 
-### Efficiency Gain
-```
-token_efficiency = tokens_baseline / tokens_bench
-```
-Measures whether skill reuse reduces token consumption.
+`metrics.execution_only` compares only the task execution phase:
 
-### Skill Quality
-Evaluates created skills on:
-- **Reusability** — Is it generic enough?
-- **Correctness** — Are instructions accurate?
-- **Documentation** — Is the SKILL.md clear?
-- **Structure** — Does it include scripts/references?
+- baseline execution
+- preskill execution after skill generation
+- postskill second execution after summary
 
-### EvoScore (Composite)
-```
-EvoScore = 0.4 * bench_pass_rate
-         + 0.2 * fail2pass_normalized
-         + 0.2 * consistency
-         + 0.1 * efficiency_gain
-         + 0.1 * skill_quality
-```
+`metrics.end_to_end` includes total cost of the full workflow:
+
+- baseline single execution
+- preskill skill generation + execution
+- postskill first execution + skill summary + second execution
+
+Both scopes report mean score, token/cost/time usage, and efficiency versus baseline. Postskill
+also reports first-pass score, second-pass score, and second-vs-first improvement. Created-skill
+counts and heuristic skill quality are reported separately for preskill and postskill.
 
 ## Tasks
 
-| ID | Name | Sub-Problems | Category | Skill Value |
-|----|------|:---:|----------|-------------|
-| 00 | Sanity Check | 0 | sanity | — |
-| 01 | Batch Data Transform | 6 | data_processing | Schema mapping + validation |
-| 02 | Log Analysis | 5 | data_processing | Log parsing + report generation |
-| 03 | API Integration Scaffold | 5 | code_generation | API client generator |
-| 04 | Test Generation | 6 | code_generation | Test template + edge case analysis |
-| 05 | Config Migration | 5 | data_processing | Config migration validator |
-| 06 | Security Code Review | 5 | code_review | Security audit checklist |
-| 07 | Document Extraction | 5 | data_processing | Document parser + structured output |
-| 08 | Database Schema Ops | 5 | code_generation | Migration generator + validator |
+Tasks live in `tasks/task_*.md`. Each task defines a prompt, workspace assets, grading criteria,
+and usually 5-10 structurally similar sub-problems. Current categories include data transforms,
+log analysis, API scaffolding, test generation, config migration, security review, document
+extraction, Excel/report generation, web extraction, email/invoice/meeting-note processing,
+shell automation, CI generation, environment config, and metrics anomaly detection.
 
-## Results Format
+## Results
 
-Results are saved as JSON to `results/`:
+Results are written to `results/` by default:
+
 ```json
 {
   "benchmark": "evoclawbench",
   "model": "anthropic/claude-sonnet-4",
   "runtime": "nanobot",
-  "mode": "both",
-  "baseline_results": { ... },
-  "evolution_results": {},
-  "bench_results": { ... },
+  "mode": "all",
+  "baseline_results": {},
+  "preskill_results": {},
+  "postskill_results": {},
   "metrics": {
-    "evoscore": 0.72,
-    "fail2pass": { "overall": { "fail2pass": 1.35 } },
-    "consistency": { "baseline": 0.65, "evolution": 0.88 },
-    "efficiency": { "token_efficiency_gain": 1.2 },
-    "skill_quality": { "mean": 0.75 },
-    "created_skills": { "total_count": 5 }
+    "execution_only": {},
+    "end_to_end": {},
+    "postskill": {},
+    "created_skills": {},
+    "skill_quality": {},
+    "skill_mutation_violations": {}
   }
 }
 ```
 
-For compatibility, some top-level JSON keys and metric labels still use historical `evolution_*` naming. In `--mode both`, those values now refer to the **bench** comparison arm unless otherwise noted.
+Each run also writes a `.trajectories.json` file containing transcripts, workspace summaries,
+grading details, and errors for debugging.
 
 ## Project Structure
 
-```
+```text
 evoclawbench/
 ├── scripts/
-│   ├── benchmark.py       # Main entry point
-│   ├── lib_agent.py       # Runtime adapters (OpenClaw + nanobot)
-│   ├── lib_grading.py     # Grading engine
-│   ├── lib_metrics.py     # EvoClawBench-specific metrics
-│   └── lib_tasks.py       # Task loading with sub-problem support
-├── tasks/                 # Task definitions (Markdown)
-│   ├── TASK_TEMPLATE.md
-│   └── task_*.md
-├── assets/                # Fixture files per task
-├── results/               # Output (gitignored)
-├── pyproject.toml
-├── SKILL.md
-└── README.md
+│   ├── benchmark.py       # Main orchestration
+│   ├── lib_agent.py       # Runtime adapters, prompts, workspace/skill flow
+│   ├── lib_grading.py     # Automated / LLM / hybrid grading
+│   ├── lib_metrics.py     # Three-mode metrics and legacy helpers
+│   └── lib_tasks.py       # Task loading
+├── tasks/                 # Markdown task definitions
+├── assets/                # Task fixtures
+├── results/               # Output artifacts
+├── workspaces/            # Per-run working directories
+└── pyproject.toml
 ```
 
-## Adding New Tasks
+## Development
 
-1. Copy `tasks/TASK_TEMPLATE.md`
-2. Design 5-10 sub-problems with a shared pattern
-3. Create asset files in `assets/<task_name>/`
-4. Write automated grading with `sub_N_*` score keys
-5. Test with `--suite your_task_id`
-
-## Troubleshooting
-
-### All Tasks Scoring 0%
-
-**Problem**: Baseline and bench modes both return 0% scores.
-
-**Causes & Solutions**:
-
-1. **Agent not executing commands**
-   - Check that OpenClaw/nanobot is properly installed
-   - For OpenClaw: `openclaw agents list` should show your agent
-   - For nanobot: `which nanobot` should show the binary path
-   - Verify the agent has permission to write to workspace
-
-2. **Grading function has errors**
-   - Check the `Automated Checks` Python code compiles
-   - Run: `uv run pytest tests/test_integration.py::TestAutomatedChecks -v`
-   - Verify function signature: `def grade(transcript: list, workspace_path: str) -> dict:`
-   - Ensure all return values are numeric (float or int)
-
-3. **Agent not creating output files**
-   - Check workspace permissions: `ls -la /tmp/evoclawbench/*/task_*/`
-   - Agent needs write access to workspace
-   - Verify task prompt clearly instructs file creation and output location
-   - For OpenClaw: Check transcript in `~/.openclaw/agents/{agent_id}/sessions/`
-
-4. **Sub-problem key naming**
-   - Grading dict keys must follow pattern `sub_N_*` (e.g., `sub_1_exists`, `sub_2_valid`)
-   - Parser regex: `sub_(\d+)_` — must match this pattern to aggregate scores
-   - All values must be 0.0-1.0 numeric
-
-5. **Environment variable issues**
-   - Missing API keys: `export OPENROUTER_API_KEY="..."`
-   - For OpenClaw: requires OpenRouter or direct LLM API keys
-   - For nanobot: check `~/.nanobot/config.json` has model/provider configured
-   - Run: `echo $OPENROUTER_API_KEY` to verify export worked
-
-### Model-Specific Issues
-
-**MiniMax/Claude not responding**
-- Some models may not understand the dual-mode prompt injection
-- Try with a more capable model: `--model anthropic/claude-opus-4.6`
-- Verify prompt syntax is standard English (some models struggle with complex instructions)
-
-**OpenClaw agent not found**
-- Agent may not be created: `openclaw agents add {agent_id} --model {model} --workspace {path}`
-- Check existing agents: `openclaw agents list`
-- Workspace path must exist: `mkdir -p /tmp/evoclawbench/{run_id}/agent_workspace`
-
-### Debugging Steps
-
-1. **Enable verbose logging**
-   ```bash
-   uv run scripts/benchmark.py --model your-model --runtime openclaw \
-     --suite task_00_sanity --verbose
-   ```
-
-2. **Check workspace files exist**
-   ```bash
-   ls -la /tmp/evoclawbench/*/task_*/inputs/  # Should see fixture files
-   ```
-
-3. **Run single task in isolation**
-   ```bash
-   uv run scripts/benchmark.py --model your-model --runtime openclaw \
-     --suite task_00_sanity --mode baseline  # Start with sanity check
-   ```
-
-4. **Inspect transcript**
-   ```bash
-   cat ~/.openclaw/agents/{agent_id}/sessions/*/transcript.jsonl | head -100
-   ```
-
-5. **Test grading code directly**
-   ```bash
-   python3 << 'EOF'
-   import sys
-   sys.path.insert(0, 'scripts')
-   from lib_grading import _extract_grading_code, grade_task
-   # Load task and test grading function
-   EOF
-   ```
-
-## License
-
-MIT
+```bash
+uv run pytest tests/ -v
+uv run ruff check scripts/ tests/
+uv run black scripts/ tests/
+```

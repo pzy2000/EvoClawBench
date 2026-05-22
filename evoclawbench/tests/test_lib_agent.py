@@ -11,14 +11,18 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 
 from lib_agent import (
     BASELINE_PREFIX,
-    BENCH_PREFIX,
-    EVOLUTION_PREFIX_BASE,
+    POSTSKILL_SUMMARY_PREFIX,
+    PRESKILL_AUTHOR_PREFIX,
+    SKILL_REUSE_PREFIX,
     _coerce,
     _extract_usage,
     _load_openclaw_transcript,
     _verify_bench_skills_loaded,
+    copy_generated_skills,
     get_mode_prefix,
+    hash_skill_files,
     prepare_workspace,
+    skills_mutated,
     slugify_model,
 )
 from lib_tasks import Task
@@ -67,17 +71,20 @@ class TestGetModePrefix:
         assert prefix == BASELINE_PREFIX
         assert "must NOT create" in prefix
 
-    def test_evolution(self):
-        prefix = get_mode_prefix("evolution")
-        assert EVOLUTION_PREFIX_BASE in prefix
-        assert "encouraged" in prefix
-        assert "CRITICAL PRIORITY ORDER" in prefix
+    def test_preskill_author(self):
+        prefix = get_mode_prefix("preskill_author")
+        assert prefix == PRESKILL_AUTHOR_PREFIX
+        assert "only for skill authoring" in prefix
 
-    def test_bench(self):
-        prefix = get_mode_prefix("bench")
-        assert prefix == BENCH_PREFIX
-        assert "skill-creator" in prefix
-        assert "repeating" in prefix.lower()
+    def test_postskill_summary(self):
+        prefix = get_mode_prefix("postskill_summary")
+        assert prefix == POSTSKILL_SUMMARY_PREFIX
+        assert "first_run_context.json" in prefix
+
+    def test_skill_reuse(self):
+        assert get_mode_prefix("preskill_execute") == SKILL_REUSE_PREFIX
+        assert get_mode_prefix("postskill_second") == SKILL_REUSE_PREFIX
+        assert "must NOT" in SKILL_REUSE_PREFIX
 
     def test_unknown(self):
         assert get_mode_prefix("unknown") == ""
@@ -201,17 +208,12 @@ class TestPrepareWorkspace:
         assert (workspace / "input.txt").exists()
         assert (workspace / "input.txt").read_text() == "test content"
 
-    def test_evolution_creates_skills_dir(self, tmp_path):
-        task = _make_task()
-        workspace = prepare_workspace(tmp_path, "run_004", task, "evolution")
-        assert (workspace / "skills").exists()
-
     def test_baseline_no_skills_dir(self, tmp_path):
         task = _make_task()
         workspace = prepare_workspace(tmp_path, "run_005", task, "baseline")
         assert not (workspace / "skills").exists()
 
-    def test_bench_copies_skill_creator_bundle(self, tmp_path):
+    def test_author_modes_copy_skill_creator_bundle(self, tmp_path):
         repo = tmp_path
         bundle = repo / "skills" / "skill-creator"
         bundle.mkdir(parents=True)
@@ -220,17 +222,18 @@ class TestPrepareWorkspace:
         skill_dir.mkdir()
 
         task = _make_task()
-        workspace = prepare_workspace(skill_dir, "run_bench_ok", task, "bench")
-        seeded = workspace / "skills" / "skill-creator" / "SKILL.md"
-        assert seeded.exists()
-        assert "skill-creator" in seeded.read_text()
+        for mode in ("preskill_author", "postskill_summary"):
+            workspace = prepare_workspace(skill_dir, f"run_{mode}", task, mode)
+            seeded = workspace / "skills" / "skill-creator" / "SKILL.md"
+            assert seeded.exists()
+            assert "skill-creator" in seeded.read_text()
 
-    def test_bench_missing_skill_creator_bundle_raises(self, tmp_path):
+    def test_author_mode_missing_skill_creator_bundle_raises(self, tmp_path):
         skill_dir = tmp_path / "evoclawbench"
         skill_dir.mkdir(parents=True)
         task = _make_task()
         with pytest.raises(FileNotFoundError) as excinfo:
-            prepare_workspace(skill_dir, "run_bench_missing", task, "bench")
+            prepare_workspace(skill_dir, "run_missing", task, "preskill_author")
         assert "skills/skill-creator" in str(excinfo.value)
 
     def test_cleans_existing_workspace(self, tmp_path):
@@ -271,8 +274,8 @@ class TestPrepareWorkspace:
         assert workspace == custom_root / f"{task.task_id}_baseline"
         assert workspace.exists()
 
-    def test_workspace_root_bench_copies_skill_creator(self, tmp_path):
-        """workspace_root parameter works correctly in bench mode."""
+    def test_workspace_root_author_copies_skill_creator(self, tmp_path):
+        """workspace_root parameter works correctly in author mode."""
         repo = tmp_path / "repo"
         bundle = repo / "skills" / "skill-creator"
         bundle.mkdir(parents=True)
@@ -283,11 +286,67 @@ class TestPrepareWorkspace:
         custom_root = tmp_path / "workspaces" / "2026_03_31_bench" / "0031"
         task = _make_task()
         workspace = prepare_workspace(
-            skill_dir, "ignored_run_id", task, "bench", workspace_root=custom_root
+            skill_dir, "ignored_run_id", task, "preskill_author", workspace_root=custom_root
         )
-        assert workspace == custom_root / f"{task.task_id}_bench"
+        assert workspace == custom_root / f"{task.task_id}_preskill_author"
         seeded = workspace / "skills" / "skill-creator" / "SKILL.md"
         assert seeded.exists()
+
+    def test_reuse_workspace_copies_only_generated_skills(self, tmp_path):
+        source = tmp_path / "source"
+        seed = source / "skills" / "skill-creator"
+        seed.mkdir(parents=True)
+        (seed / "SKILL.md").write_text("---\nname: skill-creator\n---\n")
+        custom = source / "skills" / "custom"
+        custom.mkdir(parents=True)
+        (custom / "SKILL.md").write_text("---\nname: custom\n---\n\nBody.")
+
+        target = tmp_path / "target"
+        copy_generated_skills(source, target)
+
+        assert not (target / "skills" / "skill-creator").exists()
+        assert (target / "skills" / "custom" / "SKILL.md").exists()
+
+    def test_prepare_workspace_reuse_copies_generated_skills(self, tmp_path):
+        source = tmp_path / "source"
+        custom = source / "skills" / "custom"
+        custom.mkdir(parents=True)
+        (custom / "SKILL.md").write_text("---\nname: custom\n---\n\nBody.")
+
+        task = _make_task()
+        workspace = prepare_workspace(
+            tmp_path,
+            "run_reuse",
+            task,
+            "preskill_execute",
+            source_skills_workspace=source,
+        )
+
+        assert (workspace / "skills" / "custom" / "SKILL.md").exists()
+
+    def test_hash_skill_files_detects_mutation(self, tmp_path):
+        skill = tmp_path / "skills" / "custom"
+        skill.mkdir(parents=True)
+        skill_md = skill / "SKILL.md"
+        skill_md.write_text("---\nname: custom\n---\n\nBody.")
+
+        before = hash_skill_files(tmp_path)
+        assert skills_mutated(before, hash_skill_files(tmp_path)) is False
+
+        skill_md.write_text("---\nname: custom\n---\n\nChanged.")
+        after = hash_skill_files(tmp_path)
+        assert skills_mutated(before, after) is True
+
+    def test_hash_skill_files_ignores_seeded_skill_creator(self, tmp_path):
+        seed = tmp_path / "skills" / "skill-creator"
+        seed.mkdir(parents=True)
+        skill_md = seed / "SKILL.md"
+        skill_md.write_text("---\nname: skill-creator\n---\n\nBody.")
+
+        before = hash_skill_files(tmp_path)
+        skill_md.write_text("---\nname: skill-creator\n---\n\nChanged.")
+        assert before == {}
+        assert skills_mutated(before, hash_skill_files(tmp_path)) is False
 
 
 # ---------------------------------------------------------------------------

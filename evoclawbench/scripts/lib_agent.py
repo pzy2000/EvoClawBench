@@ -1,12 +1,13 @@
 """
 EvoClawBench agent execution helpers.
 
-Supports both OpenClaw and nanobot runtimes with baseline/evolution/bench mode switching.
+Supports OpenClaw and nanobot runtimes with baseline, preskill, and postskill phases.
 Also supports Docker-based isolated execution via the Environment abstraction.
 """
 
 from __future__ import annotations
 
+import hashlib
 import json
 import logging
 import os
@@ -25,84 +26,52 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
-# Skill directory names seeded into workspace in bench mode (exclude from "created skills" metrics).
-BENCH_SEEDED_SKILL_NAMES: frozenset[str] = frozenset({"skill-creator"})
+# Skill directory names seeded into workspaces and excluded from created-skill metrics.
+SEEDED_SKILL_NAMES: frozenset[str] = frozenset({"skill-creator"})
+BENCH_SEEDED_SKILL_NAMES = SEEDED_SKILL_NAMES
 
 
 class ModelValidationError(Exception):
     pass
 
 
-# Mode-specific prompt prefixes
 BASELINE_PREFIX = (
-    "IMPORTANT CONSTRAINT: You must NOT create any skills or SKILL.md files. "
-    "Solve each sub-problem independently from scratch. Do not create any reusable "
-    "tools, scripts, or skill definitions for future use.\n\n"
+    "BASELINE MODE:\n"
+    "Complete the task directly. You must NOT create, edit, or delete any skills or "
+    "SKILL.md files. Solve each sub-problem independently from scratch, and focus on "
+    "producing the required grader-visible outputs.\n\n"
 )
 
-EVOLUTION_PREFIX_BASE = (
-    "You are encouraged to create reusable skills (SKILL.md files) when you notice "
-    "repeating patterns across sub-problems. Store them in the workspace skills/ "
-    "directory following the standard SKILL.md format. Reuse your created skills "
-    "in subsequent sub-problems to improve consistency and efficiency.\n\n"
+PRESKILL_AUTHOR_PREFIX = (
+    "PRESKILL AUTHOR MODE:\n"
+    "Before solving the task, create a task-specific reusable skill. Read "
+    "`skills/skill-creator/SKILL.md` and write one or more new skills under "
+    "`skills/<skill-name>/SKILL.md` that would help an agent solve this task later. "
+    "Do not produce the final task outputs in `outputs/`; this phase is only for "
+    "skill authoring. Do not replace or delete `skills/skill-creator`.\n\n"
 )
 
-EVOLUTION_PREFIX = EVOLUTION_PREFIX_BASE
-
-EVOLUTION_GUARDRAILS = (
-    "CRITICAL PRIORITY ORDER:\n"
-    "1) Produce the REQUIRED task outputs that the grader will check (files, formats, sheet names, schemas).\n"
-    "2) Only AFTER outputs are created and verified, optionally create or update SKILL.md.\n\n"
-    "ANTI-REGRESSION GUARDRAILS:\n"
-    "- Never stop early. Do not end your run until required output files exist in outputs/.\n"
-    '- Do not optimize for "nice explanation" at the expense of grader-visible requirements.\n'
-    "- If you create a skill, it must be directly usable, not just a narrative description.\n\n"
-    "MINIMUM SKILL QUALITY BAR (if you create skills/NAME/SKILL.md):\n"
-    "- Include a concise checklist mapping to common grader dimensions (existence, validity, error handling, retry/backoff, rate limiting, pagination, numeric types).\n"
-    "- Include at least one concrete, copy-pastable procedure: commands to run OR a small script template OR explicit file skeletons.\n"
-    "- Include references to the exact output file patterns (e.g., outputs/<name>_client.py, outputs/report_<region>.xlsx).\n\n"
-    "MANDATORY PRE-FINAL SELF-CHECK (do this BEFORE you finish):\n"
-    "- List outputs/: confirm all required files exist with expected names.\n"
-    "- Validate syntax/format where applicable (e.g., python -m py_compile for .py).\n"
-    "- For structured artifacts: verify required structure (e.g., Excel sheet names exactly, JSON schemas, row counts).\n"
-    "- If any check fails, fix it and re-check.\n\n"
-    "TASK-SPECIFIC SELF-CHECK HINTS (common failure points):\n"
-    "- API scaffolding: ensure every client has try/except around HTTP calls AND explicit retry/backoff on 5xx/timeouts (grader checks these explicitly).\n"
-    "- Excel analytics: confirm each workbook exists and has exactly 3 sheets named Raw Data, Summary, Quarterly; totals rows must be Excel formulas, numeric cells must be numbers.\n\n"
+POSTSKILL_SUMMARY_PREFIX = (
+    "POSTSKILL SUMMARY MODE:\n"
+    "Summarize a reusable task-specific skill from a completed first run. Read "
+    "`.evoclawbench/first_run_context.json` for the first run prompt, grading details, "
+    "workspace output summary, and transcript summary. Create one or more skills under "
+    "`skills/<skill-name>/SKILL.md` so a later agent can solve the same task more "
+    "accurately and efficiently. Do not redo the task and do not write final task "
+    "outputs in `outputs/`. Do not replace or delete `skills/skill-creator`.\n\n"
 )
 
-BENCH_PREFIX = (
-    "BENCH MODE — SKILL-CREATOR WORKFLOW:\n"
-    "This workspace seeds `skills/skill-creator/` with instructions for authoring new skills. "
-    "Across this task, actively notice repeating structure between sub-problems (same kinds "
-    "of steps, file shapes, validation, or tooling). When you spot a pattern, read "
-    "`skills/skill-creator/SKILL.md`, follow that workflow, and create task-specific reusable "
-    "skills under `skills/<your-skill-name>/SKILL.md`. Do not replace or delete the "
-    "skill-creator bundle; add sibling skills and reuse them on later sub-problems instead of "
-    "re-deriving everything from scratch each time.\n\n"
-    "PRIORITY ORDER:\n"
-    "1) Produce all required grader-visible outputs (paths, formats, sheet names, schemas).\n"
-    "2) Then extend or polish skills if time allows — skills should speed correct outputs, "
-    "not replace them.\n\n"
+SKILL_REUSE_PREFIX = (
+    "SKILL REUSE EXECUTION MODE:\n"
+    "Complete the task using the existing skills in `skills/` when helpful. You must NOT "
+    "create, edit, or delete any skills or SKILL.md files during this execution phase. "
+    "Focus on producing the required grader-visible outputs and validate them before "
+    "finishing.\n\n"
 )
 
-
-def _evolution_prefix() -> str:
-    """
-    Toggleable Evolution prefix for A/B testing prompt guardrails.
-
-    Env:
-      - EVOLAW_DISABLE_EVOLUTION_GUARDRAILS=1  -> use base Evolution prompt only
-    """
-    if os.environ.get("EVOLAW_DISABLE_EVOLUTION_GUARDRAILS", "").strip() in {
-        "1",
-        "true",
-        "TRUE",
-        "yes",
-        "YES",
-    }:
-        return EVOLUTION_PREFIX_BASE
-    return EVOLUTION_PREFIX_BASE + EVOLUTION_GUARDRAILS
+SKILL_AUTHOR_MODES: frozenset[str] = frozenset({"preskill_author", "postskill_summary"})
+SKILL_REUSE_MODES: frozenset[str] = frozenset({"preskill_execute", "postskill_second"})
+BASELINE_EXECUTION_MODES: frozenset[str] = frozenset({"baseline", "postskill_first"})
 
 
 def slugify_model(model_id: str) -> str:
@@ -110,18 +79,91 @@ def slugify_model(model_id: str) -> str:
 
 
 def get_mode_prefix(mode: str) -> str:
-    if mode == "baseline":
+    if mode in BASELINE_EXECUTION_MODES:
         return BASELINE_PREFIX
-    if mode == "evolution":
-        return _evolution_prefix()
-    if mode == "bench":
-        return BENCH_PREFIX
+    if mode == "preskill_author":
+        return PRESKILL_AUTHOR_PREFIX
+    if mode == "postskill_summary":
+        return POSTSKILL_SUMMARY_PREFIX
+    if mode in SKILL_REUSE_MODES:
+        return SKILL_REUSE_PREFIX
     return ""
 
 
 def _skill_creator_bundle_path(skill_dir: Path) -> Path:
     """Monorepo bundle: <repo>/skills/skill-creator adjacent to evoclawbench root."""
     return (skill_dir.parent / "skills" / "skill-creator").resolve()
+
+
+def _copy_seeded_skill_creator(skill_dir: Path, workspace: Path) -> None:
+    bundle = _skill_creator_bundle_path(skill_dir)
+    if not bundle.is_dir():
+        raise FileNotFoundError(
+            f"Skill authoring requires skill-creator bundle at {bundle} "
+            "(expected monorepo layout: <repo>/skills/skill-creator next to evoclawbench/)"
+        )
+    dest = workspace / "skills" / "skill-creator"
+    shutil.copytree(bundle, dest, dirs_exist_ok=True)
+
+
+def copy_generated_skills(
+    source_workspace: str | Path,
+    target_workspace: str | Path,
+    *,
+    exclude_names: frozenset[str] = SEEDED_SKILL_NAMES,
+) -> None:
+    """Copy non-seeded skills from one task workspace into another."""
+    source_skills = Path(source_workspace) / "skills"
+    if not source_skills.is_dir():
+        return
+    target_skills = Path(target_workspace) / "skills"
+    target_skills.mkdir(parents=True, exist_ok=True)
+    for skill_dir in sorted(source_skills.iterdir()):
+        if not skill_dir.is_dir() or skill_dir.name in exclude_names:
+            continue
+        skill_md = skill_dir / "SKILL.md"
+        if not skill_md.is_file():
+            continue
+        shutil.copytree(skill_dir, target_skills / skill_dir.name, dirs_exist_ok=True)
+
+
+def _copy_first_run_context(source_workspace: str | Path, target_workspace: Path) -> None:
+    source = Path(source_workspace) / ".evoclawbench" / "first_run_context.json"
+    if not source.is_file():
+        logger.warning("Postskill summary context missing: %s", source)
+        return
+    dest = target_workspace / ".evoclawbench" / "first_run_context.json"
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_bytes(source.read_bytes())
+
+
+def hash_skill_files(
+    workspace_path: str | Path,
+    *,
+    exclude_names: frozenset[str] = SEEDED_SKILL_NAMES,
+) -> Dict[str, str]:
+    """Return sha256 hashes for all non-seeded files under workspace/skills."""
+    workspace = Path(workspace_path)
+    skills_dir = workspace / "skills"
+    if not skills_dir.is_dir():
+        return {}
+    hashes: Dict[str, str] = {}
+    for path in sorted(skills_dir.rglob("*")):
+        if not path.is_file():
+            continue
+        try:
+            rel = path.relative_to(skills_dir)
+        except ValueError:
+            continue
+        if rel.parts and rel.parts[0] in exclude_names:
+            continue
+        hashes[str(rel)] = hashlib.sha256(path.read_bytes()).hexdigest()
+    return hashes
+
+
+def skills_mutated(before: Dict[str, str], after: Dict[str, str]) -> bool:
+    """True when a reuse execution added, removed, or modified a skill file."""
+    return before != after
 
 
 # ---------------------------------------------------------------------------
@@ -375,12 +417,23 @@ def execute_openclaw_task(
     verbose: bool = False,
     environment: Optional["Environment"] = None,
     workspace_root: Optional[Path] = None,
+    source_skills_workspace: Optional[Path] = None,
+    context_source_workspace: Optional[Path] = None,
 ) -> Dict[str, Any]:
     logger.info("[OpenClaw] Agent [%s] task: %s (mode=%s)", agent_id, task.task_id, mode)
 
     cleanup_openclaw_sessions(agent_id)
     start_time = time.time()
-    workspace = prepare_workspace(skill_dir, run_id, task, mode, workspace_root=workspace_root)
+    workspace = prepare_workspace(
+        skill_dir,
+        run_id,
+        task,
+        mode,
+        workspace_root=workspace_root,
+        source_skills_workspace=source_skills_workspace,
+        context_source_workspace=context_source_workspace,
+    )
+    skill_hash_before = hash_skill_files(workspace)
 
     if environment is None:
         _reset_openclaw_agent_workspace(agent_id, model_id, workspace)
@@ -441,7 +494,12 @@ def execute_openclaw_task(
     usage = enrich_usage_with_estimated_cost(model_id, _extract_usage(transcript))
     execution_time = time.time() - start_time
 
-    if mode == "bench":
+    skill_hash_after = hash_skill_files(workspace)
+    skill_mutation_violation = mode in SKILL_REUSE_MODES and skills_mutated(
+        skill_hash_before, skill_hash_after
+    )
+
+    if mode in SKILL_AUTHOR_MODES:
         _verify_bench_skills_loaded(agent_id, workspace)
 
     status = "success"
@@ -463,6 +521,9 @@ def execute_openclaw_task(
         "stdout": stdout,
         "stderr": stderr,
         "mode": mode,
+        "skill_hash_before": skill_hash_before,
+        "skill_hash_after": skill_hash_after,
+        "skill_mutation_violation": skill_mutation_violation,
     }
 
 
@@ -482,11 +543,22 @@ def execute_nanobot_task(
     verbose: bool = False,
     environment: Optional["Environment"] = None,
     workspace_root: Optional[Path] = None,
+    source_skills_workspace: Optional[Path] = None,
+    context_source_workspace: Optional[Path] = None,
 ) -> Dict[str, Any]:
     logger.info("[nanobot] task: %s (mode=%s)", task.task_id, mode)
 
     start_time = time.time()
-    workspace = prepare_workspace(skill_dir, run_id, task, mode, workspace_root=workspace_root)
+    workspace = prepare_workspace(
+        skill_dir,
+        run_id,
+        task,
+        mode,
+        workspace_root=workspace_root,
+        source_skills_workspace=source_skills_workspace,
+        context_source_workspace=context_source_workspace,
+    )
+    skill_hash_before = hash_skill_files(workspace)
     timeout_seconds = task.timeout_seconds * timeout_multiplier
 
     prompt = get_mode_prefix(mode) + task.prompt
@@ -551,6 +623,10 @@ def execute_nanobot_task(
     transcript = _load_nanobot_transcript(workspace, stdout)
     usage = enrich_usage_with_estimated_cost(model_id, _extract_usage(transcript))
     execution_time = time.time() - start_time
+    skill_hash_after = hash_skill_files(workspace)
+    skill_mutation_violation = mode in SKILL_REUSE_MODES and skills_mutated(
+        skill_hash_before, skill_hash_after
+    )
 
     status = "success"
     if timed_out:
@@ -571,6 +647,9 @@ def execute_nanobot_task(
         "stdout": stdout,
         "stderr": stderr,
         "mode": mode,
+        "skill_hash_before": skill_hash_before,
+        "skill_hash_after": skill_hash_after,
+        "skill_mutation_violation": skill_mutation_violation,
     }
 
 
@@ -658,6 +737,8 @@ def prepare_workspace(
     task: Task,
     mode: str = "baseline",
     workspace_root: Optional[Path] = None,
+    source_skills_workspace: Optional[Path] = None,
+    context_source_workspace: Optional[Path] = None,
 ) -> Path:
     """Prepare isolated workspace for a task run.
 
@@ -714,18 +795,14 @@ def prepare_workspace(
     # Pre-create outputs/ directory so agents don't need to create it themselves
     (workspace / "outputs").mkdir(exist_ok=True)
 
-    if mode == "bench":
-        bundle = _skill_creator_bundle_path(skill_dir)
-        if not bundle.is_dir():
-            raise FileNotFoundError(
-                f"Bench mode requires skill-creator bundle at {bundle} "
-                "(expected monorepo layout: <repo>/skills/skill-creator next to evoclawbench/)"
-            )
-        dest = workspace / "skills" / "skill-creator"
-        shutil.copytree(bundle, dest, dirs_exist_ok=True)
-    elif mode == "evolution":
-        # In evolution mode, ensure skills/ directory exists for agent to write to
-        (workspace / "skills").mkdir(exist_ok=True)
+    if mode in SKILL_AUTHOR_MODES:
+        _copy_seeded_skill_creator(skill_dir, workspace)
+
+    if source_skills_workspace is not None:
+        copy_generated_skills(source_skills_workspace, workspace)
+
+    if context_source_workspace is not None:
+        _copy_first_run_context(context_source_workspace, workspace)
 
     return workspace
 
@@ -743,6 +820,8 @@ def execute_task(
     verbose: bool = False,
     environment: Optional["Environment"] = None,
     workspace_root: Optional[Path] = None,
+    source_skills_workspace: Optional[Path] = None,
+    context_source_workspace: Optional[Path] = None,
 ) -> Dict[str, Any]:
     """Unified task execution dispatcher for both runtimes.
 
@@ -766,6 +845,8 @@ def execute_task(
             verbose=verbose,
             environment=environment,
             workspace_root=workspace_root,
+            source_skills_workspace=source_skills_workspace,
+            context_source_workspace=context_source_workspace,
         )
     elif runtime == "nanobot":
         return execute_nanobot_task(
@@ -778,6 +859,8 @@ def execute_task(
             verbose=verbose,
             environment=environment,
             workspace_root=workspace_root,
+            source_skills_workspace=source_skills_workspace,
+            context_source_workspace=context_source_workspace,
         )
     else:
         raise ValueError(f"Unknown runtime: {runtime}. Use 'openclaw' or 'nanobot'.")

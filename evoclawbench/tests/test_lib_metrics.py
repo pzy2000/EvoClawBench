@@ -9,6 +9,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 
 from lib_metrics import (
     aggregate_metrics,
+    aggregate_three_mode_metrics,
     compute_consistency,
     compute_efficiency_gain,
     compute_evoscore,
@@ -292,3 +293,86 @@ class TestAggregateMetrics:
         # evoscore = 0.4*0 + 0.2*0.5 + 0.2*0 + 0.1*0.5 + 0.1*0 = 0.15
         assert m["evoscore"] == pytest.approx(0.15)
         assert m["created_skills"]["total_count"] == 0
+
+
+class TestAggregateThreeModeMetrics:
+    def test_execution_and_end_to_end_usage_are_separate(self):
+        baseline = {
+            "t1": {
+                "mean_score": 0.5,
+                "usage": {
+                    "total_tokens": 100,
+                    "total_cost_usd": 1.0,
+                    "total_execution_time_seconds": 10,
+                },
+            }
+        }
+        preskill = {
+            "t1": {
+                "mean_score": 0.75,
+                "usage": {
+                    "total_tokens": 60,
+                    "total_cost_usd": 0.6,
+                    "total_execution_time_seconds": 6,
+                },
+                "end_to_end_usage": {
+                    "total_tokens": 160,
+                    "total_cost_usd": 1.6,
+                    "total_execution_time_seconds": 16,
+                },
+                "created_skills": [{"name": "pre"}],
+                "skill_quality_score": 0.8,
+            }
+        }
+        postskill = {
+            "t1": {
+                "mean_score": 0.9,
+                "first_pass_mean_score": 0.4,
+                "usage": {
+                    "total_tokens": 50,
+                    "total_cost_usd": 0.5,
+                    "total_execution_time_seconds": 5,
+                },
+                "end_to_end_usage": {
+                    "total_tokens": 220,
+                    "total_cost_usd": 2.2,
+                    "total_execution_time_seconds": 22,
+                },
+                "created_skills": [{"name": "post"}],
+                "skill_quality_score": 0.6,
+                "skill_mutation_violation": True,
+            }
+        }
+
+        metrics = aggregate_three_mode_metrics(
+            baseline_results=baseline,
+            preskill_results=preskill,
+            postskill_results=postskill,
+        )
+
+        assert metrics["execution_only"]["mean_scores"]["baseline"] == pytest.approx(0.5)
+        assert metrics["execution_only"]["ratios_vs_baseline"]["preskill"] == pytest.approx(1.5)
+        assert metrics["execution_only"]["usage"]["preskill"]["total_tokens"] == 60
+        assert metrics["end_to_end"]["usage"]["preskill"]["total_tokens"] == 160
+        assert metrics["postskill"]["first_pass_mean"] == pytest.approx(0.4)
+        assert metrics["postskill"]["second_pass_mean"] == pytest.approx(0.9)
+        assert metrics["postskill"]["second_vs_first_delta"] == pytest.approx(0.5)
+        assert metrics["created_skills"]["preskill_count"] == 1
+        assert metrics["created_skills"]["postskill_count"] == 1
+        assert metrics["skill_quality"]["preskill_mean"] == pytest.approx(0.8)
+        assert metrics["skill_mutation_violations"]["postskill"] == 1
+
+    def test_empty_three_mode_metrics(self):
+        metrics = aggregate_three_mode_metrics(
+            baseline_results={},
+            preskill_results={},
+            postskill_results={},
+        )
+
+        assert metrics["execution_only"]["mean_scores"] == {
+            "baseline": 0.0,
+            "preskill": 0.0,
+            "postskill": 0.0,
+        }
+        assert metrics["created_skills"]["preskill_count"] == 0
+        assert metrics["postskill"]["second_vs_first_ratio"] == 1.0

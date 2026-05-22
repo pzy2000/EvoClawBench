@@ -8,6 +8,8 @@ import time
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
+import pytest
+
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 
 from lib_environment import LocalEnvironment
@@ -89,7 +91,7 @@ class TestTaskRunContext:
 
         ctx = TaskRunContext(
             task=mock_task,
-            mode="evolution",
+            mode="preskill",
             run_idx=1,
             args=MagicMock(),
             run_id="run_002",
@@ -377,17 +379,24 @@ class TestBenchmarkIntegration:
             args = _parse_args()
             assert args.no_progress is True
 
-    def test_mode_bench(self):
+    def test_default_mode_all(self):
+        from benchmark import _parse_args
+
+        with patch("sys.argv", ["benchmark.py", "--model", "test/model"]):
+            args = _parse_args()
+            assert args.mode == "all"
+
+    def test_mode_preskill(self):
         from benchmark import _parse_args
 
         with patch(
             "sys.argv",
-            ["benchmark.py", "--model", "test/model", "--mode", "bench"],
+            ["benchmark.py", "--model", "test/model", "--mode", "preskill"],
         ):
             args = _parse_args()
-            assert args.mode == "bench"
+            assert args.mode == "preskill"
 
-    def test_main_both_runs_baseline_then_bench(self, tmp_path):
+    def test_main_all_runs_baseline_preskill_postskill(self, tmp_path):
         from argparse import Namespace
 
         import benchmark
@@ -408,7 +417,7 @@ class TestBenchmarkIntegration:
         args = Namespace(
             model="test/model",
             runtime="nanobot",
-            mode="both",
+            mode="all",
             suite="all",
             output_dir=str(tmp_path),
             timeout_multiplier=1.0,
@@ -420,7 +429,6 @@ class TestBenchmarkIntegration:
             environment="local",
             docker_image="evoclawbench/runtime",
             no_progress=True,
-            no_bench_report=True,
         )
 
         loader = MagicMock()
@@ -429,75 +437,238 @@ class TestBenchmarkIntegration:
 
         def fake_run_single_mode(*, mode, **kwargs):
             run_modes.append(mode)
-            if mode == "baseline":
-                return {
-                    "task_01_test": {
-                        "mean_score": 0.25,
-                        "usage": {
-                            "total_tokens": 10,
-                            "total_cost_usd": 0.01,
-                            "total_execution_time_seconds": 1.0,
-                        },
-                        "sub_problem_scores": [0.25],
-                        "created_skills": [],
-                        "skill_quality_score": 0.0,
-                    }
+            return {"task_01_test": {"mean_score": 0.25, "usage": {"total_tokens": 10}}}
+
+        def fake_run_preskill_mode(**kwargs):
+            run_modes.append("preskill")
+            return {
+                "task_01_test": {
+                    "mean_score": 0.75,
+                    "usage": {"total_tokens": 8},
+                    "end_to_end_usage": {"total_tokens": 18},
+                    "created_skills": [{"name": "preskill-skill"}],
                 }
-            if mode == "bench":
-                return {
-                    "task_01_test": {
-                        "mean_score": 0.75,
-                        "usage": {
-                            "total_tokens": 8,
-                            "total_cost_usd": 0.02,
-                            "total_execution_time_seconds": 0.5,
-                        },
-                        "sub_problem_scores": [0.5, 1.0],
-                        "created_skills": [{"name": "bench-skill"}],
-                        "skill_quality_score": 0.8,
-                    }
+            }
+
+        def fake_run_postskill_mode(**kwargs):
+            run_modes.append("postskill")
+            return {
+                "task_01_test": {
+                    "mean_score": 0.8,
+                    "first_pass_mean_score": 0.3,
+                    "usage": {"total_tokens": 7},
+                    "end_to_end_usage": {"total_tokens": 20},
+                    "created_skills": [{"name": "postskill-skill"}],
                 }
-            raise AssertionError(f"Unexpected mode: {mode}")
+            }
 
         with patch("benchmark._parse_args", return_value=args):
             with patch("benchmark.TaskLoader", return_value=loader):
                 with patch("benchmark._next_run_id", return_value="0001"):
                     with patch("benchmark._run_single_mode", side_effect=fake_run_single_mode):
                         with patch(
-                            "benchmark.aggregate_metrics",
-                            return_value={"fail2pass": {"overall": {}}, "consistency": {}},
-                        ) as mock_metrics:
-                            with patch("benchmark._log_metrics_summary") as mock_summary:
-                                with patch("benchmark.save_trajectories"):
-                                    benchmark.main()
+                            "benchmark._run_preskill_mode", side_effect=fake_run_preskill_mode
+                        ):
+                            with patch(
+                                "benchmark._run_postskill_mode", side_effect=fake_run_postskill_mode
+                            ):
+                                with patch(
+                                    "benchmark.aggregate_three_mode_metrics",
+                                    return_value={"execution_only": {"mean_scores": {}}},
+                                ) as mock_metrics:
+                                    with patch("benchmark._log_metrics_summary") as mock_summary:
+                                        with patch("benchmark.save_trajectories"):
+                                            benchmark.main()
 
-        assert run_modes == ["baseline", "bench"]
-        combined = mock_metrics.call_args.args[0]
-        assert combined == [
-            {
-                "task_id": "task_01_test",
-                "baseline_grade": {"score": 0.25},
-                "evolution_grade": {"score": 0.75},
-                "baseline_usage": {
-                    "total_tokens": 10,
-                    "total_cost_usd": 0.01,
-                    "total_execution_time_seconds": 1.0,
-                },
-                "evolution_usage": {
-                    "total_tokens": 8,
-                    "total_cost_usd": 0.02,
-                    "total_execution_time_seconds": 0.5,
-                },
-                "sub_problem_scores_baseline": [0.25],
-                "sub_problem_scores_evolution": [0.5, 1.0],
-                "created_skills": [{"name": "bench-skill"}],
-                "skill_quality_score": 0.8,
-            }
+        assert run_modes == ["baseline", "preskill", "postskill"]
+        mock_metrics.assert_called_once()
+        kwargs = mock_metrics.call_args.kwargs
+        assert set(kwargs) == {"baseline_results", "preskill_results", "postskill_results"}
+        assert kwargs["preskill_results"]["task_01_test"]["created_skills"] == [
+            {"name": "preskill-skill"}
         ]
-        mock_summary.assert_called_once_with(
-            {"fail2pass": {"overall": {}}, "consistency": {}},
-            comparison_label="Bench",
+        mock_summary.assert_called_once_with({"execution_only": {"mean_scores": {}}})
+
+    def test_run_preskill_mode_uses_author_then_execution(self, tmp_path):
+        from argparse import Namespace
+
+        from benchmark import _run_preskill_mode
+        from lib_grading import GradeResult
+        from lib_tasks import Task
+
+        task = Task(
+            task_id="task_01_test",
+            name="Test Task",
+            category="test",
+            grading_type="automated",
+            timeout_seconds=120,
+            workspace_files=[],
+            prompt="Do something",
+            expected_behavior="Works",
+            grading_criteria=["done"],
         )
+        args = Namespace(
+            model="test/model",
+            runtime="nanobot",
+            timeout_multiplier=1.0,
+            runs=1,
+            judge=None,
+            verbose=False,
+            workers=1,
+            environment="local",
+            docker_image="evoclawbench/runtime",
+            show_progress=False,
+        )
+        modes = []
+
+        def mock_execute_task(**kwargs):
+            mode = kwargs["mode"]
+            modes.append(mode)
+            workspace = tmp_path / mode
+            workspace.mkdir(parents=True, exist_ok=True)
+            if mode == "preskill_author":
+                skill = workspace / "skills" / "custom"
+                skill.mkdir(parents=True)
+                (skill / "SKILL.md").write_text("---\nname: custom\n---\n\nBody.")
+            return {
+                "status": "success",
+                "exit_code": 0,
+                "transcript": [],
+                "usage": {"total_tokens": 10, "cost_usd": 0.1},
+                "workspace": str(workspace),
+                "timed_out": False,
+                "execution_time": 1.0,
+                "skill_mutation_violation": False,
+            }
+
+        with patch("benchmark.execute_task", side_effect=mock_execute_task):
+            with patch("benchmark.grade_task") as mock_grade:
+                mock_grade.return_value = GradeResult(
+                    task_id="task_01_test",
+                    score=1.0,
+                    max_score=1.0,
+                    grading_type="automated",
+                    breakdown={},
+                    notes="",
+                )
+                with patch("benchmark.get_recorder"):
+                    with patch("benchmark.start_recording"):
+                        with patch("benchmark.end_recording"):
+                            with patch("benchmark.record_transcript"):
+                                with patch("benchmark.record_workspace_files"):
+                                    with patch("benchmark.record_grading"):
+                                        result = _run_preskill_mode(
+                                            tasks_to_run=[task],
+                                            args=args,
+                                            run_id="0001",
+                                            skill_dir=tmp_path,
+                                            agent_id=None,
+                                            run_start_ts="2026_01_01_00_00_00",
+                                        )
+
+        assert modes == ["preskill_author", "preskill_execute"]
+        assert mock_grade.call_count == 1
+        entry = result["task_01_test"]
+        assert entry["mean_score"] == pytest.approx(1.0)
+        assert entry["created_skills"][0]["name"] == "custom"
+        assert entry["end_to_end_usage"]["total_tokens"] == 20
+
+    def test_run_postskill_mode_uses_first_summary_second(self, tmp_path):
+        from argparse import Namespace
+
+        from benchmark import _run_postskill_mode
+        from lib_grading import GradeResult
+        from lib_tasks import Task
+
+        task = Task(
+            task_id="task_01_test",
+            name="Test Task",
+            category="test",
+            grading_type="automated",
+            timeout_seconds=120,
+            workspace_files=[],
+            prompt="Do something",
+            expected_behavior="Works",
+            grading_criteria=["done"],
+        )
+        args = Namespace(
+            model="test/model",
+            runtime="nanobot",
+            timeout_multiplier=1.0,
+            runs=1,
+            judge=None,
+            verbose=False,
+            workers=1,
+            environment="local",
+            docker_image="evoclawbench/runtime",
+            show_progress=False,
+        )
+        modes = []
+
+        def mock_execute_task(**kwargs):
+            mode = kwargs["mode"]
+            modes.append(mode)
+            workspace = tmp_path / mode
+            (workspace / "outputs").mkdir(parents=True, exist_ok=True)
+            (workspace / "outputs" / "result.json").write_text("{}")
+            if mode == "postskill_summary":
+                skill = workspace / "skills" / "summary"
+                skill.mkdir(parents=True)
+                (skill / "SKILL.md").write_text("---\nname: summary\n---\n\nBody.")
+            return {
+                "status": "success",
+                "exit_code": 0,
+                "transcript": [],
+                "usage": {"total_tokens": 10, "cost_usd": 0.1},
+                "workspace": str(workspace),
+                "timed_out": False,
+                "execution_time": 1.0,
+                "skill_mutation_violation": False,
+            }
+
+        grades = [
+            GradeResult(
+                task_id="task_01_test",
+                score=0.25,
+                max_score=1.0,
+                grading_type="automated",
+                breakdown={"a": 0.25},
+                notes="",
+            ),
+            GradeResult(
+                task_id="task_01_test",
+                score=0.75,
+                max_score=1.0,
+                grading_type="automated",
+                breakdown={"a": 0.75},
+                notes="",
+            ),
+        ]
+
+        with patch("benchmark.execute_task", side_effect=mock_execute_task):
+            with patch("benchmark.grade_task", side_effect=grades) as mock_grade:
+                with patch("benchmark.get_recorder"):
+                    with patch("benchmark.start_recording"):
+                        with patch("benchmark.end_recording"):
+                            with patch("benchmark.record_transcript"):
+                                with patch("benchmark.record_workspace_files"):
+                                    with patch("benchmark.record_grading"):
+                                        result = _run_postskill_mode(
+                                            tasks_to_run=[task],
+                                            args=args,
+                                            run_id="0001",
+                                            skill_dir=tmp_path,
+                                            agent_id=None,
+                                            run_start_ts="2026_01_01_00_00_00",
+                                        )
+
+        assert modes == ["postskill_first", "postskill_summary", "postskill_second"]
+        assert mock_grade.call_count == 2
+        assert (tmp_path / "postskill_first" / ".evoclawbench" / "first_run_context.json").exists()
+        entry = result["task_01_test"]
+        assert entry["first_pass_mean_score"] == pytest.approx(0.25)
+        assert entry["second_pass_mean_score"] == pytest.approx(0.75)
+        assert entry["second_vs_first_delta"] == pytest.approx(0.5)
 
 
 class TestExecuteSingleTaskRun:

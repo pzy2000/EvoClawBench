@@ -122,6 +122,169 @@ def compute_efficiency_gain(
     return result
 
 
+def _empty_usage() -> Dict[str, Any]:
+    return {
+        "total_tokens": 0,
+        "total_cost_usd": 0.0,
+        "total_execution_time_seconds": 0.0,
+        "cost_usd": 0.0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "request_count": 0,
+    }
+
+
+def _sum_usage(results: Dict[str, Dict[str, Any]], key: str) -> Dict[str, Any]:
+    total = _empty_usage()
+    for payload in results.values():
+        usage = payload.get(key) or {}
+        if not usage and key == "end_to_end_usage":
+            usage = payload.get("usage") or {}
+        for usage_key in total:
+            total[usage_key] += usage.get(usage_key, 0) or 0
+    if total["total_cost_usd"] == 0.0 and total["cost_usd"]:
+        total["total_cost_usd"] = total["cost_usd"]
+    if total["cost_usd"] == 0.0 and total["total_cost_usd"]:
+        total["cost_usd"] = total["total_cost_usd"]
+    return total
+
+
+def _mean_score(results: Dict[str, Dict[str, Any]], score_key: str = "mean_score") -> float:
+    scores = [float(payload.get(score_key, 0.0) or 0.0) for payload in results.values()]
+    return round(statistics.mean(scores), 4) if scores else 0.0
+
+
+def _ratio(candidate: float, baseline: float) -> float | str:
+    if baseline > 0:
+        return round(candidate / baseline, 4)
+    if candidate > 0:
+        return "inf"
+    return 1.0
+
+
+def _collect_created_skills(results: Dict[str, Dict[str, Any]]) -> List[Dict[str, Any]]:
+    skills: List[Dict[str, Any]] = []
+    for payload in results.values():
+        created = payload.get("created_skills") or []
+        if isinstance(created, list):
+            skills.extend(created)
+    return skills
+
+
+def _mean_skill_quality(results: Dict[str, Dict[str, Any]]) -> float:
+    scores = [
+        float(payload.get("skill_quality_score", 0.0) or 0.0)
+        for payload in results.values()
+        if payload.get("skill_quality_score") is not None
+    ]
+    return round(statistics.mean(scores), 4) if scores else 0.0
+
+
+def aggregate_three_mode_metrics(
+    *,
+    baseline_results: Dict[str, Dict[str, Any]],
+    preskill_results: Dict[str, Dict[str, Any]],
+    postskill_results: Dict[str, Dict[str, Any]],
+) -> Dict[str, Any]:
+    """Aggregate baseline, preskill, and postskill benchmark metrics."""
+    baseline_score = _mean_score(baseline_results)
+    preskill_score = _mean_score(preskill_results)
+    postskill_score = _mean_score(postskill_results)
+
+    baseline_exec_usage = _sum_usage(baseline_results, "usage")
+    preskill_exec_usage = _sum_usage(preskill_results, "usage")
+    postskill_exec_usage = _sum_usage(postskill_results, "usage")
+
+    baseline_e2e_usage = _sum_usage(baseline_results, "end_to_end_usage")
+    preskill_e2e_usage = _sum_usage(preskill_results, "end_to_end_usage")
+    postskill_e2e_usage = _sum_usage(postskill_results, "end_to_end_usage")
+
+    first_pass_mean = _mean_score(postskill_results, "first_pass_mean_score")
+    second_pass_mean = postskill_score
+    if first_pass_mean > 0:
+        second_vs_first_ratio: float | str = round(second_pass_mean / first_pass_mean, 4)
+    elif second_pass_mean > 0:
+        second_vs_first_ratio = "inf"
+    else:
+        second_vs_first_ratio = 1.0
+
+    preskill_skills = _collect_created_skills(preskill_results)
+    postskill_skills = _collect_created_skills(postskill_results)
+
+    return {
+        "execution_only": {
+            "mean_scores": {
+                "baseline": baseline_score,
+                "preskill": preskill_score,
+                "postskill": postskill_score,
+            },
+            "ratios_vs_baseline": {
+                "preskill": _ratio(preskill_score, baseline_score),
+                "postskill": _ratio(postskill_score, baseline_score),
+            },
+            "usage": {
+                "baseline": baseline_exec_usage,
+                "preskill": preskill_exec_usage,
+                "postskill": postskill_exec_usage,
+            },
+            "efficiency_vs_baseline": {
+                "preskill": compute_efficiency_gain(baseline_exec_usage, preskill_exec_usage),
+                "postskill": compute_efficiency_gain(baseline_exec_usage, postskill_exec_usage),
+            },
+        },
+        "end_to_end": {
+            "mean_scores": {
+                "baseline": baseline_score,
+                "preskill": preskill_score,
+                "postskill": postskill_score,
+            },
+            "ratios_vs_baseline": {
+                "preskill": _ratio(preskill_score, baseline_score),
+                "postskill": _ratio(postskill_score, baseline_score),
+            },
+            "usage": {
+                "baseline": baseline_e2e_usage,
+                "preskill": preskill_e2e_usage,
+                "postskill": postskill_e2e_usage,
+            },
+            "efficiency_vs_baseline": {
+                "preskill": compute_efficiency_gain(baseline_e2e_usage, preskill_e2e_usage),
+                "postskill": compute_efficiency_gain(baseline_e2e_usage, postskill_e2e_usage),
+            },
+        },
+        "postskill": {
+            "first_pass_mean": first_pass_mean,
+            "second_pass_mean": second_pass_mean,
+            "second_vs_first_delta": round(second_pass_mean - first_pass_mean, 4),
+            "second_vs_first_ratio": second_vs_first_ratio,
+        },
+        "created_skills": {
+            "preskill_count": len(preskill_skills),
+            "postskill_count": len(postskill_skills),
+            "preskill": preskill_skills,
+            "postskill": postskill_skills,
+        },
+        "skill_quality": {
+            "preskill_mean": _mean_skill_quality(preskill_results),
+            "postskill_mean": _mean_skill_quality(postskill_results),
+        },
+        "skill_mutation_violations": {
+            "preskill": sum(
+                1
+                for payload in preskill_results.values()
+                if payload.get("skill_mutation_violation")
+            ),
+            "postskill": sum(
+                1
+                for payload in postskill_results.values()
+                if payload.get("skill_mutation_violation")
+            ),
+        },
+    }
+
+
 def compute_evoscore(
     evolution_pass_rate: float,
     fail2pass_ratio: float,

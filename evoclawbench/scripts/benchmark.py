@@ -34,20 +34,14 @@ from typing import Any, Dict, Iterator, List, Optional
 
 from benchmark_progress import BenchmarkBatchProgress
 from lib_agent import (
-    BENCH_SEEDED_SKILL_NAMES,
+    SEEDED_SKILL_NAMES,
     ensure_openclaw_agent,
     execute_task,
     slugify_model,
 )
-from lib_bench_report import (
-    build_bench_report,
-    print_bench_report_summary,
-    render_bench_report_html,
-    render_bench_report_markdown,
-)
 from lib_environment import DockerEnvironment, LocalEnvironment
 from lib_grading import GradeResult, grade_skill_quality, grade_task
-from lib_metrics import aggregate_metrics, scan_created_skills
+from lib_metrics import aggregate_three_mode_metrics, scan_created_skills
 from lib_tasks import Task, TaskLoader
 from lib_trajectory import (
     end_recording,
@@ -124,9 +118,9 @@ def _parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--mode",
-        default="both",
-        choices=["both", "baseline", "evolution", "bench"],
-        help="Evaluation mode (both = baseline + bench)",
+        default="all",
+        choices=["all", "baseline", "preskill", "postskill"],
+        help="Evaluation mode (all = baseline + preskill + postskill)",
     )
     parser.add_argument("--suite", default="all", help='Tasks: "all" or comma-separated IDs')
     parser.add_argument("--output-dir", default="results", help="Results directory")
@@ -156,11 +150,6 @@ def _parse_args() -> argparse.Namespace:
         action="store_true",
         help="Disable Rich live progress UI (default: on when stdout is a TTY)",
     )
-    parser.add_argument(
-        "--no-bench-report",
-        action="store_true",
-        help="In bench mode, skip Markdown/HTML report and terminal summary",
-    )
     return parser.parse_args()
 
 
@@ -175,17 +164,6 @@ def _next_run_id(run_root: Path) -> str:
     existing = [int(e.name) for e in run_root.iterdir() if e.is_dir() and e.name.isdigit()]
     next_id = (max(existing) + 1) if existing else 1
     return f"{next_id:04d}"
-
-
-def _create_environment(
-    environment_type: str,
-    docker_image: str,
-    task_id: str,
-) -> Optional[LocalEnvironment | DockerEnvironment]:
-    """Create an execution environment based on type."""
-    if environment_type == "docker":
-        return DockerEnvironment(image=docker_image)
-    return LocalEnvironment()
 
 
 class TaskRunContext:
@@ -221,36 +199,138 @@ def _progress_instance_id(ctx: TaskRunContext) -> str:
     return f"{ctx.task.task_id}#r{ctx.run_idx + 1}"
 
 
-def _execute_single_task_run(ctx: TaskRunContext) -> tuple[Task, int, GradeResult, Dict[str, Any]]:
-    """Execute a single task run (one task, one mode, one iteration).
-
-    Returns: (task, run_idx, grade, exec_result)
-    """
-    task = ctx.task
-    mode = ctx.mode
-    run_idx = ctx.run_idx
+def _effective_agent_id(ctx: TaskRunContext) -> Optional[str]:
     args = ctx.args
     agent_id = ctx.agent_id
-    environment = ctx.environment
-
     try:
         workers_n = max(1, int(getattr(args, "workers", 1)))
     except (TypeError, ValueError):
         workers_n = 1
-    if agent_id is not None and args.runtime == "openclaw":
-        effective_agent_id = _openclaw_agent_id_for_parallel_worker(agent_id, workers_n)
-    else:
-        effective_agent_id = agent_id
+    if agent_id is not None and getattr(args, "runtime", None) == "openclaw":
+        return _openclaw_agent_id_for_parallel_worker(agent_id, workers_n)
+    return agent_id
 
-    task_grades = []
-    task_results = []
-    created_skills = []
+
+def _empty_usage() -> Dict[str, Any]:
+    return {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "request_count": 0,
+        "cost_usd": 0.0,
+        "total_cost_usd": 0.0,
+        "total_execution_time_seconds": 0.0,
+    }
+
+
+def _usage_from_exec_result(exec_result: Dict[str, Any]) -> Dict[str, Any]:
+    merged = _empty_usage()
+    usage = exec_result.get("usage") or {}
+    for key in (
+        "input_tokens",
+        "output_tokens",
+        "total_tokens",
+        "cache_read_tokens",
+        "cache_write_tokens",
+        "request_count",
+    ):
+        merged[key] += int(usage.get(key, 0) or 0)
+    cost_usd = float(usage.get("cost_usd", usage.get("total_cost_usd", 0.0)) or 0.0)
+    merged["cost_usd"] += cost_usd
+    merged["total_cost_usd"] += cost_usd
+    merged["total_execution_time_seconds"] += float(exec_result.get("execution_time", 0.0) or 0.0)
+    return merged
+
+
+def _merge_usage(*items: Dict[str, Any]) -> Dict[str, Any]:
+    merged = _empty_usage()
+    for usage in items:
+        for key in merged:
+            merged[key] += usage.get(key, 0) or 0
+    return merged
+
+
+def _output_file_summaries(workspace_path: str, *, max_files: int = 40) -> List[Dict[str, Any]]:
+    workspace = Path(workspace_path)
+    outputs_dir = workspace / "outputs"
+    if not outputs_dir.is_dir():
+        return []
+    summaries: List[Dict[str, Any]] = []
+    for path in sorted(p for p in outputs_dir.rglob("*") if p.is_file())[:max_files]:
+        rel = path.relative_to(workspace)
+        item: Dict[str, Any] = {"path": str(rel), "size_bytes": path.stat().st_size}
+        try:
+            item["content_preview"] = path.read_text(encoding="utf-8", errors="ignore")[:1000]
+        except OSError as exc:
+            item["error"] = str(exc)
+        summaries.append(item)
+    return summaries
+
+
+def _transcript_summary(transcript: List[Dict[str, Any]], *, max_messages: int = 12) -> List[str]:
+    lines: List[str] = []
+    for entry in transcript:
+        if entry.get("type") != "message":
+            continue
+        msg = entry.get("message", {})
+        role = msg.get("role", "unknown")
+        content = msg.get("content", "")
+        if isinstance(content, list):
+            text = " ".join(str(part.get("text", "")) for part in content if isinstance(part, dict))
+        else:
+            text = str(content)
+        text = " ".join(text.split())
+        if text:
+            lines.append(f"{role}: {text[:600]}")
+        if len(lines) >= max_messages:
+            break
+    return lines
+
+
+def _write_first_run_context(task: Task, grade: GradeResult, exec_result: Dict[str, Any]) -> None:
+    workspace_s = exec_result.get("workspace", "")
+    if not workspace_s:
+        return
+    workspace = Path(workspace_s)
+    context_path = workspace / ".evoclawbench" / "first_run_context.json"
+    context_path.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "task_id": task.task_id,
+        "task_name": task.name,
+        "prompt": task.prompt,
+        "expected_behavior": task.expected_behavior,
+        "grading_criteria": task.grading_criteria,
+        "grade": grade.to_dict(),
+        "outputs": _output_file_summaries(str(workspace)),
+        "transcript_summary": _transcript_summary(exec_result.get("transcript", [])),
+    }
+    context_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
+
+
+def _execute_phase(
+    ctx: TaskRunContext,
+    *,
+    phase_mode: str,
+    workspace_root: Optional[Path],
+    grade_result: bool,
+    source_skills_workspace: Optional[Path] = None,
+    context_source_workspace: Optional[Path] = None,
+    manage_progress: bool = True,
+    progress_label: Optional[str] = None,
+) -> tuple[Optional[GradeResult], Dict[str, Any]]:
+    """Execute one benchmark phase, optionally grading the result."""
+    task = ctx.task
+    run_idx = ctx.run_idx
+    args = ctx.args
+    effective_agent_id = _effective_agent_id(ctx)
 
     logger.info(
         "\n%s\n  Task %s [%s mode] (Run %s)\n%s",
         "=" * 70,
         task.task_id,
-        mode,
+        phase_mode,
         run_idx + 1,
         "=" * 70,
     )
@@ -259,35 +339,37 @@ def _execute_single_task_run(ctx: TaskRunContext) -> tuple[Task, int, GradeResul
 
     start_recording(
         task_id=task.task_id,
-        mode=mode,
+        mode=phase_mode,
         run_number=run_idx + 1,
         agent_id=effective_agent_id or "unknown",
         model_id=args.model,
-        runtime=args.runtime,
+        runtime=getattr(args, "runtime", "unknown"),
         workspace="",
     )
 
     instance_id = _progress_instance_id(ctx)
     prog = ctx.progress
-    if prog is not None:
+    if manage_progress and prog is not None:
         prog.on_instance_start(instance_id)
 
     exec_start_time = time.time()
     if prog is not None:
-        prog.update_instance_status(instance_id, "Agent")
+        prog.update_instance_status(instance_id, progress_label or phase_mode)
     try:
         exec_result = execute_task(
             task=task,
             runtime=args.runtime,
             model_id=args.model,
-            run_id=ctx.trajectory_run_id,
+            run_id=f"{ctx.run_id}-{phase_mode}-{run_idx + 1}",
             timeout_multiplier=args.timeout_multiplier,
             skill_dir=ctx.skill_dir,
-            mode=mode,
+            mode=phase_mode,
             agent_id=effective_agent_id,
             verbose=args.verbose,
-            environment=environment,
-            workspace_root=ctx.workspace_root,
+            environment=ctx.environment,
+            workspace_root=workspace_root,
+            source_skills_workspace=source_skills_workspace,
+            context_source_workspace=context_source_workspace,
         )
         exec_time = time.time() - exec_start_time
         exec_status = "success" if exec_result.get("exit_code", -1) == 0 else "error"
@@ -306,7 +388,7 @@ def _execute_single_task_run(ctx: TaskRunContext) -> tuple[Task, int, GradeResul
             "execution_time": exec_time,
             "stdout": "",
             "stderr": str(exc),
-            "mode": mode,
+            "mode": phase_mode,
         }
         exec_status = "error"
         record_error(
@@ -315,7 +397,7 @@ def _execute_single_task_run(ctx: TaskRunContext) -> tuple[Task, int, GradeResul
             component="agent",
         )
 
-    if prog is not None:
+    if prog is not None and grade_result:
         prog.update_instance_status(instance_id, "Grading")
 
     workspace = exec_result.get("workspace", "")
@@ -325,44 +407,46 @@ def _execute_single_task_run(ctx: TaskRunContext) -> tuple[Task, int, GradeResul
         expected_files = [f"outputs/data_{i}.json" for i in range(1, 20)]
         record_workspace_files(workspace, expected_files)
 
-    try:
-        grade = grade_task(
-            task=task,
-            execution_result=exec_result,
-            skill_dir=ctx.skill_dir,
-            judge_model=args.judge or "openrouter/anthropic/claude-opus-4.5",
-            verbose=args.verbose,
-            runtime=args.runtime,
-        )
-        grading_error = None
-    except Exception as exc:
-        logger.warning("Grading failed for %s: %s", task.task_id, exc)
-        grade = GradeResult(
-            task_id=task.task_id,
-            score=0.0,
-            max_score=1.0,
-            grading_type=task.grading_type,
-            breakdown={},
-            notes=f"Grading failed: {exc}",
-        )
-        grading_error = str(exc)
-        record_error(
-            error_type="grading_failed",
-            message=str(exc),
-            component="grading",
-        )
+    grade: Optional[GradeResult] = None
+    grading_error = None
+    if grade_result:
+        try:
+            grade = grade_task(
+                task=task,
+                execution_result=exec_result,
+                skill_dir=ctx.skill_dir,
+                judge_model=args.judge or "openrouter/anthropic/claude-opus-4.5",
+                verbose=args.verbose,
+                runtime=args.runtime,
+            )
+        except Exception as exc:
+            logger.warning("Grading failed for %s: %s", task.task_id, exc)
+            grade = GradeResult(
+                task_id=task.task_id,
+                score=0.0,
+                max_score=1.0,
+                grading_type=task.grading_type,
+                breakdown={},
+                notes=f"Grading failed: {exc}",
+            )
+            grading_error = str(exc)
+            record_error(
+                error_type="grading_failed",
+                message=str(exc),
+                component="grading",
+            )
 
-    record_grading(
-        executed=grading_error is None,
-        execution_time=0.0,
-        input_shape={
-            "transcript_length": len(exec_result.get("transcript", [])),
-            "workspace": workspace,
-        },
-        output=grade.breakdown if grade else {},
-        error=grading_error,
-        notes=grade.notes if grade else None,
-    )
+        record_grading(
+            executed=grading_error is None,
+            execution_time=0.0,
+            input_shape={
+                "transcript_length": len(exec_result.get("transcript", [])),
+                "workspace": workspace,
+            },
+            output=grade.breakdown if grade else {},
+            error=grading_error,
+            notes=grade.notes if grade else None,
+        )
 
     trajectory = end_recording(
         status=exec_status,
@@ -374,30 +458,25 @@ def _execute_single_task_run(ctx: TaskRunContext) -> tuple[Task, int, GradeResul
     if recorder.current_trajectory is None:
         trajectory.execution.workspace = workspace
 
-    task_grades.append(grade)
-    task_results.append(exec_result)
+    if grade is not None:
+        score_pct = grade.score / grade.max_score * 100 if grade.max_score > 0 else 0
+        emoji = "+" if grade.score >= grade.max_score else "~" if grade.score > 0 else "x"
+        logger.info(
+            "  [%s] %s: %.1f/%.1f (%.0f%%) - %s",
+            emoji,
+            task.task_id,
+            grade.score,
+            grade.max_score,
+            score_pct,
+            grade.grading_type,
+        )
 
-    score_pct = grade.score / grade.max_score * 100 if grade.max_score > 0 else 0
-    emoji = "+" if grade.score >= grade.max_score else "~" if grade.score > 0 else "x"
-    logger.info(
-        "  [%s] %s: %.1f/%.1f (%.0f%%) - %s",
-        emoji,
-        task.task_id,
-        grade.score,
-        grade.max_score,
-        score_pct,
-        grade.grading_type,
-    )
+    if phase_mode in ("preskill_author", "postskill_summary") and workspace:
+        created_skills = scan_created_skills(workspace, exclude_names=SEEDED_SKILL_NAMES)
+        if created_skills:
+            logger.info("  Skills created: %s", [s["name"] for s in created_skills])
 
-    if mode in ("evolution", "bench") and task_results:
-        last_workspace = task_results[-1].get("workspace", "")
-        if last_workspace:
-            excludes = BENCH_SEEDED_SKILL_NAMES if mode == "bench" else None
-            created_skills = scan_created_skills(last_workspace, exclude_names=excludes)
-            if created_skills:
-                logger.info("  Skills created: %s", [s["name"] for s in created_skills])
-
-    if prog is not None:
+    if manage_progress and prog is not None:
         usage = exec_result.get("usage") or {}
         cost = float(usage.get("cost_usd", 0.0))
         if grading_error is not None:
@@ -408,7 +487,19 @@ def _execute_single_task_run(ctx: TaskRunContext) -> tuple[Task, int, GradeResul
             exit_label = "success"
         prog.on_instance_end(instance_id, exit_label, cost)
 
-    return task, run_idx, grade, exec_result
+    return grade, exec_result
+
+
+def _execute_single_task_run(ctx: TaskRunContext) -> tuple[Task, int, GradeResult, Dict[str, Any]]:
+    """Execute and grade a single one-phase task run."""
+    grade, exec_result = _execute_phase(
+        ctx,
+        phase_mode=ctx.mode,
+        workspace_root=ctx.workspace_root,
+        grade_result=True,
+    )
+    assert grade is not None
+    return ctx.task, ctx.run_idx, grade, exec_result
 
 
 def _run_single_mode(
@@ -518,10 +609,10 @@ def _run_single_mode(
 
         created_skills = []
         skill_quality = 0.0
-        if mode in ("evolution", "bench") and task_results_list:
+        if mode in ("preskill_author", "postskill_summary") and task_results_list:
             last_workspace = task_results_list[-1].get("workspace", "") if task_results_list else ""
             if last_workspace:
-                excludes = BENCH_SEEDED_SKILL_NAMES if mode == "bench" else None
+                excludes = SEEDED_SKILL_NAMES
                 created_skills = scan_created_skills(last_workspace, exclude_names=excludes)
                 if created_skills:
                     logger.info("  Skills created: %s", [s["name"] for s in created_skills])
@@ -538,6 +629,354 @@ def _run_single_mode(
             results[task.task_id]["created_skills"] = created_skills
             results[task.task_id]["skill_quality_score"] = skill_quality
 
+    return results
+
+
+def _build_mode_contexts(
+    *,
+    tasks_to_run: List[Task],
+    mode: str,
+    args: argparse.Namespace,
+    run_id: str,
+    skill_dir: Path,
+    agent_id: Optional[str],
+    run_start_ts: str,
+) -> List[TaskRunContext]:
+    runs_per_task = max(1, args.runs)
+    workspace_mode_root = Path("workspaces") / f"{run_start_ts}_{mode}" / run_id
+    contexts: List[TaskRunContext] = []
+    for task in tasks_to_run:
+        for run_idx in range(runs_per_task):
+            environment = None
+            if args.environment == "docker":
+                environment = _create_environment(args.docker_image, task.task_id)
+            trajectory_run_id = f"{run_id}-{mode}-{run_idx + 1}"
+            workspace_root = (
+                workspace_mode_root / trajectory_run_id
+                if runs_per_task > 1
+                else workspace_mode_root
+            )
+            contexts.append(
+                TaskRunContext(
+                    task=task,
+                    mode=mode,
+                    run_idx=run_idx,
+                    args=args,
+                    run_id=run_id,
+                    skill_dir=skill_dir,
+                    agent_id=agent_id,
+                    environment=environment,
+                    workspace_root=workspace_root,
+                )
+            )
+    return contexts
+
+
+def _store_phase_payload(
+    entry: Dict[str, Any],
+    *,
+    phase: str,
+    exec_result: Dict[str, Any],
+) -> None:
+    entry.setdefault("phase_results", []).append({"phase": phase, "result": exec_result})
+    entry.setdefault("phase_usage", {})[phase] = _merge_usage(
+        entry.setdefault("phase_usage", {}).get(phase, _empty_usage()),
+        _usage_from_exec_result(exec_result),
+    )
+
+
+def _store_preskill_result(
+    results: Dict[str, Dict[str, Any]],
+    *,
+    task: Task,
+    primary_grade: GradeResult,
+    primary_exec: Dict[str, Any],
+    author_exec: Dict[str, Any],
+    created_skills: List[Dict[str, Any]],
+) -> None:
+    _store_task_result(results, task.task_id, primary_grade, primary_exec)
+    entry = results[task.task_id]
+    _store_phase_payload(entry, phase="skill_generation", exec_result=author_exec)
+    _store_phase_payload(entry, phase="execution", exec_result=primary_exec)
+    entry.setdefault("skill_generation_results", []).append(author_exec)
+    entry.setdefault("created_skills", []).extend(created_skills)
+    entry.setdefault("skill_quality_scores", []).append(
+        grade_skill_quality(created_skills, task) if created_skills else 0.0
+    )
+    entry.setdefault("skill_mutation_violations", []).append(
+        bool(primary_exec.get("skill_mutation_violation", False))
+    )
+    entry["end_to_end_usage"] = _merge_usage(
+        entry.get("end_to_end_usage", _empty_usage()),
+        _usage_from_exec_result(author_exec),
+        _usage_from_exec_result(primary_exec),
+    )
+
+
+def _store_postskill_result(
+    results: Dict[str, Dict[str, Any]],
+    *,
+    task: Task,
+    first_grade: GradeResult,
+    first_exec: Dict[str, Any],
+    summary_exec: Dict[str, Any],
+    second_grade: GradeResult,
+    second_exec: Dict[str, Any],
+    created_skills: List[Dict[str, Any]],
+) -> None:
+    _store_task_result(results, task.task_id, second_grade, second_exec)
+    entry = results[task.task_id]
+    _store_phase_payload(entry, phase="first_execution", exec_result=first_exec)
+    _store_phase_payload(entry, phase="skill_summary", exec_result=summary_exec)
+    _store_phase_payload(entry, phase="second_execution", exec_result=second_exec)
+    entry.setdefault("first_pass_grades", []).append(first_grade.to_dict())
+    entry.setdefault("first_pass_results", []).append(first_exec)
+    entry.setdefault("skill_summary_results", []).append(summary_exec)
+    entry.setdefault("created_skills", []).extend(created_skills)
+    entry.setdefault("skill_quality_scores", []).append(
+        grade_skill_quality(created_skills, task) if created_skills else 0.0
+    )
+    entry.setdefault("skill_mutation_violations", []).append(
+        bool(second_exec.get("skill_mutation_violation", False))
+    )
+    entry["end_to_end_usage"] = _merge_usage(
+        entry.get("end_to_end_usage", _empty_usage()),
+        _usage_from_exec_result(first_exec),
+        _usage_from_exec_result(summary_exec),
+        _usage_from_exec_result(second_exec),
+    )
+
+
+def _finalize_phase_mode_results(
+    results: Dict[str, Dict[str, Any]],
+    *,
+    tasks_to_run: List[Task],
+    mode: str,
+) -> None:
+    for task in tasks_to_run:
+        if task.task_id not in results:
+            continue
+        entry = results[task.task_id]
+        task_scores = [g.get("score", 0) for g in entry.get("grades", [])] or [0]
+        entry["mode"] = mode
+        entry["mean_score"] = statistics.mean(task_scores)
+        entry["std_score"] = statistics.stdev(task_scores) if len(task_scores) > 1 else 0.0
+        quality_scores = entry.get("skill_quality_scores", [])
+        entry["skill_quality_score"] = statistics.mean(quality_scores) if quality_scores else 0.0
+        entry["skill_mutation_violation"] = any(entry.get("skill_mutation_violations", []))
+        if mode == "postskill":
+            first_scores = [g.get("score", 0) for g in entry.get("first_pass_grades", [])] or [0]
+            first_mean = statistics.mean(first_scores)
+            entry["first_pass_mean_score"] = first_mean
+            entry["second_pass_mean_score"] = entry["mean_score"]
+            entry["second_vs_first_delta"] = entry["mean_score"] - first_mean
+            if first_mean > 0:
+                entry["second_vs_first_ratio"] = entry["mean_score"] / first_mean
+            elif entry["mean_score"] > 0:
+                entry["second_vs_first_ratio"] = "inf"
+            else:
+                entry["second_vs_first_ratio"] = 1.0
+
+
+def _run_contexts_with_progress(
+    *,
+    contexts: List[TaskRunContext],
+    args: argparse.Namespace,
+    runner,
+) -> List[Dict[str, Any]]:
+    progress_mgr: Optional[BenchmarkBatchProgress] = None
+    if getattr(args, "show_progress", False) is True and contexts:
+        progress_mgr = BenchmarkBatchProgress(len(contexts))
+        for ctx in contexts:
+            ctx.progress = progress_mgr
+
+    def _run_all() -> List[Dict[str, Any]]:
+        if max(1, args.workers) == 1:
+            return [runner(ctx) for ctx in contexts]
+        logger.info(
+            "  Running %d task pipelines in parallel (workers=%d)", len(contexts), args.workers
+        )
+        outputs: List[Dict[str, Any]] = []
+        with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, args.workers)) as executor:
+            futures = {executor.submit(runner, ctx): ctx for ctx in contexts}
+            for future in concurrent.futures.as_completed(futures):
+                ctx = futures[future]
+                try:
+                    outputs.append(future.result())
+                except Exception as exc:
+                    logger.error("Task pipeline failed for %s: %s", ctx.task.task_id, exc)
+                    if progress_mgr is not None:
+                        progress_mgr.on_uncaught_exception(_progress_instance_id(ctx), exc)
+        return outputs
+
+    if progress_mgr is not None:
+        with _suppress_stdout_info_for_rich_live():
+            with Live(progress_mgr.render_group, refresh_per_second=4):
+                return _run_all()
+    return _run_all()
+
+
+def _run_preskill_pipeline(ctx: TaskRunContext) -> Dict[str, Any]:
+    prog = ctx.progress
+    instance_id = _progress_instance_id(ctx)
+    if prog is not None:
+        prog.on_instance_start(instance_id)
+    total_cost = 0.0
+    try:
+        author_grade, author_exec = _execute_phase(
+            ctx,
+            phase_mode="preskill_author",
+            workspace_root=ctx.workspace_root / "preskill_author" if ctx.workspace_root else None,
+            grade_result=False,
+            manage_progress=False,
+            progress_label="Skill generation",
+        )
+        del author_grade
+        total_cost += float((author_exec.get("usage") or {}).get("cost_usd", 0.0) or 0.0)
+        author_workspace_s = author_exec.get("workspace", "")
+        author_workspace = Path(author_workspace_s) if author_workspace_s else None
+        created_skills = (
+            scan_created_skills(str(author_workspace), exclude_names=SEEDED_SKILL_NAMES)
+            if author_workspace
+            else []
+        )
+        primary_grade, primary_exec = _execute_phase(
+            ctx,
+            phase_mode="preskill_execute",
+            workspace_root=ctx.workspace_root / "preskill_execute" if ctx.workspace_root else None,
+            source_skills_workspace=author_workspace,
+            grade_result=True,
+            manage_progress=False,
+            progress_label="Skill reuse",
+        )
+        assert primary_grade is not None
+        total_cost += float((primary_exec.get("usage") or {}).get("cost_usd", 0.0) or 0.0)
+        return {
+            "task": ctx.task,
+            "primary_grade": primary_grade,
+            "primary_exec": primary_exec,
+            "author_exec": author_exec,
+            "created_skills": created_skills,
+        }
+    finally:
+        if prog is not None:
+            prog.on_instance_end(instance_id, "success", total_cost)
+
+
+def _run_postskill_pipeline(ctx: TaskRunContext) -> Dict[str, Any]:
+    prog = ctx.progress
+    instance_id = _progress_instance_id(ctx)
+    if prog is not None:
+        prog.on_instance_start(instance_id)
+    total_cost = 0.0
+    try:
+        first_grade, first_exec = _execute_phase(
+            ctx,
+            phase_mode="postskill_first",
+            workspace_root=ctx.workspace_root / "postskill_first" if ctx.workspace_root else None,
+            grade_result=True,
+            manage_progress=False,
+            progress_label="First execution",
+        )
+        assert first_grade is not None
+        total_cost += float((first_exec.get("usage") or {}).get("cost_usd", 0.0) or 0.0)
+        _write_first_run_context(ctx.task, first_grade, first_exec)
+        first_workspace_s = first_exec.get("workspace", "")
+        first_workspace = Path(first_workspace_s) if first_workspace_s else None
+        summary_grade, summary_exec = _execute_phase(
+            ctx,
+            phase_mode="postskill_summary",
+            workspace_root=ctx.workspace_root / "postskill_summary" if ctx.workspace_root else None,
+            context_source_workspace=first_workspace,
+            grade_result=False,
+            manage_progress=False,
+            progress_label="Skill summary",
+        )
+        del summary_grade
+        total_cost += float((summary_exec.get("usage") or {}).get("cost_usd", 0.0) or 0.0)
+        summary_workspace_s = summary_exec.get("workspace", "")
+        summary_workspace = Path(summary_workspace_s) if summary_workspace_s else None
+        created_skills = (
+            scan_created_skills(str(summary_workspace), exclude_names=SEEDED_SKILL_NAMES)
+            if summary_workspace
+            else []
+        )
+        second_grade, second_exec = _execute_phase(
+            ctx,
+            phase_mode="postskill_second",
+            workspace_root=ctx.workspace_root / "postskill_second" if ctx.workspace_root else None,
+            source_skills_workspace=summary_workspace,
+            grade_result=True,
+            manage_progress=False,
+            progress_label="Second execution",
+        )
+        assert second_grade is not None
+        total_cost += float((second_exec.get("usage") or {}).get("cost_usd", 0.0) or 0.0)
+        return {
+            "task": ctx.task,
+            "first_grade": first_grade,
+            "first_exec": first_exec,
+            "summary_exec": summary_exec,
+            "second_grade": second_grade,
+            "second_exec": second_exec,
+            "created_skills": created_skills,
+        }
+    finally:
+        if prog is not None:
+            prog.on_instance_end(instance_id, "success", total_cost)
+
+
+def _run_preskill_mode(
+    *,
+    tasks_to_run: List[Task],
+    args: argparse.Namespace,
+    run_id: str,
+    skill_dir: Path,
+    agent_id: Optional[str],
+    run_start_ts: str,
+) -> Dict[str, Dict[str, Any]]:
+    contexts = _build_mode_contexts(
+        tasks_to_run=tasks_to_run,
+        mode="preskill",
+        args=args,
+        run_id=run_id,
+        skill_dir=skill_dir,
+        agent_id=agent_id,
+        run_start_ts=run_start_ts,
+    )
+    results: Dict[str, Dict[str, Any]] = {}
+    for payload in _run_contexts_with_progress(
+        contexts=contexts, args=args, runner=_run_preskill_pipeline
+    ):
+        _store_preskill_result(results, **payload)
+    _finalize_phase_mode_results(results, tasks_to_run=tasks_to_run, mode="preskill")
+    return results
+
+
+def _run_postskill_mode(
+    *,
+    tasks_to_run: List[Task],
+    args: argparse.Namespace,
+    run_id: str,
+    skill_dir: Path,
+    agent_id: Optional[str],
+    run_start_ts: str,
+) -> Dict[str, Dict[str, Any]]:
+    contexts = _build_mode_contexts(
+        tasks_to_run=tasks_to_run,
+        mode="postskill",
+        args=args,
+        run_id=run_id,
+        skill_dir=skill_dir,
+        agent_id=agent_id,
+        run_start_ts=run_start_ts,
+    )
+    results: Dict[str, Dict[str, Any]] = {}
+    for payload in _run_contexts_with_progress(
+        contexts=contexts, args=args, runner=_run_postskill_pipeline
+    ):
+        _store_postskill_result(results, **payload)
+    _finalize_phase_mode_results(results, tasks_to_run=tasks_to_run, mode="postskill")
     return results
 
 
@@ -608,8 +1047,8 @@ def main():
     tasks_dir = skill_root / "tasks"
 
     print("\n" + "=" * 70)
-    print("  EvoClawBench - Skill Evolution Benchmark")
-    print("  Evaluating agent auto-evolution capabilities")
+    print("  EvoClawBench - Three-Mode Agent Skill Benchmark")
+    print("  Evaluating baseline, preskill, and postskill performance")
     print("=" * 70 + "\n")
 
     if not tasks_dir.exists():
@@ -626,7 +1065,6 @@ def main():
     logger.info("Environment: %s", args.environment)
 
     loader = TaskLoader(tasks_dir)
-    loader.load_all_tasks()
     all_tasks = loader.load_all_tasks()
 
     task_ids = _select_task_ids(all_tasks, args.suite)
@@ -663,11 +1101,11 @@ def main():
                     workspace_base / f"w{k}",
                 )
 
-    baseline_results = {}
-    evolution_results = {}
-    bench_results: Dict[str, Dict[str, Any]] = {}
+    baseline_results: Dict[str, Dict[str, Any]] = {}
+    preskill_results: Dict[str, Dict[str, Any]] = {}
+    postskill_results: Dict[str, Dict[str, Any]] = {}
 
-    if args.mode in ("both", "baseline"):
+    if args.mode in ("all", "baseline"):
         logger.info("\n%s\n  BASELINE MODE (no skill creation)\n%s", "=" * 70, "=" * 70)
         baseline_results = _run_single_mode(
             tasks_to_run=tasks_to_run,
@@ -679,15 +1117,14 @@ def main():
             run_start_ts=run_start_ts,
         )
 
-    if args.mode in ("both", "bench"):
+    if args.mode in ("all", "preskill"):
         logger.info(
-            "\n%s\n  BENCH MODE (skill-creator workflow prompt; skills/skill-creator seeded)\n%s",
+            "\n%s\n  PRESKILL MODE (generate skill first, then execute with it)\n%s",
             "=" * 70,
             "=" * 70,
         )
-        bench_results = _run_single_mode(
+        preskill_results = _run_preskill_mode(
             tasks_to_run=tasks_to_run,
-            mode="bench",
             args=args,
             run_id=run_id,
             skill_dir=skill_root,
@@ -695,31 +1132,27 @@ def main():
             run_start_ts=run_start_ts,
         )
 
-    if args.mode == "both" and baseline_results and bench_results:
-        combined_task_results = []
-        for task_id in baseline_results:
-            b = baseline_results[task_id]
-            bench = bench_results.get(task_id, {})
-            combined_task_results.append(
-                {
-                    "task_id": task_id,
-                    "baseline_grade": {"score": b.get("mean_score", 0.0)},
-                    # aggregate_metrics uses legacy "evolution" field names; in --mode both
-                    # the comparison arm now comes from bench mode.
-                    "evolution_grade": {"score": bench.get("mean_score", 0.0)},
-                    "baseline_usage": b.get("usage", {}),
-                    "evolution_usage": bench.get("usage", {}),
-                    "sub_problem_scores_baseline": b.get("sub_problem_scores", []),
-                    "sub_problem_scores_evolution": bench.get("sub_problem_scores", []),
-                    "created_skills": bench.get("created_skills", []),
-                    "skill_quality_score": bench.get("skill_quality_score", 0.0),
-                }
-            )
+    if args.mode in ("all", "postskill"):
+        logger.info(
+            "\n%s\n  POSTSKILL MODE (execute, summarize skill, execute again)\n%s",
+            "=" * 70,
+            "=" * 70,
+        )
+        postskill_results = _run_postskill_mode(
+            tasks_to_run=tasks_to_run,
+            args=args,
+            run_id=run_id,
+            skill_dir=skill_root,
+            agent_id=agent_id,
+            run_start_ts=run_start_ts,
+        )
 
-        metrics = aggregate_metrics(combined_task_results)
-        _log_metrics_summary(metrics, comparison_label="Bench")
-    else:
-        metrics = {}
+    metrics = aggregate_three_mode_metrics(
+        baseline_results=baseline_results,
+        preskill_results=preskill_results,
+        postskill_results=postskill_results,
+    )
+    _log_metrics_summary(metrics)
 
     aggregate = {
         "benchmark": "evoclawbench",
@@ -733,8 +1166,8 @@ def main():
         "workers": args.workers,
         "environment": args.environment,
         "baseline_results": baseline_results,
-        "evolution_results": evolution_results,
-        "bench_results": bench_results,
+        "preskill_results": preskill_results,
+        "postskill_results": postskill_results,
         "metrics": metrics,
     }
 
@@ -747,62 +1180,40 @@ def main():
     save_trajectories(trajectories_path)
     logger.info("Trajectories saved to %s", trajectories_path)
 
-    if args.mode == "bench" and not args.no_bench_report:
-        report = build_bench_report(
-            aggregate,
-            artifact_filenames={
-                "results_json": output_path.name,
-                "trajectories_json": trajectories_path.name,
-            },
-        )
-        print_bench_report_summary(report)
-        md_report_path = output_dir / f"{run_id}_{model_slug}_{args.runtime}.bench-report.md"
-        html_report_path = output_dir / f"{run_id}_{model_slug}_{args.runtime}.bench-report.html"
-        md_report_path.write_text(render_bench_report_markdown(report), encoding="utf-8")
-        html_report_path.write_text(render_bench_report_html(report), encoding="utf-8")
-        logger.info("Bench report saved to %s", md_report_path)
-        logger.info("Bench report saved to %s", html_report_path)
 
-
-def _log_metrics_summary(
-    metrics: Dict[str, Any],
-    *,
-    comparison_label: str = "Evolution",
-) -> None:
-    f2p = metrics.get("fail2pass", {}).get("overall", {})
-    consistency = metrics.get("consistency", {})
-    efficiency = metrics.get("efficiency", {})
+def _log_metrics_summary(metrics: Dict[str, Any]) -> None:
+    execution = metrics.get("execution_only", {})
+    end_to_end = metrics.get("end_to_end", {})
+    postskill = metrics.get("postskill", {})
     skill_info = metrics.get("created_skills", {})
 
     print("\n" + "=" * 70)
     print("  EVOCLAWBENCH RESULTS SUMMARY")
     print("=" * 70)
 
-    print(f"\n  EvoScore: {metrics.get('evoscore', 0.0):.4f}")
+    scores = execution.get("mean_scores", {})
+    print(f"\n  Baseline score:  {scores.get('baseline', 0):.2%}")
+    print(f"  Preskill score:  {scores.get('preskill', 0):.2%}")
+    print(f"  Postskill score: {scores.get('postskill', 0):.2%}")
 
-    print(f"\n  Baseline pass rate:  {f2p.get('baseline_mean', 0):.2%}")
-    print(f"  {comparison_label} pass rate: {f2p.get('evolution_mean', 0):.2%}")
-    print(f"  fail2pass ratio:    {f2p.get('fail2pass', 'N/A')}")
+    ratios = execution.get("ratios_vs_baseline", {})
+    print(f"\n  Preskill / baseline:  {ratios.get('preskill', 'N/A')}")
+    print(f"  Postskill / baseline: {ratios.get('postskill', 'N/A')}")
 
-    print(f"\n  Consistency (baseline):  {consistency.get('baseline', 0):.4f}")
-    print(f"  Consistency ({comparison_label.lower()}): {consistency.get('evolution', 0):.4f}")
+    end_usage = end_to_end.get("usage", {})
+    if end_usage:
+        print("\n  End-to-end tokens:")
+        print(f"    baseline:  {int(end_usage.get('baseline', {}).get('total_tokens', 0))}")
+        print(f"    preskill:  {int(end_usage.get('preskill', {}).get('total_tokens', 0))}")
+        print(f"    postskill: {int(end_usage.get('postskill', {}).get('total_tokens', 0))}")
 
-    token_eff = efficiency.get("token_efficiency_gain")
-    if token_eff is not None:
-        print(f"\n  Token efficiency gain: {token_eff:.2f}x")
+    if postskill:
+        print(f"\n  Postskill first pass:  {postskill.get('first_pass_mean', 0):.2%}")
+        print(f"  Postskill second pass: {postskill.get('second_pass_mean', 0):.2%}")
+        print(f"  Second-first delta:    {postskill.get('second_vs_first_delta', 0):.2%}")
 
-    print(f"\n  Skills created: {skill_info.get('total_count', 0)}")
-    print(f"  Skill quality:  {metrics.get('skill_quality', {}).get('mean', 0):.4f}")
-
-    per_task = metrics.get("fail2pass", {}).get("per_task", {})
-    if per_task:
-        print(f"\n  {'TASK':<35} {'BASELINE':>10} {comparison_label.upper():>10} {'F2P':>8}")
-        print("  " + "-" * 65)
-        for task_id, data in sorted(per_task.items()):
-            print(
-                f"  {task_id:<35} {data['baseline_score']:>10.2%} "
-                f"{data['evolution_score']:>10.2%} {data['fail2pass']:>8}"
-            )
+    print(f"\n  Preskill skills created:  {skill_info.get('preskill_count', 0)}")
+    print(f"  Postskill skills created: {skill_info.get('postskill_count', 0)}")
 
     print("\n" + "=" * 70)
 

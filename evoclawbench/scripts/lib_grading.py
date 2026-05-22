@@ -394,7 +394,7 @@ def _call_llm(model: str, prompt: str, timeout: float) -> str:
     else:
         client = openai.OpenAI(
             api_key=os.environ.get("OPENAI_API_KEY", "dummy"),
-            base_url=os.environ.get("OPENAI_BASE_URL", "http://localhost:8000/v1"),
+            base_url=os.environ.get("OPENAI_BASE_URL", "http://localhost:16666/v1"),
             timeout=timeout,
         )
 
