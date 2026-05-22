@@ -1,0 +1,112 @@
+{
+  "manifest_file": "pom.xml",
+  "ecosystem": "java",
+  "total_packages": 10,
+  "vulnerable_packages": 10,
+  "risk_score": 9.8,
+  "vulnerabilities": [
+    {
+      "package": "org.springframework.boot:spring-boot-starter-web",
+      "installed_version": "2.3.0.RELEASE",
+      "cve_ids": ["CVE-2022-22965"],
+      "severity": "critical",
+      "description": "Spring Framework RCE known as Spring4Shell can allow remote code execution in vulnerable Spring MVC or WebFlux deployments under specific conditions.",
+      "fix_version": "2.6.6",
+      "references": ["https://nvd.nist.gov/vuln/detail/CVE-2022-22965", "https://spring.io/security/cve-2022-22965"]
+    },
+    {
+      "package": "log4j:log4j",
+      "installed_version": "1.2.17",
+      "cve_ids": ["CVE-2019-17571", "CVE-2021-4104", "CVE-2022-23302", "CVE-2022-23305", "CVE-2022-23307", "CVE-2023-26464"],
+      "severity": "critical",
+      "description": "Log4j 1.x is end-of-life and contains multiple deserialization, SQL injection, JMSAppender, SocketServer, Chainsaw, and denial-of-service vulnerabilities.",
+      "fix_version": "migrate to org.apache.logging.log4j:log4j-core 2.17.2 or later",
+      "references": ["https://nvd.nist.gov/vuln/detail/CVE-2019-17571", "https://nvd.nist.gov/vuln/detail/CVE-2021-4104", "https://nvd.nist.gov/vuln/detail/CVE-2022-23302", "https://nvd.nist.gov/vuln/detail/CVE-2022-23305", "https://nvd.nist.gov/vuln/detail/CVE-2022-23307", "https://nvd.nist.gov/vuln/detail/CVE-2023-26464"]
+    },
+    {
+      "package": "com.fasterxml.jackson.core:jackson-databind",
+      "installed_version": "2.11.0",
+      "cve_ids": ["CVE-2020-36518", "CVE-2021-46877", "CVE-2022-42003", "CVE-2022-42004"],
+      "severity": "high",
+      "description": "Jackson databind has denial-of-service vulnerabilities through deeply nested JSON and resource consumption during deserialization or JsonNode processing.",
+      "fix_version": "2.15.2",
+      "references": ["https://nvd.nist.gov/vuln/detail/CVE-2020-36518", "https://nvd.nist.gov/vuln/detail/CVE-2021-46877", "https://nvd.nist.gov/vuln/detail/CVE-2022-42003", "https://nvd.nist.gov/vuln/detail/CVE-2022-42004"]
+    },
+    {
+      "package": "org.apache.commons:commons-compress",
+      "installed_version": "1.19",
+      "cve_ids": ["CVE-2021-35515", "CVE-2021-35516", "CVE-2021-35517", "CVE-2021-36090", "CVE-2024-25710"],
+      "severity": "high",
+      "description": "Archive parsing flaws can cause excessive iteration, length inconsistency failures, and infinite-loop denial of service on crafted compressed files.",
+      "fix_version": "1.26.0",
+      "references": ["https://nvd.nist.gov/vuln/detail/CVE-2021-35515", "https://nvd.nist.gov/vuln/detail/CVE-2021-35516", "https://nvd.nist.gov/vuln/detail/CVE-2021-35517", "https://nvd.nist.gov/vuln/detail/CVE-2021-36090", "https://nvd.nist.gov/vuln/detail/CVE-2024-25710"]
+    },
+    {
+      "package": "commons-io:commons-io",
+      "installed_version": "2.6",
+      "cve_ids": ["CVE-2021-29425", "CVE-2024-47554"],
+      "severity": "high",
+      "description": "Path traversal and XmlStreamReader denial-of-service issues can be triggered when processing crafted paths or untrusted XML stream input.",
+      "fix_version": "2.14.0",
+      "references": ["https://nvd.nist.gov/vuln/detail/CVE-2021-29425", "https://nvd.nist.gov/vuln/detail/CVE-2024-47554"]
+    },
+    {
+      "package": "org.apache.struts:struts2-core",
+      "installed_version": "2.5.22",
+      "cve_ids": ["CVE-2020-17530", "CVE-2023-34149", "CVE-2023-34396", "CVE-2023-50164", "CVE-2023-41835", "CVE-2024-53677"],
+      "severity": "critical",
+      "description": "Apache Struts 2.5.22 is affected by remote code execution, path traversal, file upload, memory exhaustion, and dynamic code resource handling vulnerabilities.",
+      "fix_version": "6.4.0",
+      "references": ["https://nvd.nist.gov/vuln/detail/CVE-2020-17530", "https://nvd.nist.gov/vuln/detail/CVE-2023-34149", "https://nvd.nist.gov/vuln/detail/CVE-2023-34396", "https://nvd.nist.gov/vuln/detail/CVE-2023-50164", "https://nvd.nist.gov/vuln/detail/CVE-2023-41835", "https://nvd.nist.gov/vuln/detail/CVE-2024-53677"]
+    },
+    {
+      "package": "org.hibernate:hibernate-core",
+      "installed_version": "5.4.18.Final",
+      "cve_ids": ["CVE-2020-25638", "CVE-2026-0603"],
+      "severity": "critical",
+      "description": "Hibernate query generation flaws can permit SQL injection when vulnerable APIs are used with attacker-controlled input.",
+      "fix_version": "5.4.24.Final or latest supported 6.x",
+      "references": ["https://nvd.nist.gov/vuln/detail/CVE-2020-25638", "https://github.com/advisories/GHSA-j8jw-g6fq-mp7h"]
+    },
+    {
+      "package": "org.apache.tomcat.embed:tomcat-embed-core",
+      "installed_version": "9.0.35",
+      "cve_ids": ["CVE-2021-24122", "CVE-2024-50379", "CVE-2024-56337", "CVE-2025-24813", "CVE-2025-53506"],
+      "severity": "critical",
+      "description": "Embedded Tomcat includes information disclosure, race condition, HTTP/2 denial-of-service, and request handling vulnerabilities, including recent critical file-write/RCE chains in affected configurations.",
+      "fix_version": "9.0.99",
+      "references": ["https://nvd.nist.gov/vuln/detail/CVE-2021-24122", "https://nvd.nist.gov/vuln/detail/CVE-2024-50379", "https://nvd.nist.gov/vuln/detail/CVE-2024-56337", "https://nvd.nist.gov/vuln/detail/CVE-2025-24813", "https://nvd.nist.gov/vuln/detail/CVE-2025-53506"]
+    },
+    {
+      "package": "com.google.guava:guava",
+      "installed_version": "29.0-jre",
+      "cve_ids": ["CVE-2020-8908", "CVE-2023-2976"],
+      "severity": "medium",
+      "description": "Guava exposes information disclosure risks through temporary directory creation and insecure temporary directory handling in FileBackedOutputStream.",
+      "fix_version": "32.0.0-jre",
+      "references": ["https://nvd.nist.gov/vuln/detail/CVE-2020-8908", "https://nvd.nist.gov/vuln/detail/CVE-2023-2976"]
+    },
+    {
+      "package": "org.yaml:snakeyaml",
+      "installed_version": "1.26",
+      "cve_ids": ["CVE-2022-1471", "CVE-2022-25857", "CVE-2022-38749", "CVE-2022-38750", "CVE-2022-38751", "CVE-2022-38752"],
+      "severity": "critical",
+      "description": "SnakeYAML can allow unsafe deserialization remote code execution and multiple denial-of-service conditions through crafted YAML documents.",
+      "fix_version": "2.0",
+      "references": ["https://nvd.nist.gov/vuln/detail/CVE-2022-1471", "https://nvd.nist.gov/vuln/detail/CVE-2022-25857", "https://nvd.nist.gov/vuln/detail/CVE-2022-38749", "https://nvd.nist.gov/vuln/detail/CVE-2022-38750", "https://nvd.nist.gov/vuln/detail/CVE-2022-38751", "https://nvd.nist.gov/vuln/detail/CVE-2022-38752"]
+    }
+  ],
+  "summary": "6 critical, 3 high, 1 medium, 0 low vulnerable packages found. Immediate action required for: spring-boot-starter-web, log4j 1.x, struts2-core, hibernate-core, tomcat-embed-core, snakeyaml.",
+  "recommendations": [
+    "Upgrade spring-boot-starter-web from 2.3.0.RELEASE to >=2.6.6 or a currently supported Spring Boot line",
+    "Remove end-of-life log4j:log4j 1.2.17 and migrate to Log4j 2.17.2 or later",
+    "Upgrade jackson-databind from 2.11.0 to >=2.15.2",
+    "Upgrade commons-compress from 1.19 to >=1.26.0",
+    "Upgrade commons-io from 2.6 to >=2.14.0",
+    "Upgrade struts2-core from 2.5.22 to >=6.4.0 and review file upload configuration",
+    "Upgrade hibernate-core from 5.4.18.Final to >=5.4.24.Final or latest supported 6.x",
+    "Upgrade tomcat-embed-core from 9.0.35 to >=9.0.99 or current supported Tomcat",
+    "Upgrade guava from 29.0-jre to >=32.0.0-jre",
+    "Upgrade snakeyaml from 1.26 to >=2.0 and use SafeConstructor for untrusted YAML"
+  ]
+}
