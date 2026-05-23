@@ -39,8 +39,8 @@ This growth raises a new evaluation question: can an LLM agent improve itself at
 We present \textbf{\ours{}}, a benchmark for measuring skill self-evolution across repeated, tool-using tasks.
 \ours{} compares three execution strategies: a no-skill \baseline{} condition, a \preskill{} condition that asks the same agent to author task-specific skills before execution, and a \postskill{} condition that asks the agent to summarize reusable skills from a first run before solving the task again.
 The benchmark currently includes \todo{number of tasks} tasks spanning data transformation, log analysis, API scaffolding, test generation, configuration migration, code review, document extraction, office automation, DevOps, security, and metrics analysis, and supports multiple agent runtimes including OpenClaw and nanobot.
-Our preliminary evaluation on \todo{evaluated models and runtimes} shows that agents are strongest at \todo{stronger capability finding}, but that runtime skill creation and reuse does not consistently improve task success.
-Counterintuitively, the best end-to-end workflow is often direct execution rather than first creating a skill, suggesting that self-evolved skills impose costs and context risks that current agents do not yet reliably recover.
+Our preliminary evaluation on \todo{evaluated models and runtimes} shows that agents are strongest at \todo{stronger capability finding}, and that the timing of skill creation matters: authoring skills before execution is more reliable than distilling them from a first run.
+When agents create skills, \preskill{} consistently outperforms \postskill{}, which can regress below \baseline{} because first-run traces introduce context and overfitting risks; end-to-end overhead remains substantial for both workflows.
 \end{abstract}
 
 \section{Introduction}
@@ -87,7 +87,7 @@ Our paper makes the following contributions:
 \begin{itemize}[leftmargin=*]
     \item \textbf{Benchmark.} We build \ours{}, a benchmark for evaluating runtime skill self-evolution in LLM agents. It covers \todo{number of tasks} tasks with repeated sub-problems, fixtures, automated or hybrid graders, and multiple agent runtimes.
     \item \textbf{Three-mode evaluation protocol.} We formalize \baseline{}, \preskill{}, and \postskill{} conditions, separating execution-only performance from end-to-end workflow cost and detecting skill mutation violations during reuse.
-    \item \textbf{Empirical findings.} We provide a preliminary result table and analysis showing that agents are more reliable on \todo{strong category} tasks than \todo{weak category} tasks, while self-created skills often fail to improve pass rate and may increase cost. This finding challenges the assumption that skill creation is automatically beneficial.
+    \item \textbf{Empirical findings.} We provide a preliminary result table and analysis showing that agents are more reliable on \todo{strong category} tasks than \todo{weak category} tasks, and that \preskill{} yields modest but consistent execution-only gains while \postskill{} is more likely to regress and increase end-to-end cost. This finding challenges the assumption that experience-derived skills are automatically better than skills planned before execution.
 \end{itemize}
 
 \section{Related Benchmarks and Skill Evaluation}
@@ -263,13 +263,13 @@ Cost columns are omitted because these local JSON files record zero dollar cost 
 \textbf{Runtime} & \textbf{Model} & \textbf{Tasks} & \textbf{\baseline{} Score} & \textbf{\preskill{} Score} & \textbf{\postskill{} Score} & \textbf{Exec Tok. Gain} & \textbf{Exec Time Gain} & \textbf{E2E Tok. Gain} & \textbf{E2E Time Gain} & \textbf{Skills} & \textbf{Mut. Viol.} \\
 \midrule
 OpenClaw & GPT-5 mini & 22 & 75.68 & 79.57 & 75.89 & 1.09 / 1.10 & 1.07 / 1.23 & 0.67 / 0.33 & 0.55 / 0.38 & 22 / 22 & 0 / 0 \\
-OpenClaw & MiniMax M2.7 & 22 & 0.00 & 0.00 & 0.00 & -- / -- & 0.86 / 0.94 & -- / -- & 0.47 / 0.33 & 0 / 0 & 0 / 0 \\
+OpenClaw & GPT-5.5 & 22 & 70.39 & 74.23 & 66.59 & 0.88 / 1.09 & 1.11 / 1.48 & 0.44 / 0.30 & 0.54 / 0.41 & 17 / 19 & 0 / 0 \\
 \bottomrule
 \end{tabular}
 }
 \vspace{0.25em}
 \begin{flushleft}
-\footnotesize Source files: \texttt{0057\_openai-gpt-5-mini\_openclaw.json} and \texttt{0058\_openai-minimax-minimax-m2-7\_openclaw.json}. Slash-separated gain and count columns are reported as \preskill{} / \postskill{}.
+\footnotesize Source files: \texttt{0057\_openai-gpt-5-mini\_openclaw.json} and \texttt{0060\_openai-gpt-5-5\_openclaw.json}. Slash-separated gain and count columns are reported as \preskill{} / \postskill{}.
 \end{flushleft}
 \end{table*}
 
@@ -282,31 +282,34 @@ These tasks share a common property: success depends on following explicit input
 For example, \todo{task example} reaches \todo{score} under \baseline{}, suggesting that modern agents can often infer the relevant procedure directly from the prompt and fixtures.
 This finding motivates a stricter view of skills: a skill must improve on an already capable baseline, not merely encode instructions the model can infer.
 
-\paragraph{Finding 2: Runtime skill creation does not reliably improve task success.}
-The central result of \ours{} is that \preskill{} and \postskill{} do not consistently outperform \baseline{}.
-In the GPT-5 mini run, \preskill{} changes mean score from 75.68 to 79.57, while \postskill{} changes it to 75.89.
-\preskill{} improves, ties, and regresses on 3, 17, and 2 tasks respectively; \postskill{} improves, ties, and regresses on 4, 15, and 3 tasks.
-This is counterintuitive because both skill workflows provide the agent with extra procedural context.
-The result indicates that self-authored skills are not automatically useful, even when generated by the same model that will later consume them.
+\paragraph{Finding 2: \preskill{} outperforms \postskill{} as a skill strategy.}
+The central result of \ours{} is not that all runtime skill creation fails, but that the timing of skill creation strongly affects reliability.
+In the GPT-5 mini run, \preskill{} changes mean score from 75.68 to 79.57, while \postskill{} reaches 75.89.
+In the GPT-5.5 run, the gap is larger: \preskill{} improves \baseline{} from 70.39 to 74.23, while \postskill{} falls to 66.59.
+At the task level for GPT-5.5, \preskill{} improves, ties, and regresses on 2, 18, and 2 tasks respectively; \postskill{} improves, ties, and regresses on 2, 17, and 3 tasks.
+These results suggest that planning a reusable procedure from the task structure is more robust than summarizing a procedure from a concrete first-run trace.
 
 \paragraph{Finding 3: End-to-end cost often erases execution-only gains.}
 Even when a skill reuse phase improves execution-only score or token usage, the full workflow includes authoring or summary overhead.
 In the GPT-5 mini run, \preskill{} spends 3.59M tokens before task execution, and \postskill{} spends 13.10M tokens before the final second pass.
 As a result, the end-to-end token-efficiency ratio is 0.67 for \preskill{} and 0.33 for \postskill{}.
+The same pattern holds in the GPT-5.5 run, where \preskill{} has an end-to-end token-efficiency ratio of 0.44 and \postskill{} falls further to 0.30.
+Thus, \postskill{} is doubly disadvantaged in the current results: it is usually less accurate than \preskill{} and also pays the larger workflow cost because it requires a first execution before skill summarization.
 This matters for real deployments: a self-evolution loop is useful only when the amortized value of the created skill exceeds the cost of creating it.
 The current benchmark intentionally evaluates the same task in v1, so future cross-task reuse experiments should test whether these costs can be amortized across related but unseen tasks.
 
 \paragraph{Finding 4: Self-created skills can overfit the immediate task trace.}
 \postskill{} uses first-run evidence to write skills.
 This evidence can help the agent capture missing edge cases, but it can also overfit to the exact fixtures, file names, and grading artifacts from the first run.
-We observe \todo{qualitative example} where the summarized skill \todo{failure mechanism}.
+In the GPT-5.5 run, this appears in tasks such as \texttt{task\_03\_api\_scaffold} and \texttt{task\_08\_schema\_ops}, where the first pass reaches 100.00 and 98.67 respectively, but the \postskill{} second pass drops to 0.00.
 The failure resembles context interference: generated skill text competes with the prompt and workspace evidence, and the agent may anchor on its own previous solution rather than adapt to the current execution.
+By contrast, \preskill{} avoids anchoring on a concrete first-run solution and instead asks the agent to infer a procedure from the task description and repeated sub-problems.
 This suggests that effective self-evolution requires not only skill creation, but also abstraction control, validation, and possibly skill pruning.
 
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{Figures/fig_failure_case_imagegen.png}
-\caption{Qualitative failure mode for self-created skills. In \postskill{}, first-run evidence can help produce reusable procedural memory, but it can also encode over-specific assumptions that interfere with the second execution context.}
+\caption{Qualitative failure mode for experience-derived skills. In \postskill{}, first-run evidence can help produce reusable procedural memory, but it can also encode over-specific assumptions that interfere with the second execution context.}
 \label{fig:failure-case}
 \end{figure*}
 
@@ -319,13 +322,13 @@ It may decide that a task is repetitive, write a new skill, use the skill immedi
 Our results suggest that current agents are not yet reliable at this lifecycle.
 
 One reason is that strong base models already solve many benchmark tasks directly.
-When direct execution is strong, a generated skill has little room to help and can easily add unnecessary tokens.
-Another reason is that self-authored skills are produced under uncertainty.
-Before solving the task, the agent may not know which procedure is actually useful.
-After solving the task, it may summarize artifacts that worked for one fixture rather than abstractions that transfer.
+When direct execution is strong, \preskill{} has only modest room to improve task score and must justify its authoring overhead.
+However, the observed gap between \preskill{} and \postskill{} suggests that this overhead is better spent on planning from task structure than on distilling from an execution trace.
+\preskill{} asks the agent to infer an abstract procedure from repeated sub-problems before committing to a concrete solution.
+\postskill{} adds evidence from a completed run, but that evidence can bias the generated skill toward fixture-specific artifacts that worked once rather than abstractions that transfer.
 
 These observations imply that future skill systems should treat self-evolution as a selective operation rather than a default behavior.
-Agents may need confidence estimates for whether a task is worth skill creation, validation checks for generated skills, and policies that decide when a skill should be reused, revised, or discarded.
+Agents may need confidence estimates for whether a task is worth skill creation, a preference for \preskill{}-style authoring when skill creation is warranted, validation checks for generated skills, and policies that decide when a skill should be reused, revised, or discarded.
 
 \section*{Limitations}
 

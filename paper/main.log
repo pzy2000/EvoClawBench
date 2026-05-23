@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.2.17)  22 MAY 2026 18:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.2.17)  23 MAY 2026 18:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -645,6 +645,9 @@ LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 8
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
+Underfull \vbox (badness 5924) has occurred while \output is active []
+
+
 
 
 Underfull \hbox (badness 6125) in paragraph at lines 104--108
@@ -674,6 +677,9 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
+
+[3{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc} 
+<./Figures/fig_overview_imagegen.png (PNG copy)>]
 Underfull \hbox (badness 4686) in paragraph at lines 174--177
 \T1/ptm/m/n/10.95 (+20) other au-thor-ing run, Evo-Claw-Bench hashes
  []
@@ -700,9 +706,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 174--177
  []
 
 
-
-[3{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc} 
-<./Figures/fig_overview_imagegen.png (PNG copy)>]
 Underfull \hbox (badness 1742) in paragraph at lines 181--185
 \T1/zi4/m/n/10.95 agent --message\T1/ptm/m/n/10.95 (+20) , while nanobot is in-
 voked
@@ -714,6 +717,9 @@ File: Figures/fig_protocol_imagegen.png Graphic file (type png)
 Package pdftex.def Info: Figures/fig_protocol_imagegen.png  used on input line 
 191.
 (pdftex.def)             Requested size: 455.24411pt x 227.62114pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 
 
 
@@ -762,21 +768,23 @@ LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
 
 
 [5 <./Figures/fig_protocol_imagegen.png (PNG copy)>]
-Underfull \hbox (badness 3492) in paragraph at lines 293--298
+Underfull \hbox (badness 3492) in paragraph at lines 293--300
  []\T1/ptm/b/n/10.95 (+20) Finding 3: End-to-end cost of-ten erases
  []
 
 
 
-<Figures/fig_failure_case_imagegen.png, id=185, 1780.6525pt x 890.32625pt>
+<Figures/fig_failure_case_imagegen.png, id=184, 1780.6525pt x 890.32625pt>
 File: Figures/fig_failure_case_imagegen.png Graphic file (type png)
 <use Figures/fig_failure_case_imagegen.png>
 Package pdftex.def Info: Figures/fig_failure_case_imagegen.png  used on input l
-ine 308.
+ine 311.
 (pdftex.def)             Requested size: 455.24411pt x 227.62114pt.
 
 
-[6] (./main.bbl
+[6]
+
+(./main.bbl
 Underfull \hbox (badness 2600) in paragraph at lines 28--32
 []\T1/ptm/m/n/10 (+20) Xiang Li, Yang Liu, Wei Chen, and 1 oth-ers.
  []
@@ -788,42 +796,39 @@ Underfull \hbox (badness 1117) in paragraph at lines 34--38
 
 
 
-)
-Underfull \hbox (badness 1990) in paragraph at lines 349--353
+[7 <./Figures/fig_failure_case_imagegen.png (PNG copy)>])
+Underfull \hbox (badness 1990) in paragraph at lines 352--356
 \T1/ptm/m/n/10.95 (+20) EvoClawBench con-trols each mode with ex-
  []
 
-
-
-[7 <./Figures/fig_failure_case_imagegen.png (PNG copy)>]
-<Figures/fig_skill_anatomy_imagegen.png, id=242, 1541.76pt x 1027.84pt>
+<Figures/fig_skill_anatomy_imagegen.png, id=224, 1541.76pt x 1027.84pt>
 File: Figures/fig_skill_anatomy_imagegen.png Graphic file (type png)
 <use Figures/fig_skill_anatomy_imagegen.png>
 Package pdftex.def Info: Figures/fig_skill_anatomy_imagegen.png  used on input 
-line 359.
+line 362.
 (pdftex.def)             Requested size: 391.51021pt x 261.00572pt.
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 10.0pt on input line 360.
+(Font)              scaled to size 10.0pt on input line 363.
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--369
+Underfull \hbox (badness 10000) in paragraph at lines 370--372
 \T1/ptm/m/n/10.95 (+20) The ag-gre-gate out-put JSON con-tains
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--369
+Underfull \hbox (badness 10000) in paragraph at lines 370--372
 \T1/zi4/m/n/10.95 baseline_results\T1/ptm/m/n/10.95 (+20) , \T1/zi4/m/n/10.95 p
 reskill_results\T1/ptm/m/n/10.95 (+20) ,
  []
 
 
-Underfull \hbox (badness 1237) in paragraph at lines 367--369
+Underfull \hbox (badness 1237) in paragraph at lines 370--372
 \T1/zi4/m/n/10.95 postskill\T1/ptm/m/n/10.95 (+20) , \T1/zi4/m/n/10.95 created_
 skills\T1/ptm/m/n/10.95 (+20) , \T1/zi4/m/n/10.95 skill_quality\T1/ptm/m/n/10.9
 5 (+20) ,
  []
 
 
-Underfull \hbox (badness 2452) in paragraph at lines 373--375
+Underfull \hbox (badness 2452) in paragraph at lines 376--378
 \T1/ptm/m/n/10.95 (+20) us-age, skill counts, pos-i-tive/tie/negative task
  []
 
@@ -842,13 +847,13 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 002A11E26C1EE3BC6336B7C070045826;2671.
  ) 
 Here is how much of TeX's memory you used:
- 17756 strings out of 473190
- 295502 string characters out of 5715800
+ 17747 strings out of 473190
+ 295442 string characters out of 5715800
  778821 words of memory out of 5000000
  40300 multiletter control sequences out of 15000+600000
- 644670 words of font info for 364 fonts, out of 8000000 for 9000
+ 644273 words of font info for 358 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,11n,93p,1001b,528s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,11n,93p,1001b,622s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/inconsolata/Inconsolat
 a-zi4r.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cm
@@ -858,7 +863,7 @@ pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></u
 sr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/t
 exlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/202
 5/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (9 pages, 6602572 bytes).
+Output written on main.pdf (9 pages, 6604529 bytes).
 PDF statistics:
  309 PDF objects out of 1000 (max. 8388607)
  272 compressed objects within 3 object streams
