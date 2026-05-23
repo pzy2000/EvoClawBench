@@ -25,6 +25,7 @@ import contextlib
 import copy
 import json
 import logging
+import re
 import statistics
 import sys
 import threading
@@ -97,7 +98,7 @@ def _openclaw_agent_id_for_parallel_worker(base_id: str, workers: int) -> str:
         return base_id
     if getattr(_OPENCLAW_PARALLEL_SLOT, "value", None) is None:
         with _OPENCLAW_SLOT_LOCK:
-            slot = _OPENCLAW_NEXT_THREAD_SLOT[0]
+            slot = _OPENCLAW_NEXT_THREAD_SLOT[0] % workers
             _OPENCLAW_NEXT_THREAD_SLOT[0] += 1
         _OPENCLAW_PARALLEL_SLOT.value = slot
     return f"{base_id}-w{_OPENCLAW_PARALLEL_SLOT.value}"
@@ -106,6 +107,8 @@ def _openclaw_agent_id_for_parallel_worker(base_id: str, workers: int) -> str:
 def _reset_openclaw_parallel_worker_slots_for_testing() -> None:
     """Reset slot counter for pytest (one benchmark run per process resets in main if needed)."""
     _OPENCLAW_NEXT_THREAD_SLOT[0] = 0
+    if hasattr(_OPENCLAW_PARALLEL_SLOT, "value"):
+        delattr(_OPENCLAW_PARALLEL_SLOT, "value")
 
 
 def _parse_args() -> argparse.Namespace:
@@ -162,6 +165,10 @@ def _select_task_ids(tasks: List[Task], suite: str) -> Optional[List[str]]:
 def _next_run_id(run_root: Path) -> str:
     run_root.mkdir(parents=True, exist_ok=True)
     existing = [int(e.name) for e in run_root.iterdir() if e.is_dir() and e.name.isdigit()]
+    for e in run_root.iterdir():
+        match = re.match(r"^(\d{4})_", e.name)
+        if match:
+            existing.append(int(match.group(1)))
     next_id = (max(existing) + 1) if existing else 1
     return f"{next_id:04d}"
 
@@ -372,7 +379,9 @@ def _execute_phase(
             context_source_workspace=context_source_workspace,
         )
         exec_time = time.time() - exec_start_time
-        exec_status = "success" if exec_result.get("exit_code", -1) == 0 else "error"
+        exec_status = str(exec_result.get("status") or "")
+        if exec_status not in {"success", "error", "timeout"}:
+            exec_status = "success" if exec_result.get("exit_code", -1) == 0 else "error"
     except Exception as exc:
         exec_time = time.time() - exec_start_time
         logger.warning("Task execution failed for %s: %s", task.task_id, exc)
@@ -481,6 +490,8 @@ def _execute_phase(
         cost = float(usage.get("cost_usd", 0.0))
         if grading_error is not None:
             exit_label = "grading_error"
+        elif exec_result.get("status") in {"error", "timeout"}:
+            exit_label = exec_result["status"]
         elif exec_result.get("exit_code", -1) != 0:
             exit_label = "error"
         else:
@@ -822,6 +833,7 @@ def _run_preskill_pipeline(ctx: TaskRunContext) -> Dict[str, Any]:
     if prog is not None:
         prog.on_instance_start(instance_id)
     total_cost = 0.0
+    pipeline_status = "error"
     try:
         author_grade, author_exec = _execute_phase(
             ctx,
@@ -851,6 +863,8 @@ def _run_preskill_pipeline(ctx: TaskRunContext) -> Dict[str, Any]:
         )
         assert primary_grade is not None
         total_cost += float((primary_exec.get("usage") or {}).get("cost_usd", 0.0) or 0.0)
+        if author_exec.get("status") == "success" and primary_exec.get("status") == "success":
+            pipeline_status = "success"
         return {
             "task": ctx.task,
             "primary_grade": primary_grade,
@@ -860,7 +874,7 @@ def _run_preskill_pipeline(ctx: TaskRunContext) -> Dict[str, Any]:
         }
     finally:
         if prog is not None:
-            prog.on_instance_end(instance_id, "success", total_cost)
+            prog.on_instance_end(instance_id, pipeline_status, total_cost)
 
 
 def _run_postskill_pipeline(ctx: TaskRunContext) -> Dict[str, Any]:
@@ -869,6 +883,7 @@ def _run_postskill_pipeline(ctx: TaskRunContext) -> Dict[str, Any]:
     if prog is not None:
         prog.on_instance_start(instance_id)
     total_cost = 0.0
+    pipeline_status = "error"
     try:
         first_grade, first_exec = _execute_phase(
             ctx,
@@ -912,6 +927,13 @@ def _run_postskill_pipeline(ctx: TaskRunContext) -> Dict[str, Any]:
         )
         assert second_grade is not None
         total_cost += float((second_exec.get("usage") or {}).get("cost_usd", 0.0) or 0.0)
+        exec_statuses = (
+            first_exec.get("status"),
+            summary_exec.get("status"),
+            second_exec.get("status"),
+        )
+        if all(status == "success" for status in exec_statuses):
+            pipeline_status = "success"
         return {
             "task": ctx.task,
             "first_grade": first_grade,
@@ -923,7 +945,7 @@ def _run_postskill_pipeline(ctx: TaskRunContext) -> Dict[str, Any]:
         }
     finally:
         if prog is not None:
-            prog.on_instance_end(instance_id, "success", total_cost)
+            prog.on_instance_end(instance_id, pipeline_status, total_cost)
 
 
 def _run_preskill_mode(

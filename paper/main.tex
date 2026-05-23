@@ -87,7 +87,7 @@ Our paper makes the following contributions:
 \begin{itemize}[leftmargin=*]
     \item \textbf{Benchmark.} We build \ours{}, a benchmark for evaluating runtime skill self-evolution in LLM agents. It covers \todo{number of tasks} tasks with repeated sub-problems, fixtures, automated or hybrid graders, and multiple agent runtimes.
     \item \textbf{Three-mode evaluation protocol.} We formalize \baseline{}, \preskill{}, and \postskill{} conditions, separating execution-only performance from end-to-end workflow cost and detecting skill mutation violations during reuse.
-    \item \textbf{Empirical findings.} We provide a result template and preliminary analysis showing that agents are more reliable on \todo{strong category} tasks than \todo{weak category} tasks, while self-created skills often fail to improve pass rate and may increase cost. This finding challenges the assumption that skill creation is automatically beneficial.
+    \item \textbf{Empirical findings.} We provide a preliminary result table and analysis showing that agents are more reliable on \todo{strong category} tasks than \todo{weak category} tasks, while self-created skills often fail to improve pass rate and may increase cost. This finding challenges the assumption that skill creation is automatically beneficial.
 \end{itemize}
 
 \section{Related Benchmarks and Skill Evaluation}
@@ -248,31 +248,29 @@ We evaluate \todo{models} on \todo{runtimes} using \todo{environment}.
 Each task is run \todo{runs per task} times per mode.
 Hybrid tasks use \todo{judge model} as the judge model.
 Unless otherwise stated, results report the mean over all selected tasks.
-Because the current manuscript is a draft, all numerical cells in \Cref{tab:main-results} are placeholders to be replaced with benchmark output JSON values.
-
-\begin{figure*}[t]
-\centering
-\includegraphics[width=0.94\textwidth]{Figures/fig_results_placeholder_imagegen.png}
-\caption{Result-figure template for final runs. The current manuscript intentionally leaves all numerical values as placeholders; these panels should be populated from final benchmark JSON rather than from older mixed-mode or mock outputs.}
-\label{fig:results-template}
-\end{figure*}
+The numerical results in \Cref{tab:main-results} are read from the repository-local benchmark JSON files under \texttt{evoclawbench/results/}.
+We include only runs that use the current three-mode protocol (\texttt{mode=all}) and contain all three result dictionaries.
+Cost columns are omitted because these local JSON files record zero dollar cost for the evaluated runs.
 
 \begin{table*}[t]
 \centering
 \small
-\caption{Main \ours{} results. Scores are mean task scores. ``Exec Tok.'' counts execution-only tokens, while ``E2E Tok.'' includes skill generation or summary costs. This table is intentionally populated with placeholders until final benchmark runs are available.}
+\caption{Repository-local \ours{} results from current three-mode JSON outputs. Scores are mean task scores. Token and time gains are efficiency ratios versus \baseline{}; values above $1.0$ mean lower usage than \baseline{}. ``--'' denotes unavailable token efficiency because the source JSON reports zero tokens for that run.}
 \label{tab:main-results}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{llrrrrrrr}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llrrrrrrrrrr}
 \toprule
-\textbf{Runtime} & \textbf{Model} & \textbf{\baseline{} Score} & \textbf{\preskill{} Score} & \textbf{\postskill{} Score} & \textbf{\preskill{}/Base} & \textbf{\postskill{}/Base} & \textbf{E2E Tok.} & \textbf{Skills} \\
+\textbf{Runtime} & \textbf{Model} & \textbf{Tasks} & \textbf{\baseline{} Score} & \textbf{\preskill{} Score} & \textbf{\postskill{} Score} & \textbf{Exec Tok. Gain} & \textbf{Exec Time Gain} & \textbf{E2E Tok. Gain} & \textbf{E2E Time Gain} & \textbf{Skills} & \textbf{Mut. Viol.} \\
 \midrule
-OpenClaw & \todo{model} & \todo{score} & \todo{score} & \todo{score} & \todo{ratio} & \todo{ratio} & \todo{tokens} & \todo{count} \\
-nanobot & \todo{model} & \todo{score} & \todo{score} & \todo{score} & \todo{ratio} & \todo{ratio} & \todo{tokens} & \todo{count} \\
-\todo{runtime} & \todo{model} & \todo{score} & \todo{score} & \todo{score} & \todo{ratio} & \todo{ratio} & \todo{tokens} & \todo{count} \\
+OpenClaw & GPT-5 mini & 22 & 75.68 & 79.57 & 75.89 & 1.09 / 1.10 & 1.07 / 1.23 & 0.67 / 0.33 & 0.55 / 0.38 & 22 / 22 & 0 / 0 \\
+OpenClaw & MiniMax M2.7 & 22 & 0.00 & 0.00 & 0.00 & -- / -- & 0.86 / 0.94 & -- / -- & 0.47 / 0.33 & 0 / 0 & 0 / 0 \\
 \bottomrule
 \end{tabular}
 }
+\vspace{0.25em}
+\begin{flushleft}
+\footnotesize Source files: \texttt{0057\_openai-gpt-5-mini\_openclaw.json} and \texttt{0058\_openai-minimax-minimax-m2-7\_openclaw.json}. Slash-separated gain and count columns are reported as \preskill{} / \postskill{}.
+\end{flushleft}
 \end{table*}
 
 \subsection{Evaluation Findings}
@@ -286,15 +284,15 @@ This finding motivates a stricter view of skills: a skill must improve on an alr
 
 \paragraph{Finding 2: Runtime skill creation does not reliably improve task success.}
 The central result of \ours{} is that \preskill{} and \postskill{} do not consistently outperform \baseline{}.
-In aggregate, \preskill{} changes mean score from \todo{baseline score} to \todo{preskill score}, while \postskill{} changes it to \todo{postskill score}.
-The number of tasks with positive improvement is \todo{positive count}, the number with no change is \todo{tie count}, and the number with regressions is \todo{negative count}.
+In the GPT-5 mini run, \preskill{} changes mean score from 75.68 to 79.57, while \postskill{} changes it to 75.89.
+\preskill{} improves, ties, and regresses on 3, 17, and 2 tasks respectively; \postskill{} improves, ties, and regresses on 4, 15, and 3 tasks.
 This is counterintuitive because both skill workflows provide the agent with extra procedural context.
 The result indicates that self-authored skills are not automatically useful, even when generated by the same model that will later consume them.
 
 \paragraph{Finding 3: End-to-end cost often erases execution-only gains.}
 Even when a skill reuse phase improves execution-only score or token usage, the full workflow includes authoring or summary overhead.
-\preskill{} spends \todo{preskill author tokens} tokens before task execution, and \postskill{} spends \todo{first pass plus summary tokens} tokens before the final second pass.
-As a result, the end-to-end efficiency ratio is \todo{ratio} for \preskill{} and \todo{ratio} for \postskill{}.
+In the GPT-5 mini run, \preskill{} spends 3.59M tokens before task execution, and \postskill{} spends 13.10M tokens before the final second pass.
+As a result, the end-to-end token-efficiency ratio is 0.67 for \preskill{} and 0.33 for \postskill{}.
 This matters for real deployments: a self-evolution loop is useful only when the amortized value of the created skill exceeds the cost of creating it.
 The current benchmark intentionally evaluates the same task in v1, so future cross-task reuse experiments should test whether these costs can be amortized across related but unseen tasks.
 

@@ -1,8 +1,9 @@
 import argparse
-import httpx
 import time
 from datetime import datetime
-from fastapi import FastAPI, Request
+
+import httpx
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse, StreamingResponse
 
 app = FastAPI()
@@ -11,7 +12,11 @@ timeout = httpx.Timeout(300.0, connect=60.0)
 client = httpx.AsyncClient(timeout=timeout)
 
 # ── 认证 Token（两个路由共用） ──────────────────────────────────────────────────
-TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjdXJyZW50VGltZSI6MTc3ODA1NzIzNDc2NiwiZXhwIjoxNzc4NjYyMDM0LCJ1c2VybmFtZSI6IjExOCJ9.t-HFEoFO4ku9xmFVpHG4gOvKM8hK1NAuApvqnCvOp30"
+TOKEN = (
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9."
+    "eyJjdXJyZW50VGltZSI6MTc3OTQzMjA2MTIxMCwiZXhwIjoxNzgwMDM2ODYxLCJ1c2VybmFtZSI6IjExOCJ9."
+    "A8cGLDqYHOaSv94m6EqbxknzQCpyDsjHdXxuOLhj8ME"
+)
 
 # ── 上游端点 ────────────────────────────────────────────────────────────────────
 GOOGLE_URL = (
@@ -86,6 +91,47 @@ def _build_chat_headers() -> dict:
     }
 
 
+def _as_openai_error(payload: dict, status_code: int) -> JSONResponse:
+    message = payload.get("status_msg") or payload.get("message") or "Upstream request failed"
+    return JSONResponse(
+        {
+            "error": {
+                "message": message,
+                "type": "upstream_error",
+                "code": payload.get("status_code", status_code),
+            },
+            "upstream": payload,
+        },
+        status_code=status_code,
+    )
+
+
+async def _post_upstream_json(upstream_url: str, body: dict, headers: dict) -> JSONResponse:
+    response = await client.post(upstream_url, json=body, headers=headers)
+    try:
+        payload = response.json()
+    except ValueError:
+        return JSONResponse(
+            {
+                "error": {
+                    "message": response.text[:1000] or "Upstream returned non-JSON response",
+                    "type": "upstream_error",
+                    "code": response.status_code,
+                }
+            },
+            status_code=response.status_code if response.status_code >= 400 else 502,
+        )
+
+    upstream_status = payload.get("status_code")
+    if response.status_code >= 400:
+        return _as_openai_error(payload, response.status_code)
+    if isinstance(upstream_status, int) and upstream_status >= 400:
+        return _as_openai_error(payload, upstream_status)
+    if isinstance(payload, dict) and "choices" not in payload and "status_msg" in payload:
+        return _as_openai_error(payload, 502)
+    return JSONResponse(payload, status_code=response.status_code)
+
+
 # ── 中间件：记录请求耗时 ─────────────────────────────────────────────────────────
 @app.middleware("http")
 async def log_requests(request: Request, call_next):
@@ -154,7 +200,6 @@ async def proxy_chat(request: Request):
 
     upstream_url = _get_upstream_url(model)
     if upstream_url is None:
-        from fastapi import HTTPException
         all_prefixes = _KIMI_PREFIXES + _QIANWEN_PREFIXES + _GPT_PREFIXES
         raise HTTPException(
             status_code=400,
@@ -173,8 +218,7 @@ async def proxy_chat(request: Request):
 
         return StreamingResponse(event_stream(), media_type="text/event-stream")
     else:
-        response = await client.post(upstream_url, json=body, headers=headers)
-        return response.json()
+        return await _post_upstream_json(upstream_url, body, headers)
 
 
 if __name__ == "__main__":

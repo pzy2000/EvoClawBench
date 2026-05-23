@@ -17,8 +17,10 @@ from lib_agent import (
     _coerce,
     _extract_usage,
     _load_openclaw_transcript,
+    _reset_openclaw_agent_workspace,
     _verify_bench_skills_loaded,
     copy_generated_skills,
+    ensure_openclaw_agent,
     get_mode_prefix,
     hash_skill_files,
     prepare_workspace,
@@ -506,3 +508,48 @@ class TestVerifyBenchSkillsLoaded:
         assert any(
             "skill-creator" in r.message for r in caplog.records if r.levelno >= logging.WARNING
         )
+
+
+# ---------------------------------------------------------------------------
+# OpenClaw agent management
+# ---------------------------------------------------------------------------
+
+
+class TestOpenClawAgentManagement:
+    class Result:
+        def __init__(self, returncode: int, stdout: str = "", stderr: str = ""):
+            self.returncode = returncode
+            self.stdout = stdout
+            self.stderr = stderr
+
+    def test_ensure_openclaw_agent_raises_on_add_failure(self, tmp_path, monkeypatch):
+        calls = []
+
+        def fake_run(cmd, **kwargs):
+            calls.append(cmd)
+            if cmd == ["openclaw", "agents", "list"]:
+                return self.Result(0, stdout="Agents:\n")
+            return self.Result(2, stderr="bad model")
+
+        monkeypatch.setattr("lib_agent.subprocess.run", fake_run)
+
+        with pytest.raises(RuntimeError, match="bad model"):
+            ensure_openclaw_agent("agent-a", "bad/model", tmp_path)
+
+        assert calls[-1][0:3] == ["openclaw", "agents", "add"]
+
+    def test_reset_openclaw_agent_workspace_raises_on_add_failure(self, tmp_path, monkeypatch):
+        calls = []
+
+        def fake_run(cmd, **kwargs):
+            calls.append(cmd)
+            if cmd[2] == "delete":
+                return self.Result(0)
+            return self.Result(1, stderr="config write failed")
+
+        monkeypatch.setattr("lib_agent.subprocess.run", fake_run)
+
+        with pytest.raises(RuntimeError, match="config write failed"):
+            _reset_openclaw_agent_workspace("agent-a", "model-a", tmp_path)
+
+        assert [cmd[2] for cmd in calls] == ["delete", "add"]

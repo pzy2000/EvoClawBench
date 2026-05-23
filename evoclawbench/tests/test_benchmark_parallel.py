@@ -59,6 +59,16 @@ class TestOutputFileLock:
         assert len(final_data) == 10
 
 
+class TestRunId:
+    def test_next_run_id_considers_existing_result_files(self, tmp_path):
+        from benchmark import _next_run_id
+
+        (tmp_path / "0001_openai-gpt-5-mini_openclaw.json").write_text("{}")
+        (tmp_path / "0002").mkdir()
+
+        assert _next_run_id(tmp_path) == "0003"
+
+
 class TestTaskRunContext:
     """Test TaskRunContext dataclass."""
 
@@ -151,6 +161,30 @@ class TestOpenClawParallelAgentId:
         assert len(ids) == 3
         assert len(set(ids)) == 3
         assert set(ids) == {"evobench-model-w0", "evobench-model-w1", "evobench-model-w2"}
+
+    def test_slots_wrap_across_new_thread_pools(self):
+        from benchmark import (
+            _openclaw_agent_id_for_parallel_worker,
+            _reset_openclaw_parallel_worker_slots_for_testing,
+        )
+
+        _reset_openclaw_parallel_worker_slots_for_testing()
+        workers = 2
+        first_pool_ids: list[str] = []
+        second_pool_ids: list[str] = []
+
+        def run(target: list[str]) -> None:
+            target.append(_openclaw_agent_id_for_parallel_worker("evobench-model", workers))
+
+        for target in (first_pool_ids, second_pool_ids):
+            threads = [threading.Thread(target=run, args=(target,)) for _ in range(workers)]
+            for t in threads:
+                t.start()
+            for t in threads:
+                t.join()
+
+        assert set(first_pool_ids) == {"evobench-model-w0", "evobench-model-w1"}
+        assert set(second_pool_ids) == {"evobench-model-w0", "evobench-model-w1"}
 
 
 class TestConcurrentFutures:

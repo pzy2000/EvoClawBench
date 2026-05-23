@@ -22,13 +22,7 @@ Draw a scientific workflow diagram comparing three EvoClawBench modes in horizon
 Create a compact academic taxonomy figure for EvoClawBench task suite. Center title "Repeated Tool-Using Tasks". Around it group task categories as small labeled clusters: data transformation, log analysis, API scaffolding, test generation, config migration, security review, document extraction, database operations, Excel analytics, web extraction, document generation, data pipelines, email processing, invoice processing, shell automation, CI generation, dependency audit, environment config, metrics anomaly detection. Show each task as "5-10 related sub-problems" flowing from input fixtures to artifact outputs to automated or hybrid graders. Use a restrained scientific vector style, readable labels, no fake counts except "21 tasks" only if final count is confirmed.
 ```
 
-## Fig. 4: Main Results Placeholder Design
-
-```text
-Design a paper-ready results figure template for EvoClawBench with placeholder values. Use four aligned panels: A mean task score for Baseline, PreSkill, PostSkill as grouped bars; B execution-only token/cost/time efficiency vs Baseline; C end-to-end token/cost/time efficiency vs Baseline; D number and quality of created skills plus mutation violation count. Use gray placeholder bars without numeric values, labels "replace with final benchmark JSON", clean axes, high-contrast but muted academic colors. Do not invent data.
-```
-
-## Fig. 5: Failure Case / Context Interference
+## Fig. 4: Failure Case / Context Interference
 
 ```text
 Create a qualitative academic failure-case diagram for EvoClawBench. Show PostSkill first run evidence on the left: prompt, output preview, transcript summary, grading details. Arrow to a generated SKILL.md in the middle that accidentally overfits file names, fixture-specific assumptions, or previous solution steps. Arrow to second execution on the right where prompt evidence and generated skill conflict, causing wrong outputs or lower score. Add callouts: "over-specific memory", "context interference", "transfer risk". Vector style, white background, minimal text, no cartoon elements, no fake task names.

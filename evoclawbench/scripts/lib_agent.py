@@ -13,6 +13,7 @@ import logging
 import os
 import shutil
 import subprocess
+import threading
 import time
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Dict, List, Optional
@@ -25,6 +26,7 @@ if TYPE_CHECKING:
 
 
 logger = logging.getLogger(__name__)
+_OPENCLAW_AGENT_CONFIG_LOCK = threading.Lock()
 
 # Skill directory names seeded into workspaces and excluded from created-skill metrics.
 SEEDED_SKILL_NAMES: frozenset[str] = frozenset({"skill-creator"})
@@ -173,86 +175,99 @@ def skills_mutated(before: Dict[str, str], after: Dict[str, str]) -> bool:
 
 def ensure_openclaw_agent(agent_id: str, model_id: str, workspace_dir: Path) -> bool:
     workspace_dir.mkdir(parents=True, exist_ok=True)
-    try:
-        list_result = subprocess.run(
-            ["openclaw", "agents", "list"],
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-    except FileNotFoundError:
-        logger.error("openclaw CLI not found")
-        return False
-
-    if list_result.returncode == 0:
-        existing = set()
-        for line in list_result.stdout.splitlines():
-            line = line.strip()
-            if line.startswith("- "):
-                name_part = line[2:].split()[0] if line[2:].strip() else ""
-                if name_part:
-                    existing.add(name_part.lower())
-        normalized = agent_id.replace(":", "-").lower()
-        if agent_id.lower() in existing or normalized in existing:
-            logger.info("Agent %s already exists", agent_id)
+    with _OPENCLAW_AGENT_CONFIG_LOCK:
+        try:
+            list_result = subprocess.run(
+                ["openclaw", "agents", "list"],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+        except FileNotFoundError:
+            logger.error("openclaw CLI not found")
             return False
 
-    logger.info("Creating OpenClaw agent %s", agent_id)
-    try:
-        subprocess.run(
-            [
-                "openclaw",
-                "agents",
-                "add",
-                agent_id,
-                "--model",
-                model_id,
-                "--workspace",
-                str(workspace_dir),
-                "--non-interactive",
-            ],
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-    except FileNotFoundError:
-        logger.error("openclaw CLI not found")
-        return False
+        if list_result.returncode == 0:
+            existing = set()
+            for line in list_result.stdout.splitlines():
+                line = line.strip()
+                if line.startswith("- "):
+                    name_part = line[2:].split()[0] if line[2:].strip() else ""
+                    if name_part:
+                        existing.add(name_part.lower())
+            normalized = agent_id.replace(":", "-").lower()
+            if agent_id.lower() in existing or normalized in existing:
+                logger.info("Agent %s already exists", agent_id)
+                return False
+
+        logger.info("Creating OpenClaw agent %s", agent_id)
+        try:
+            add_result = subprocess.run(
+                [
+                    "openclaw",
+                    "agents",
+                    "add",
+                    agent_id,
+                    "--model",
+                    model_id,
+                    "--workspace",
+                    str(workspace_dir),
+                    "--non-interactive",
+                ],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+        except FileNotFoundError:
+            logger.error("openclaw CLI not found")
+            return False
+        if add_result.returncode != 0:
+            detail = add_result.stderr.strip() or add_result.stdout.strip()
+            raise RuntimeError(f"Failed to create OpenClaw agent {agent_id}: {detail}")
     return True
 
 
 def _reset_openclaw_agent_workspace(agent_id: str, model_id: str, workspace: Path) -> None:
     """Delete and recreate the agent so its workspace matches the task workspace."""
     workspace.mkdir(parents=True, exist_ok=True)
-    try:
-        subprocess.run(
-            ["openclaw", "agents", "delete", agent_id, "--force"],
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-    except FileNotFoundError:
-        return
-    try:
-        subprocess.run(
-            [
-                "openclaw",
-                "agents",
-                "add",
-                agent_id,
-                "--model",
-                model_id,
-                "--workspace",
-                str(workspace),
-                "--non-interactive",
-            ],
-            capture_output=True,
-            text=True,
-            check=False,
-        )
+    with _OPENCLAW_AGENT_CONFIG_LOCK:
+        try:
+            delete_result = subprocess.run(
+                ["openclaw", "agents", "delete", agent_id, "--force"],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+        except FileNotFoundError:
+            logger.error("openclaw CLI not found")
+            raise
+        if delete_result.returncode != 0 and "Unknown agent id" not in delete_result.stderr:
+            detail = delete_result.stderr.strip() or delete_result.stdout.strip()
+            logger.warning("Failed to delete OpenClaw agent %s before reset: %s", agent_id, detail)
+        try:
+            add_result = subprocess.run(
+                [
+                    "openclaw",
+                    "agents",
+                    "add",
+                    agent_id,
+                    "--model",
+                    model_id,
+                    "--workspace",
+                    str(workspace),
+                    "--non-interactive",
+                ],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+        except FileNotFoundError:
+            logger.error("openclaw CLI not found")
+            raise
+        if add_result.returncode != 0:
+            detail = add_result.stderr.strip() or add_result.stdout.strip()
+            raise RuntimeError(f"Failed to reset OpenClaw agent {agent_id}: {detail}")
         logger.info("Reset agent %s workspace to %s", agent_id, workspace)
-    except FileNotFoundError:
-        logger.error("openclaw CLI not found")
 
 
 def _openclaw_agent_dir(agent_id: str) -> Path:
