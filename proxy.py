@@ -53,6 +53,7 @@ _GPT_PREFIXES = (
     "o1",          # o1, o1-mini, o1-preview
     "o3",          # o3, o3-mini
     "o4",          # o4-mini
+    "grok-4-fast-non-reasoning"
 )
 
 # litellm 内部参数：不应转发给任何上游 API
