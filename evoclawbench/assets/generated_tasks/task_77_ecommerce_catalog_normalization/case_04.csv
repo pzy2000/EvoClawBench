@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+ECN-04-01,Ecommerce Catalog Normalization,normalized_skus,"[""SKU-04-01"", ""SKU-04-02"", ""SKU-04-03""]",synthetic normalized_skus evidence
+ECN-04-02,Ecommerce Catalog Normalization,refund_ids,"[""ECN-04-02"", ""ECN-04-03""]",synthetic refund_ids evidence
+ECN-04-03,Ecommerce Catalog Normalization,inspection_score,88,synthetic inspection_score evidence
+ECN-04-04,Ecommerce Catalog Normalization,policy_violations,"[""prohibited_claim"", ""late_delivery""]",synthetic policy_violations evidence
+ECN-04-05,Ecommerce Catalog Normalization,recommended_action,"""auto_approve_with_note""",synthetic recommended_action evidence

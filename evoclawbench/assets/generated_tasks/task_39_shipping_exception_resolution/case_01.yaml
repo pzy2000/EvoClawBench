@@ -1,0 +1,23 @@
+case_id: case_01
+domain: Shipping Exception Resolution
+items:
+  - id: SER-01-01
+    signal: selected_vendor
+    value: "Vendor-A"
+    note: synthetic selected_vendor evidence
+  - id: SER-01-02
+    signal: match_exceptions
+    value: ["SER-01-02", "SER-01-03"]
+    note: synthetic match_exceptions evidence
+  - id: SER-01-03
+    signal: late_shipments
+    value: ["SHIP-01-03"]
+    note: synthetic late_shipments evidence
+  - id: SER-01-04
+    signal: risk_suppliers
+    value: ["Supplier-1", "Supplier-6"]
+    note: synthetic risk_suppliers evidence
+  - id: SER-01-05
+    signal: savings_estimate
+    value: 5125.75
+    note: synthetic savings_estimate evidence

@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+DQRA-03-01,Data Quality Rule Authoring,row_count,151,synthetic row_count evidence
+DQRA-03-02,Data Quality Rule Authoring,quality_failures,"[""null_required_field"", ""duplicate_key""]",synthetic quality_failures evidence
+DQRA-03-03,Data Quality Rule Authoring,metric_delta,0.0,synthetic metric_delta evidence
+DQRA-03-04,Data Quality Rule Authoring,rule_ids,"[""DQ-03-A"", ""DQ-03-B""]",synthetic rule_ids evidence
+DQRA-03-05,Data Quality Rule Authoring,experiment_winner,"""variant_b""",synthetic experiment_winner evidence

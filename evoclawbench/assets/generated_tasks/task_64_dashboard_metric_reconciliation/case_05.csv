@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+DMR-05-01,Dashboard Metric Reconciliation,row_count,185,synthetic row_count evidence
+DMR-05-02,Dashboard Metric Reconciliation,quality_failures,"[""null_required_field"", ""duplicate_key""]",synthetic quality_failures evidence
+DMR-05-03,Dashboard Metric Reconciliation,metric_delta,4.7,synthetic metric_delta evidence
+DMR-05-04,Dashboard Metric Reconciliation,rule_ids,"[""DQ-05-A"", ""DQ-05-B""]",synthetic rule_ids evidence
+DMR-05-05,Dashboard Metric Reconciliation,experiment_winner,"""variant_b""",synthetic experiment_winner evidence

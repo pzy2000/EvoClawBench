@@ -1,0 +1,48 @@
+{
+  "case_id": "case_02",
+  "domain": "Public Records Redaction",
+  "records": [
+    {
+      "id": "PRR-02-01",
+      "signal": "routing_queue",
+      "value": {
+        "records": 2,
+        "legal": 0,
+        "audit": 1
+      },
+      "note": "synthetic routing_queue evidence"
+    },
+    {
+      "id": "PRR-02-02",
+      "signal": "redactions_required",
+      "value": [
+        "phone"
+      ],
+      "note": "synthetic redactions_required evidence"
+    },
+    {
+      "id": "PRR-02-03",
+      "signal": "missing_evidence",
+      "value": [
+        "EVID-02-02"
+      ],
+      "note": "synthetic missing_evidence evidence"
+    },
+    {
+      "id": "PRR-02-04",
+      "signal": "risk_summary",
+      "value": {
+        "high": 0,
+        "medium": 2,
+        "low": 1
+      },
+      "note": "synthetic risk_summary evidence"
+    },
+    {
+      "id": "PRR-02-05",
+      "signal": "compliant",
+      "value": true,
+      "note": "synthetic compliant evidence"
+    }
+  ]
+}

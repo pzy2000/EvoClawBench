@@ -1,0 +1,43 @@
+{
+  "case_id": "case_05",
+  "domain": "Assignment Rubric Grading",
+  "records": [
+    {
+      "id": "ARG-05-01",
+      "signal": "completion_rate",
+      "value": 0.88,
+      "note": "synthetic completion_rate evidence"
+    },
+    {
+      "id": "ARG-05-02",
+      "signal": "missing_items",
+      "value": [
+        "background_check"
+      ],
+      "note": "synthetic missing_items evidence"
+    },
+    {
+      "id": "ARG-05-03",
+      "signal": "calibrated_scores",
+      "value": {
+        "ARG-05-01": 5,
+        "ARG-05-02": 3
+      },
+      "note": "synthetic calibrated_scores evidence"
+    },
+    {
+      "id": "ARG-05-04",
+      "signal": "assigned_track",
+      "value": "accelerated",
+      "note": "synthetic assigned_track evidence"
+    },
+    {
+      "id": "ARG-05-05",
+      "signal": "intervention_ids",
+      "value": [
+        "ARG-05-04"
+      ],
+      "note": "synthetic intervention_ids evidence"
+    }
+  ]
+}

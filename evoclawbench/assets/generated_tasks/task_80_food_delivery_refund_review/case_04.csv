@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+FDRR-04-01,Food Delivery Refund Review,normalized_skus,"[""SKU-04-01"", ""SKU-04-02"", ""SKU-04-03""]",synthetic normalized_skus evidence
+FDRR-04-02,Food Delivery Refund Review,refund_ids,"[""FDRR-04-02"", ""FDRR-04-03""]",synthetic refund_ids evidence
+FDRR-04-03,Food Delivery Refund Review,inspection_score,88,synthetic inspection_score evidence
+FDRR-04-04,Food Delivery Refund Review,policy_violations,"[""prohibited_claim"", ""late_delivery""]",synthetic policy_violations evidence
+FDRR-04-05,Food Delivery Refund Review,recommended_action,"""auto_approve_with_note""",synthetic recommended_action evidence

@@ -1,0 +1,43 @@
+{
+  "case_id": "case_05",
+  "domain": "Employee Onboarding Checklist",
+  "records": [
+    {
+      "id": "EOC-05-01",
+      "signal": "completion_rate",
+      "value": 0.88,
+      "note": "synthetic completion_rate evidence"
+    },
+    {
+      "id": "EOC-05-02",
+      "signal": "missing_items",
+      "value": [
+        "background_check"
+      ],
+      "note": "synthetic missing_items evidence"
+    },
+    {
+      "id": "EOC-05-03",
+      "signal": "calibrated_scores",
+      "value": {
+        "EOC-05-01": 5,
+        "EOC-05-02": 3
+      },
+      "note": "synthetic calibrated_scores evidence"
+    },
+    {
+      "id": "EOC-05-04",
+      "signal": "assigned_track",
+      "value": "accelerated",
+      "note": "synthetic assigned_track evidence"
+    },
+    {
+      "id": "EOC-05-05",
+      "signal": "intervention_ids",
+      "value": [
+        "EOC-05-04"
+      ],
+      "note": "synthetic intervention_ids evidence"
+    }
+  ]
+}

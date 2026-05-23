@@ -1,0 +1,43 @@
+{
+  "case_id": "case_03",
+  "domain": "Training Completion Audit",
+  "records": [
+    {
+      "id": "TCA-03-01",
+      "signal": "completion_rate",
+      "value": 0.8,
+      "note": "synthetic completion_rate evidence"
+    },
+    {
+      "id": "TCA-03-02",
+      "signal": "missing_items",
+      "value": [
+        "background_check"
+      ],
+      "note": "synthetic missing_items evidence"
+    },
+    {
+      "id": "TCA-03-03",
+      "signal": "calibrated_scores",
+      "value": {
+        "TCA-03-01": 5,
+        "TCA-03-02": 3
+      },
+      "note": "synthetic calibrated_scores evidence"
+    },
+    {
+      "id": "TCA-03-04",
+      "signal": "assigned_track",
+      "value": "accelerated",
+      "note": "synthetic assigned_track evidence"
+    },
+    {
+      "id": "TCA-03-05",
+      "signal": "intervention_ids",
+      "value": [
+        "TCA-03-04"
+      ],
+      "note": "synthetic intervention_ids evidence"
+    }
+  ]
+}

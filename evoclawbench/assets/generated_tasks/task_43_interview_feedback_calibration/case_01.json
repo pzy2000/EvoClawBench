@@ -1,0 +1,43 @@
+{
+  "case_id": "case_01",
+  "domain": "Interview Feedback Calibration",
+  "records": [
+    {
+      "id": "IFC-01-01",
+      "signal": "completion_rate",
+      "value": 0.72,
+      "note": "synthetic completion_rate evidence"
+    },
+    {
+      "id": "IFC-01-02",
+      "signal": "missing_items",
+      "value": [
+        "background_check"
+      ],
+      "note": "synthetic missing_items evidence"
+    },
+    {
+      "id": "IFC-01-03",
+      "signal": "calibrated_scores",
+      "value": {
+        "IFC-01-01": 5,
+        "IFC-01-02": 3
+      },
+      "note": "synthetic calibrated_scores evidence"
+    },
+    {
+      "id": "IFC-01-04",
+      "signal": "assigned_track",
+      "value": "accelerated",
+      "note": "synthetic assigned_track evidence"
+    },
+    {
+      "id": "IFC-01-05",
+      "signal": "intervention_ids",
+      "value": [
+        "IFC-01-04"
+      ],
+      "note": "synthetic intervention_ids evidence"
+    }
+  ]
+}

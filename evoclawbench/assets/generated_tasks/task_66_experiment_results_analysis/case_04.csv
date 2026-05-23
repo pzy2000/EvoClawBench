@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+ERA-04-01,Experiment Results Analysis,row_count,168,synthetic row_count evidence
+ERA-04-02,Experiment Results Analysis,quality_failures,"[""range_violation""]",synthetic quality_failures evidence
+ERA-04-03,Experiment Results Analysis,metric_delta,2.35,synthetic metric_delta evidence
+ERA-04-04,Experiment Results Analysis,rule_ids,"[""DQ-04-A"", ""DQ-04-B""]",synthetic rule_ids evidence
+ERA-04-05,Experiment Results Analysis,experiment_winner,"""control""",synthetic experiment_winner evidence

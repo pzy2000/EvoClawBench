@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+FLR-01-01,Finance Ledger Reconciliation,ledger_total,1337.5,synthetic ledger_total evidence
+FLR-01-02,Finance Ledger Reconciliation,exception_ids,"[""FLR-01-03"", ""FLR-01-04""]",synthetic exception_ids evidence
+FLR-01-03,Finance Ledger Reconciliation,currencies,"[""USD""]",synthetic currencies evidence
+FLR-01-04,Finance Ledger Reconciliation,tax_total,93.25,synthetic tax_total evidence
+FLR-01-05,Finance Ledger Reconciliation,balanced,true,synthetic balanced evidence

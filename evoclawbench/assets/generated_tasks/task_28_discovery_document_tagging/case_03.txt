@@ -1,0 +1,7 @@
+CASE case_03: Discovery Document Tagging
+Synthetic source notes:
+- clause_labels: ["confidentiality", "termination", "liability"]
+- missing_fields: ["effective_date"]
+- high_risk_terms: ["unlimited liability"]
+- parties: ["Discovery Document Tagging Provider", "Discovery Document Tagging Client"]
+- effective_date: "2026-07-13"

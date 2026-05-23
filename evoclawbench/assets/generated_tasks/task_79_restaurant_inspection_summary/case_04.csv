@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+RIS-04-01,Restaurant Inspection Summary,normalized_skus,"[""SKU-04-01"", ""SKU-04-02"", ""SKU-04-03""]",synthetic normalized_skus evidence
+RIS-04-02,Restaurant Inspection Summary,refund_ids,"[""RIS-04-02"", ""RIS-04-03""]",synthetic refund_ids evidence
+RIS-04-03,Restaurant Inspection Summary,inspection_score,88,synthetic inspection_score evidence
+RIS-04-04,Restaurant Inspection Summary,policy_violations,"[""prohibited_claim"", ""late_delivery""]",synthetic policy_violations evidence
+RIS-04-05,Restaurant Inspection Summary,recommended_action,"""auto_approve_with_note""",synthetic recommended_action evidence

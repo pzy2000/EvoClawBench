@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+FDRR-03-01,Food Delivery Refund Review,normalized_skus,"[""SKU-03-01"", ""SKU-03-02"", ""SKU-03-03""]",synthetic normalized_skus evidence
+FDRR-03-02,Food Delivery Refund Review,refund_ids,"[""FDRR-03-02"", ""FDRR-03-03""]",synthetic refund_ids evidence
+FDRR-03-03,Food Delivery Refund Review,inspection_score,86,synthetic inspection_score evidence
+FDRR-03-04,Food Delivery Refund Review,policy_violations,"[""missing_allergen_label""]",synthetic policy_violations evidence
+FDRR-03-05,Food Delivery Refund Review,recommended_action,"""manual_review""",synthetic recommended_action evidence

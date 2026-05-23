@@ -1,0 +1,47 @@
+{
+  "case_id": "case_04",
+  "domain": "Changelog Impact Matrix",
+  "records": [
+    {
+      "id": "CIM-04-01",
+      "signal": "placeholder_errors",
+      "value": [
+        "LOC-04-01",
+        "LOC-04-03"
+      ],
+      "note": "synthetic placeholder_errors evidence"
+    },
+    {
+      "id": "CIM-04-02",
+      "signal": "glossary_violations",
+      "value": [
+        "workspace"
+      ],
+      "note": "synthetic glossary_violations evidence"
+    },
+    {
+      "id": "CIM-04-03",
+      "signal": "release_sections",
+      "value": [
+        "features",
+        "fixes"
+      ],
+      "note": "synthetic release_sections evidence"
+    },
+    {
+      "id": "CIM-04-04",
+      "signal": "flag_actions",
+      "value": [
+        "keep_guardrail",
+        "schedule_cleanup"
+      ],
+      "note": "synthetic flag_actions evidence"
+    },
+    {
+      "id": "CIM-04-05",
+      "signal": "publish_ready",
+      "value": true,
+      "note": "synthetic publish_ready evidence"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "case_id": "case_01",
+  "domain": "Clinical Trial Eligibility",
+  "records": [
+    {
+      "id": "CTE-01-01",
+      "signal": "eligible_ids",
+      "value": [
+        "CTE-01-01",
+        "CTE-01-02"
+      ],
+      "note": "synthetic eligible_ids evidence"
+    },
+    {
+      "id": "CTE-01-02",
+      "signal": "routing_queue",
+      "value": {
+        "clinical": 2,
+        "admin": 2,
+        "pharmacy": 1
+      },
+      "note": "synthetic routing_queue evidence"
+    },
+    {
+      "id": "CTE-01-03",
+      "signal": "followup_ids",
+      "value": [
+        "CTE-01-03",
+        "CTE-01-04"
+      ],
+      "note": "synthetic followup_ids evidence"
+    },
+    {
+      "id": "CTE-01-04",
+      "signal": "stockout_ids",
+      "value": [],
+      "note": "synthetic stockout_ids evidence"
+    },
+    {
+      "id": "CTE-01-05",
+      "signal": "urgent_count",
+      "value": 2,
+      "note": "synthetic urgent_count evidence"
+    }
+  ]
+}

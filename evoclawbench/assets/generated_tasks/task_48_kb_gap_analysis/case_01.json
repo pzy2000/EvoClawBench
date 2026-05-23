@@ -1,0 +1,49 @@
+{
+  "case_id": "case_01",
+  "domain": "Kb Gap Analysis",
+  "records": [
+    {
+      "id": "KGA-01-01",
+      "signal": "priority_queue",
+      "value": [
+        "KGA-01-01",
+        "KGA-01-02"
+      ],
+      "note": "synthetic priority_queue evidence"
+    },
+    {
+      "id": "KGA-01-02",
+      "signal": "duplicate_groups",
+      "value": [
+        [
+          "KGA-01-02",
+          "KGA-01-03"
+        ]
+      ],
+      "note": "synthetic duplicate_groups evidence"
+    },
+    {
+      "id": "KGA-01-03",
+      "signal": "themes",
+      "value": [
+        "billing",
+        "login"
+      ],
+      "note": "synthetic themes evidence"
+    },
+    {
+      "id": "KGA-01-04",
+      "signal": "sla_breaches",
+      "value": [
+        "KGA-01-05"
+      ],
+      "note": "synthetic sla_breaches evidence"
+    },
+    {
+      "id": "KGA-01-05",
+      "signal": "reply_template",
+      "value": "escalation",
+      "note": "synthetic reply_template evidence"
+    }
+  ]
+}

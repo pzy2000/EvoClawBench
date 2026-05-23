@@ -38,7 +38,7 @@ As foundation models improve, the ecosystem is expanding quickly: 84{,}192 skill
 This growth raises a new evaluation question: can an LLM agent improve itself at runtime by creating reusable skills, and do those skills actually improve later task execution?
 We present \textbf{\ours{}}, a benchmark for measuring skill self-evolution across repeated, tool-using tasks.
 \ours{} compares three execution strategies: a no-skill \baseline{} condition, a \preskill{} condition that asks the same agent to author task-specific skills before execution, and a \postskill{} condition that asks the agent to summarize reusable skills from a first run before solving the task again.
-The benchmark currently includes \todo{number of tasks} tasks spanning data transformation, log analysis, API scaffolding, test generation, configuration migration, code review, document extraction, office automation, DevOps, security, and metrics analysis, and supports multiple agent runtimes including OpenClaw and nanobot.
+The benchmark currently includes 100 tasks spanning data transformation, log analysis, API scaffolding, test generation, configuration migration, code review, document extraction, office automation, finance, legal operations, healthcare administration, procurement and logistics, HR and education, support and product operations, DevOps and SRE, security and privacy, data analytics, research and media, localization and release management, commerce and food operations, facilities and IoT, public-sector audit, CRM, executive operations, and travel/office coordination, and supports multiple agent runtimes including OpenClaw and nanobot.
 Our preliminary evaluation on \todo{evaluated models and runtimes} shows that agents are strongest at \todo{stronger capability finding}, and that the timing of skill creation matters: authoring skills before execution is more reliable than distilling them from a first run.
 When agents create skills, \preskill{} consistently outperforms \postskill{}, which can regress below \baseline{} because first-run traces introduce context and overfitting risks; end-to-end overhead remains substantial for both workflows.
 \end{abstract}
@@ -85,7 +85,7 @@ Both are compared against \baseline{} under execution-only and end-to-end metric
 
 Our paper makes the following contributions:
 \begin{itemize}[leftmargin=*]
-    \item \textbf{Benchmark.} We build \ours{}, a benchmark for evaluating runtime skill self-evolution in LLM agents. It covers \todo{number of tasks} tasks with repeated sub-problems, fixtures, automated or hybrid graders, and multiple agent runtimes.
+    \item \textbf{Benchmark.} We build \ours{}, a benchmark for evaluating runtime skill self-evolution in LLM agents. It covers 100 tasks with repeated sub-problems, fixtures, automated or hybrid graders, and multiple agent runtimes.
     \item \textbf{Three-mode evaluation protocol.} We formalize \baseline{}, \preskill{}, and \postskill{} conditions, separating execution-only performance from end-to-end workflow cost and detecting skill mutation violations during reuse.
     \item \textbf{Empirical findings.} We provide a preliminary result table and analysis showing that agents are more reliable on \todo{strong category} tasks than \todo{weak category} tasks, and that \preskill{} yields modest but consistent execution-only gains while \postskill{} is more likely to regress and increase end-to-end cost. This finding challenges the assumption that experience-derived skills are automatically better than skills planned before execution.
 \end{itemize}
@@ -125,7 +125,7 @@ AppWorld \citep{trivedi2024appworld} & 750 & Yes & No & No & Yes & Partial \\
 $\tau$-Bench \citep{yao2025taubench} & \todo{size} & Yes & No & No & Yes & Partial \\
 SkillsBench \citep{li2026skillsbench} & 84 & Yes & No & Yes & Partial & Yes \\
 \midrule
-\textbf{\ours{}} & \textbf{\todo{size}} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} \\
+\textbf{\ours{}} & \textbf{100} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} \\
 \bottomrule
 \end{tabular}
 }
@@ -144,8 +144,8 @@ Tasks are written as markdown files with YAML frontmatter, a natural-language pr
 Each task usually contains five to ten structurally related sub-problems.
 This repeated structure is important: it gives the agent a reason to write down a general procedure rather than solve a single isolated instance.
 
-The current task suite covers data transformation, log analysis, API scaffolding, test generation, configuration migration, security review, document extraction, database operations, Excel analytics, web extraction, document generation, data pipelines, email and invoice processing, shell automation, CI generation, dependency audit, environment configuration, and metrics anomaly detection.
-The suite size is \todo{number of non-sanity tasks} tasks and \todo{total sub-problems} sub-problems after excluding the sanity task.
+The current task suite covers data transformation, log analysis, API scaffolding, test generation, configuration migration, security review, document extraction, database operations, Excel analytics, web extraction, document generation, data pipelines, email and invoice processing, shell automation, CI generation, dependency audit, environment configuration, metrics anomaly detection, finance operations, legal operations, healthcare administration, procurement and logistics, HR and education, support and product operations, DevOps/SRE, security and privacy, data analytics, research and media, localization and release management, commerce and food operations, facilities and IoT, public-sector audit, CRM and executive operations, and travel/office coordination.
+The suite size is 100 tasks and 502 sub-problems after excluding the sanity task.
 
 \begin{figure*}[t]
 \centering
@@ -188,9 +188,9 @@ Additional runtimes can be added by implementing the same execution interface an
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=\textwidth]{Figures/fig_protocol_imagegen.png}
-\caption{Three-mode evaluation protocol. \baseline{} directly executes a task without skill creation; \preskill{} first creates task-specific skills and then reuses them in a fresh workspace; \postskill{} summarizes reusable skills from first-run evidence before a second execution. Skill reuse phases are checked for mutation violations.}
-\label{fig:protocol}
+\includegraphics[width=0.86\textwidth]{Figures/fig_skill_anatomy_imagegen.png}
+\caption{Structure of a reusable skill artifact in \ours{}. Generated skills use a \texttt{SKILL.md} document with optional supporting scripts or references, are injected into the agent context during reuse, and are protected by before/after mutation checks during execution.}
+\label{fig:skill-anatomy}
 \end{figure*}
 
 \subsection{Three Execution Strategies}
@@ -359,9 +359,9 @@ Finally, the current implementation supports OpenClaw and nanobot; broader runti
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.86\textwidth]{Figures/fig_skill_anatomy_imagegen.png}
-\caption{Structure of a reusable skill artifact in \ours{}. Generated skills use a \texttt{SKILL.md} document with optional supporting scripts or references, are injected into the agent context during reuse, and are protected by before/after mutation checks during execution.}
-\label{fig:skill-anatomy}
+\includegraphics[width=\textwidth]{Figures/fig_protocol_imagegen.png}
+\caption{Three-mode evaluation protocol. \baseline{} directly executes a task without skill creation; \preskill{} first creates task-specific skills and then reuses them in a fresh workspace; \postskill{} summarizes reusable skills from first-run evidence before a second execution. Skill reuse phases are checked for mutation violations.}
+\label{fig:protocol}
 \end{figure*}
 
 \section{Result JSON Schema}

@@ -1,0 +1,23 @@
+case_id: case_05
+domain: Purchase Order Three Way Match
+items:
+  - id: POTW-05-01
+    signal: selected_vendor
+    value: "Vendor-E"
+    note: synthetic selected_vendor evidence
+  - id: POTW-05-02
+    signal: match_exceptions
+    value: ["POTW-05-02", "POTW-05-03"]
+    note: synthetic match_exceptions evidence
+  - id: POTW-05-03
+    signal: late_shipments
+    value: ["SHIP-05-03"]
+    note: synthetic late_shipments evidence
+  - id: POTW-05-04
+    signal: risk_suppliers
+    value: ["Supplier-5", "Supplier-10"]
+    note: synthetic risk_suppliers evidence
+  - id: POTW-05-05
+    signal: savings_estimate
+    value: 7628.75
+    note: synthetic savings_estimate evidence

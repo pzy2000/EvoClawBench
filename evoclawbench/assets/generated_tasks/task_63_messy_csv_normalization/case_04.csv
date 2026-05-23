@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+MCN-04-01,Messy Csv Normalization,row_count,168,synthetic row_count evidence
+MCN-04-02,Messy Csv Normalization,quality_failures,"[""range_violation""]",synthetic quality_failures evidence
+MCN-04-03,Messy Csv Normalization,metric_delta,2.35,synthetic metric_delta evidence
+MCN-04-04,Messy Csv Normalization,rule_ids,"[""DQ-04-A"", ""DQ-04-B""]",synthetic rule_ids evidence
+MCN-04-05,Messy Csv Normalization,experiment_winner,"""control""",synthetic experiment_winner evidence

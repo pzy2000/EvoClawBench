@@ -1,0 +1,23 @@
+case_id: case_01
+domain: SLO Burn Rate Analysis
+items:
+  - id: SBRA-01-01
+    signal: policy_violations
+    value: ["missing_cpu_limit", "latest_image_tag"]
+    note: synthetic policy_violations evidence
+  - id: SBRA-01-02
+    signal: required_changes
+    value: ["pin_image_digest", "add_resource_limits", "enable_rollback"]
+    note: synthetic required_changes evidence
+  - id: SBRA-01-03
+    signal: slo_status
+    value: "watch"
+    note: synthetic slo_status evidence
+  - id: SBRA-01-04
+    signal: backup_passed
+    value: true
+    note: synthetic backup_passed evidence
+  - id: SBRA-01-05
+    signal: risk_score
+    value: 6.2
+    note: synthetic risk_score evidence

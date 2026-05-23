@@ -1,0 +1,23 @@
+case_id: case_02
+domain: Kubernetes Policy Review
+items:
+  - id: KPR-02-01
+    signal: policy_violations
+    value: ["public_s3_bucket"]
+    note: synthetic policy_violations evidence
+  - id: KPR-02-02
+    signal: required_changes
+    value: ["pin_image_digest", "add_resource_limits"]
+    note: synthetic required_changes evidence
+  - id: KPR-02-03
+    signal: slo_status
+    value: "watch"
+    note: synthetic slo_status evidence
+  - id: KPR-02-04
+    signal: backup_passed
+    value: false
+    note: synthetic backup_passed evidence
+  - id: KPR-02-05
+    signal: risk_score
+    value: 6.9
+    note: synthetic risk_score evidence

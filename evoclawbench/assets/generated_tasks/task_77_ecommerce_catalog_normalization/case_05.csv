@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+ECN-05-01,Ecommerce Catalog Normalization,normalized_skus,"[""SKU-05-01"", ""SKU-05-02"", ""SKU-05-03""]",synthetic normalized_skus evidence
+ECN-05-02,Ecommerce Catalog Normalization,refund_ids,"[""ECN-05-02"", ""ECN-05-03""]",synthetic refund_ids evidence
+ECN-05-03,Ecommerce Catalog Normalization,inspection_score,90,synthetic inspection_score evidence
+ECN-05-04,Ecommerce Catalog Normalization,policy_violations,"[""missing_allergen_label""]",synthetic policy_violations evidence
+ECN-05-05,Ecommerce Catalog Normalization,recommended_action,"""manual_review""",synthetic recommended_action evidence

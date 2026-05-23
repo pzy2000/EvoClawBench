@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+SFV-04-01,Sales Forecast Variance,stale_opportunities,"[""SFV-04-01"", ""SFV-04-02""]",synthetic stale_opportunities evidence
+SFV-04-02,Sales Forecast Variance,forecast_delta,8998.0,synthetic forecast_delta evidence
+SFV-04-03,Sales Forecast Variance,campaign_errors,"[""bad_segment"", ""expired_asset""]",synthetic campaign_errors evidence
+SFV-04-04,Sales Forecast Variance,action_items,"[""Follow up account 4"", ""Update forecast 4""]",synthetic action_items evidence
+SFV-04-05,Sales Forecast Variance,executive_summary,"""campaign_cleanup""",synthetic executive_summary evidence

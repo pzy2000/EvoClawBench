@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+SRA-04-01,Subscription Revenue Audit,ledger_total,1750.0,synthetic ledger_total evidence
+SRA-04-02,Subscription Revenue Audit,exception_ids,"[""SRA-04-03"", ""SRA-04-04""]",synthetic exception_ids evidence
+SRA-04-03,Subscription Revenue Audit,currencies,"[""EUR"", ""USD""]",synthetic currencies evidence
+SRA-04-04,Subscription Revenue Audit,tax_total,121.0,synthetic tax_total evidence
+SRA-04-05,Subscription Revenue Audit,balanced,true,synthetic balanced evidence

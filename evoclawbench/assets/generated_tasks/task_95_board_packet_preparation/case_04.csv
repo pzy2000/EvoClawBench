@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+BPP-04-01,Board Packet Preparation,stale_opportunities,"[""BPP-04-01"", ""BPP-04-02""]",synthetic stale_opportunities evidence
+BPP-04-02,Board Packet Preparation,forecast_delta,8998.0,synthetic forecast_delta evidence
+BPP-04-03,Board Packet Preparation,campaign_errors,"[""bad_segment"", ""expired_asset""]",synthetic campaign_errors evidence
+BPP-04-04,Board Packet Preparation,action_items,"[""Follow up account 4"", ""Update forecast 4""]",synthetic action_items evidence
+BPP-04-05,Board Packet Preparation,executive_summary,"""campaign_cleanup""",synthetic executive_summary evidence

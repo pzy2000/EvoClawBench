@@ -1,0 +1,48 @@
+{
+  "case_id": "case_03",
+  "domain": "DSR Request Routing",
+  "records": [
+    {
+      "id": "DRR-03-01",
+      "signal": "incident_ids",
+      "value": [
+        "DRR-03-01",
+        "DRR-03-02"
+      ],
+      "note": "synthetic incident_ids evidence"
+    },
+    {
+      "id": "DRR-03-02",
+      "signal": "redacted_fields",
+      "value": [
+        "email",
+        "phone"
+      ],
+      "note": "synthetic redacted_fields evidence"
+    },
+    {
+      "id": "DRR-03-03",
+      "signal": "raw_pii_present",
+      "value": false,
+      "note": "synthetic raw_pii_present evidence"
+    },
+    {
+      "id": "DRR-03-04",
+      "signal": "approved_exceptions",
+      "value": [
+        "EXC-03"
+      ],
+      "note": "synthetic approved_exceptions evidence"
+    },
+    {
+      "id": "DRR-03-05",
+      "signal": "severity_counts",
+      "value": {
+        "critical": 1,
+        "high": 2,
+        "medium": 1
+      },
+      "note": "synthetic severity_counts evidence"
+    }
+  ]
+}

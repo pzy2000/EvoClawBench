@@ -1,0 +1,23 @@
+case_id: case_04
+domain: Warehouse Picklist Validation
+items:
+  - id: WPV-04-01
+    signal: selected_vendor
+    value: "Vendor-D"
+    note: synthetic selected_vendor evidence
+  - id: WPV-04-02
+    signal: match_exceptions
+    value: ["WPV-04-02", "WPV-04-03"]
+    note: synthetic match_exceptions evidence
+  - id: WPV-04-03
+    signal: late_shipments
+    value: ["SHIP-04-01"]
+    note: synthetic late_shipments evidence
+  - id: WPV-04-04
+    signal: risk_suppliers
+    value: ["Supplier-4", "Supplier-9"]
+    note: synthetic risk_suppliers evidence
+  - id: WPV-04-05
+    signal: savings_estimate
+    value: 7003.0
+    note: synthetic savings_estimate evidence

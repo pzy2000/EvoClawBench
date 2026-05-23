@@ -1,0 +1,47 @@
+{
+  "case_id": "case_02",
+  "domain": "Facilities Maintenance Prioritization",
+  "records": [
+    {
+      "id": "FMP-02-01",
+      "signal": "priority_assets",
+      "value": [
+        "ASSET-02-A",
+        "ASSET-02-C"
+      ],
+      "note": "synthetic priority_assets evidence"
+    },
+    {
+      "id": "FMP-02-02",
+      "signal": "maintenance_due",
+      "value": [
+        "UNIT-02-1",
+        "UNIT-02-2"
+      ],
+      "note": "synthetic maintenance_due evidence"
+    },
+    {
+      "id": "FMP-02-03",
+      "signal": "anomaly_ids",
+      "value": [
+        "FMP-02-03",
+        "FMP-02-04"
+      ],
+      "note": "synthetic anomaly_ids evidence"
+    },
+    {
+      "id": "FMP-02-04",
+      "signal": "diagnostic_codes",
+      "value": [
+        "BATTERY_LOW"
+      ],
+      "note": "synthetic diagnostic_codes evidence"
+    },
+    {
+      "id": "FMP-02-05",
+      "signal": "dispatch_required",
+      "value": false,
+      "note": "synthetic dispatch_required evidence"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+LDC-01-01,Loan Document Checklist,ledger_total,1337.5,synthetic ledger_total evidence
+LDC-01-02,Loan Document Checklist,exception_ids,"[""LDC-01-03"", ""LDC-01-04""]",synthetic exception_ids evidence
+LDC-01-03,Loan Document Checklist,currencies,"[""USD""]",synthetic currencies evidence
+LDC-01-04,Loan Document Checklist,tax_total,93.25,synthetic tax_total evidence
+LDC-01-05,Loan Document Checklist,balanced,true,synthetic balanced evidence

@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+RRRC-03-01,Retail Returns Root Cause,normalized_skus,"[""SKU-03-01"", ""SKU-03-02"", ""SKU-03-03""]",synthetic normalized_skus evidence
+RRRC-03-02,Retail Returns Root Cause,refund_ids,"[""RRRC-03-02"", ""RRRC-03-03""]",synthetic refund_ids evidence
+RRRC-03-03,Retail Returns Root Cause,inspection_score,86,synthetic inspection_score evidence
+RRRC-03-04,Retail Returns Root Cause,policy_violations,"[""missing_allergen_label""]",synthetic policy_violations evidence
+RRRC-03-05,Retail Returns Root Cause,recommended_action,"""manual_review""",synthetic recommended_action evidence

@@ -1,0 +1,23 @@
+case_id: case_05
+domain: Procurement Bid Scoring
+items:
+  - id: PBS-05-01
+    signal: selected_vendor
+    value: "Vendor-E"
+    note: synthetic selected_vendor evidence
+  - id: PBS-05-02
+    signal: match_exceptions
+    value: ["PBS-05-02", "PBS-05-03"]
+    note: synthetic match_exceptions evidence
+  - id: PBS-05-03
+    signal: late_shipments
+    value: ["SHIP-05-03"]
+    note: synthetic late_shipments evidence
+  - id: PBS-05-04
+    signal: risk_suppliers
+    value: ["Supplier-5", "Supplier-10"]
+    note: synthetic risk_suppliers evidence
+  - id: PBS-05-05
+    signal: savings_estimate
+    value: 7628.75
+    note: synthetic savings_estimate evidence

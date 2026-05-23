@@ -1,0 +1,48 @@
+{
+  "case_id": "case_04",
+  "domain": "Lab Result Followup Queue",
+  "records": [
+    {
+      "id": "LRFQ-04-01",
+      "signal": "eligible_ids",
+      "value": [
+        "LRFQ-04-01",
+        "LRFQ-04-02"
+      ],
+      "note": "synthetic eligible_ids evidence"
+    },
+    {
+      "id": "LRFQ-04-02",
+      "signal": "routing_queue",
+      "value": {
+        "clinical": 1,
+        "admin": 2,
+        "pharmacy": 0
+      },
+      "note": "synthetic routing_queue evidence"
+    },
+    {
+      "id": "LRFQ-04-03",
+      "signal": "followup_ids",
+      "value": [
+        "LRFQ-04-03",
+        "LRFQ-04-04"
+      ],
+      "note": "synthetic followup_ids evidence"
+    },
+    {
+      "id": "LRFQ-04-04",
+      "signal": "stockout_ids",
+      "value": [
+        "MED-04"
+      ],
+      "note": "synthetic stockout_ids evidence"
+    },
+    {
+      "id": "LRFQ-04-05",
+      "signal": "urgent_count",
+      "value": 2,
+      "note": "synthetic urgent_count evidence"
+    }
+  ]
+}

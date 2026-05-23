@@ -1,0 +1,46 @@
+{
+  "case_id": "case_03",
+  "domain": "Inbox Rules Classification",
+  "records": [
+    {
+      "id": "IRC-03-01",
+      "signal": "conflicts",
+      "value": [
+        "MTG-03-02"
+      ],
+      "note": "synthetic conflicts evidence"
+    },
+    {
+      "id": "IRC-03-02",
+      "signal": "exceptions",
+      "value": [
+        "visa_window"
+      ],
+      "note": "synthetic exceptions evidence"
+    },
+    {
+      "id": "IRC-03-03",
+      "signal": "action_items",
+      "value": [
+        "Notify owner 3",
+        "Rebook slot 3"
+      ],
+      "note": "synthetic action_items evidence"
+    },
+    {
+      "id": "IRC-03-04",
+      "signal": "rule_labels",
+      "value": [
+        "travel_policy",
+        "calendar_conflict"
+      ],
+      "note": "synthetic rule_labels evidence"
+    },
+    {
+      "id": "IRC-03-05",
+      "signal": "resolved",
+      "value": false,
+      "note": "synthetic resolved evidence"
+    }
+  ]
+}

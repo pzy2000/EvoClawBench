@@ -1,0 +1,46 @@
+{
+  "case_id": "case_04",
+  "domain": "Travel Itinerary Exception",
+  "records": [
+    {
+      "id": "TIE-04-01",
+      "signal": "conflicts",
+      "value": [
+        "TRIP-04-01"
+      ],
+      "note": "synthetic conflicts evidence"
+    },
+    {
+      "id": "TIE-04-02",
+      "signal": "exceptions",
+      "value": [
+        "hotel_policy",
+        "overlap"
+      ],
+      "note": "synthetic exceptions evidence"
+    },
+    {
+      "id": "TIE-04-03",
+      "signal": "action_items",
+      "value": [
+        "Notify owner 4",
+        "Rebook slot 4"
+      ],
+      "note": "synthetic action_items evidence"
+    },
+    {
+      "id": "TIE-04-04",
+      "signal": "rule_labels",
+      "value": [
+        "inbox_routing"
+      ],
+      "note": "synthetic rule_labels evidence"
+    },
+    {
+      "id": "TIE-04-05",
+      "signal": "resolved",
+      "value": true,
+      "note": "synthetic resolved evidence"
+    }
+  ]
+}

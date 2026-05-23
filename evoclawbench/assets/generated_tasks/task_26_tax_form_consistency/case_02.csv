@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+TFC-02-01,Tax Form Consistency,ledger_total,1475.0,synthetic ledger_total evidence
+TFC-02-02,Tax Form Consistency,exception_ids,"[""TFC-02-03"", ""TFC-02-04""]",synthetic exception_ids evidence
+TFC-02-03,Tax Form Consistency,currencies,"[""EUR"", ""USD""]",synthetic currencies evidence
+TFC-02-04,Tax Form Consistency,tax_total,102.5,synthetic tax_total evidence
+TFC-02-05,Tax Form Consistency,balanced,true,synthetic balanced evidence

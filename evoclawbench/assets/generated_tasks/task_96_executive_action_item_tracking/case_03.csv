@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+EAIT-03-01,Executive Action Item Tracking,stale_opportunities,"[""EAIT-03-01"", ""EAIT-03-02""]",synthetic stale_opportunities evidence
+EAIT-03-02,Executive Action Item Tracking,forecast_delta,9873.5,synthetic forecast_delta evidence
+EAIT-03-03,Executive Action Item Tracking,campaign_errors,"[""missing_utm""]",synthetic campaign_errors evidence
+EAIT-03-04,Executive Action Item Tracking,action_items,"[""Follow up account 3"", ""Update forecast 3""]",synthetic action_items evidence
+EAIT-03-05,Executive Action Item Tracking,executive_summary,"""pipeline_risk""",synthetic executive_summary evidence

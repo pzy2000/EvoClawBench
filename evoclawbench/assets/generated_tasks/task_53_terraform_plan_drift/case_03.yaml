@@ -1,0 +1,23 @@
+case_id: case_03
+domain: Terraform Plan Drift
+items:
+  - id: TPD-03-01
+    signal: policy_violations
+    value: ["missing_cpu_limit", "latest_image_tag"]
+    note: synthetic policy_violations evidence
+  - id: TPD-03-02
+    signal: required_changes
+    value: ["pin_image_digest", "add_resource_limits", "enable_rollback"]
+    note: synthetic required_changes evidence
+  - id: TPD-03-03
+    signal: slo_status
+    value: "breaching"
+    note: synthetic slo_status evidence
+  - id: TPD-03-04
+    signal: backup_passed
+    value: true
+    note: synthetic backup_passed evidence
+  - id: TPD-03-05
+    signal: risk_score
+    value: 7.6
+    note: synthetic risk_score evidence

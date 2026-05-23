@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+MCQ-05-01,Marketing Campaign Qa,stale_opportunities,"[""MCQ-05-01"", ""MCQ-05-02""]",synthetic stale_opportunities evidence
+MCQ-05-02,Marketing Campaign Qa,forecast_delta,8122.5,synthetic forecast_delta evidence
+MCQ-05-03,Marketing Campaign Qa,campaign_errors,"[""missing_utm""]",synthetic campaign_errors evidence
+MCQ-05-04,Marketing Campaign Qa,action_items,"[""Follow up account 5"", ""Update forecast 5""]",synthetic action_items evidence
+MCQ-05-05,Marketing Campaign Qa,executive_summary,"""pipeline_risk""",synthetic executive_summary evidence

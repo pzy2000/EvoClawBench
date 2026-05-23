@@ -1,0 +1,49 @@
+{
+  "case_id": "case_05",
+  "domain": "App Review Theme Mining",
+  "records": [
+    {
+      "id": "ARTM-05-01",
+      "signal": "priority_queue",
+      "value": [
+        "ARTM-05-01",
+        "ARTM-05-02"
+      ],
+      "note": "synthetic priority_queue evidence"
+    },
+    {
+      "id": "ARTM-05-02",
+      "signal": "duplicate_groups",
+      "value": [
+        [
+          "ARTM-05-02",
+          "ARTM-05-03"
+        ]
+      ],
+      "note": "synthetic duplicate_groups evidence"
+    },
+    {
+      "id": "ARTM-05-03",
+      "signal": "themes",
+      "value": [
+        "billing",
+        "login"
+      ],
+      "note": "synthetic themes evidence"
+    },
+    {
+      "id": "ARTM-05-04",
+      "signal": "sla_breaches",
+      "value": [
+        "ARTM-05-05"
+      ],
+      "note": "synthetic sla_breaches evidence"
+    },
+    {
+      "id": "ARTM-05-05",
+      "signal": "reply_template",
+      "value": "escalation",
+      "note": "synthetic reply_template evidence"
+    }
+  ]
+}

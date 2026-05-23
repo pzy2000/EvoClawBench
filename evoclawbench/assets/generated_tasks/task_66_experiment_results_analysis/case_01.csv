@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+ERA-01-01,Experiment Results Analysis,row_count,117,synthetic row_count evidence
+ERA-01-02,Experiment Results Analysis,quality_failures,"[""null_required_field"", ""duplicate_key""]",synthetic quality_failures evidence
+ERA-01-03,Experiment Results Analysis,metric_delta,-4.7,synthetic metric_delta evidence
+ERA-01-04,Experiment Results Analysis,rule_ids,"[""DQ-01-A"", ""DQ-01-B""]",synthetic rule_ids evidence
+ERA-01-05,Experiment Results Analysis,experiment_winner,"""variant_b""",synthetic experiment_winner evidence

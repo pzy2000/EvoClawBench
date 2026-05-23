@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+EAIT-02-01,Executive Action Item Tracking,stale_opportunities,"[""EAIT-02-01"", ""EAIT-02-02""]",synthetic stale_opportunities evidence
+EAIT-02-02,Executive Action Item Tracking,forecast_delta,10749.0,synthetic forecast_delta evidence
+EAIT-02-03,Executive Action Item Tracking,campaign_errors,"[""bad_segment"", ""expired_asset""]",synthetic campaign_errors evidence
+EAIT-02-04,Executive Action Item Tracking,action_items,"[""Follow up account 2"", ""Update forecast 2""]",synthetic action_items evidence
+EAIT-02-05,Executive Action Item Tracking,executive_summary,"""campaign_cleanup""",synthetic executive_summary evidence

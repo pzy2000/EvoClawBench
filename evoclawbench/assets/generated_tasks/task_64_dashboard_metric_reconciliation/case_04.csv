@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+DMR-04-01,Dashboard Metric Reconciliation,row_count,168,synthetic row_count evidence
+DMR-04-02,Dashboard Metric Reconciliation,quality_failures,"[""range_violation""]",synthetic quality_failures evidence
+DMR-04-03,Dashboard Metric Reconciliation,metric_delta,2.35,synthetic metric_delta evidence
+DMR-04-04,Dashboard Metric Reconciliation,rule_ids,"[""DQ-04-A"", ""DQ-04-B""]",synthetic rule_ids evidence
+DMR-04-05,Dashboard Metric Reconciliation,experiment_winner,"""control""",synthetic experiment_winner evidence

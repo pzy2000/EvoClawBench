@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+DQRA-02-01,Data Quality Rule Authoring,row_count,134,synthetic row_count evidence
+DQRA-02-02,Data Quality Rule Authoring,quality_failures,"[""range_violation""]",synthetic quality_failures evidence
+DQRA-02-03,Data Quality Rule Authoring,metric_delta,-2.35,synthetic metric_delta evidence
+DQRA-02-04,Data Quality Rule Authoring,rule_ids,"[""DQ-02-A"", ""DQ-02-B""]",synthetic rule_ids evidence
+DQRA-02-05,Data Quality Rule Authoring,experiment_winner,"""control""",synthetic experiment_winner evidence

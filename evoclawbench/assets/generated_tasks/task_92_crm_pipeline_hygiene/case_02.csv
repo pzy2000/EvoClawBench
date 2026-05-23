@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+CPH-02-01,CRM Pipeline Hygiene,stale_opportunities,"[""CPH-02-01"", ""CPH-02-02""]",synthetic stale_opportunities evidence
+CPH-02-02,CRM Pipeline Hygiene,forecast_delta,10749.0,synthetic forecast_delta evidence
+CPH-02-03,CRM Pipeline Hygiene,campaign_errors,"[""bad_segment"", ""expired_asset""]",synthetic campaign_errors evidence
+CPH-02-04,CRM Pipeline Hygiene,action_items,"[""Follow up account 2"", ""Update forecast 2""]",synthetic action_items evidence
+CPH-02-05,CRM Pipeline Hygiene,executive_summary,"""campaign_cleanup""",synthetic executive_summary evidence

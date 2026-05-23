@@ -1,0 +1,47 @@
+{
+  "case_id": "case_02",
+  "domain": "Phishing Report Triage",
+  "records": [
+    {
+      "id": "PRT-02-01",
+      "signal": "incident_ids",
+      "value": [
+        "PRT-02-01",
+        "PRT-02-02"
+      ],
+      "note": "synthetic incident_ids evidence"
+    },
+    {
+      "id": "PRT-02-02",
+      "signal": "redacted_fields",
+      "value": [
+        "email",
+        "address",
+        "account_id"
+      ],
+      "note": "synthetic redacted_fields evidence"
+    },
+    {
+      "id": "PRT-02-03",
+      "signal": "raw_pii_present",
+      "value": false,
+      "note": "synthetic raw_pii_present evidence"
+    },
+    {
+      "id": "PRT-02-04",
+      "signal": "approved_exceptions",
+      "value": [],
+      "note": "synthetic approved_exceptions evidence"
+    },
+    {
+      "id": "PRT-02-05",
+      "signal": "severity_counts",
+      "value": {
+        "critical": 0,
+        "high": 2,
+        "medium": 1
+      },
+      "note": "synthetic severity_counts evidence"
+    }
+  ]
+}

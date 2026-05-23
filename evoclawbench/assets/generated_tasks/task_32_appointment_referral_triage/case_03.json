@@ -1,0 +1,46 @@
+{
+  "case_id": "case_03",
+  "domain": "Appointment Referral Triage",
+  "records": [
+    {
+      "id": "ART-03-01",
+      "signal": "eligible_ids",
+      "value": [
+        "ART-03-01",
+        "ART-03-02"
+      ],
+      "note": "synthetic eligible_ids evidence"
+    },
+    {
+      "id": "ART-03-02",
+      "signal": "routing_queue",
+      "value": {
+        "clinical": 2,
+        "admin": 2,
+        "pharmacy": 1
+      },
+      "note": "synthetic routing_queue evidence"
+    },
+    {
+      "id": "ART-03-03",
+      "signal": "followup_ids",
+      "value": [
+        "ART-03-03",
+        "ART-03-04"
+      ],
+      "note": "synthetic followup_ids evidence"
+    },
+    {
+      "id": "ART-03-04",
+      "signal": "stockout_ids",
+      "value": [],
+      "note": "synthetic stockout_ids evidence"
+    },
+    {
+      "id": "ART-03-05",
+      "signal": "urgent_count",
+      "value": 1,
+      "note": "synthetic urgent_count evidence"
+    }
+  ]
+}

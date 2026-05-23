@@ -1,0 +1,49 @@
+{
+  "case_id": "case_04",
+  "domain": "Call Center Quality Review",
+  "records": [
+    {
+      "id": "CCQR-04-01",
+      "signal": "priority_queue",
+      "value": [
+        "CCQR-04-01",
+        "CCQR-04-02"
+      ],
+      "note": "synthetic priority_queue evidence"
+    },
+    {
+      "id": "CCQR-04-02",
+      "signal": "duplicate_groups",
+      "value": [
+        [
+          "CCQR-04-02",
+          "CCQR-04-03"
+        ]
+      ],
+      "note": "synthetic duplicate_groups evidence"
+    },
+    {
+      "id": "CCQR-04-03",
+      "signal": "themes",
+      "value": [
+        "performance",
+        "mobile"
+      ],
+      "note": "synthetic themes evidence"
+    },
+    {
+      "id": "CCQR-04-04",
+      "signal": "sla_breaches",
+      "value": [
+        "CCQR-04-05"
+      ],
+      "note": "synthetic sla_breaches evidence"
+    },
+    {
+      "id": "CCQR-04-05",
+      "signal": "reply_template",
+      "value": "investigation",
+      "note": "synthetic reply_template evidence"
+    }
+  ]
+}

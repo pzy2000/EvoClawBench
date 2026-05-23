@@ -1,0 +1,49 @@
+{
+  "case_id": "case_03",
+  "domain": "Support Ticket Escalation",
+  "records": [
+    {
+      "id": "STE-03-01",
+      "signal": "priority_queue",
+      "value": [
+        "STE-03-01",
+        "STE-03-02"
+      ],
+      "note": "synthetic priority_queue evidence"
+    },
+    {
+      "id": "STE-03-02",
+      "signal": "duplicate_groups",
+      "value": [
+        [
+          "STE-03-02",
+          "STE-03-03"
+        ]
+      ],
+      "note": "synthetic duplicate_groups evidence"
+    },
+    {
+      "id": "STE-03-03",
+      "signal": "themes",
+      "value": [
+        "billing",
+        "login"
+      ],
+      "note": "synthetic themes evidence"
+    },
+    {
+      "id": "STE-03-04",
+      "signal": "sla_breaches",
+      "value": [
+        "STE-03-05"
+      ],
+      "note": "synthetic sla_breaches evidence"
+    },
+    {
+      "id": "STE-03-05",
+      "signal": "reply_template",
+      "value": "escalation",
+      "note": "synthetic reply_template evidence"
+    }
+  ]
+}

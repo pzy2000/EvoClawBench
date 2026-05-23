@@ -1,0 +1,48 @@
+{
+  "case_id": "case_05",
+  "domain": "Fleet Maintenance Schedule",
+  "records": [
+    {
+      "id": "FMS-05-01",
+      "signal": "priority_assets",
+      "value": [
+        "ASSET-05-A",
+        "ASSET-05-C"
+      ],
+      "note": "synthetic priority_assets evidence"
+    },
+    {
+      "id": "FMS-05-02",
+      "signal": "maintenance_due",
+      "value": [
+        "UNIT-05-1",
+        "UNIT-05-2"
+      ],
+      "note": "synthetic maintenance_due evidence"
+    },
+    {
+      "id": "FMS-05-03",
+      "signal": "anomaly_ids",
+      "value": [
+        "FMS-05-03",
+        "FMS-05-04"
+      ],
+      "note": "synthetic anomaly_ids evidence"
+    },
+    {
+      "id": "FMS-05-04",
+      "signal": "diagnostic_codes",
+      "value": [
+        "TEMP_SPIKE",
+        "VIBRATION"
+      ],
+      "note": "synthetic diagnostic_codes evidence"
+    },
+    {
+      "id": "FMS-05-05",
+      "signal": "dispatch_required",
+      "value": true,
+      "note": "synthetic dispatch_required evidence"
+    }
+  ]
+}

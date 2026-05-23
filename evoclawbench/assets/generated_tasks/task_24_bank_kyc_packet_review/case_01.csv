@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+BKPR-01-01,Bank KYC Packet Review,ledger_total,1337.5,synthetic ledger_total evidence
+BKPR-01-02,Bank KYC Packet Review,exception_ids,"[""BKPR-01-03"", ""BKPR-01-04""]",synthetic exception_ids evidence
+BKPR-01-03,Bank KYC Packet Review,currencies,"[""USD""]",synthetic currencies evidence
+BKPR-01-04,Bank KYC Packet Review,tax_total,93.25,synthetic tax_total evidence
+BKPR-01-05,Bank KYC Packet Review,balanced,true,synthetic balanced evidence

@@ -1,0 +1,49 @@
+{
+  "case_id": "case_03",
+  "domain": "Civic Service Request Routing",
+  "records": [
+    {
+      "id": "CSRR-03-01",
+      "signal": "routing_queue",
+      "value": {
+        "records": 2,
+        "legal": 1,
+        "audit": 1
+      },
+      "note": "synthetic routing_queue evidence"
+    },
+    {
+      "id": "CSRR-03-02",
+      "signal": "redactions_required",
+      "value": [
+        "email",
+        "tax_id"
+      ],
+      "note": "synthetic redactions_required evidence"
+    },
+    {
+      "id": "CSRR-03-03",
+      "signal": "missing_evidence",
+      "value": [
+        "EVID-03-02"
+      ],
+      "note": "synthetic missing_evidence evidence"
+    },
+    {
+      "id": "CSRR-03-04",
+      "signal": "risk_summary",
+      "value": {
+        "high": 1,
+        "medium": 2,
+        "low": 1
+      },
+      "note": "synthetic risk_summary evidence"
+    },
+    {
+      "id": "CSRR-03-05",
+      "signal": "compliant",
+      "value": false,
+      "note": "synthetic compliant evidence"
+    }
+  ]
+}

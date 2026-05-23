@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+SFV-01-01,Sales Forecast Variance,stale_opportunities,"[""SFV-01-01"", ""SFV-01-02""]",synthetic stale_opportunities evidence
+SFV-01-02,Sales Forecast Variance,forecast_delta,11624.5,synthetic forecast_delta evidence
+SFV-01-03,Sales Forecast Variance,campaign_errors,"[""missing_utm""]",synthetic campaign_errors evidence
+SFV-01-04,Sales Forecast Variance,action_items,"[""Follow up account 1"", ""Update forecast 1""]",synthetic action_items evidence
+SFV-01-05,Sales Forecast Variance,executive_summary,"""pipeline_risk""",synthetic executive_summary evidence

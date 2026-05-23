@@ -1,0 +1,7 @@
+CASE case_02: Contract Clause Extraction
+Synthetic source notes:
+- clause_labels: ["confidentiality", "termination"]
+- missing_fields: ["governing_law"]
+- high_risk_terms: ["auto-renewal"]
+- parties: ["Contract Clause Extraction Provider", "Contract Clause Extraction Client"]
+- effective_date: "2026-07-12"

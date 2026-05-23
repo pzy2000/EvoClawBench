@@ -1,0 +1,48 @@
+{
+  "case_id": "case_04",
+  "domain": "Pharmacy Inventory Reorder",
+  "records": [
+    {
+      "id": "PIR-04-01",
+      "signal": "eligible_ids",
+      "value": [
+        "PIR-04-01",
+        "PIR-04-02"
+      ],
+      "note": "synthetic eligible_ids evidence"
+    },
+    {
+      "id": "PIR-04-02",
+      "signal": "routing_queue",
+      "value": {
+        "clinical": 1,
+        "admin": 2,
+        "pharmacy": 0
+      },
+      "note": "synthetic routing_queue evidence"
+    },
+    {
+      "id": "PIR-04-03",
+      "signal": "followup_ids",
+      "value": [
+        "PIR-04-03",
+        "PIR-04-04"
+      ],
+      "note": "synthetic followup_ids evidence"
+    },
+    {
+      "id": "PIR-04-04",
+      "signal": "stockout_ids",
+      "value": [
+        "MED-04"
+      ],
+      "note": "synthetic stockout_ids evidence"
+    },
+    {
+      "id": "PIR-04-05",
+      "signal": "urgent_count",
+      "value": 2,
+      "note": "synthetic urgent_count evidence"
+    }
+  ]
+}

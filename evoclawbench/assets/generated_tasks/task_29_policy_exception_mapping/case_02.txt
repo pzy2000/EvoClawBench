@@ -1,0 +1,7 @@
+CASE case_02: Policy Exception Mapping
+Synthetic source notes:
+- clause_labels: ["confidentiality", "termination"]
+- missing_fields: ["governing_law"]
+- high_risk_terms: ["auto-renewal"]
+- parties: ["Policy Exception Mapping Provider", "Policy Exception Mapping Client"]
+- effective_date: "2026-07-12"

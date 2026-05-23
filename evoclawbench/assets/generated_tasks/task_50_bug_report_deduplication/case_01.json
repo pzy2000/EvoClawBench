@@ -1,0 +1,49 @@
+{
+  "case_id": "case_01",
+  "domain": "Bug Report Deduplication",
+  "records": [
+    {
+      "id": "BRD-01-01",
+      "signal": "priority_queue",
+      "value": [
+        "BRD-01-01",
+        "BRD-01-02"
+      ],
+      "note": "synthetic priority_queue evidence"
+    },
+    {
+      "id": "BRD-01-02",
+      "signal": "duplicate_groups",
+      "value": [
+        [
+          "BRD-01-02",
+          "BRD-01-03"
+        ]
+      ],
+      "note": "synthetic duplicate_groups evidence"
+    },
+    {
+      "id": "BRD-01-03",
+      "signal": "themes",
+      "value": [
+        "billing",
+        "login"
+      ],
+      "note": "synthetic themes evidence"
+    },
+    {
+      "id": "BRD-01-04",
+      "signal": "sla_breaches",
+      "value": [
+        "BRD-01-05"
+      ],
+      "note": "synthetic sla_breaches evidence"
+    },
+    {
+      "id": "BRD-01-05",
+      "signal": "reply_template",
+      "value": "escalation",
+      "note": "synthetic reply_template evidence"
+    }
+  ]
+}

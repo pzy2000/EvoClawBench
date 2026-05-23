@@ -1,0 +1,47 @@
+{
+  "case_id": "case_03",
+  "domain": "Localization Placeholder Qa",
+  "records": [
+    {
+      "id": "LPQ-03-01",
+      "signal": "placeholder_errors",
+      "value": [
+        "LOC-03-02"
+      ],
+      "note": "synthetic placeholder_errors evidence"
+    },
+    {
+      "id": "LPQ-03-02",
+      "signal": "glossary_violations",
+      "value": [
+        "workspace",
+        "checkout"
+      ],
+      "note": "synthetic glossary_violations evidence"
+    },
+    {
+      "id": "LPQ-03-03",
+      "signal": "release_sections",
+      "value": [
+        "features",
+        "fixes",
+        "known_issues"
+      ],
+      "note": "synthetic release_sections evidence"
+    },
+    {
+      "id": "LPQ-03-04",
+      "signal": "flag_actions",
+      "value": [
+        "remove_stale_flag"
+      ],
+      "note": "synthetic flag_actions evidence"
+    },
+    {
+      "id": "LPQ-03-05",
+      "signal": "publish_ready",
+      "value": false,
+      "note": "synthetic publish_ready evidence"
+    }
+  ]
+}

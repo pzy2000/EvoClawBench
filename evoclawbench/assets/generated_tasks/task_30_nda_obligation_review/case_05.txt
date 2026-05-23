@@ -1,0 +1,7 @@
+CASE case_05: Nda Obligation Review
+Synthetic source notes:
+- clause_labels: ["confidentiality", "termination", "liability"]
+- missing_fields: ["effective_date"]
+- high_risk_terms: ["auto-renewal"]
+- parties: ["Nda Obligation Review Provider", "Nda Obligation Review Client"]
+- effective_date: "2026-07-15"

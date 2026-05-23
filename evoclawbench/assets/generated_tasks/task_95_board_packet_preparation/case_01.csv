@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+BPP-01-01,Board Packet Preparation,stale_opportunities,"[""BPP-01-01"", ""BPP-01-02""]",synthetic stale_opportunities evidence
+BPP-01-02,Board Packet Preparation,forecast_delta,11624.5,synthetic forecast_delta evidence
+BPP-01-03,Board Packet Preparation,campaign_errors,"[""missing_utm""]",synthetic campaign_errors evidence
+BPP-01-04,Board Packet Preparation,action_items,"[""Follow up account 1"", ""Update forecast 1""]",synthetic action_items evidence
+BPP-01-05,Board Packet Preparation,executive_summary,"""pipeline_risk""",synthetic executive_summary evidence

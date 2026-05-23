@@ -1,0 +1,48 @@
+{
+  "case_id": "case_01",
+  "domain": "Smart Home Support Diagnosis",
+  "records": [
+    {
+      "id": "SHSD-01-01",
+      "signal": "priority_assets",
+      "value": [
+        "ASSET-01-A",
+        "ASSET-01-C"
+      ],
+      "note": "synthetic priority_assets evidence"
+    },
+    {
+      "id": "SHSD-01-02",
+      "signal": "maintenance_due",
+      "value": [
+        "UNIT-01-1",
+        "UNIT-01-2"
+      ],
+      "note": "synthetic maintenance_due evidence"
+    },
+    {
+      "id": "SHSD-01-03",
+      "signal": "anomaly_ids",
+      "value": [
+        "SHSD-01-03",
+        "SHSD-01-04"
+      ],
+      "note": "synthetic anomaly_ids evidence"
+    },
+    {
+      "id": "SHSD-01-04",
+      "signal": "diagnostic_codes",
+      "value": [
+        "TEMP_SPIKE",
+        "VIBRATION"
+      ],
+      "note": "synthetic diagnostic_codes evidence"
+    },
+    {
+      "id": "SHSD-01-05",
+      "signal": "dispatch_required",
+      "value": true,
+      "note": "synthetic dispatch_required evidence"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+MLP-05-01,Marketplace Listing Policy,normalized_skus,"[""SKU-05-01"", ""SKU-05-02"", ""SKU-05-03""]",synthetic normalized_skus evidence
+MLP-05-02,Marketplace Listing Policy,refund_ids,"[""MLP-05-02"", ""MLP-05-03""]",synthetic refund_ids evidence
+MLP-05-03,Marketplace Listing Policy,inspection_score,90,synthetic inspection_score evidence
+MLP-05-04,Marketplace Listing Policy,policy_violations,"[""missing_allergen_label""]",synthetic policy_violations evidence
+MLP-05-05,Marketplace Listing Policy,recommended_action,"""manual_review""",synthetic recommended_action evidence

@@ -1,0 +1,7 @@
+CASE case_02: Vendor Contract Risk
+Synthetic source notes:
+- clause_labels: ["confidentiality", "termination"]
+- missing_fields: ["governing_law"]
+- high_risk_terms: ["auto-renewal"]
+- parties: ["Vendor Contract Risk Provider", "Vendor Contract Risk Client"]
+- effective_date: "2026-07-12"

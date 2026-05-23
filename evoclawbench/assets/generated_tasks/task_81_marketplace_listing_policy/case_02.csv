@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+MLP-02-01,Marketplace Listing Policy,normalized_skus,"[""SKU-02-01"", ""SKU-02-02"", ""SKU-02-03""]",synthetic normalized_skus evidence
+MLP-02-02,Marketplace Listing Policy,refund_ids,"[""MLP-02-02"", ""MLP-02-03""]",synthetic refund_ids evidence
+MLP-02-03,Marketplace Listing Policy,inspection_score,84,synthetic inspection_score evidence
+MLP-02-04,Marketplace Listing Policy,policy_violations,"[""prohibited_claim"", ""late_delivery""]",synthetic policy_violations evidence
+MLP-02-05,Marketplace Listing Policy,recommended_action,"""auto_approve_with_note""",synthetic recommended_action evidence

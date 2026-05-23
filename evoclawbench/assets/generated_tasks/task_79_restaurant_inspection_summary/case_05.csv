@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+RIS-05-01,Restaurant Inspection Summary,normalized_skus,"[""SKU-05-01"", ""SKU-05-02"", ""SKU-05-03""]",synthetic normalized_skus evidence
+RIS-05-02,Restaurant Inspection Summary,refund_ids,"[""RIS-05-02"", ""RIS-05-03""]",synthetic refund_ids evidence
+RIS-05-03,Restaurant Inspection Summary,inspection_score,90,synthetic inspection_score evidence
+RIS-05-04,Restaurant Inspection Summary,policy_violations,"[""missing_allergen_label""]",synthetic policy_violations evidence
+RIS-05-05,Restaurant Inspection Summary,recommended_action,"""manual_review""",synthetic recommended_action evidence

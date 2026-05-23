@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+CPH-01-01,CRM Pipeline Hygiene,stale_opportunities,"[""CPH-01-01"", ""CPH-01-02""]",synthetic stale_opportunities evidence
+CPH-01-02,CRM Pipeline Hygiene,forecast_delta,11624.5,synthetic forecast_delta evidence
+CPH-01-03,CRM Pipeline Hygiene,campaign_errors,"[""missing_utm""]",synthetic campaign_errors evidence
+CPH-01-04,CRM Pipeline Hygiene,action_items,"[""Follow up account 1"", ""Update forecast 1""]",synthetic action_items evidence
+CPH-01-05,CRM Pipeline Hygiene,executive_summary,"""pipeline_risk""",synthetic executive_summary evidence

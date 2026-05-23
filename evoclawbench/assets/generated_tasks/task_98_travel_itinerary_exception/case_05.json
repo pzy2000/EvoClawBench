@@ -1,0 +1,46 @@
+{
+  "case_id": "case_05",
+  "domain": "Travel Itinerary Exception",
+  "records": [
+    {
+      "id": "TIE-05-01",
+      "signal": "conflicts",
+      "value": [
+        "MTG-05-02"
+      ],
+      "note": "synthetic conflicts evidence"
+    },
+    {
+      "id": "TIE-05-02",
+      "signal": "exceptions",
+      "value": [
+        "visa_window"
+      ],
+      "note": "synthetic exceptions evidence"
+    },
+    {
+      "id": "TIE-05-03",
+      "signal": "action_items",
+      "value": [
+        "Notify owner 5",
+        "Rebook slot 5"
+      ],
+      "note": "synthetic action_items evidence"
+    },
+    {
+      "id": "TIE-05-04",
+      "signal": "rule_labels",
+      "value": [
+        "travel_policy",
+        "calendar_conflict"
+      ],
+      "note": "synthetic rule_labels evidence"
+    },
+    {
+      "id": "TIE-05-05",
+      "signal": "resolved",
+      "value": false,
+      "note": "synthetic resolved evidence"
+    }
+  ]
+}

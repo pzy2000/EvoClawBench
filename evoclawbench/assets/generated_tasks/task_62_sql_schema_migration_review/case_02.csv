@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+SSMR-02-01,SQL Schema Migration Review,row_count,134,synthetic row_count evidence
+SSMR-02-02,SQL Schema Migration Review,quality_failures,"[""range_violation""]",synthetic quality_failures evidence
+SSMR-02-03,SQL Schema Migration Review,metric_delta,-2.35,synthetic metric_delta evidence
+SSMR-02-04,SQL Schema Migration Review,rule_ids,"[""DQ-02-A"", ""DQ-02-B""]",synthetic rule_ids evidence
+SSMR-02-05,SQL Schema Migration Review,experiment_winner,"""control""",synthetic experiment_winner evidence

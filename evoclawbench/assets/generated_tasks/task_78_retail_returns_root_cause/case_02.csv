@@ -1,0 +1,6 @@
+record_id,domain,signal,value,notes
+RRRC-02-01,Retail Returns Root Cause,normalized_skus,"[""SKU-02-01"", ""SKU-02-02"", ""SKU-02-03""]",synthetic normalized_skus evidence
+RRRC-02-02,Retail Returns Root Cause,refund_ids,"[""RRRC-02-02"", ""RRRC-02-03""]",synthetic refund_ids evidence
+RRRC-02-03,Retail Returns Root Cause,inspection_score,84,synthetic inspection_score evidence
+RRRC-02-04,Retail Returns Root Cause,policy_violations,"[""prohibited_claim"", ""late_delivery""]",synthetic policy_violations evidence
+RRRC-02-05,Retail Returns Root Cause,recommended_action,"""auto_approve_with_note""",synthetic recommended_action evidence

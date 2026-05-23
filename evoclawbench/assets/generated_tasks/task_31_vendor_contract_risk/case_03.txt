@@ -1,0 +1,7 @@
+CASE case_03: Vendor Contract Risk
+Synthetic source notes:
+- clause_labels: ["confidentiality", "termination", "liability"]
+- missing_fields: ["effective_date"]
+- high_risk_terms: ["unlimited liability"]
+- parties: ["Vendor Contract Risk Provider", "Vendor Contract Risk Client"]
+- effective_date: "2026-07-13"
