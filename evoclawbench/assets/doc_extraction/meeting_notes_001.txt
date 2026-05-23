@@ -17,6 +17,7 @@ ATTENDEES:
 
   Absent:
     - Tom Bradley (Backend Developer) - out sick
+    - Marcus Johnston (External QA vendor) - not invited; do not confuse with Marcus Johnson
 
 AGENDA:
   1. Sprint 14 progress review
@@ -38,6 +39,20 @@ DISCUSSION:
    - Stakeholder feedback: positive reception, requested additional filtering
    - Chart rendering performance improved by 40% using canvas-based approach
    - Mobile responsive layout needs refinement for tablets
+
+DECISIONS:
+  - Keep March 28 beta release date unchanged.
+  - Move tablet layout refinements into Sprint 15.
+  - Do not add vendor QA until after the beta release.
+
+ACTION ITEMS:
+  - Priya Sharma: confirm SSO provider unblock plan for AUTH-451 by February 14, 2025.
+  - Elena Rodriguez: deliver tablet dashboard mockups by February 18, 2025.
+  - Kevin Tanaka: rerun performance regression suite by February 16, 2025.
+  - Lisa Park: verify staging auto-scaling thresholds by February 17, 2025.
+
+NEXT MEETING:
+  February 19, 2025, 10:00 AM EST, Conference Room B / Zoom.
 
 3. Performance Testing Results (Kevin Tanaka)
    - Load test: system handles 5,000 concurrent users (target: 3,000)
@@ -68,6 +83,10 @@ DECISIONS MADE:
   - Approved canvas-based charting approach for production
   - Agreed to postpone advanced filtering to Sprint 16
   - Database optimization will be prioritized in Sprint 15
+
+FACILITATOR CLEANUP NOTE
+The numbered ACTION ITEMS list above replaces the earlier four-item draft list.
+Do not merge duplicate owner/task pairs. Use the later deadlines when they differ.
 
 NEXT MEETING:
   Date: February 19, 2025

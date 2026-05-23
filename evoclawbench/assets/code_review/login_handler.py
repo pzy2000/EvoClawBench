@@ -1,5 +1,6 @@
 from flask import Flask, request, session, redirect
 import sqlite3
+import hmac
 
 app = Flask(__name__)
 app.secret_key = "hardcoded-secret-key-12345"
@@ -9,6 +10,19 @@ DB_PATH = "/var/data/users.db"
 
 def get_db():
     return sqlite3.connect(DB_PATH)
+
+
+def lookup_user_safe(username):
+    """Decoy helper: this parameterized lookup is not the vulnerable login path."""
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT id FROM users WHERE username = ?", (username,))
+    return cursor.fetchone()
+
+
+def constant_time_compare(left, right):
+    """Decoy helper: this comparison is intentionally safe."""
+    return hmac.compare_digest(str(left), str(right))
 
 
 @app.route("/login", methods=["POST"])
@@ -57,3 +71,14 @@ def reset_password():
         cursor.execute("UPDATE users SET password = '" + new_password + "' WHERE id = " + str(user[0]))
         db.commit()
     return "If that email exists, a reset has been initiated."
+
+
+@app.route("/impersonate", methods=["POST"])
+def impersonate():
+    target_user = request.form.get("target_user")
+    is_admin = request.form.get("is_admin")
+    if is_admin:
+        session["user_id"] = target_user
+        session["is_impersonating"] = True
+        return redirect("/dashboard")
+    return "Forbidden", 403

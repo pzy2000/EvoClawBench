@@ -18,3 +18,6 @@
 [2024-03-15 10:40:35] [INFO] [notification] [req-n018] Batch email job completed: campaign-march-2024 (4987/5000 delivered)
 [2024-03-15 10:41:20] [ERROR] [notification] [req-n019] Slack integration webhook returned 500: internal server error
 [2024-03-15 10:42:00] [INFO] [notification] [req-n020] Health check passed - all channels operational
+[2024-03-15 10:42:50] [WARN] [notification] [req-canary-001] Canary SMS delivery failed as expected during provider failover drill
+[2024-03-15 10:43:12] [ERROR] [notification] [req-901] Refund confirmation email suppressed: payment status unresolved for ord-901
+[2024-03-15 10:43:26] [ERROR] [notification] [req-901] Retry notification still blocked: upstream refund workflow unresolved after attempt 1

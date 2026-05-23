@@ -16,6 +16,10 @@ distributed systems and cloud-native applications. Proven track record of
 leading cross-functional teams and delivering high-impact projects. Strong
 background in Python, Go, and cloud infrastructure (AWS, GCP).
 
+NOTE FROM RECRUITER
+Do not treat conference talks as certifications. Alexandra presented at KubeCon
+2023 and PyData SF 2024, but those are not certifications.
+
 WORK EXPERIENCE
 
 Senior Software Engineer | Stratos Cloud Inc. | March 2021 - Present
@@ -38,6 +42,10 @@ Software Engineer | NexaPoint Solutions | August 2016 - May 2018
 
 EDUCATION
 
+CERTIFICATIONS
+  - AWS Certified Solutions Architect - Professional (2022)
+  - Certified Kubernetes Administrator (CKA) (2023)
+
 Master of Science in Computer Science | Stanford University | 2016
   Specialization: Distributed Systems
   GPA: 3.85/4.0
@@ -56,3 +64,8 @@ CERTIFICATIONS
   - AWS Solutions Architect Professional (2023)
   - Certified Kubernetes Administrator (CKA) (2022)
   - Google Cloud Professional Cloud Architect (2021)
+
+HR CORRECTION NOTE
+The final CERTIFICATIONS block supersedes the earlier certification block for
+the canonical certification list and years. The recruiter note about KubeCon
+and PyData remains valid: conference talks are not certifications.

@@ -4,6 +4,11 @@ from django.views import View
 from django.shortcuts import get_object_or_404
 from .models import User, AuditLog, SystemConfig
 
+
+def safe_audit_summary(request):
+    # Decoy helper: aggregate-only endpoint is not the raw export vulnerability.
+    return JsonResponse({"count": AuditLog.objects.count()})
+
 class AdminUserView(View):
     def get(self, request, user_id):
         user = get_object_or_404(User, id=user_id)
@@ -62,3 +67,8 @@ class AuditLogView(View):
                 for log in logs
             ]
         })
+
+class AuditExportView(View):
+    def get(self, request):
+        rows = list(AuditLog.objects.values("actor_id", "target_id", "action", "session_token"))
+        return JsonResponse({"rows": rows})

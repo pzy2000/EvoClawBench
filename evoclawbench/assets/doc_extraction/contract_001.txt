@@ -38,6 +38,16 @@ CLIENT:
    Expenses: Client shall reimburse pre-approved expenses within 30 days.
 
 3. DURATION
+   Project Start Date: January 15, 2025
+   Final Delivery Date: August 15, 2025
+   Support Period: 90 days after final delivery
+
+AMENDMENT A - SIGNED JANUARY 20, 2025
+   The parties agreed to remove the mobile application deliverable from the
+   initial launch scope and convert it into an optional phase. The amended
+   total contract value is $421,000.00. The Design Approval and Beta Launch
+   milestone amounts remain unchanged; reduce the Final Delivery milestone to
+   $33,000.00 and keep the acceptance payment at $48,500.00.
    Start Date: January 15, 2025
    Estimated Completion: August 15, 2025
    Support Period: 12 months following Final Delivery

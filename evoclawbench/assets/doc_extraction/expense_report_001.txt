@@ -38,6 +38,21 @@ EXPENSE SUMMARY BY CATEGORY:
   Meals:              $523.25
   Lodging:            $478.00
   Conference:         $599.00
+  Supplies:           $255.98
+  Software:           $249.00
+  Team Activity:       $85.00
+
+POLICY REVIEW NOTES:
+  - The JetBrains annual license is reimbursable, but must be coded as Software.
+  - The team offsite bowling event is approved by Jennifer Walsh despite being a
+    non-standard Team Activity category.
+  - Receipt R-2025-0214 for the $156.80 team lunch is missing and should be
+    marked as a receipt exception.
+  - Correct approved total remains $2,930.23; do not drop approved exceptions
+    from the total.
+  - The receipt attachment count should be normalized to 17 attached receipts
+    plus one missing receipt exception, even though the original footer says
+    "Receipts Attached: 18 of 18".
   Supplies:           $255.97
   Software:           $249.00
   Team Activity:       $85.00

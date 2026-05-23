@@ -18,3 +18,9 @@ Mar 15 10:39:01 auth-srv auth[1234]: INFO: Successful login for sara.lee@company
 Mar 15 10:40:22 auth-srv auth[1234]: WARN: Database connection pool at 80% capacity (16/20)
 Mar 15 10:41:55 auth-srv auth[1234]: ERROR: Failed to validate JWT token - signature mismatch for user unknown
 Mar 15 10:42:30 auth-srv auth[1234]: INFO: Health check passed - all dependencies healthy
+Mar 15 10:43:02 auth-srv auth[1234]: WARN: Synthetic canary login failed for monitor@company.com - expected negative test
+Mar 15 10:43:10 auth-srv auth[1234]: ERROR: Correlation req-901 failed token exchange for user grace@company.com - upstream payment callback rejected
+Mar 15 10:43:11 auth-srv auth[1234]: ERROR: Stack trace follows for req-901
+    at TokenExchange.validate(TokenExchange.java:118)
+    at OAuthCallback.handle(OAuthCallback.java:77)
+    Caused by: NonceMismatchException: nonce n-7721 reused after 4 seconds

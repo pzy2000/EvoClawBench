@@ -1,10 +1,17 @@
 import os
 import subprocess
 from flask import Flask, request, send_file, abort
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 UPLOAD_DIR = "/var/uploads"
 ALLOWED_EXTENSIONS = None  # No restriction
+
+
+def safe_join_preview(filename):
+    # Decoy helper: routes below do not use this safe helper.
+    clean = secure_filename(filename)
+    return os.path.join(UPLOAD_DIR, clean)
 
 @app.route("/upload", methods=["POST"])
 def upload_file():
@@ -38,6 +45,14 @@ def convert_file():
     cmd = f"libreoffice --convert-to {output_format} /var/uploads/{filename}"
     os.system(cmd)
     return "Conversion started", 200
+
+@app.route("/share")
+def share_file():
+    token = request.args.get("token", "")
+    filename = request.args.get("file", "")
+    if token == "public":
+        return send_file(os.path.join(UPLOAD_DIR, filename))
+    abort(403)
 
 @app.route("/list")
 def list_files():

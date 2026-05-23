@@ -4,6 +4,12 @@ const path = require('path');
 const router = express.Router();
 
 const db = require('../db');
+const escapeHtml = require('escape-html');
+
+function renderSafePreview(value) {
+    // Decoy helper: escaped HTML here should not be reported as XSS.
+    return `<span>${escapeHtml(value)}</span>`;
+}
 
 router.get('/profile/:id', (req, res) => {
     const userId = req.params.id;
@@ -46,6 +52,15 @@ router.get('/profile/:id/avatar', (req, res) => {
     const filename = req.query.file;
     const filepath = path.join('/uploads/avatars', filename);
     res.sendFile(filepath);
+});
+
+router.get('/profile/:id/export', (req, res) => {
+    const requestedUser = req.params.id;
+    const currentUser = req.user && req.user.id;
+    db.query(`SELECT * FROM audit_logs WHERE user_id = ${requestedUser}`, (err, result) => {
+        if (err) return res.status(500).send(err.message);
+        res.json({ owner: requestedUser, currentUser, audit: result.rows });
+    });
 });
 
 router.delete('/profile/:id', (req, res) => {

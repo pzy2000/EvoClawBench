@@ -33,6 +33,7 @@ You have 5 text documents in `assets/doc_extraction/` representing different doc
 3. `assets/doc_extraction/contract_001.txt` → `outputs/contract_001.json`
 4. `assets/doc_extraction/meeting_notes_001.txt` → `outputs/meeting_notes_001.json`
 5. `assets/doc_extraction/expense_report_001.txt` → `outputs/expense_report_001.json`
+6. Cross-document extraction audit → `outputs/extraction_audit.json`
 
 **Required schemas per document type:**
 
@@ -51,7 +52,10 @@ You have 5 text documents in `assets/doc_extraction/` representing different doc
   "tax_rate": "",
   "tax_amount": 0.0,
   "grand_total": 0.0,
-  "bank_details": {"bank": "", "account_name": "", "routing_number": "", "account_number": ""}
+  "bank_details": {"bank": "", "account_name": "", "routing_number": "", "account_number": ""},
+  "revision": "",
+  "excluded_line_items": [],
+  "evidence_spans": []
 }
 ```
 
@@ -65,7 +69,9 @@ You have 5 text documents in `assets/doc_extraction/` representing different doc
   "work_experience": [{"title": "", "company": "", "start_date": "", "end_date": "", "highlights": []}],
   "education": [{"degree": "", "institution": "", "year": "", "details": ""}],
   "skills": {"languages": [], "frameworks": [], "cloud": [], "data": [], "tools": []},
-  "certifications": []
+  "certifications": [],
+  "non_certification_notes": [],
+  "evidence_spans": []
 }
 ```
 
@@ -81,7 +87,10 @@ You have 5 text documents in `assets/doc_extraction/` representing different doc
   "duration": {"start_date": "", "end_date": "", "support_period": ""},
   "termination_notice_days": 0,
   "governing_law": "",
-  "dispute_resolution": ""
+  "dispute_resolution": "",
+  "amendments": [],
+  "excluded_scope": [],
+  "evidence_spans": []
 }
 ```
 
@@ -98,7 +107,9 @@ You have 5 text documents in `assets/doc_extraction/` representing different doc
   "discussion_points": [{"topic": "", "summary": ""}],
   "action_items": [{"assignee": "", "task": "", "deadline": ""}],
   "decisions": [],
-  "next_meeting": {"date": "", "time": "", "location": ""}
+  "next_meeting": {"date": "", "time": "", "location": ""},
+  "name_disambiguation_notes": [],
+  "evidence_spans": []
 }
 ```
 
@@ -112,9 +123,25 @@ You have 5 text documents in `assets/doc_extraction/` representing different doc
   "category_totals": {},
   "total": 0.0,
   "approval_status": "",
-  "receipts_count": 0
+  "receipts_count": 0,
+  "receipt_exceptions": [],
+  "approved_exceptions": [],
+  "evidence_spans": []
 }
 ```
+
+Normalize dates to ISO `YYYY-MM-DD` where a field is a date. When a document contains amendments, corrections, or policy notes, extract the final authoritative value and preserve the superseded value only in an explanatory field such as `amendments`, `excluded_line_items`, or `receipt_exceptions`.
+
+Also create `outputs/extraction_audit.json` with:
+```json
+{
+  "applied_corrections": [{"document": "", "source_note": "", "field": "", "final_value": "", "superseded_value": ""}],
+  "rejected_candidates": [{"document": "", "candidate": "", "reason": ""}],
+  "normalization_warnings": []
+}
+```
+
+The audit file should explain why revised invoice totals and bank details were selected, why the final resume certification block supersedes the earlier block, why Amendment A changes the contract scope and value, why the later meeting action-item list replaces the draft list, and why the expense report has 17 attached receipts plus one missing receipt exception.
 
 ---
 
@@ -179,7 +206,8 @@ Score the following criteria from 0.0 to 1.0. Use 0.6–0.7 for acceptable extra
 - **value_accuracy**: Do the extracted values actually match the content of the source documents? Check key fields: invoice totals/dates/vendor, resume candidate name/experience/education, contract parties/dates/amounts, meeting action items/attendees, expense totals/categories. A score of 0.0 means most values are wrong or invented; 1.0 means all extracted values precisely match the source.
 - **semantic_quality**: Are categorized or grouped fields correctly organized? This includes: resume `skills` categorized into languages/frameworks/cloud/tools, contract `scope_of_work` as meaningful bullet points, meeting `discussion_points` with correct topic/summary grouping, `action_items` with correct assignee/task/deadline structure. A score of 0.0 means groupings are meaningless or collapsed; 1.0 means all structured fields are well-organized and semantically accurate.
 - **completeness**: Are all significant fields populated with actual data extracted from the document (not empty strings, null, 0, or placeholder text)? Consider fields like `bank_details` in invoice, `certifications` in resume, `payment_schedule` in contract, `decisions` in meeting notes, `category_totals` in expense report. A score of 0.0 means many fields are blank/default; 1.0 means all fields have meaningful extracted values.
-- **overall_quality**: Holistic quality of extraction across all 5 document types — accuracy, completeness, and correct schema adherence.
+- **evidence_and_revision_handling**: Does the extraction cite source evidence and correctly handle amendments, corrections, duplicate names, policy exceptions, and superseded totals? Penalize invented certifications, using pre-amendment contract totals, keeping excluded invoice lines in final totals, confusing Marcus Johnson with Marcus Johnston, or dropping approved expense exceptions.
+- **overall_quality**: Holistic quality of extraction across all 5 document types — accuracy, completeness, correct schema adherence, date normalization, and evidence support.
 
 ---
 
@@ -188,122 +216,113 @@ Score the following criteria from 0.0 to 1.0. Use 0.6–0.7 for acceptable extra
 ```python
 def grade(transcript: list, workspace_path: str) -> dict:
     import json
+    import math
     from pathlib import Path
 
     scores = {}
     workspace = Path(workspace_path)
 
-    files_checks = [
-        (
-            "invoice_001.json",
-            {
-                "required_keys": ["line_items", "grand_total", "invoice_number", "vendor", "client"],
-                "array_keys": ["line_items"],
-                "min_array_len": {"line_items": 3},
-                "numeric_keys": ["grand_total", "subtotal"],
-            },
-        ),
-        (
-            "resume_001.json",
-            {
-                "required_keys": ["name", "work_experience", "education", "skills"],
-                "array_keys": ["work_experience", "education"],
-                "min_array_len": {"work_experience": 2, "education": 1},
-                "string_keys": ["name"],
-            },
-        ),
-        (
-            "contract_001.json",
-            {
-                "required_keys": ["parties", "effective_date", "total_value", "governing_law"],
-                "array_keys": ["parties"],
-                "min_array_len": {"parties": 2},
-                "numeric_keys": ["total_value"],
-            },
-        ),
-        (
-            "meeting_notes_001.json",
-            {
-                "required_keys": ["date", "attendees", "action_items", "next_meeting"],
-                "array_keys": ["action_items"],
-                "min_array_len": {"action_items": 3},
-            },
-        ),
-        (
-            "expense_report_001.json",
-            {
-                "required_keys": ["employee", "line_items", "total"],
-                "array_keys": ["line_items"],
-                "min_array_len": {"line_items": 5},
-                "numeric_keys": ["total"],
-            },
-        ),
-    ]
-
-    for idx, (filename, checks) in enumerate(files_checks, start=1):
-        prefix = f"sub_{idx}"
-        out_path = workspace / "outputs" / filename
-
-        # Check file exists
-        if not out_path.exists():
-            scores[f"{prefix}_exists"] = 0.0
-            scores[f"{prefix}_valid_json"] = 0.0
-            scores[f"{prefix}_required_keys"] = 0.0
-            scores[f"{prefix}_arrays"] = 0.0
-            scores[f"{prefix}_values"] = 0.0
-            continue
-
-        scores[f"{prefix}_exists"] = 1.0
-
-        # Check valid JSON
+    def load_json(path):
         try:
-            with open(out_path) as f:
-                data = json.load(f)
-        except (json.JSONDecodeError, Exception):
-            scores[f"{prefix}_valid_json"] = 0.0
-            scores[f"{prefix}_required_keys"] = 0.0
-            scores[f"{prefix}_arrays"] = 0.0
-            scores[f"{prefix}_values"] = 0.0
-            continue
+            return json.loads(path.read_text())
+        except Exception:
+            return None
 
-        scores[f"{prefix}_valid_json"] = 1.0
+    def text_of(value):
+        return json.dumps(value, sort_keys=True).lower()
 
-        # Check required keys
-        required = checks.get("required_keys", [])
-        found = sum(1 for k in required if k in data)
-        scores[f"{prefix}_required_keys"] = round(found / len(required), 2) if required else 1.0
+    def close(actual, expected, tol=0.01):
+        return isinstance(actual, (int, float)) and math.isclose(float(actual), expected, abs_tol=tol)
 
-        # Check arrays exist and have minimum length
-        array_keys = checks.get("array_keys", [])
-        min_lens = checks.get("min_array_len", {})
-        if array_keys:
-            array_ok = 0
-            for ak in array_keys:
-                val = data.get(ak, [])
-                if isinstance(val, list) and len(val) >= min_lens.get(ak, 1):
-                    array_ok += 1
-            scores[f"{prefix}_arrays"] = round(array_ok / len(array_keys), 2)
-        else:
-            scores[f"{prefix}_arrays"] = 1.0
+    invoice = load_json(workspace / "outputs" / "invoice_001.json")
+    if isinstance(invoice, dict):
+        items = text_of(invoice.get("line_items", []))
+        bank = text_of(invoice.get("bank_details", {}))
+        evidence = text_of(invoice.get("evidence_spans", []))
+        scores["invoice_final_record"] = 1.0 if all([
+            close(invoice.get("subtotal"), 34293.98),
+            close(invoice.get("tax_amount"), 2829.25),
+            close(invoice.get("grand_total"), 37123.23),
+            str(invoice.get("revision", "")).upper() == "R1",
+            "load testing" not in items,
+            "111000038" in bank,
+            "revision note" in evidence,
+        ]) else 0.0
+    else:
+        scores["invoice_final_record"] = 0.0
 
-        # Check that numeric keys are actually numbers and string keys are strings
-        value_checks = 0
-        value_total = 0
-        for nk in checks.get("numeric_keys", []):
-            value_total += 1
-            val = data.get(nk)
-            if isinstance(val, (int, float)):
-                value_checks += 1
-        for sk in checks.get("string_keys", []):
-            value_total += 1
-            val = data.get(sk)
-            if isinstance(val, str) and len(val) > 0:
-                value_checks += 1
+    resume = load_json(workspace / "outputs" / "resume_001.json")
+    if isinstance(resume, dict):
+        certs = text_of(resume.get("certifications", []))
+        notes = text_of(resume.get("non_certification_notes", []))
+        evidence = text_of(resume.get("evidence_spans", []))
+        scores["resume_superseded_certifications"] = 1.0 if all([
+            "aws solutions architect professional" in certs and "2023" in certs,
+            "certified kubernetes administrator" in certs and "2022" in certs,
+            "google cloud professional cloud architect" in certs and "2021" in certs,
+            "kubecon" not in certs and "pydata" not in certs,
+            "kubecon" in notes and "pydata" in notes,
+            "hr correction" in evidence,
+        ]) else 0.0
+    else:
+        scores["resume_superseded_certifications"] = 0.0
 
-        if value_total > 0:
-            scores[f"{prefix}_values"] = round(value_checks / value_total, 2)
-        else:
-            scores[f"{prefix}_values"] = 1.0
+    contract = load_json(workspace / "outputs" / "contract_001.json")
+    if isinstance(contract, dict):
+        scope = text_of(contract.get("scope_of_work", []))
+        excluded = text_of(contract.get("excluded_scope", []))
+        amendments = text_of(contract.get("amendments", []))
+        schedule = text_of(contract.get("payment_schedule", []))
+        scores["contract_amended_terms"] = 1.0 if all([
+            close(contract.get("total_value"), 421000.00),
+            "mobile" not in scope,
+            "mobile" in excluded,
+            "amendment a" in amendments,
+            "33000" in schedule or "33,000" in schedule,
+            "12 months" in text_of(contract.get("duration", {})),
+        ]) else 0.0
+    else:
+        scores["contract_amended_terms"] = 0.0
+
+    meeting = load_json(workspace / "outputs" / "meeting_notes_001.json")
+    if isinstance(meeting, dict):
+        action_items = meeting.get("action_items", [])
+        action_text = text_of(action_items)
+        scores["meeting_final_action_registry"] = 1.0 if all([
+            isinstance(action_items, list) and len(action_items) == 6,
+            "2025-02-21" in action_text,
+            "2025-02-19" in action_text,
+            "marcus johnson" in action_text,
+            "marcus johnston" in text_of(meeting.get("name_disambiguation_notes", [])),
+            "draft" in text_of(meeting.get("evidence_spans", [])) or "cleanup" in text_of(meeting.get("evidence_spans", [])),
+        ]) else 0.0
+    else:
+        scores["meeting_final_action_registry"] = 0.0
+
+    expense = load_json(workspace / "outputs" / "expense_report_001.json")
+    if isinstance(expense, dict):
+        totals = text_of(expense.get("category_totals", {}))
+        scores["expense_policy_normalization"] = 1.0 if all([
+            close(expense.get("total"), 2930.23),
+            "transportation" in totals and "743.25" in totals,
+            "supplies" in totals and "255.97" in totals,
+            "team activity" in totals and "85" in totals,
+            "r-2025-0214" in text_of(expense.get("receipt_exceptions", [])),
+            "bowling" in text_of(expense.get("approved_exceptions", [])),
+            int(expense.get("receipts_count", -1)) == 17,
+        ]) else 0.0
+    else:
+        scores["expense_policy_normalization"] = 0.0
+
+    audit = load_json(workspace / "outputs" / "extraction_audit.json")
+    if isinstance(audit, dict):
+        audit_text = text_of(audit)
+        scores["cross_document_audit"] = 1.0 if all(token in audit_text for token in [
+            "r1", "111000038", "hr correction", "amendment a",
+            "draft", "17", "r-2025-0214",
+        ]) else 0.0
+    else:
+        scores["cross_document_audit"] = 0.0
 
     return scores
 ```
