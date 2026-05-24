@@ -1,4 +1,4 @@
-\begin{thebibliography}{11}
+\begin{thebibliography}{22}
 \providecommand{\natexlab}[1]{#1}
 
 \bibitem[{{Anthropic}(2025)}]{anthropic2025skills}
@@ -7,6 +7,32 @@
   {https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills}
   {Equipping agents for the real world with agent skills}.
 \newblock Anthropic Engineering Blog.
+
+\bibitem[{Boisvert et~al.(2024)Boisvert, Thakkar, Gasse, Caccia, Le~Sellier
+  De~Chezelles, Cappart, Chapados, Lacoste, and Drouin}]{boisvert2024workarena}
+L{\'e}o Boisvert, Megh Thakkar, Maxime Gasse, Massimo Caccia, Thibault
+  Le~Sellier De~Chezelles, Quentin Cappart, Nicolas Chapados, Alexandre
+  Lacoste, and Alexandre Drouin. 2024.
+\newblock \href {https://arxiv.org/abs/2407.05291} {{WorkArena++}: Towards
+  compositional planning and reasoning-based common knowledge work tasks}.
+\newblock \emph{arXiv preprint arXiv:2407.05291}.
+
+\bibitem[{Chan et~al.(2024)Chan, Chowdhury, Jaffe, Aung, Sherburn, Mays,
+  Starace, Liu, Maksin, Patwardhan, Weng, and Madaan}]{chan2024mlebench}
+Jun~Shern Chan, Neil Chowdhury, Oliver Jaffe, James Aung, Dane Sherburn, Evan
+  Mays, Giulio Starace, Kevin Liu, Leon Maksin, Tejal Patwardhan, Lilian Weng,
+  and Aman Madaan. 2024.
+\newblock \href {https://arxiv.org/abs/2410.07095} {{MLE}-bench: Evaluating
+  machine learning agents on machine learning engineering}.
+\newblock \emph{arXiv preprint arXiv:2410.07095}.
+
+\bibitem[{Deng et~al.(2023)Deng, Gu, Zheng, Chen, Stevens, Wang, Sun, and
+  Su}]{deng2023mind2web}
+Xiang Deng, Yu~Gu, Boyuan Zheng, Shijie Chen, Samuel Stevens, Boshi Wang, Huan
+  Sun, and Yu~Su. 2023.
+\newblock \href {https://arxiv.org/abs/2306.06070} {{Mind2Web}: Towards a
+  generalist agent for the web}.
+\newblock \emph{arXiv preprint arXiv:2306.06070}.
 
 \bibitem[{Fang et~al.(2025)Fang, Liang, Wang, Wu, Qiao, Xie, Huang, Chen, and
   Zhang}]{fang2025memp}
@@ -19,29 +45,88 @@ Runnan Fang, Yuan Liang, Xiaobin Wang, Jialong Wu, Shuofei Qiao, Pengjun Xie,
 \bibitem[{Jimenez et~al.(2024)Jimenez, Yang, Wettig, Yao, Pei, Press, and
   Narasimhan}]{jimenez2024swebench}
 Carlos~E. Jimenez, John Yang, Alexander Wettig, Shunyu Yao, Kexin Pei, Ofir
-  Press, and Karthik Narasimhan. 2024.
-\newblock \href {https://openreview.net/forum?id=VTF8yNQM66} {{SWE}-bench: Can
-  language models resolve real-world {GitHub} issues?}
+  Press, and Karthik~R. Narasimhan. 2024.
+\newblock \href
+  {https://proceedings.iclr.cc/paper_files/paper/2024/hash/edac78c3e300629acfe6cbe9ca88fb84-Abstract-Conference.html}
+  {{SWE}-bench: Can language models resolve real-world {GitHub} issues?}
 \newblock In \emph{International Conference on Learning Representations}.
 
-\bibitem[{Li et~al.(2026)Li, Liu, Chen et~al.}]{li2026skillsbench}
-Xiang Li, Yang Liu, Wei Chen, and 1 others. 2026.
+\bibitem[{Li et~al.(2026)Li, Chen, Liu, Zheng, Chen, He, Li, You, Shen, Sun,
+  Wang, Li, Zeng, Wang, Zhao, Wang, Chaim, Di, Gao, He, He, Jing, Kong, Lan,
+  Li, Li, Li, Lin, Liu, Liu, Lyu, Ma, Wang, Wang, Wang, Ye, Zhang, Xing, Xue,
+  Dillmann, and chung Lee}]{li2026skillsbench}
+Xiangyi Li, Wenbo Chen, Yimin Liu, Shenghan Zheng, Xiaokun Chen, Yifeng He,
+  Yubo Li, Bingran You, Haotian Shen, Jiankai Sun, Shuyi Wang, Binxu Li,
+  Qunhong Zeng, Di~Wang, Xuandong Zhao, Yuanli Wang, Roey~Ben Chaim, Zonglin
+  Di, Yipeng Gao, and 22 others. 2026.
 \newblock \href {https://arxiv.org/abs/2602.12670} {{SkillsBench}: Benchmarking
   how well agent skills work across diverse tasks}.
 \newblock \emph{arXiv preprint arXiv:2602.12670}.
 
-\bibitem[{Merrill et~al.(2026)}]{merrill2026terminalbench}
-Mark~A. Merrill and 1 others. 2026.
+\bibitem[{Liu et~al.(2023)Liu, Yu, Zhang, Xu, Lei, Lai, Gu, Ding, Men, Yang,
+  Zhang, Deng, Zeng, Du, Zhang, Shen, Zhang, Su, Sun, Huang, Dong, and
+  Tang}]{liu2023agentbench}
+Xiao Liu, Hao Yu, Hanchen Zhang, Yifan Xu, Xuanyu Lei, Hanyu Lai, Yu~Gu,
+  Hangliang Ding, Kaiwen Men, Kejuan Yang, Shudan Zhang, Xiang Deng, Aohan
+  Zeng, Zhengxiao Du, Chenhui Zhang, Sheng Shen, Tianjun Zhang, Yu~Su, Huan
+  Sun, and 3 others. 2023.
+\newblock \href {https://arxiv.org/abs/2308.03688} {{AgentBench}: Evaluating
+  {LLM}s as agents}.
+\newblock \emph{arXiv preprint arXiv:2308.03688}.
+
+\bibitem[{Merrill et~al.(2026)Merrill, Shaw, Carlini, Li, Raj, Bercovich, Shi,
+  Shin, Walshe, Buchanan, Shen, Ye, Lin, Poulos, Wang, Nezhurina, Jitsev, Lu,
+  Mastromichalakis, Xu, Chen, Liu, Zhang, Chen, Kashyap, Uslu, Li, Wu, Yan,
+  Bian, Sharma, Sun, Dillmann, Anand, Lanpouthakoun, Koopah, Hu, Guha, Dreiman,
+  Zhu, Krauth, Zhong, Muennighoff, Amanfu, Tan, Pimpalgaonkar, Aggarwal, Lin,
+  Lan, Zhao, Liang, Wang, Wang, Zhou, Heineman, Liu, Trivedi, Yang, Lin,
+  Shetty, Yang, Omi, Raoof, Li, Zhuo, Lin, Dai, Wang, Chai, Zhou, Wahdany, She,
+  Hu, Dong, Zhu, Cui, Saiyed, Kolbeinsson, Hu, Rytting, Marten, Wang, Dimakis,
+  Konwinski, and Schmidt}]{merrill2026terminalbench}
+Mike~A. Merrill, Alexander~G. Shaw, Nicholas Carlini, Boxuan Li, Harsh Raj,
+  Ivan Bercovich, Lin Shi, Jeong~Yeon Shin, Thomas Walshe, E.~Kelly Buchanan,
+  Junhong Shen, Guanghao Ye, Haowei Lin, Jason Poulos, Maoyu Wang, Marianna
+  Nezhurina, Jenia Jitsev, Di~Lu, Orfeas~Menis Mastromichalakis, and 66 others.
+  2026.
 \newblock \href {https://arxiv.org/abs/2601.11868} {Terminal-bench:
   Benchmarking agents on hard, realistic tasks in command line interfaces}.
 \newblock \emph{arXiv preprint arXiv:2601.11868}.
 
-\bibitem[{Trivedi et~al.(2024)}]{trivedi2024appworld}
-Harsh Trivedi and 1 others. 2024.
-\newblock \href {https://arxiv.org/abs/2407.18901} {{AppWorld}: A controllable
-  world of apps and people for benchmarking interactive coding agents}.
-\newblock In \emph{Annual Meeting of the Association for Computational
-  Linguistics}.
+\bibitem[{Mialon et~al.(2023)Mialon, Fourrier, Swift, Wolf, LeCun, and
+  Scialom}]{mialon2023gaia}
+Gr{\'e}goire Mialon, Cl{\'e}mentine Fourrier, Craig Swift, Thomas Wolf, Yann
+  LeCun, and Thomas Scialom. 2023.
+\newblock \href {https://arxiv.org/abs/2311.12983} {{GAIA}: A benchmark for
+  general {AI} assistants}.
+\newblock \emph{arXiv preprint arXiv:2311.12983}.
+
+\bibitem[{Qin et~al.(2023)Qin, Liang, Ye, Zhu, Yan, Lu, Lin, Cong, Tang, Qian,
+  Zhao, Hong, Tian, Xie, Zhou, Gerstein, Li, Liu, and Sun}]{qin2023toolllm}
+Yujia Qin, Shihao Liang, Yining Ye, Kunlun Zhu, Lan Yan, Yaxi Lu, Yankai Lin,
+  Xin Cong, Xiangru Tang, Bill Qian, Sihan Zhao, Lauren Hong, Runchu Tian,
+  Ruobing Xie, Jie Zhou, Mark Gerstein, Dahai Li, Zhiyuan Liu, and Maosong Sun.
+  2023.
+\newblock \href {https://arxiv.org/abs/2307.16789} {{ToolLLM}: Facilitating
+  large language models to master 16000+ real-world {API}s}.
+\newblock \emph{arXiv preprint arXiv:2307.16789}.
+
+\bibitem[{Shinn et~al.(2023)Shinn, Cassano, Berman, Gopinath, Narasimhan, and
+  Yao}]{shinn2023reflexion}
+Noah Shinn, Federico Cassano, Edward Berman, Ashwin Gopinath, Karthik
+  Narasimhan, and Shunyu Yao. 2023.
+\newblock \href {https://arxiv.org/abs/2303.11366} {Reflexion: Language agents
+  with verbal reinforcement learning}.
+\newblock \emph{arXiv preprint arXiv:2303.11366}.
+
+\bibitem[{Trivedi et~al.(2024)Trivedi, Khot, Hartmann, Manku, Dong, Li, Gupta,
+  Sabharwal, and Balasubramanian}]{trivedi2024appworld}
+Harsh Trivedi, Tushar Khot, Mareike Hartmann, Ruskin Manku, Vinty Dong, Edward
+  Li, Shashank Gupta, Ashish Sabharwal, and Niranjan Balasubramanian. 2024.
+\newblock \href {https://aclanthology.org/2024.acl-long.850/} {{AppWorld}: A
+  controllable world of apps and people for benchmarking interactive coding
+  agents}.
+\newblock In \emph{Proceedings of the 62nd Annual Meeting of the Association
+  for Computational Linguistics (Volume 1: Long Papers)}.
 
 \bibitem[{Wang et~al.(2024)Wang, Xie, Jiang, Mandlekar, Xiao, Zhu, Fan, and
   Anandkumar}]{wang2023voyager}
@@ -53,9 +138,19 @@ Guanzhi Wang, Yuqi Xie, Yunfan Jiang, Ajay Mandlekar, Chaowei Xiao, Yuke Zhu,
 
 \bibitem[{Wu and Zhang(2026)}]{wu2026agentskillsmemory}
 Yaxiong Wu and Yongyue Zhang. 2026.
-\newblock \href {https://www.techrxiv.org/} {Agent skills from the perspective
-  of procedural memory: A survey}.
+\newblock \href {https://doi.org/10.36227/techrxiv.176857932.25697838} {Agent
+  skills from the perspective of procedural memory: A survey}.
 \newblock \emph{TechRxiv preprint}.
+
+\bibitem[{Xie et~al.(2024)Xie, Zhang, Chen, Li, Zhao, Cao, Hua, Cheng, Shin,
+  Lei, Liu, Xu, Zhou, Savarese, Xiong, Zhong, and Yu}]{xie2024osworld}
+Tianbao Xie, Danyang Zhang, Jixuan Chen, Xiaochuan Li, Siheng Zhao, Ruisheng
+  Cao, Toh~Jing Hua, Zhoujun Cheng, Dongchan Shin, Fangyu Lei, Yitao Liu,
+  Yiheng Xu, Shuyan Zhou, Silvio Savarese, Caiming Xiong, Victor Zhong, and Tao
+  Yu. 2024.
+\newblock \href {https://arxiv.org/abs/2404.07972} {{OSWorld}: Benchmarking
+  multimodal agents for open-ended tasks in real computer environments}.
+\newblock \emph{arXiv preprint arXiv:2404.07972}.
 
 \bibitem[{Xu and Yan(2026)}]{xu2026agentskills}
 Renjun Xu and Yang Yan. 2026.
@@ -63,17 +158,45 @@ Renjun Xu and Yang Yan. 2026.
   language models: Architecture, acquisition, security, and the path forward}.
 \newblock \emph{arXiv preprint arXiv:2602.12430}.
 
-\bibitem[{Yang et~al.(2024)Yang, Prabhakar, Narasimhan, and
-  Yao}]{yang2024sweagent}
-John Yang, Akshara Prabhakar, Karthik Narasimhan, and Shunyu Yao. 2024.
-\newblock \href {https://arxiv.org/abs/2405.15793} {{SWE}-agent: Agent-computer
-  interfaces enable automated software engineering}.
+\bibitem[{Yang et~al.(2024)Yang, Jimenez, Wettig, Lieret, Yao, Narasimhan, and
+  Press}]{yang2024sweagent}
+John Yang, Carlos~E. Jimenez, Alexander Wettig, Kilian Lieret, Shunyu Yao,
+  Karthik~R. Narasimhan, and Ofir Press. 2024.
+\newblock \href
+  {https://proceedings.neurips.cc/paper_files/paper/2024/hash/5a7c947568c1b1328ccc5230172e1e7c-Abstract-Conference.html}
+  {{SWE}-agent: Agent-computer interfaces enable automated software
+  engineering}.
 \newblock In \emph{Advances in Neural Information Processing Systems}.
 
-\bibitem[{Yao et~al.(2025)}]{yao2025taubench}
-Shunyu Yao and 1 others. 2025.
+\bibitem[{Yao et~al.(2025)Yao, Shinn, Razavi, and Narasimhan}]{yao2025taubench}
+Shunyu Yao, Noah Shinn, Pedram Razavi, and Karthik Narasimhan. 2025.
 \newblock \href {https://arxiv.org/abs/2406.12045} {$\tau$-bench: A benchmark
   for tool-agent-user interaction in real-world domains}.
 \newblock In \emph{International Conference on Learning Representations}.
+
+\bibitem[{Yao et~al.(2023)Yao, Zhao, Yu, Du, Shafran, Narasimhan, and
+  Cao}]{yao2023react}
+Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan,
+  and Yuan Cao. 2023.
+\newblock \href {https://arxiv.org/abs/2210.03629} {{ReAct}: Synergizing
+  reasoning and acting in language models}.
+\newblock \emph{arXiv preprint arXiv:2210.03629}.
+
+\bibitem[{Zhao et~al.(2023)Zhao, Huang, Xu, Lin, Liu, and
+  Huang}]{zhao2023expel}
+Andrew Zhao, Daniel Huang, Quentin Xu, Matthieu Lin, Yong-Jin Liu, and Gao
+  Huang. 2023.
+\newblock \href {https://arxiv.org/abs/2308.10144} {{ExpeL}: {LLM} agents are
+  experiential learners}.
+\newblock \emph{arXiv preprint arXiv:2308.10144}.
+
+\bibitem[{Zhou et~al.(2023)Zhou, Xu, Zhu, Zhou, Lo, Sridhar, Cheng, Ou, Bisk,
+  Fried, Alon, and Neubig}]{zhou2023webarena}
+Shuyan Zhou, Frank~F. Xu, Hao Zhu, Xuhui Zhou, Robert Lo, Abishek Sridhar,
+  Xianyi Cheng, Tianyue Ou, Yonatan Bisk, Daniel Fried, Uri Alon, and Graham
+  Neubig. 2023.
+\newblock \href {https://arxiv.org/abs/2307.13854} {{WebArena}: A realistic web
+  environment for building autonomous agents}.
+\newblock \emph{arXiv preprint arXiv:2307.13854}.
 
 \end{thebibliography}

@@ -675,6 +675,12 @@ def execute_openclaw_task(
 # nanobot runtime
 # ---------------------------------------------------------------------------
 
+NANOBOT_MIN_TIMEOUT_SECONDS = 600
+
+
+def _nanobot_timeout_seconds(task_timeout_seconds: int, timeout_multiplier: float) -> float:
+    return max(task_timeout_seconds * timeout_multiplier, NANOBOT_MIN_TIMEOUT_SECONDS)
+
 
 def execute_nanobot_task(
     *,
@@ -703,7 +709,7 @@ def execute_nanobot_task(
         context_source_workspace=context_source_workspace,
     )
     skill_hash_before = hash_skill_files(workspace)
-    timeout_seconds = task.timeout_seconds * timeout_multiplier
+    timeout_seconds = _nanobot_timeout_seconds(task.timeout_seconds, timeout_multiplier)
 
     prompt = get_mode_prefix(mode) + task.prompt
     config_path = _write_nanobot_benchmark_config(workspace, model_id)

@@ -10,6 +10,8 @@
 \usepackage{inconsolata}
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
 \usepackage[table]{xcolor}
 \usepackage{amsmath}
 \usepackage{multirow}
@@ -21,8 +23,25 @@
 \newcommand{\baseline}{\textsc{Baseline}}
 \newcommand{\preskill}{\textsc{PreSkill}}
 \newcommand{\postskill}{\textsc{PostSkill}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\definecolor{promptbg}{RGB}{247,247,247}
+\definecolor{promptrule}{RGB}{88,88,88}
+\newcommand{\promptbox}[3]{%
+  \par\noindent
+  \begingroup
+  \setlength{\fboxsep}{6pt}%
+  \colorbox{promptbg}{%
+    \begin{minipage}{\dimexpr\linewidth-2\fboxsep\relax}
+      {\bfseries #1}\hfill{\footnotesize\ttfamily #2}\par
+      \vspace{2pt}{\color{promptrule}\hrule height 0.35pt}\vspace{4pt}
+      {\small\ttfamily\raggedright #3\par}
+    \end{minipage}%
+  }%
+  \endgroup
+  \par\vspace{0.55\baselineskip}%
+}
 
-\title{\ours{}: Benchmarking Self-Evolving Agents That Create and Reuse Skills at Runtime}
+\title{\ours{}: Benchmarking LLM Agents That Create and Reuse Skills at Runtime}
 
 \author{
   Anonymous ACL submission
@@ -32,15 +51,14 @@
 \maketitle
 
 \begin{abstract}
-User-defined skills have rapidly become a practical mechanism for specializing LLM agents to recurring tasks.
-As foundation models improve, the ecosystem is expanding quickly: 84{,}192 skills were created within 136 days.
-This growth raises a new evaluation question: can an LLM agent improve itself at runtime by creating reusable skills, and do those skills actually improve later task execution?
-We present \textbf{\ours{}}, a benchmark for measuring skill self-evolution across repeated, tool-using tasks.
-\ours{} compares three execution strategies: a no-skill \baseline{} condition, a \preskill{} condition that asks the same agent to author task-specific skills before execution, and a \postskill{} condition that asks the agent to summarize reusable skills from a first run before solving the task again.
-The benchmark currently includes 100 tasks spanning data transformation, log analysis, API scaffolding, test generation, configuration migration, code review, document extraction, office automation, finance, legal operations, healthcare administration, procurement and logistics, HR and education, support and product operations, DevOps and SRE, security and privacy, data analytics, research and media, localization and release management, commerce and food operations, facilities and IoT, public-sector audit, CRM, executive operations, and travel/office coordination, and supports multiple agent runtimes including OpenClaw and nanobot.
-Our current OpenClaw evaluation runs the hardened suite in local execution with 32 workers, \texttt{mode=all}, and \texttt{openai/MiniMax/MiniMax-M2.7} as the hybrid judge.
-Across five OpenClaw model runs, direct \baseline{} performance remains between 18.63\% and 19.99\% mean score, showing that the hardened tasks avoid the saturation observed in earlier drafts.
-Skill timing is model-dependent: \texttt{openai/gpt-5.4} and \texttt{openai/deepseek-v4-pro} collapse under \postskill{}, while \texttt{openai/qwen3.6-plus}, \texttt{openai/MiniMax/MiniMax-M2.7}, and \texttt{openai/gpt-5.4-mini} keep \postskill{} close to or slightly above \baseline{}.
+Reusable skills are becoming a practical way to specialize LLM agents for recurring tool-use tasks, but it remains unclear whether agents can write such skills for themselves and benefit from them in later executions.
+We present \textbf{\ours{}}, a benchmark for evaluating this closed-loop capability on repeated, fixture-backed tasks.
+\ours{} compares three controlled strategies: direct execution with no skills, \preskill{} authoring before execution, and \postskill{} summarization from first-run evidence before a fresh second execution.
+The benchmark contains 100 official tasks and 502 sub-problems across coding, data, office, security, operations, and domain-document workflows, with support for multiple agent runtimes.
+Our current experiments cover OpenClaw and nanobot under local execution, 32 workers, and \texttt{mode=all}.
+Across repository-local result JSONs, direct \baseline{} performance varies substantially by runtime, from sub-20\% OpenClaw scores to much higher nanobot scores on the same loader suite.
+Self-authored skills do not yield monotonic gains: \preskill{} and \postskill{} can regress, preserve, or improve execution-only quality depending on the model and runtime.
+These results suggest that runtime skill creation should be evaluated as a selective, cost-sensitive capability rather than assumed to improve agent performance by default.
 \end{abstract}
 
 \section{Introduction}
@@ -52,16 +70,15 @@ Skills encode task-specific expertise such as how to audit dependencies, generat
 They are attractive because they are lightweight: a skill can be installed, inspected, edited, and injected into an agent's context without retraining the model.
 
 The skill ecosystem is growing at a speed that outpaces careful evaluation.
-Recent reports show that 84{,}192 skills were created within only 136 days \citep{li2026skillsbench}.
-This scale suggests a shift from prompt engineering by individual users toward a marketplace of reusable procedural memory.
+SkillsBench reports 84{,}192 skills collected within 136 days \citep{li2026skillsbench}, suggesting a shift from prompt engineering by individual users toward a marketplace of reusable procedural memory.
 However, the central question is no longer only whether a human-written skill can help an agent.
 If agents are to become long-running assistants, they must also decide when to create skills, what to write into them, and whether those self-authored skills improve later work.
 
-Existing benchmarks do not directly measure this capability.
+Existing benchmarks leave this closed-loop capability under-specified.
 SWE-Bench and SWE-agent-style evaluations emphasize repository-level software engineering \citep{jimenez2024swebench,yang2024sweagent}.
 Terminal-Bench and AppWorld evaluate tool use and command-line or app-world interaction \citep{merrill2026terminalbench,trivedi2024appworld}.
-SkillsBench treats skills as first-class artifacts across domains \citep{li2026skillsbench}, but it focuses on evaluating provided skill conditions rather than the agent's ability to create, summarize, and reuse its own skills during a benchmark run.
-As a result, there is still no standard testbed for the following question: \emph{Can an LLM agent self-evolve by creating skills that improve its own task performance?}
+SkillsBench treats skills as first-class artifacts across domains, including curated and self-generated skill settings \citep{li2026skillsbench}, but it does not isolate the closed-loop process in which the same runtime creates, summarizes, and reuses its own skills across fresh benchmark executions.
+This leaves a focused evaluation question: \emph{Can an LLM agent improve later task execution by creating and reusing its own skills at runtime?}
 
 We introduce \ours{}, a benchmark designed around this question.
 \ours{} evaluates an agent on repeated, structured tasks that contain multiple related sub-problems.
@@ -71,7 +88,7 @@ In \baseline{}, the agent solves the task directly and is forbidden from creatin
 In \preskill{}, the same model and runtime first create one or more task-specific skills, then a fresh execution workspace solves the task using only those generated skills.
 In \postskill{}, the agent first solves the task without skills, receives a compact first-run context containing the prompt, grading summary, output previews, and transcript summary, then writes reusable skills that are copied into a fresh second execution.
 
-This protocol isolates two related but distinct forms of self-evolution.
+This protocol isolates two related but distinct forms of runtime skill construction.
 \preskill{} measures whether an agent can infer a useful reusable procedure before solving a task.
 \postskill{} measures whether an agent can distill reusable procedural memory from experience.
 Both are compared against \baseline{} under execution-only and end-to-end metrics, so a skill workflow must improve not only task score but also justify its additional token, cost, and time overhead.
@@ -85,50 +102,55 @@ Both are compared against \baseline{} under execution-only and end-to-end metric
 
 Our paper makes the following contributions:
 \begin{itemize}[leftmargin=*]
-    \item \textbf{Benchmark.} We build \ours{}, a benchmark for evaluating runtime skill self-evolution in LLM agents. It covers 100 tasks with repeated sub-problems, fixtures, automated or hybrid graders, and multiple agent runtimes.
+    \item \textbf{Benchmark.} We build \ours{}, a benchmark for evaluating runtime skill creation and reuse in LLM agents. It covers 100 tasks with repeated sub-problems, fixtures, automated or hybrid graders, and multiple agent runtimes.
     \item \textbf{Three-mode evaluation protocol.} We formalize \baseline{}, \preskill{}, and \postskill{} conditions, separating execution-only performance from end-to-end workflow cost and detecting skill mutation violations during reuse.
-    \item \textbf{Empirical findings.} We provide a current OpenClaw result table showing that the hardened suite keeps all five reported model baselines below 20\%, and that self-authored skills do not produce monotonic gains. \preskill{} and \postskill{} can regress, preserve, or slightly improve execution-only quality depending on the model.
+    \item \textbf{Empirical findings.} We provide a current cross-runtime result table showing that runtime scaffolding strongly affects absolute scores, and that self-authored skills do not produce monotonic gains. \preskill{} and \postskill{} can regress, preserve, or improve execution-only quality depending on the model and runtime.
 \end{itemize}
 
-\section{Related Benchmarks and Skill Evaluation}
+\section{Related Work}
 \label{sec:related}
 
 \paragraph{Agent and software engineering benchmarks.}
 Repository-level software engineering benchmarks evaluate whether agents can modify realistic codebases and satisfy executable checks.
 SWE-Bench evaluates real GitHub issue resolution \citep{jimenez2024swebench}, while SWE-agent studies agent-computer interfaces for automated software engineering \citep{yang2024sweagent}.
 Terminal-Bench focuses on realistic command-line tasks in isolated environments \citep{merrill2026terminalbench}.
-AppWorld and $\tau$-Bench broaden the scope to interactive applications and tool-agent-user settings \citep{trivedi2024appworld,yao2025taubench}.
-These benchmarks are useful for measuring tool use and task completion, but they do not test whether an agent can write reusable skills at runtime and then benefit from them.
+MLE-bench extends this line to end-to-end machine-learning engineering on Kaggle competitions \citep{chan2024mlebench}.
+AgentBench and GAIA evaluate broader agentic reasoning, tool use, and multi-step problem solving across heterogeneous environments or questions \citep{liu2023agentbench,mialon2023gaia}.
+These benchmarks are useful for measuring task completion, but they do not isolate whether an agent can write reusable skills at runtime and then benefit from them.
+
+\paragraph{Web, GUI, and tool-use benchmarks.}
+Several benchmarks focus on agents that act through browsers, operating systems, applications, or APIs.
+WebArena builds realistic web environments for long-horizon browser tasks \citep{zhou2023webarena}, and Mind2Web provides open-ended web tasks collected from real websites \citep{deng2023mind2web}.
+WorkArena++ targets compositional knowledge-work workflows in ServiceNow \citep{boisvert2024workarena}, while OSWorld evaluates multimodal agents on real desktop-computer tasks \citep{xie2024osworld}.
+ToolLLM and ToolBench evaluate API-use capability at large scale \citep{qin2023toolllm}.
+AppWorld and $\tau$-Bench broaden the scope to controllable app worlds and tool-agent-user interaction settings \citep{trivedi2024appworld,yao2025taubench}.
+These environments stress planning and tool execution, but their evaluation conditions do not center on agent-authored procedural artifacts that are reused in fresh runs.
 
 \paragraph{Skill and procedural memory evaluation.}
-Skills can be viewed as external procedural memory for agents, related to work on agent skills, procedural memory, and open-ended skill acquisition \citep{anthropic2025skills,fang2025memp,wang2023voyager,xu2026agentskills,wu2026agentskillsmemory}.
-SkillsBench is closest to our setting because it evaluates skills as first-class artifacts \citep{li2026skillsbench}.
-However, the central object in \ours{} is not only a pre-existing skill.
-Instead, \ours{} evaluates the \emph{closed-loop} process in which the same runtime and model being benchmarked must author, summarize, and reuse its own skill artifacts.
+Skills can be viewed as external procedural memory for agents, related to work on agent skills, reflection, experience accumulation, procedural memory, and open-ended skill acquisition \citep{anthropic2025skills,yao2023react,shinn2023reflexion,zhao2023expel,fang2025memp,wang2023voyager,xu2026agentskills,wu2026agentskillsmemory}.
+SkillsBench is closest to our setting because it evaluates skills as first-class artifacts, including curated and self-generated skill conditions \citep{li2026skillsbench}.
+However, the central object in \ours{} is not only whether a skill condition helps.
+Instead, \ours{} evaluates the \emph{closed-loop} process in which the same runtime and model being benchmarked must author, summarize, and reuse its own skill artifacts under explicit \baseline{}, \preskill{}, and \postskill{} conditions.
 
-\Cref{tab:comparison} summarizes the benchmark position.
-\ours{} is designed to expose whether skill self-evolution improves task success after accounting for the full cost of creating and reusing skills.
+\Cref{tab:comparison} summarizes the benchmark position at a high level.
+\ours{} is designed to expose whether runtime-authored skills improve task success after accounting for the full cost of creating and reusing skills.
 
 \begin{table*}[t]
 \centering
 \small
-\caption{Comparison of \ours{} with related benchmarks. ``Skill Create'' indicates whether the benchmark evaluates skills authored by the agent during the benchmark run. ``Reuse Cond.'' indicates an explicit skill-reuse execution condition. ``Multi-runtime'' indicates support for evaluating multiple agent runtimes or claws under the same task suite.}
+\caption{High-level positioning of \ours{} relative to related benchmarks. The table summarizes the evaluation focus needed for our argument rather than attempting an exhaustive versioned feature audit of each benchmark.}
 \label{tab:comparison}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lcccccc}
+\begin{tabular}{p{0.24\textwidth}p{0.42\textwidth}p{0.26\textwidth}}
 \toprule
-\textbf{Benchmark} & \textbf{Size} & \textbf{Realistic Env.} & \textbf{Skill Create} & \textbf{Reuse Cond.} & \textbf{Multi-runtime} & \textbf{Cost Metrics} \\
+\textbf{Benchmark family} & \textbf{Primary evaluation focus} & \textbf{How skills enter evaluation} \\
 \midrule
-SWE-Bench \citep{jimenez2024swebench} & 2{,}294 & Yes & No & No & Partial & Partial \\
-Terminal-Bench \citep{merrill2026terminalbench} & 200 & Yes & No & No & Yes & Partial \\
-AppWorld \citep{trivedi2024appworld} & 750 & Yes & No & No & Yes & Partial \\
-$\tau$-Bench \citep{yao2025taubench} & 165 & Yes & No & No & Yes & Partial \\
-SkillsBench \citep{li2026skillsbench} & 84 & Yes & No & Yes & Partial & Yes \\
+Software-engineering and CLI benchmarks \citep{jimenez2024swebench,yang2024sweagent,merrill2026terminalbench,chan2024mlebench} & Task completion in repositories, terminals, or engineering workflows. & Skills are not the primary benchmark object. \\
+Web, GUI, and tool-use benchmarks \citep{zhou2023webarena,deng2023mind2web,trivedi2024appworld,yao2025taubench,boisvert2024workarena,xie2024osworld,qin2023toolllm,liu2023agentbench,mialon2023gaia} & Planning and acting through browsers, apps, APIs, or heterogeneous agent environments. & Agent-authored skill reuse is not isolated as a controlled condition. \\
+SkillsBench \citep{li2026skillsbench} & Skill artifacts as first-class evaluation objects, including curated and self-generated skill settings. & Evaluates skill conditions, but not the same-runtime \baseline{}/\preskill{}/\postskill{} loop studied here. \\
 \midrule
-\textbf{\ours{}} & \textbf{100} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} \\
+\textbf{\ours{}} & Repeated fixture-backed tasks designed to measure runtime skill creation, summarization, and reuse. & The same model/runtime authors skills and reuses them in fresh execution workspaces with mutation checks and end-to-end cost accounting. \\
 \bottomrule
 \end{tabular}
-}
 \end{table*}
 
 \section{\ours{} Construction}
@@ -143,9 +165,12 @@ The benchmark implementation is organized around task definitions, workspace fix
 Tasks are written as markdown files with YAML frontmatter, a natural-language prompt, expected behavior, sub-problem descriptions, grading criteria, and automated or hybrid grading logic.
 Each task usually contains five to ten structurally related sub-problems.
 This repeated structure is important: it gives the agent a reason to write down a general procedure rather than solve a single isolated instance.
+The repository also includes a sanity task used by the loader, but we exclude it when describing the official suite size.
 
 The current task suite covers data transformation, log analysis, API scaffolding, test generation, configuration migration, security review, document extraction, database operations, Excel analytics, web extraction, document generation, data pipelines, email and invoice processing, shell automation, CI generation, dependency audit, environment configuration, metrics anomaly detection, finance operations, legal operations, healthcare administration, procurement and logistics, HR and education, support and product operations, DevOps/SRE, security and privacy, data analytics, research and media, localization and release management, commerce and food operations, facilities and IoT, public-sector audit, CRM and executive operations, and travel/office coordination.
 The suite size is 100 tasks and 502 sub-problems after excluding the sanity task.
+Many hard-mode fixtures are synthetic, repository-local cases with competing evidence packets, stale revisions, and decoy records.
+This design reduces privacy risk while preserving repeated, artifact-producing workflows.
 
 \begin{figure*}[t]
 \centering
@@ -160,10 +185,12 @@ The suite size is 100 tasks and 502 sub-problems after excluding the sanity task
 Each task run receives an isolated workspace.
 Input assets are copied from the benchmark's fixture directory into the workspace, and the agent must write grader-visible outputs under the expected output paths.
 This setup avoids relying on conversation-only answers and encourages concrete artifacts such as JSON files, scripts, reports, Dockerfiles, CI files, and structured extraction outputs.
+Task definitions tell agents not to modify input fixtures; graders inspect output artifacts rather than trusting the agent's final natural-language answer.
 
 The benchmark supports both local subprocess execution and Docker-based execution.
-For reported experiments, we use local subprocess execution through the OpenClaw runtime, set \texttt{--environment local}, run 32 workers, and execute one benchmark run per task and mode.
+For reported experiments, we use local subprocess execution through the OpenClaw and nanobot runtimes, set \texttt{--environment local}, run 32 workers, and execute one benchmark run per task and mode.
 No Docker resource limit is applied in these local runs.
+Thus the reported table should be read as local runtime-adapter results, not as a claim about all supported sandbox configurations.
 
 \subsection{Skill Authoring and Reuse}
 \label{subsec:skills}
@@ -180,7 +207,7 @@ This guardrail makes the experimental condition explicit: \preskill{} and \posts
 \label{subsec:runtimes}
 
 \ours{} currently supports OpenClaw and nanobot.
-OpenClaw is invoked through \texttt{openclaw agent --message}, while nanobot is invoked through \texttt{nanobot run --message}.
+OpenClaw is invoked through \texttt{openclaw agent --message}, while nanobot is invoked through \texttt{nanobot agent --workspace ... --config ... --message ...}.
 The runtime abstraction keeps task prompts, workspaces, grading, and metrics shared across claws, allowing the benchmark to compare the same model under different agent scaffolds.
 Additional runtimes can be added by implementing the same execution interface and usage extraction logic.
 
@@ -238,6 +265,8 @@ Given baseline usage $U_b$ and candidate usage $U_x$, efficiency gain is compute
 \end{equation}
 Values greater than $1.0$ indicate that the skill workflow uses fewer resources than baseline.
 The benchmark also reports created-skill counts, heuristic skill quality, and skill mutation violations.
+Execution-only metrics answer whether a generated skill helps the final task attempt, while end-to-end metrics answer whether the full skill workflow is worth its authoring and summarization overhead.
+This distinction is important because a skill can preserve task score while still being unattractive if it requires substantially more tokens, cost, or wall time.
 
 \section{Results}
 \label{sec:results}
@@ -245,8 +274,9 @@ The benchmark also reports created-skill counts, heuristic skill quality, and sk
 \subsection{Experimental Setup}
 \label{subsec:setup}
 
-We evaluate five OpenClaw model runs on the hardened benchmark suite using local subprocess execution.
-All runs use \texttt{uv run scripts/benchmark.py --runtime openclaw --mode all --workers 32 --environment local}; hybrid grading uses \texttt{openai/MiniMax/MiniMax-M2.7} as the judge.
+We evaluate five models on the hardened benchmark suite under both OpenClaw and nanobot using local subprocess execution.
+All runs use \texttt{uv run scripts/benchmark.py --mode all --workers 32 --environment local}, with \texttt{--runtime openclaw} or \texttt{--runtime nanobot}.
+The experiment command used \texttt{openai/MiniMax/MiniMax-M2.7} for hybrid grading, but the current JSON schema does not serialize a judge-model field; we therefore treat the judge name as run-command provenance rather than JSON provenance.
 Each task is run once per mode.
 Unless otherwise stated, results report the execution-only mean over the benchmark loader's 101 tasks, which include the 100 official tasks plus \texttt{task\_00\_sanity}.
 The numerical results in \Cref{tab:main-results} are read from the repository-local benchmark JSON files under \texttt{evoclawbench/results/}.
@@ -254,7 +284,7 @@ The numerical results in \Cref{tab:main-results} are read from the repository-lo
 \begin{table*}[t]
 \centering
 \small
-\caption{Repository-local \ours{} results from current OpenClaw three-mode JSON outputs. Scores are execution-only mean task scores in percent. The loader reports 101 tasks because it includes \texttt{task\_00\_sanity} in addition to the 100 official tasks.}
+\caption{Repository-local \ours{} results from current OpenClaw and nanobot three-mode JSON outputs. Scores are execution-only mean task scores in percent. The loader reports 101 tasks because it includes \texttt{task\_00\_sanity} in addition to the 100 official tasks.}
 \label{tab:main-results}
 \resizebox{\textwidth}{!}{
 \begin{tabular}{lllrrrr}
@@ -266,45 +296,51 @@ OpenClaw & \texttt{openai/qwen3.6-plus} & 101 & 19.16 & 17.38 & 19.12 & 21 / 22 
 OpenClaw & \texttt{openai/deepseek-v4-pro} & 101 & 19.99 & 15.06 & 0.00 & 21 / 0 \\
 OpenClaw & \texttt{openai/MiniMax/MiniMax-M2.7} & 101 & 18.88 & 17.00 & 19.10 & 26 / 20 \\
 OpenClaw & \texttt{openai/gpt-5.4-mini} & 101 & 19.11 & 19.42 & 19.36 & 22 / 20 \\
+nanobot & \texttt{openai/gpt-5.4} & 101 & 96.13 & 96.73 & 96.17 & 101 / 100 \\
+nanobot & \texttt{openai/qwen3.6-plus} & 101 & 56.45 & 59.90 & 54.33 & 70 / 39 \\
+nanobot & \texttt{openai/deepseek-v4-pro} & 101 & 77.77 & 4.80 & 0.99 & 27 / 0 \\
+nanobot & \texttt{openai/MiniMax/MiniMax-M2.7} & 101 & 90.97 & 92.90 & 94.50 & 99 / 99 \\
+nanobot & \texttt{openai/gpt-5.4-mini} & 101 & 88.71 & 87.41 & 89.77 & 100 / 82 \\
 \bottomrule
 \end{tabular}
 }
 \vspace{0.25em}
 \begin{flushleft}
-\footnotesize Source files: \texttt{0061\_openai-gpt-5-4\_openclaw.json}, \texttt{0062\_openai-qwen3-6-plus\_openclaw.json}, \texttt{0063\_openai-deepseek-v4-pro\_openclaw.json}, \texttt{0064\_openai-minimax-minimax-m2-7\_openclaw.json}, and \texttt{0065\_openai-gpt-5-4-mini\_openclaw.json}. Slash-separated skill counts are reported as \preskill{} / \postskill{}.
+\footnotesize Source files: \texttt{0061\_openai-gpt-5-4\_openclaw.json}, \texttt{0062\_openai-qwen3-6-plus\_openclaw.json}, \texttt{0063\_openai-deepseek-v4-pro\_openclaw.json}, \texttt{0064\_openai-minimax-minimax-m2-7\_openclaw.json}, \texttt{0065\_openai-gpt-5-4-mini\_openclaw.json}, \texttt{0079\_openai-gpt-5-4\_nanobot.json}, \texttt{0075\_openai-qwen3-6-plus\_nanobot.json}, \texttt{0076\_openai-deepseek-v4-pro\_nanobot.json}, \texttt{0080\_openai-minimax-minimax-m2-7\_nanobot.json}, and \texttt{0081\_openai-gpt-5-4-mini\_nanobot.json}. Slash-separated skill counts are reported as \preskill{} / \postskill{}. Runs \texttt{0061} and \texttt{0063} report zero \postskill{} token usage, so their \postskill{} token and cost efficiency are treated as unavailable rather than favorable. Known caveats: \texttt{0076} contains 23 MiniMax judge failures, split across 11 \preskill{} and 12 \postskill{} tasks; focused reruns \texttt{0077} and \texttt{0078} completed those affected tasks without judge failures. \texttt{0080} contains three \baseline{} timeouts and 100 \postskill{} result objects because \texttt{task\_85\_smart\_home\_support\_diagnosis} failed during the full run; focused reruns \texttt{0082} and \texttt{0083} completed the affected \baseline{} and \postskill{} tasks. Table values report the full-suite JSON metrics rather than splicing partial reruns.
 \end{flushleft}
 \end{table*}
 
 \subsection{Evaluation Findings}
 \label{subsec:findings}
 
-\paragraph{Finding 1: The hardened suite avoids baseline saturation.}
-Across all five reported model runs, direct \baseline{} performance remains below 20\%, ranging from 18.63 for \texttt{openai/gpt-5.4} to 19.99 for \texttt{openai/deepseek-v4-pro}.
-This is the intended regime for evaluating skill self-evolution.
+\paragraph{Finding 1: Runtime scaffolding strongly changes the execution regime.}
+Under OpenClaw, direct \baseline{} performance remains below 20\%, ranging from 18.63 for \texttt{openai/gpt-5.4} to 19.99 for \texttt{openai/deepseek-v4-pro}.
+Under nanobot, direct \baseline{} scores are substantially higher, ranging from 56.45 for \texttt{openai/qwen3.6-plus} to 96.13 for \texttt{openai/gpt-5.4}.
+This contrast shows why \ours{} reports runtime as part of the experimental condition rather than treating the model identifier alone as sufficient.
 The tasks are no longer solved by simply copying exposed answer fields or following shallow schemas; agents must reconcile multi-record evidence, conflicts, revisions, and grader-visible output constraints.
-As a result, a generated skill must improve a difficult execution setting rather than merely preserve performance on an already saturated benchmark.
+As a result, a generated skill must improve the specific model-runtime execution setting rather than merely preserve performance on an already saturated benchmark.
 
 \paragraph{Finding 2: Skill timing is model-dependent rather than monotonic.}
-\texttt{openai/gpt-5.4} falls from 18.63 under \baseline{} to 18.07 under \preskill{} and 1.14 under \postskill{}.
-For this model, experience-derived skills are especially brittle: the second pass nearly collapses.
-\texttt{openai/deepseek-v4-pro} also drops sharply, from 19.99 under \baseline{} to 15.06 under \preskill{} and 0.00 under \postskill{}.
-\texttt{openai/qwen3.6-plus} shows a different pattern: \preskill{} falls to 17.38, while \postskill{} reaches 19.12 and nearly matches its 19.16 \baseline{} score.
-\texttt{openai/MiniMax/MiniMax-M2.7} similarly recovers from a lower 17.00 \preskill{} score to 19.10 under \postskill{}, slightly above its 18.88 \baseline{} score.
-\texttt{openai/gpt-5.4-mini} is the only reported model where both skill workflows are above \baseline{}: 19.42 for \preskill{} and 19.36 for \postskill{} compared with 19.11 for direct execution.
-These rows do not support a blanket claim that \preskill{} consistently outperforms \postskill{}, or that either skill workflow reliably improves over direct execution.
+\texttt{openai/gpt-5.4} illustrates the runtime dependence sharply: OpenClaw falls from 18.63 under \baseline{} to 1.14 under \postskill{}, while nanobot stays above 96\% in all three modes.
+\texttt{openai/qwen3.6-plus} improves under nanobot \preskill{} but regresses under nanobot \postskill{}, whereas its OpenClaw row remains near 19\% for \baseline{} and \postskill{}.
+\texttt{openai/gpt-5.4-mini} improves under OpenClaw skill workflows and under nanobot \postskill{}, but its nanobot \preskill{} score is slightly below its nanobot \baseline{}.
+These rows do not support a blanket claim that \preskill{} consistently outperforms \postskill{}, or that either skill workflow reliably improves over direct execution across runtimes.
 
 \paragraph{Finding 3: Skill workflows still add substantial overhead.}
 Even when execution-only quality is similar, skill workflows include authoring or summarization phases.
+The current token-efficiency comparison is most informative for the OpenClaw rows because those runs include nonzero usage accounting in the source JSONs.
 For \texttt{openai/qwen3.6-plus}, end-to-end token-efficiency ratios are 0.38 for \preskill{} and 0.30 for \postskill{}, meaning the full workflows use substantially more tokens than direct \baseline{} execution.
 For \texttt{openai/MiniMax/MiniMax-M2.7}, the corresponding ratios are 0.21 and 0.26; for \texttt{openai/gpt-5.4-mini}, they are 0.32 and 0.28.
 For \texttt{openai/gpt-5.4}, \preskill{} has an end-to-end token-efficiency ratio of 0.36, while \postskill{} token efficiency is unavailable because the source JSON reports zero postskill tokens for that run.
 For \texttt{openai/deepseek-v4-pro}, \preskill{} token efficiency is 0.40, while \postskill{} token efficiency is likewise unavailable because the source JSON reports zero postskill tokens.
-The current evidence therefore suggests that self-evolution must be selective: skill creation needs to clear both a quality bar and an amortized-cost bar.
+The current evidence therefore suggests that runtime skill creation must be selective: skill creation needs to clear both a quality bar and an amortized-cost bar.
 
 \paragraph{Finding 4: Skill counts are not sufficient to predict gains.}
-The reported runs create between 21 and 26 \preskill{} skills, but their \preskill{} scores range from 15.06 to 19.42.
-\postskill{} skill counts are also not enough to explain outcomes: \texttt{openai/qwen3.6-plus}, \texttt{openai/MiniMax/MiniMax-M2.7}, and \texttt{openai/gpt-5.4-mini} each create 20 or more \postskill{} skills and land near \baseline{}, while \texttt{openai/gpt-5.4} and \texttt{openai/deepseek-v4-pro} create zero \postskill{} skills and collapse.
+The OpenClaw rows create between 21 and 26 \preskill{} skills, but their \preskill{} scores range from 15.06 to 19.42.
+The nanobot rows create many more \preskill{} skills, yet the score range remains wide.
+\postskill{} skill counts are also not enough to explain outcomes: rows with many \postskill{} skills can land below, near, or above their own \baseline{} scores.
 This suggests that future evaluations should inspect generated skill content and reuse behavior, not only the number of produced skill directories.
+The reported runs have zero recorded skill mutation violations, so the observed regressions are not explained by reuse-phase skill editing.
 
 \begin{figure*}[t]
 \centering
@@ -321,59 +357,746 @@ A deployed agent does not only receive curated skills from a user.
 It may decide that a task is repetitive, write a new skill, use the skill immediately, and later update a skill library.
 Our results suggest that current agents are not yet reliable at this lifecycle.
 
-The current hardened results put this lifecycle in a low-score regime rather than a saturated one.
-That makes the negative and mixed skill results more informative: the agents have room to improve, but the self-authored skill phases do not reliably convert repeated structure into higher task scores.
+The current hardened results put this lifecycle into markedly different runtime regimes.
+That makes the negative and mixed skill results more informative: agents may have room to improve, but the self-authored skill phases do not reliably convert repeated structure into higher task scores.
 \preskill{} asks the agent to infer an abstract procedure from repeated sub-problems before committing to a concrete solution, while \postskill{} adds evidence from a completed run.
 The reported runs show that neither strategy is uniformly dominant across models.
-First-run evidence can sometimes preserve or slightly improve baseline-like behavior, as in \texttt{openai/qwen3.6-plus}, \texttt{openai/MiniMax/MiniMax-M2.7}, and \texttt{openai/gpt-5.4-mini}, but it can also interfere with the second execution, as in \texttt{openai/gpt-5.4} and \texttt{openai/deepseek-v4-pro}.
+First-run evidence can sometimes preserve or improve baseline-like behavior, but it can also interfere with the second execution, and the direction depends on both model and runtime.
 
-These observations imply that future skill systems should treat self-evolution as a selective operation rather than a default behavior.
+These observations imply that future skill systems should treat runtime skill creation as a selective operation rather than a default behavior.
 Agents may need confidence estimates for whether a task is worth skill creation, a preference for \preskill{}-style authoring when skill creation is warranted, validation checks for generated skills, and policies that decide when a skill should be reused, revised, or discarded.
 
 \section*{Limitations}
 
-The current v1 protocol evaluates \postskill{} by rerunning the same task with the same fixtures, which measures within-task skill distillation but does not yet test transfer to unseen related tasks.
-The task suite covers many practical office, data, coding, DevOps, and security workflows, but it is still smaller than large public agent benchmarks.
+\paragraph{Transfer scope.}
+The v1 protocol evaluates \postskill{} by rerunning the same task with the same fixtures, which measures within-task skill distillation but does not yet test transfer to unseen related tasks.
+This means the reported results should not be interpreted as evidence that generated skills generalize across new tasks, users, or domains.
+
+\paragraph{Experimental coverage.}
+The task suite covers many practical office, data, coding, DevOps, security, and domain-document workflows, but it is still smaller than large public agent benchmarks.
+The current reported table covers two runtimes under one local execution configuration with one run per task and mode.
+Repeated seeds, additional models, confidence intervals, Docker resource limits, and more runtime replications remain future work.
+
+\paragraph{Grading dependence.}
 Hybrid grading tasks may depend on the selected judge model, although automated checks are used whenever feasible.
-The current reported table covers five OpenClaw model runs under one local execution configuration; repeated seeds, additional models, and cross-runtime replications remain future work.
-Finally, the current implementation supports OpenClaw and nanobot, but the reported experiments here cover only OpenClaw; broader runtime coverage is needed before claiming conclusions across all major claw frameworks.
+The current table was run with \texttt{openai/MiniMax/MiniMax-M2.7} as the hybrid judge according to run-command provenance, but the source JSON files do not serialize this field.
+Future result files should store the judge model explicitly because absolute scores may change under a different judge even if the task prompts and artifacts are unchanged.
 
-\section*{Acknowledgments}
+\paragraph{Runtime scope.}
+The current implementation and reported experiments cover OpenClaw and nanobot.
+Broader runtime coverage is still needed before claiming conclusions across all major claw frameworks.
 
-Omitted for anonymous review.
+\section*{Ethical Considerations}
+
+\ours{} is intended as a research benchmark for evaluating agent skill authoring and reuse, not as a deployment recipe for autonomous skill libraries.
+The benchmark uses repository-local task fixtures and synthetic examples whenever sensitive domains are represented; it does not involve human subjects, crowdworkers, or newly collected personal data.
+Several tasks simulate workflows involving privacy, security, legal, healthcare, finance, or public-sector records, but these are benchmark scenarios for controlled evaluation rather than operational recommendations.
+
+The main risk is dual use: better skill creation could make agents more effective at legitimate repeated work, but could also preserve unsafe procedures, overfit to private context, or automate harmful operational tasks if deployed without review.
+The benchmark therefore records skill mutation violations and separates execution-only quality from end-to-end cost, but it does not solve policy questions about which generated skills should be installed, shared, or trusted.
+Systems using self-authored skills should include human review, privacy checks, provenance tracking, and mechanisms for disabling or deleting unsafe skills.
+
+\section*{Artifacts and Data Statement}
+
+The benchmark artifact used for this manuscript is the repository-local \texttt{evoclawbench/} package.
+It contains task definitions under \texttt{tasks/}, input fixtures under \texttt{assets/}, grading and metric code under \texttt{scripts/}, and the reported OpenClaw and nanobot result JSON files under \texttt{results/}.
+The project metadata in \texttt{pyproject.toml} declares the package license as MIT.
+During anonymous review, we avoid public repository URLs in the PDF; public access information can be added after anonymity constraints are lifted.
+The reported task fixtures are benchmark cases rather than newly collected human-subject data, and the manuscript does not rely on private external datasets.
 
 \bibliography{references}
 
+\clearpage
+\onecolumn
 \appendix
 
-\section{Prompt Prefixes}
+\section{Mode Prompt Prefixes}
 \label{app:prefixes}
+\ours{} controls each execution condition by prepending a mode-specific prefix to the task prompt loaded from the task markdown file. The prefix text below reproduces the benchmark runtime helper wording; trailing blank lines are omitted and long lines are wrapped by LaTeX for typesetting. The assembled prompt is always the selected prefix followed by the task prompt; task prompts themselves remain stored in \path{evoclawbench/tasks/task_*.md}.
 
-\ours{} controls each mode with explicit prompt prefixes.
-\baseline{} forbids creating, editing, or deleting skills.
-\preskill{} first asks the agent to create task-specific skills under \texttt{skills/<skill-name>/SKILL.md}, then runs a fresh skill reuse phase.
-\postskill{} first executes the task, writes first-run context, asks the agent to summarize reusable skills, and then executes the task again with the summarized skills.
+\promptbox{Baseline execution prefix}{\detokenize{BASELINE MODE:}}{%
+\detokenize{Complete the task directly. You must NOT create, edit, or delete any skills or SKILL.md files. Solve each sub-problem independently from scratch, and focus on producing the required grader-visible outputs.}}
+
+\promptbox{Preskill authoring prefix}{\detokenize{PRESKILL AUTHOR MODE:}}{%
+\detokenize{Before solving the task, create a task-specific reusable skill. Read `skills/skill-creator/SKILL.md` and write one or more new skills under `skills/<skill-name>/SKILL.md` that would help an agent solve this task later. Do not produce the final task outputs in `outputs/`; this phase is only for skill authoring. Do not replace or delete `skills/skill-creator`.}}
+
+\promptbox{Postskill summary prefix}{\detokenize{POSTSKILL SUMMARY MODE:}}{%
+\detokenize{Summarize a reusable task-specific skill from a completed first run. Read `.evoclawbench/first_run_context.json` for the first run prompt, grading details, workspace output summary, and transcript summary. Create one or more skills under `skills/<skill-name>/SKILL.md` so a later agent can solve the same task more accurately and efficiently. Do not redo the task and do not write final task outputs in `outputs/`. Do not replace or delete `skills/skill-creator`.}}
+
+\promptbox{Skill reuse execution prefix}{\detokenize{SKILL REUSE EXECUTION MODE:}}{%
+\detokenize{Complete the task using the existing skills in `skills/` when helpful. You must NOT create, edit, or delete any skills or SKILL.md files during this execution phase. Focus on producing the required grader-visible outputs and validate them before finishing.}}
+
+\begin{center}
+\small
+\setlength{\tabcolsep}{3pt}
+\captionof{table}{Prompt assembly by benchmark phase.}
+\label{tab:appendix-mode-prompts}
+\begin{tabular}{L{0.17\textwidth}L{0.19\textwidth}L{0.26\textwidth}L{0.28\textwidth}}
+\toprule
+\textbf{Mode} & \textbf{Phase} & \textbf{Prompt assembly} & \textbf{Graded behavior} \\
+\midrule
+baseline & baseline execution & Baseline prefix + task prompt & No skill creation or mutation; grade final outputs. \\
+preskill\_author & preskill authoring & Preskill author prefix + task prompt & Seed skill-creator; write skills; final task outputs are not graded. \\
+preskill\_execute & preskill reuse execution & Skill reuse prefix + task prompt & Copy generated skills into a fresh workspace; forbid skill mutation. \\
+postskill\_first & postskill first execution & Baseline prefix + task prompt & Solve without skills; grade outputs and write first-run context. \\
+postskill\_summary & postskill summary & Postskill summary prefix + task prompt & Read first-run context; write reusable skills; do not redo final outputs. \\
+postskill\_second & postskill reuse execution & Skill reuse prefix + task prompt & Copy summarized skills into a fresh workspace; forbid skill mutation. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{PostSkill First-Run Context}
+\label{app:first-run-context}
+In \postskill{}, the first execution is graded before any summary skill is written. The benchmark then writes \path{.evoclawbench/first_run_context.json} into the first workspace and copies that file into the summary workspace. This prevents the summary phase from relying on hidden state while still giving it compact evidence from the completed attempt.
+\begin{center}
+\small
+\captionof{table}{First-run context fields serialized for the summary phase.}
+\label{tab:first-run-context-fields}
+\begin{tabular}{L{0.24\textwidth}L{0.66\textwidth}}
+\toprule
+\textbf{Field} & \textbf{Purpose} \\
+\midrule
+task\_id & Stable task identifier copied from the task markdown frontmatter. \\
+task\_name & Human-readable task name. \\
+prompt & The original task prompt, without the mode prefix. \\
+expected\_behavior & The task-level expected behavior section. \\
+grading\_criteria & Parsed checklist items from the grading criteria section. \\
+grade & Serialized grade result from the first no-skill execution. \\
+outputs & Small summaries of files produced under the first-run workspace outputs directory. \\
+transcript\_summary & A compact role/text transcript summary capped by the benchmark helper. \\
+\bottomrule
+\end{tabular}
+\end{center}
+The summary phase receives the same task prompt after the \postskill{} summary prefix, but it is instructed not to redo the task and not to write final task outputs under \path{outputs/}. Skills produced in the summary workspace are copied into a fresh second execution workspace, where mutation checks are applied before and after execution.
+
+\section{Official Task Inventory}
+\label{app:task-inventory}
+The loader currently finds 101 task files. The official benchmark size reported in the paper excludes \texttt{task\_00\_sanity}, leaving 100 tasks and 502 sub-problems. The table uses ASCII-safe names because the review build uses \texttt{pdflatex} without CJK font configuration.
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{1pt}
+\begin{longtable}{L{0.09\textwidth}L{0.30\textwidth}L{0.25\textwidth}L{0.10\textwidth}L{0.07\textwidth}L{0.07\textwidth}L{0.08\textwidth}}
+\caption{Official task inventory, excluding \texttt{task\_00\_sanity}.}\label{tab:task-inventory}\\
+\toprule
+\textbf{Task} & \textbf{Name} & \textbf{Family/category} & \textbf{Grade} & \textbf{Sub.} & \textbf{Files} & \textbf{Ext.} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Task} & \textbf{Name} & \textbf{Family/category} & \textbf{Grade} & \textbf{Sub.} & \textbf{Files} & \textbf{Ext.} \\
+\midrule
+\endhead
+task\_01 & Batch Data Transform & Seed / data transformation & automated & 6 & 6 & csv, json, tsv, xml, yaml \\
+task\_02 & Log Analysis & Seed / data analysis & hybrid & 5 & 5 & log \\
+task\_03 & API Integration Scaffold & Seed / code generation & automated & 5 & 5 & json \\
+task\_04 & Test Generation & Seed / testing & automated & 6 & 6 & py \\
+task\_05 & Config Migration v1 to v2 & Seed / data transformation & automated & 5 & 5 & json \\
+task\_06 & Security Code Review & Seed / code analysis & hybrid & 5 & 5 & go, js, py \\
+task\_07 & Document Data Extraction & Seed / data extraction & hybrid & 5 & 5 & txt \\
+task\_08 & Database Schema Operations & Seed / database & automated & 5 & 5 & sql \\
+task\_09 & Excel Analytics Report Generation & Seed / data transformation & automated & 5 & 5 & csv \\
+task\_10 & Git Repository History Analysis & Seed / data analysis & automated & 5 & 5 & sh \\
+task\_11 & Web Page Structured Data Extraction & Seed / data extraction & hybrid & 5 & 5 & html \\
+task\_12 & Word Document Generation & Seed / code generation & automated & 5 & 5 & json \\
+task\_13 & Multi-Dataset Statistical Analysis Pipeline & Seed / data analysis & hybrid & 5 & 15 & csv \\
+task\_14 & Enterprise Email Thread Analysis & Seed / office automation & hybrid & 5 & 5 & json \\
+task\_15 & Shell Automation Script Generation & Seed / automation & hybrid & 5 & 5 & yaml \\
+task\_16 & Dockerfile and CI Pipeline Generation & Seed / devops & hybrid & 5 & 5 & json \\
+task\_17 & Enterprise Invoice Expense Processing & Seed / office daily & hybrid & 5 & 5 & csv, json, tsv, txt, xml \\
+task\_18 & Dependency Security Audit & Seed / security & hybrid & 5 & 5 & json, mod, none, txt, xml \\
+task\_19 & Meeting Notes Structured Extraction & Seed / office daily & hybrid & 5 & 5 & txt \\
+task\_20 & Multi-Environment Config Generation & Seed / devops automation & automated & 5 & 5 & json \\
+task\_21 & System Metrics Anomaly Detection & Seed / data analysis & hybrid & 5 & 5 & csv \\
+task\_22 & Finance Ledger Reconciliation & Finance & automated & 5 & 5 & csv \\
+task\_23 & Subscription Revenue Audit & Finance & automated & 5 & 5 & csv \\
+task\_24 & Bank KYC Packet Review & Finance & automated & 5 & 5 & csv \\
+task\_25 & Loan Document Checklist & Finance & automated & 5 & 5 & csv \\
+task\_26 & Tax Form Consistency & Finance & automated & 5 & 5 & csv \\
+task\_27 & Contract Clause Extraction & Legal & automated & 5 & 5 & txt \\
+task\_28 & Discovery Document Tagging & Legal & automated & 5 & 5 & txt \\
+task\_29 & Policy Exception Mapping & Legal & automated & 5 & 5 & txt \\
+task\_30 & Nda Obligation Review & Legal & automated & 5 & 5 & txt \\
+task\_31 & Vendor Contract Risk & Legal & automated & 5 & 5 & txt \\
+task\_32 & Appointment Referral Triage & Healthcare & automated & 5 & 5 & json \\
+task\_33 & Pharmacy Inventory Reorder & Healthcare & automated & 5 & 5 & json \\
+task\_34 & Clinical Trial Eligibility & Healthcare & automated & 5 & 5 & json \\
+task\_35 & Insurance Prior Auth Review & Healthcare & automated & 5 & 5 & json \\
+task\_36 & Lab Result Followup Queue & Healthcare & automated & 5 & 5 & json \\
+task\_37 & Procurement Bid Scoring & Procurement/Logistics & automated & 5 & 5 & yaml \\
+task\_38 & Purchase Order Three Way Match & Procurement/Logistics & automated & 5 & 5 & yaml \\
+task\_39 & Shipping Exception Resolution & Procurement/Logistics & automated & 5 & 5 & yaml \\
+task\_40 & Warehouse Picklist Validation & Procurement/Logistics & automated & 5 & 5 & yaml \\
+task\_41 & Supplier Risk Packet & Procurement/Logistics & automated & 5 & 5 & yaml \\
+task\_42 & Employee Onboarding Checklist & HR/Education & automated & 5 & 5 & json \\
+task\_43 & Interview Feedback Calibration & HR/Education & automated & 5 & 5 & json \\
+task\_44 & Admissions Packet Screening & HR/Education & automated & 5 & 5 & json \\
+task\_45 & Assignment Rubric Grading & HR/Education & automated & 5 & 5 & json \\
+task\_46 & Training Completion Audit & HR/Education & automated & 5 & 5 & json \\
+task\_47 & Support Ticket Escalation & Support/Product & automated & 5 & 5 & json \\
+task\_48 & Kb Gap Analysis & Support/Product & automated & 5 & 5 & json \\
+task\_49 & App Review Theme Mining & Support/Product & automated & 5 & 5 & json \\
+task\_50 & Bug Report Deduplication & Support/Product & automated & 5 & 5 & json \\
+task\_51 & Call Center Quality Review & Support/Product & automated & 5 & 5 & json \\
+task\_52 & Kubernetes Policy Review & DevOps/SRE & automated & 5 & 5 & yaml \\
+task\_53 & Terraform Plan Drift & DevOps/SRE & automated & 5 & 5 & yaml \\
+task\_54 & SLO Burn Rate Analysis & DevOps/SRE & automated & 5 & 5 & yaml \\
+task\_55 & CI Pipeline Hardening & DevOps/SRE & automated & 5 & 5 & yaml \\
+task\_56 & Backup Restore Drill & DevOps/SRE & automated & 5 & 5 & yaml \\
+task\_57 & Security Alert Correlation & Security/Privacy & automated & 5 & 5 & json \\
+task\_58 & Phishing Report Triage & Security/Privacy & automated & 5 & 5 & json \\
+task\_59 & Vulnerability Exception Review & Security/Privacy & automated & 5 & 5 & json \\
+task\_60 & PII Redaction Release & Security/Privacy & automated & 5 & 5 & json \\
+task\_61 & DSR Request Routing & Security/Privacy & automated & 5 & 5 & json \\
+task\_62 & SQL Schema Migration Review & Data/Analytics & automated & 5 & 5 & csv \\
+task\_63 & Messy Csv Normalization & Data/Analytics & automated & 5 & 5 & csv \\
+task\_64 & Dashboard Metric Reconciliation & Data/Analytics & automated & 5 & 5 & csv \\
+task\_65 & Data Quality Rule Authoring & Data/Analytics & automated & 5 & 5 & csv \\
+task\_66 & Experiment Results Analysis & Data/Analytics & automated & 5 & 5 & csv \\
+task\_67 & Research Claim Evidence & Research/Media & automated & 5 & 5 & html \\
+task\_68 & Newsroom Fact Check & Research/Media & automated & 5 & 5 & html \\
+task\_69 & Literature Table Extraction & Research/Media & automated & 5 & 5 & html \\
+task\_70 & Public Web Directory Extraction & Research/Media & automated & 5 & 5 & html \\
+task\_71 & Citation Deduplication & Research/Media & automated & 5 & 5 & html \\
+task\_72 & Localization Placeholder Qa & Localization/Release & automated & 5 & 5 & json \\
+task\_73 & Glossary Compliance Review & Localization/Release & automated & 5 & 5 & json \\
+task\_74 & Release Notes Curation & Localization/Release & automated & 5 & 5 & json \\
+task\_75 & Changelog Impact Matrix & Localization/Release & automated & 5 & 5 & json \\
+task\_76 & Feature Flag Cleanup Plan & Localization/Release & automated & 5 & 5 & json \\
+task\_77 & Ecommerce Catalog Normalization & Commerce/Food & automated & 5 & 5 & csv \\
+task\_78 & Retail Returns Root Cause & Commerce/Food & automated & 5 & 5 & csv \\
+task\_79 & Restaurant Inspection Summary & Commerce/Food & automated & 5 & 5 & csv \\
+task\_80 & Food Delivery Refund Review & Commerce/Food & automated & 5 & 5 & csv \\
+task\_81 & Marketplace Listing Policy & Commerce/Food & automated & 5 & 5 & csv \\
+task\_82 & Facilities Maintenance Prioritization & Facilities/IoT & automated & 5 & 5 & json \\
+task\_83 & Fleet Maintenance Schedule & Facilities/IoT & automated & 5 & 5 & json \\
+task\_84 & Iot Sensor Anomaly Review & Facilities/IoT & automated & 5 & 5 & json \\
+task\_85 & Smart Home Support Diagnosis & Facilities/IoT & automated & 5 & 5 & json \\
+task\_86 & Robotics Workcell Event Report & Facilities/IoT & automated & 5 & 5 & json \\
+task\_87 & Civic Service Request Routing & Public Sector/Audit & automated & 5 & 5 & json \\
+task\_88 & Public Records Redaction & Public Sector/Audit & automated & 5 & 5 & json \\
+task\_89 & Grant Application Completeness & Public Sector/Audit & automated & 5 & 5 & json \\
+task\_90 & Audit Evidence Collection & Public Sector/Audit & automated & 5 & 5 & json \\
+task\_91 & Risk Register Rollup & Public Sector/Audit & automated & 5 & 5 & json \\
+task\_92 & CRM Pipeline Hygiene & CRM/Executive & automated & 5 & 5 & csv \\
+task\_93 & Sales Forecast Variance & CRM/Executive & automated & 5 & 5 & csv \\
+task\_94 & Marketing Campaign Qa & CRM/Executive & automated & 5 & 5 & csv \\
+task\_95 & Board Packet Preparation & CRM/Executive & automated & 5 & 5 & csv \\
+task\_96 & Executive Action Item Tracking & CRM/Executive & automated & 5 & 5 & csv \\
+task\_97 & Calendar Conflict Resolution & Travel/Office & automated & 5 & 5 & json \\
+task\_98 & Travel Itinerary Exception & Travel/Office & automated & 5 & 5 & json \\
+task\_99 & Meeting Notes Action Items & Travel/Office & automated & 5 & 5 & json \\
+task\_100 & Inbox Rules Classification & Travel/Office & automated & 5 & 5 & json \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\section{Per-Task Prompt and Output Surfaces}
+\label{app:task-output-surfaces}
+The following table expands the inventory with the prompt focus and grader-visible output surface for every official task. It is generated from the task markdown files and is intended to make the 100-task composition auditable without requiring reviewers to open each fixture directory.
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{1.5pt}
+\begin{longtable}{L{0.07\textwidth}L{0.20\textwidth}L{0.33\textwidth}L{0.28\textwidth}L{0.08\textwidth}}
+\caption{Per-task prompt and output surfaces.}\label{tab:task-output-surfaces}\\
+\toprule
+\textbf{Task} & \textbf{Name} & \textbf{Prompt focus} & \textbf{Grader-visible output surface} & \textbf{Checks} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Task} & \textbf{Name} & \textbf{Prompt focus} & \textbf{Grader-visible output surface} & \textbf{Checks} \\
+\midrule
+\endhead
+task\_01 & Batch Data Transform & You have 6 data files in artifact that each contain user records in different formats. & outputs/users\_01.json, outputs/users\_02.json, outputs/users\_03.json ... & automated; 6 criteria \\
+task\_02 & Log Analysis & You have 5 log files in artifact from different microservices. & outputs/api\_gateway\_report.json, outputs/auth\_service\_report.json, outputs/notification\_service\_report.json ... & hybrid; 6 criteria \\
+task\_03 & API Integration Scaffold & You have 5 API specification files in artifact. & outputs/analytics\_client.py, outputs/inventory\_client.py, outputs/notifications\_client.py ... & automated; 6 criteria \\
+task\_04 & Test Generation & You have 6 Python utility modules in artifact. & outputs/test\_data\_utils.py, outputs/test\_date\_utils.py, outputs/test\_file\_utils.py ... & automated; 6 criteria \\
+task\_05 & Config Migration v1 to v2 & You have 5 application configuration files in artifact that use a legacy flat key format (v1). & outputs/gateway\_v2.json, outputs/mailer\_v2.json, outputs/scheduler\_v2.json ... & automated; 7 criteria \\
+task\_06 & Security Code Review & You have 5 source code files in artifact that contain intentional security vulnerabilities. & outputs/admin\_panel\_review.json, outputs/api\_handler\_review.json, outputs/file\_manager\_review.json ... & hybrid; 7 criteria \\
+task\_07 & Document Data Extraction & You have 5 text documents in artifact representing different document types. & outputs/contract\_001.json, outputs/expense\_report\_001.json, outputs/invoice\_XX.json ... & hybrid; 8 criteria \\
+task\_08 & Database Schema Operations & You have 5 SQL schema files in artifact representing existing PostgreSQL tables. & outputs/migrate\_orders.sql, outputs/migrate\_products.sql, outputs/migrate\_reviews.sql ... & automated; 7 criteria \\
+task\_09 & Excel Analytics Report Generation & You are given 5 regional sales CSV files in artifact. & outputs/report\_central.xlsx, outputs/report\_east.xlsx, outputs/report\_north.xlsx ... & automated; 7 criteria \\
+task\_10 & Git Repository History Analysis & You are given 5 bash setup scripts in artifact. & task-specific grader-visible files under outputs/ & automated; 6 criteria \\
+task\_11 & Web Page Structured Data Extraction & You are given 5 HTML files in artifact that simulate web pages. & task-specific grader-visible files under outputs/ & hybrid; 7 criteria \\
+task\_12 & Word Document Generation & You are given 5 JSON data files in artifact. & task-specific grader-visible files under outputs/ & automated; 6 criteria \\
+task\_13 & Multi-Dataset Statistical Analysis Pipeline & You are given 5 groups of related CSV files in artifact. & task-specific grader-visible files under outputs/ & hybrid; 6 criteria \\
+task\_14 & Enterprise Email Thread Analysis & Complete enterprise email thread analysis and write grader-visible outputs. & outputs/thread\_XX\_report.json & hybrid; 7 criteria \\
+task\_15 & Shell Automation Script Generation & You have 5 automation task specification files in artifact. & outputs/task\_XX\_db\_dump.sh, outputs/task\_XX\_dir\_monitor.sh, outputs/task\_XX\_file\_backup.sh ... & hybrid; 9 criteria \\
+task\_16 & Dockerfile and CI Pipeline Generation & You have 5 application specification files in artifact. & outputs/app\_XX/Dockerfile & hybrid; 8 criteria \\
+task\_17 & Enterprise Invoice Expense Processing & Complete enterprise invoice expense processing and write grader-visible outputs. & outputs/invoice\_XX\_parsed.json & hybrid; 8 criteria \\
+task\_18 & Dependency Security Audit & You have 5 dependency manifest files in artifact from different application stacks. & outputs/gemfile\_audit.json, outputs/go\_audit.json, outputs/package\_audit.json ... & hybrid; 8 criteria \\
+task\_19 & Meeting Notes Structured Extraction & Complete meeting notes structured extraction and write grader-visible outputs. & outputs/meeting\_XX\_minutes.json & hybrid; 8 criteria \\
+task\_20 & Multi-Environment Config Generation & You have 5 application specification files in artifact. & outputs/data-exporter/config.dev.yml, outputs/ml-inference/config.dev.yml, outputs/notification-service/config.dev.yml ... & automated; 8 criteria \\
+task\_21 & System Metrics Anomaly Detection & You have 5 system metrics CSV files in artifact. & outputs/db\_query\_perf\_report.json, outputs/disk\_io\_report.json, outputs/network\_traffic\_report.json ... & hybrid; 8 criteria \\
+task\_22 & Finance Ledger Reconciliation & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_23 & Subscription Revenue Audit & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_24 & Bank KYC Packet Review & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_25 & Loan Document Checklist & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_26 & Tax Form Consistency & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_27 & Contract Clause Extraction & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_28 & Discovery Document Tagging & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_29 & Policy Exception Mapping & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_30 & Nda Obligation Review & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_31 & Vendor Contract Risk & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_32 & Appointment Referral Triage & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_33 & Pharmacy Inventory Reorder & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_34 & Clinical Trial Eligibility & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_35 & Insurance Prior Auth Review & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_36 & Lab Result Followup Queue & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_37 & Procurement Bid Scoring & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_38 & Purchase Order Three Way Match & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_39 & Shipping Exception Resolution & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_40 & Warehouse Picklist Validation & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_41 & Supplier Risk Packet & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_42 & Employee Onboarding Checklist & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_43 & Interview Feedback Calibration & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_44 & Admissions Packet Screening & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_45 & Assignment Rubric Grading & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_46 & Training Completion Audit & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_47 & Support Ticket Escalation & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_48 & Kb Gap Analysis & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_49 & App Review Theme Mining & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_50 & Bug Report Deduplication & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_51 & Call Center Quality Review & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_52 & Kubernetes Policy Review & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_53 & Terraform Plan Drift & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_54 & SLO Burn Rate Analysis & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_55 & CI Pipeline Hardening & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_56 & Backup Restore Drill & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_57 & Security Alert Correlation & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_58 & Phishing Report Triage & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_59 & Vulnerability Exception Review & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_60 & PII Redaction Release & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_61 & DSR Request Routing & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_62 & SQL Schema Migration Review & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_63 & Messy Csv Normalization & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_64 & Dashboard Metric Reconciliation & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_65 & Data Quality Rule Authoring & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_66 & Experiment Results Analysis & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_67 & Research Claim Evidence & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_68 & Newsroom Fact Check & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_69 & Literature Table Extraction & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_70 & Public Web Directory Extraction & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_71 & Citation Deduplication & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_72 & Localization Placeholder Qa & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_73 & Glossary Compliance Review & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_74 & Release Notes Curation & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_75 & Changelog Impact Matrix & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_76 & Feature Flag Cleanup Plan & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_77 & Ecommerce Catalog Normalization & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_78 & Retail Returns Root Cause & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_79 & Restaurant Inspection Summary & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_80 & Food Delivery Refund Review & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_81 & Marketplace Listing Policy & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_82 & Facilities Maintenance Prioritization & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_83 & Fleet Maintenance Schedule & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_84 & Iot Sensor Anomaly Review & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_85 & Smart Home Support Diagnosis & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_86 & Robotics Workcell Event Report & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_87 & Civic Service Request Routing & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_88 & Public Records Redaction & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_89 & Grant Application Completeness & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_90 & Audit Evidence Collection & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_91 & Risk Register Rollup & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_92 & CRM Pipeline Hygiene & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_93 & Sales Forecast Variance & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_94 & Marketing Campaign Qa & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_95 & Board Packet Preparation & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_96 & Executive Action Item Tracking & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_97 & Calendar Conflict Resolution & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_98 & Travel Itinerary Exception & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_99 & Meeting Notes Action Items & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+task\_100 & Inbox Rules Classification & Select the authoritative evidence packet, discard decoys, derive strict JSON case reports. & outputs/case\_XX\_report.json & automated; 8 criteria \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\section{Per-Task Grading Surfaces}
+\label{app:task-grading-surfaces}
+This table records how each official task is checked. It separates the grading type from the concrete surface that the grader inspects, which is useful because hybrid tasks still require file artifacts and automated tasks may include rich schema or content checks.
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{L{0.07\textwidth}L{0.21\textwidth}L{0.11\textwidth}L{0.16\textwidth}L{0.38\textwidth}}
+\caption{Per-task grading surfaces.}\label{tab:task-grading-surfaces}\\
+\toprule
+\textbf{Task} & \textbf{Name} & \textbf{Grade} & \textbf{Check surface} & \textbf{Representative criteria} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Task} & \textbf{Name} & \textbf{Grade} & \textbf{Check surface} & \textbf{Representative criteria} \\
+\midrule
+\endhead
+task\_01 & Batch Data Transform & automated & automated code & Each of the 6 output files exists in artifact; Each output file contains valid JSON; Each record conforms to the target schema (all 6 fields present) \\
+task\_02 & Log Analysis & hybrid & automated code, LLM rubric, weighted blend & Each of the 5 output report files exists; Each report contains valid JSON; Each report has all required top-level fields \\
+task\_03 & API Integration Scaffold & automated & automated code & Each of the 5 output .py files exists; Each file contains valid Python (parseable by ast.parse); Each file contains authentication-related code \\
+task\_04 & Test Generation & automated & automated code & Each of the 6 test files exists in artifact; Each file contains valid Python syntax; Each file imports pytest \\
+task\_05 & Config Migration v1 to v2 & automated & automated code & All 5 output files exist in outputs/; All output files are valid JSON; All output files use nested structure (no flat dot-notation keys) \\
+task\_06 & Security Code Review & hybrid & automated code, LLM rubric, weighted blend & All 5 output files exist in outputs/; All output files are valid JSON; Each report has a "vulnerabilities" array with at least 3 entries \\
+task\_07 & Document Data Extraction & hybrid & automated code, LLM rubric, weighted blend & All 5 output files exist in outputs/; All output files are valid JSON; Invoice has line\_items array and grand\_total \\
+task\_08 & Database Schema Operations & automated & automated code & All 5 output files exist in outputs/; All files contain valid SQL statements; Each migration contains the required ALTER TABLE statements \\
+task\_09 & Excel Analytics Report Generation & automated & automated code & Output .xlsx files exist for all 5 regions; Each workbook has exactly 3 sheets named correctly; Raw Data sheet contains the expected number of rows (20 data rows + header) \\
+task\_10 & Git Repository History Analysis & automated & automated code & Output JSON files exist for all 5 repositories; artifact matches expected value exactly; All expected contributors appear in the contributors list \\
+task\_11 & Web Page Structured Data Extraction & hybrid & automated code, LLM rubric, weighted blend & All 5 output JSON files exist; Each file contains a list with at least 5 items; Product catalog: prices are numeric, product IDs match source \\
+task\_12 & Word Document Generation & automated & automated code & All 5 .docx files exist in outputs/; Files are valid Word documents (openable by python-docx); Each document contains the correct title as a Heading 1 \\
+task\_13 & Multi-Dataset Statistical Analysis Pipeline & hybrid & automated code, LLM rubric, weighted blend & All 5 analysis JSON files exist; artifact / artifact / artifact / artifact match expected counts; Numeric statistics are present and of correct type \\
+task\_14 & Enterprise Email Thread Analysis & hybrid & automated code, LLM rubric, weighted blend & All 5 output files exist; each report is valid JSON; each report contains all required top-level fields \\
+task\_15 & Shell Automation Script Generation & hybrid & automated code, LLM rubric, weighted blend & All 10 output files exist (5 scripts + 5 READMEs); Each artifact file starts with artifact or artifact; Each artifact file contains artifact or artifact \\
+task\_16 & Dockerfile and CI Pipeline Generation & hybrid & automated code, LLM rubric, weighted blend & All 10 output files exist (5 Dockerfiles + 5 workflow YAMLs); Each Dockerfile starts with artifact; Multi-stage Dockerfiles (apps 01--04) contain at least 2 artifact instructions \\
+task\_17 & Enterprise Invoice Expense Processing & hybrid & automated code, LLM rubric, weighted blend & All 6 output files exist (5 parsed files plus 1 summary); each parsed file is valid JSON; parsed files contain all required top-level fields \\
+task\_18 & Dependency Security Audit & hybrid & automated code, LLM rubric, weighted blend & All 5 output files exist; Each report contains valid JSON; Each report has all required top-level fields \\
+task\_19 & Meeting Notes Structured Extraction & hybrid & automated code, LLM rubric, weighted blend & All 5 output files exist; each file is valid JSON; each file contains all required top-level fields \\
+task\_20 & Multi-Environment Config Generation & automated & automated code & All 15 output YAML files exist; Each YAML file is parseable (valid YAML); artifact has artifact \\
+task\_21 & System Metrics Anomaly Detection & hybrid & automated code, LLM rubric, weighted blend & All 5 output report files exist; Each report contains valid JSON; Each report has all required top-level fields \\
+task\_22 & Finance Ledger Reconciliation & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_23 & Subscription Revenue Audit & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_24 & Bank KYC Packet Review & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_25 & Loan Document Checklist & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_26 & Tax Form Consistency & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_27 & Contract Clause Extraction & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_28 & Discovery Document Tagging & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_29 & Policy Exception Mapping & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_30 & Nda Obligation Review & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_31 & Vendor Contract Risk & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_32 & Appointment Referral Triage & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_33 & Pharmacy Inventory Reorder & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_34 & Clinical Trial Eligibility & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_35 & Insurance Prior Auth Review & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_36 & Lab Result Followup Queue & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_37 & Procurement Bid Scoring & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_38 & Purchase Order Three Way Match & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_39 & Shipping Exception Resolution & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_40 & Warehouse Picklist Validation & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_41 & Supplier Risk Packet & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_42 & Employee Onboarding Checklist & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_43 & Interview Feedback Calibration & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_44 & Admissions Packet Screening & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_45 & Assignment Rubric Grading & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_46 & Training Completion Audit & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_47 & Support Ticket Escalation & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_48 & Kb Gap Analysis & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_49 & App Review Theme Mining & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_50 & Bug Report Deduplication & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_51 & Call Center Quality Review & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_52 & Kubernetes Policy Review & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_53 & Terraform Plan Drift & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_54 & SLO Burn Rate Analysis & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_55 & CI Pipeline Hardening & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_56 & Backup Restore Drill & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_57 & Security Alert Correlation & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_58 & Phishing Report Triage & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_59 & Vulnerability Exception Review & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_60 & PII Redaction Release & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_61 & DSR Request Routing & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_62 & SQL Schema Migration Review & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_63 & Messy Csv Normalization & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_64 & Dashboard Metric Reconciliation & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_65 & Data Quality Rule Authoring & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_66 & Experiment Results Analysis & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_67 & Research Claim Evidence & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_68 & Newsroom Fact Check & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_69 & Literature Table Extraction & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_70 & Public Web Directory Extraction & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_71 & Citation Deduplication & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_72 & Localization Placeholder Qa & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_73 & Glossary Compliance Review & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_74 & Release Notes Curation & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_75 & Changelog Impact Matrix & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_76 & Feature Flag Cleanup Plan & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_77 & Ecommerce Catalog Normalization & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_78 & Retail Returns Root Cause & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_79 & Restaurant Inspection Summary & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_80 & Food Delivery Refund Review & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_81 & Marketplace Listing Policy & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_82 & Facilities Maintenance Prioritization & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_83 & Fleet Maintenance Schedule & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_84 & Iot Sensor Anomaly Review & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_85 & Smart Home Support Diagnosis & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_86 & Robotics Workcell Event Report & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_87 & Civic Service Request Routing & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_88 & Public Records Redaction & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_89 & Grant Application Completeness & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_90 & Audit Evidence Collection & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_91 & Risk Register Rollup & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_92 & CRM Pipeline Hygiene & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_93 & Sales Forecast Variance & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_94 & Marketing Campaign Qa & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_95 & Board Packet Preparation & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_96 & Executive Action Item Tracking & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_97 & Calendar Conflict Resolution & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_98 & Travel Itinerary Exception & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_99 & Meeting Notes Action Items & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+task\_100 & Inbox Rules Classification & automated & automated code & All five artifact files exist.; Each report is valid JSON and contains every required field.; The report ignores draft, superseded, invalid-checksum, and decoy packet records. \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\section{Task Families and Fixture Mechanics}
+\label{app:task-families}
+The current suite combines the original heterogeneous seed tasks with generated hard-mode families. The generated families share a common evidence-packet protocol, but each family changes the business action, output schema, and grader-visible decision surface. This is intended to make label diversity insufficient: an agent must handle repeated mechanics while still mapping them to distinct artifacts.
+\begingroup
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{L{0.18\textwidth}L{0.09\textwidth}L{0.13\textwidth}L{0.52\textwidth}}
+\caption{Task-family summary.}\label{tab:task-family-summary}\\
+\toprule
+\textbf{Family} & \textbf{Tasks} & \textbf{Sub-problems} & \textbf{Fixture and output mechanics} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Family} & \textbf{Tasks} & \textbf{Sub-problems} & \textbf{Fixture and output mechanics} \\
+\midrule
+\endhead
+Original seed tasks & 21 & 107 & Early heterogeneous tasks covering code, logs, documents, office files, shell automation, CI, dependencies, and metrics; these use task-specific fixtures and graders rather than the shared hard-mode packet protocol. Tasks: 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21. \\
+CRM/Executive & 5 & 25 & Pipeline hygiene, forecast variance, campaign QA, board packets, and executive action tracking with repeated business-report outputs. Tasks: 92, 93, 94, 95, 96. \\
+Commerce/Food & 5 & 25 & Delivery refunds, inspections, marketplace policies, maintenance-like retail cases, and supportable operational decisions over generated local fixtures. Tasks: 77, 78, 79, 80, 81. \\
+Data/Analytics & 5 & 25 & Normalization, reconciliation, rule-authoring, experiment, and extraction tasks that stress repeatable data derivation under decoys and stale revisions. Tasks: 62, 63, 64, 65, 66. \\
+DevOps/SRE & 5 & 25 & Policy, drift, burn-rate, pipeline-hardening, and restore-drill tasks with infrastructure-oriented evidence channels and output artifacts. Tasks: 52, 53, 54, 55, 56. \\
+Facilities/IoT & 5 & 25 & Facilities, fleet, sensor, smart-home, and workcell event tasks that derive maintenance or anomaly reports from selected evidence packets. Tasks: 82, 83, 84, 85, 86. \\
+Finance & 5 & 25 & Ledger, revenue, loan, tax, and KYC-style reconciliation with selected evidence packets, stale revisions, numeric deltas, list edits, and boolean compliance gates. Tasks: 22, 23, 24, 25, 26. \\
+HR/Education & 5 & 25 & Onboarding, interview, admissions, grading, and completion-audit cases requiring structured checklist or rubric outputs from decoy-rich evidence. Tasks: 42, 43, 44, 45, 46. \\
+Healthcare & 5 & 25 & Clinical-administration tasks such as triage, pharmacy reorder, trial eligibility, prior authorization, and follow-up queues with strict output schemas. Tasks: 32, 33, 34, 35, 36. \\
+Legal & 5 & 25 & Clause, discovery, policy-exception, NDA, and contract-risk review tasks that require choosing authoritative records and writing structured legal-operation outputs. Tasks: 27, 28, 29, 30, 31. \\
+Localization/Release & 5 & 25 & Placeholder QA, release notes, flag cleanup, catalog normalization, and returns analysis tasks with structured release or commerce-adjacent artifacts. Tasks: 72, 73, 74, 75, 76. \\
+Procurement/Logistics & 5 & 25 & Supplier, bid, purchase-order, warehouse, and shipping cases built around conflicting packets, exception lists, and derived routing or scoring reports. Tasks: 37, 38, 39, 40, 41. \\
+Public Sector/Audit & 5 & 25 & Service routing, records redaction, grant completeness, evidence collection, and risk register tasks using synthetic civic/audit fixtures. Tasks: 87, 88, 89, 90, 91. \\
+Research/Media & 5 & 25 & Claim checking, table extraction, directory extraction, citation deduplication, and glossary compliance with evidence selection and citation-like outputs. Tasks: 67, 68, 69, 70, 71. \\
+Security/Privacy & 5 & 25 & Alert, phishing, exception, release-redaction, and request-routing tasks that test privacy/security triage without using real sensitive data. Tasks: 57, 58, 59, 60, 61. \\
+Support/Product & 5 & 25 & Ticket, knowledge-base, app-review, bug-deduplication, and call-quality tasks that convert repeated records into grader-visible JSON reports. Tasks: 47, 48, 49, 50, 51. \\
+Travel/Office & 4 & 20 & Calendar, itinerary, meeting-action, and inbox-rule cases that convert office coordination evidence into structured decisions. Tasks: 97, 98, 99, 100. \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+
+\section{Generated Family Design Matrix}
+\label{app:family-design-matrix}
+
+\Cref{tab:family-design-matrix} expands the family summary with the repeated structure that is intended to make skill creation plausible, and the anti-shortcut mechanism that prevents a shallow schema-only answer from satisfying the grader. The matrix is written at the family level rather than the task level because generated tasks within a family share the same evidence-selection contract while changing the concrete business operation and required output fields.
+\begingroup
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{L{0.18\textwidth}L{0.24\textwidth}L{0.27\textwidth}L{0.23\textwidth}}
+\caption{Design matrix for generated hard-mode task families.}\label{tab:family-design-matrix}\\
+\toprule
+\textbf{Family} & \textbf{Repeated structure} & \textbf{Anti-shortcut mechanism} & \textbf{Grader-visible artifact} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Family} & \textbf{Repeated structure} & \textbf{Anti-shortcut mechanism} & \textbf{Grader-visible artifact} \\
+\midrule
+\endhead
+CRM/Executive & Repeated business-status packets must be reconciled into executive-ready decisions. & Decoy opportunities, stale campaign revisions, and conflicting forecast evidence make visible totals unreliable. & Structured pipeline, forecast, campaign, board, or action-item JSON reports. \\
+Commerce/Food & Repeated commerce cases map operational evidence to refund, inspection, marketplace, or returns decisions. & Draft and superseded packets expose plausible but wrong SKUs, refund IDs, or policy codes. & Per-case operational JSON reports under \path{outputs/}. \\
+Data/Analytics & Repeated analytics records require applying numeric, list, and text derivation channels consistently. & Schema-only outputs fail because selected packets must be verified before computing rows, rules, or experiment winners. & Strict JSON reports with derived counts, deltas, failures, and winners. \\
+DevOps/SRE & Repeated infrastructure cases ask for drift, burn-rate, policy, pipeline, or restore conclusions. & Stale revisions and decoy resource identifiers make direct copying from fixtures unsafe. & JSON reports that encode affected resources, exception IDs, and remediation signals. \\
+Facilities/IoT & Repeated sensor, fleet, smart-home, and workcell packets require deriving maintenance or anomaly actions. & Conflicting packet states and boolean gates separate approved evidence from noisy telemetry. & Prioritization, diagnosis, schedule, or event-summary JSON reports. \\
+Finance & Repeated finance cases share ledger-style aggregation, exception lists, tax-like numeric fields, and compliance gates. & Invalid checksums, superseded packets, and decoy ledgers prevent copying visible totals. & Reconciliation or packet-review JSON reports. \\
+HR/Education & Repeated people-process cases map evidence to checklists, rubrics, screening, or calibration decisions. & Decoy records include plausible missing items or scores that must be ignored unless final and selected. & Checklist, rubric, admissions, interview, or completion-audit JSON reports. \\
+Healthcare & Repeated clinical-administration cases derive triage, reorder, eligibility, authorization, or follow-up decisions. & Synthetic healthcare-like evidence avoids real patient data while still requiring selected-packet derivation. & Strict healthcare-administration JSON reports. \\
+Legal & Repeated legal-operation cases extract obligations, clauses, exceptions, or contract risks. & Draft clauses and stale revisions test whether the agent follows packet provenance instead of surface wording. & Clause, discovery, NDA, policy, or risk JSON outputs. \\
+Localization/Release & Repeated release-management cases reconcile placeholders, glossary issues, flags, changelog impacts, or catalog data. & Multiple revisions and alias/remove list actions require ordered list derivation rather than keyword matching. & Release, localization, flag, changelog, or catalog-normalization JSON reports. \\
+Procurement/Logistics & Repeated sourcing and logistics cases derive vendors, purchase-order exceptions, warehouse issues, or shipment actions. & Competing packet weights and revisions expose believable but wrong vendor and exception values. & Procurement, warehouse, and shipping JSON reports. \\
+Public Sector/Audit & Repeated public-service and audit packets require routing, redaction, evidence, grant, or risk decisions. & Synthetic public-sector records contain missing-evidence decoys and privacy-like fields without real PII. & Civic-routing, redaction, grant, evidence, and risk-register JSON reports. \\
+Research/Media & Repeated research and media cases derive evidence tables, citations, claims, facts, or glossary compliance. & Text candidates and list edits force deterministic selection rather than free-form summarization. & Claim, fact-check, extraction, citation, or compliance JSON reports. \\
+Security/Privacy & Repeated security and privacy cases derive incidents, redactions, phishing, exceptions, or DSR routing. & Decoy indicators and boolean gates separate final selected security evidence from raw noisy records. & Alert, privacy, phishing, exception, or release-redaction JSON reports. \\
+Support/Product & Repeated support and product cases derive escalations, KB gaps, app-review themes, bug clusters, or call quality. & Alias and remove actions test whether the agent can update lists rather than aggregate all visible labels. & Support/product JSON reports with routed or clustered decisions. \\
+Travel/Office & Repeated office-coordination cases derive conflicts, itinerary exceptions, meeting actions, or inbox classifications. & Stale calendar or inbox-rule revisions make the latest visible item insufficient without packet selection. & Calendar, travel, meeting, or inbox-rule JSON reports. \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\section{Hard-Mode Evidence Protocol}
+\label{app:hard-mode-protocol}
+Generated hard-mode tasks are written so that visible values in a fixture are not necessarily authoritative. Each case contains a packet manifest plus evidence records. The agent must select the approved packet with no superseding packet and a valid checksum equal to the first 16 hexadecimal characters of the hash of the benchmark salt, task id, case id, packet id, and nonce. If more than one packet remains, it chooses the highest revision, then the highest source weight, then the lowest packet identifier. Only final records from the selected packet may drive the output.
+\begin{quote}\scriptsize\ttfamily
+\detokenize{sha256(evoclawbench-difficulty-hardening-20260524-v4|}\par
+\detokenize{<task_id>|<case_id>|<packet_id>|<nonce>)}\par
+\end{quote}
+\begin{center}
+\small
+\captionof{table}{Evidence-channel derivation rules used by generated hard-mode tasks.}
+\label{tab:evidence-channel-rules}
+\begin{tabular}{L{0.16\textwidth}L{0.18\textwidth}L{0.56\textwidth}}
+\toprule
+\textbf{Output type} & \textbf{Record field} & \textbf{Derivation rule} \\
+\midrule
+numeric & numeric\_delta & Apply signed amount\_minor / scale; subtract when operator is subtract; round non-count values to two decimals. \\
+list & list\_action & Apply include, remove, and alias rows in revision order; emit sorted unique strings. \\
+dict & dict\_delta & Sum deltas by bucket and omit zero-valued buckets. \\
+boolean & boolean\_gate & Emit true only when every selected gate has observed equal to expected. \\
+text & text\_candidate & Choose the candidate maximizing score - penalty; break ties lexicographically. \\
+\bottomrule
+\end{tabular}
+\end{center}
+The protocol appears across JSON, YAML, CSV, text, and HTML fixtures. JSON and YAML expose manifest and record arrays directly; CSV fixtures use section-tagged rows; text fixtures use JSON lines; HTML fixtures embed JSON in script blocks. The grader checks the derived files under \path{outputs/} and does not accept a final natural-language explanation as a substitute for those artifacts.
+
+\section{Representative Output Schemas}
+\label{app:output-schemas}
+For generated hard-mode tasks, the prompt names the exact JSON fields that must appear in each case report. The table lists one representative schema per generated family; seed tasks use task-specific artifact formats such as scripts, workbooks, SQL migrations, Dockerfiles, CI files, or extraction JSON.
+\begingroup
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.08}
+\begin{longtable}{L{0.20\textwidth}L{0.23\textwidth}L{0.47\textwidth}}
+\caption{Representative output schemas for generated hard-mode families.}\label{tab:representative-output-schemas}\\
+\toprule
+\textbf{Family} & \textbf{Representative task} & \textbf{Required output fields} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Family} & \textbf{Representative task} & \textbf{Required output fields} \\
+\midrule
+\endhead
+CRM/Executive & task\_92: CRM Pipeline Hygiene & stale\_opportunities, forecast\_delta, campaign\_errors, action\_items, executive\_summary \\
+Commerce/Food & task\_77: Ecommerce Catalog Normalization & normalized\_skus, refund\_ids, inspection\_score, policy\_violations, recommended\_action \\
+Data/Analytics & task\_62: SQL Schema Migration Review & row\_count, quality\_failures, metric\_delta, rule\_ids, experiment\_winner \\
+DevOps/SRE & task\_52: Kubernetes Policy Review & policy\_violations, required\_changes, slo\_status, backup\_passed, risk\_score \\
+Facilities/IoT & task\_82: Facilities Maintenance Prioritization & priority\_assets, maintenance\_due, anomaly\_ids, diagnostic\_codes, dispatch\_required \\
+Finance & task\_22: Finance Ledger Reconciliation & ledger\_total, exception\_ids, currencies, tax\_total, balanced \\
+HR/Education & task\_42: Employee Onboarding Checklist & completion\_rate, missing\_items, calibrated\_scores, assigned\_track, intervention\_ids \\
+Healthcare & task\_32: Appointment Referral Triage & eligible\_ids, routing\_queue, followup\_ids, stockout\_ids, urgent\_count \\
+Legal & task\_27: Contract Clause Extraction & clause\_labels, missing\_fields, high\_risk\_terms, parties, effective\_date \\
+Localization/Release & task\_72: Localization Placeholder Qa & placeholder\_errors, glossary\_violations, release\_sections, flag\_actions, publish\_ready \\
+Procurement/Logistics & task\_37: Procurement Bid Scoring & selected\_vendor, match\_exceptions, late\_shipments, risk\_suppliers, savings\_estimate \\
+Public Sector/Audit & task\_87: Civic Service Request Routing & routing\_queue, redactions\_required, missing\_evidence, risk\_summary, compliant \\
+Research/Media & task\_67: Research Claim Evidence & supported\_claims, unsupported\_claims, source\_count, duplicate\_citations, confidence \\
+Security/Privacy & task\_57: Security Alert Correlation & incident\_ids, redacted\_fields, raw\_pii\_present, approved\_exceptions, severity\_counts \\
+Support/Product & task\_47: Support Ticket Escalation & priority\_queue, duplicate\_groups, themes, sla\_breaches, reply\_template \\
+Travel/Office & task\_97: Calendar Conflict Resolution & conflicts, exceptions, action\_items, rule\_labels, resolved \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\section{Suite Distributions}
+\label{app:suite-distributions}
+\begin{center}
+\small
+\captionof{table}{Official-suite grading, sub-problem, and fixture-extension distributions.}
+\label{tab:suite-distributions}
+\label{tab:fixture-extension-distribution}
+\begin{minipage}[t]{0.42\textwidth}
+\vspace{0pt}
+\centering
+\begin{tabular}{@{}lrr@{}}
+\toprule
+\textbf{Measure} & \textbf{Value} & \textbf{Count} \\
+\midrule
+grading\_type & automated & 88 \\
+grading\_type & hybrid & 12 \\
+sub\_problems & 5 & 98 \\
+sub\_problems & 6 & 2 \\
+\bottomrule
+\end{tabular}
+\end{minipage}
+\hspace{0.08\textwidth}
+\begin{minipage}[t]{0.28\textwidth}
+\vspace{0pt}
+\centering
+\begin{tabular}{@{}lr@{}}
+\toprule
+\textbf{Extension} & \textbf{Files} \\
+\midrule
+csv & 128 \\
+go & 1 \\
+html & 30 \\
+js & 1 \\
+json & 228 \\
+log & 5 \\
+mod & 1 \\
+none & 1 \\
+py & 9 \\
+sh & 5 \\
+sql & 5 \\
+tsv & 2 \\
+txt & 37 \\
+xml & 3 \\
+yaml & 56 \\
+\bottomrule
+\end{tabular}
+\end{minipage}
+\end{center}
 
 \section{Skill Artifact Structure}
 \label{app:skill-artifact}
-
-\begin{figure*}[t]
-\centering
-\includegraphics[width=\textwidth]{Figures/fig_protocol_imagegen.png}
-\caption{Three-mode evaluation protocol. \baseline{} directly executes a task without skill creation; \preskill{} first creates task-specific skills and then reuses them in a fresh workspace; \postskill{} summarizes reusable skills from first-run evidence before a second execution. Skill reuse phases are checked for mutation violations.}
+Generated skill directories are discovered under \path{skills/}. The seeded \path{skills/skill-creator} bundle is excluded from created-skill metrics. A generated skill must include \path{SKILL.md}; optional scripts and references are counted when present. Before reuse execution, non-seeded skill files are hashed. The same files are hashed after execution, and any add, delete, or content change is recorded as a mutation violation for that phase.
+\begin{center}
+\includegraphics[width=0.86\textwidth]{Figures/fig_protocol_imagegen.png}
+\captionof{figure}{Three-mode evaluation protocol. \baseline{} directly executes a task without skill creation; \preskill{} first creates task-specific skills and then reuses them in a fresh workspace; \postskill{} summarizes reusable skills from first-run evidence before a second execution. Skill reuse phases are checked for mutation violations.}
 \label{fig:protocol}
-\end{figure*}
+\end{center}
 
 \section{Result JSON Schema}
 \label{app:json}
-
-The aggregate output JSON contains \texttt{baseline\_results}, \texttt{preskill\_results}, \texttt{postskill\_results}, and \texttt{metrics}.
-The \texttt{metrics} object contains \texttt{execution\_only}, \texttt{end\_to\_end}, \texttt{postskill}, \texttt{created\_skills}, \texttt{skill\_quality}, and \texttt{skill\_mutation\_violations}.
+The aggregate output JSON contains \texttt{baseline\_results}, \texttt{preskill\_results}, \texttt{postskill\_results}, and \texttt{metrics}. The table below expands the fields used for the current paper rows.
+\begin{center}
+\footnotesize
+\captionof{table}{Result JSON fields used for reported rows.}
+\label{tab:result-json-fields}
+\begin{tabular}{L{0.30\textwidth}L{0.25\textwidth}L{0.35\textwidth}}
+\toprule
+\textbf{Object} & \textbf{Fields} & \textbf{Use in paper} \\
+\midrule
+top-level & version, timestamp, benchmark, model, runtime, run\_id & Identifies the benchmark run and runtime configuration. \\
+top-level & mode, environment, workers, runs\_per\_task & Serialized execution controls for reported rows. \\
+results & baseline\_results & One graded result object per loaded task for direct execution. \\
+results & preskill\_results & One graded result object per loaded task after preskill skill creation and reuse execution. \\
+results & postskill\_results & One graded result object per loaded task after first execution, summary, and second execution. \\
+metrics.execution\_only & mean\_scores, ratios\_vs\_baseline, usage, efficiency\_vs\_baseline & Final execution phase quality and resource comparisons. \\
+metrics.end\_to\_end & mean\_scores, ratios\_vs\_baseline, usage, efficiency\_vs\_baseline & Full workflow quality and overhead comparisons. \\
+metrics.created\_skills & preskill\_count, postskill\_count, preskill, postskill & Skill counts and per-skill metadata collected from workspaces. \\
+metrics.skill\_quality & preskill, postskill & Heuristic quality summaries for generated skills. \\
+metrics.skill\_mutation\_violations & preskill, postskill & Counts reuse executions that added, removed, or edited skill files. \\
+\bottomrule
+\end{tabular}
+\end{center}
 
 \section{Result Validity Checklist}
 \label{app:checklist}
+Before adding a result row, record the source JSON file, model, runtime, mode, environment, worker count, judge model, loaded task count, official task count, mean scores for all modes, created-skill counts, mutation violations, and judge-failure count. Runs with incomplete result JSONs, missing modes, or explicitly rejected failure status should be labeled rather than silently mixed into the main table.
+For the reported rows, the JSONs serialize \texttt{mode=all}, \texttt{--workers 32}, \texttt{--environment local}, and one run per task and mode. They do not serialize the hybrid judge model, so the judge name is treated as run-command provenance rather than JSON provenance.
 
-Before adding a result row, record the source JSON file, model, runtime, mode, environment, worker count, judge model, loaded task count, official task count, mean scores for all modes, created-skill counts, mutation violations, and judge-failure count.
-Runs with incomplete result JSONs, missing modes, or explicitly rejected failure status should be labeled as incomplete or audit-only rather than silently mixed into the main table.
+\section{Reported Result Integrity Summary}
+\label{app:reported-result-integrity}
+\Cref{tab:reported-result-integrity} records the serialized run controls and result-object counts for the source JSON files used in the main result table. The counts are shown as baseline/preskill/postskill. The mutation column is shown as preskill/postskill and confirms that the reported skill-reuse executions did not add, remove, or edit generated skill files during execution.
+\begin{center}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\captionof{table}{Integrity summary for reported result JSON files.}
+\label{tab:reported-result-integrity}
+\begin{tabular}{L{0.08\textwidth}L{0.10\textwidth}L{0.27\textwidth}L{0.07\textwidth}L{0.09\textwidth}L{0.16\textwidth}L{0.10\textwidth}}
+\toprule
+\textbf{Run} & \textbf{Runtime} & \textbf{Model} & \textbf{Mode} & \textbf{Workers} & \textbf{Results} & \textbf{Mutations} \\
+\midrule
+0061 & openclaw & openai/gpt-5.4 & all & 32 & 101/101/101 & 0/0 \\
+0062 & openclaw & openai/qwen3.6-plus & all & 32 & 101/101/101 & 0/0 \\
+0063 & openclaw & openai/deepseek-v4-pro & all & 32 & 101/101/101 & 0/0 \\
+0064 & openclaw & openai/MiniMax/MiniMax-M2.7 & all & 32 & 101/101/101 & 0/0 \\
+0065 & openclaw & openai/gpt-5.4-mini & all & 32 & 101/101/101 & 0/0 \\
+0079 & nanobot & openai/gpt-5.4 & all & 32 & 101/101/101 & 0/0 \\
+0075 & nanobot & openai/qwen3.6-plus & all & 32 & 101/101/101 & 0/0 \\
+0076 & nanobot & openai/deepseek-v4-pro & all & 32 & 101/101/101 & 0/0 \\
+0080 & nanobot & openai/MiniMax/MiniMax-M2.7 & all & 32 & 101/101/100 & 0/0 \\
+0081 & nanobot & openai/gpt-5.4-mini & all & 32 & 101/101/101 & 0/0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+The result JSON files do not serialize the hybrid judge model. For this reason, the manuscript reports the judge as command provenance and avoids treating it as a JSON-backed field. Future benchmark rows should add a serialized judge-model field so that score provenance is fully recoverable from the result file alone.
+
+\clearpage
+\section{Reproducibility Details for Reported Runs}
+\label{app:reproducibility}
+The result files are:
+\begin{itemize}[leftmargin=*]
+    \item \path{0061\_openai-gpt-5-4\_openclaw.json}
+    \item \path{0062\_openai-qwen3-6-plus\_openclaw.json}
+    \item \path{0063\_openai-deepseek-v4-pro\_openclaw.json}
+    \item \path{0064\_openai-minimax-minimax-m2-7\_openclaw.json}
+    \item \path{0065\_openai-gpt-5-4-mini\_openclaw.json}
+    \item \path{0079\_openai-gpt-5-4\_nanobot.json}
+    \item \path{0075\_openai-qwen3-6-plus\_nanobot.json}
+    \item \path{0076\_openai-deepseek-v4-pro\_nanobot.json}
+    \item \path{0080\_openai-minimax-minimax-m2-7\_nanobot.json}
+    \item \path{0081\_openai-gpt-5-4-mini\_nanobot.json}
+\end{itemize}
+Each file contains \texttt{baseline\_results}, \texttt{preskill\_results}, \texttt{postskill\_results}, and \texttt{metrics}. The main text reports execution-only mean scores and created-skill counts from these JSON files. End-to-end token-efficiency findings use \path{metrics.end_to_end.efficiency_vs_baseline}; null values are treated as unavailable.
 
 \end{document}

@@ -18,6 +18,7 @@ from lib_agent import (
     _extract_usage,
     _load_openclaw_transcript,
     _nanobot_agent_commands,
+    _nanobot_timeout_seconds,
     _reset_openclaw_agent_workspace,
     _verify_bench_skills_loaded,
     copy_generated_skills,
@@ -601,6 +602,28 @@ class TestNanobotRuntime:
         assert config["agents"]["defaults"]["workspace"] == str(config_path.parents[1])
         assert kwargs["env"]["NANOBOT_AGENTS__DEFAULTS__MODEL"] == "openai/gpt-5.4-mini"
         assert kwargs["env"]["NANOBOT_MODEL"] == "openai/gpt-5.4-mini"
+
+    def test_execute_nanobot_task_applies_timeout_floor(self, tmp_path, monkeypatch):
+        calls = []
+
+        def fake_run(cmd, **kwargs):
+            calls.append((cmd, kwargs))
+            return self.Result()
+
+        monkeypatch.setattr("lib_agent.subprocess.run", fake_run)
+
+        task = _make_task(prompt="Handle generated case", timeout_seconds=10)
+        result = execute_nanobot_task(
+            task=task,
+            model_id="openai/qwen3.6-plus",
+            run_id="run_001",
+            timeout_multiplier=1.0,
+            skill_dir=tmp_path,
+        )
+
+        assert result["status"] == "success"
+        assert calls[0][1]["timeout"] == _nanobot_timeout_seconds(10, 1.0)
+        assert calls[0][1]["timeout"] == 600
 
     def test_nanobot_agent_commands_prefer_sibling_project(self, tmp_path):
         repo = tmp_path / "repo"
