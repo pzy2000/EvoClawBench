@@ -11,6 +11,7 @@ import hashlib
 import json
 import logging
 import os
+import shlex
 import shutil
 import subprocess
 import threading
@@ -78,6 +79,134 @@ BASELINE_EXECUTION_MODES: frozenset[str] = frozenset({"baseline", "postskill_fir
 
 def slugify_model(model_id: str) -> str:
     return model_id.replace("/", "-").replace(".", "-").lower()
+
+
+def _nanobot_agent_commands(
+    skill_dir: Path, workspace: Path, prompt: str, config_path: Optional[Path] = None
+) -> List[List[str]]:
+    base_args = [
+        "agent",
+        "--workspace",
+        str(workspace.resolve()),
+    ]
+    if config_path is not None:
+        base_args.extend(["--config", str(config_path)])
+    base_args.extend(
+        [
+            "--no-markdown",
+            "--no-logs",
+            "--message",
+            prompt,
+        ]
+    )
+    commands: List[List[str]] = []
+    sibling_project = skill_dir.parent / "nanobot"
+    if (sibling_project / "pyproject.toml").is_file() and (sibling_project / "nanobot").is_dir():
+        commands.append(["uv", "run", "--project", str(sibling_project), "nanobot", *base_args])
+    commands.extend(
+        [
+            ["nanobot", *base_args],
+            ["python", "-m", "nanobot", *base_args],
+        ]
+    )
+    return commands
+
+
+def _raw_provider_value(raw_config: Dict[str, Any], provider: str, key: str) -> Any:
+    provider_data = raw_config.get("providers", {}).get(provider, {})
+    if not isinstance(provider_data, dict):
+        return None
+    snake_key = {
+        "apiKey": "api_key",
+        "apiBase": "api_base",
+        "extraHeaders": "extra_headers",
+    }.get(key, key)
+    return (
+        provider_data.get(key)
+        if provider_data.get(key) is not None
+        else provider_data.get(snake_key)
+    )
+
+
+def _load_raw_nanobot_config() -> Dict[str, Any]:
+    config_path = Path.home() / ".nanobot" / "config.json"
+    try:
+        data = json.loads(config_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return data if isinstance(data, dict) else {}
+
+
+def _write_nanobot_benchmark_config(workspace: Path, model_id: str) -> Path:
+    workspace = workspace.resolve()
+    raw_config = _load_raw_nanobot_config()
+    provider_names = [
+        "custom",
+        "azureOpenai",
+        "azure_openai",
+        "anthropic",
+        "openai",
+        "openrouter",
+        "deepseek",
+        "groq",
+        "zhipu",
+        "dashscope",
+        "vllm",
+        "ollama",
+        "ovms",
+        "gemini",
+        "moonshot",
+        "minimax",
+        "mistral",
+        "aihubmix",
+        "siliconflow",
+        "volcengine",
+        "volcengineCodingPlan",
+        "volcengine_coding_plan",
+        "byteplus",
+        "byteplusCodingPlan",
+        "byteplus_coding_plan",
+    ]
+    providers: Dict[str, Dict[str, Any]] = {}
+    for name in provider_names:
+        api_key = _raw_provider_value(raw_config, name, "apiKey")
+        api_base = _raw_provider_value(raw_config, name, "apiBase")
+        extra_headers = _raw_provider_value(raw_config, name, "extraHeaders")
+        if api_key or api_base or extra_headers:
+            providers[name] = {
+                "apiKey": api_key or "",
+                "apiBase": api_base,
+                "extraHeaders": extra_headers,
+            }
+
+    openai_provider = providers.setdefault("openai", {"apiKey": "", "apiBase": None})
+    openai_provider["apiKey"] = (
+        os.environ.get("OPENAI_API_KEY")
+        or os.environ.get("NANOBOT_PROVIDERS__OPENAI__API_KEY")
+        or openai_provider.get("apiKey")
+        or ""
+    )
+    openai_provider["apiBase"] = (
+        os.environ.get("OPENAI_BASE_URL")
+        or os.environ.get("OPENAI_API_BASE")
+        or os.environ.get("NANOBOT_PROVIDERS__OPENAI__API_BASE")
+        or openai_provider.get("apiBase")
+    )
+
+    config = {
+        "agents": {
+            "defaults": {
+                "workspace": str(workspace),
+                "model": model_id,
+                "provider": "auto",
+            }
+        },
+        "providers": providers,
+    }
+    config_path = workspace / ".evoclawbench" / "nanobot_config.json"
+    config_path.parent.mkdir(parents=True, exist_ok=True)
+    config_path.write_text(json.dumps(config, indent=2), encoding="utf-8")
+    return config_path
 
 
 def get_mode_prefix(mode: str) -> str:
@@ -577,6 +706,7 @@ def execute_nanobot_task(
     timeout_seconds = task.timeout_seconds * timeout_multiplier
 
     prompt = get_mode_prefix(mode) + task.prompt
+    config_path = _write_nanobot_benchmark_config(workspace, model_id)
 
     stdout, stderr = "", ""
     exit_code = -1
@@ -587,10 +717,12 @@ def execute_nanobot_task(
         merged_env["NANOBOT_WORKSPACE"] = str(workspace)
         if model_id:
             merged_env["NANOBOT_MODEL"] = model_id
+            merged_env["NANOBOT_AGENTS__DEFAULTS__MODEL"] = model_id
 
         try:
+            cmd = _nanobot_agent_commands(skill_dir, workspace, prompt, config_path)[0]
             cmd_result = environment.execute(
-                {"command": "nanobot run --message " + json.dumps(prompt)},
+                {"command": shlex.join(cmd)},
                 cwd=str(workspace),
                 timeout=timeout_seconds,
             )
@@ -604,11 +736,9 @@ def execute_nanobot_task(
         env["NANOBOT_WORKSPACE"] = str(workspace)
         if model_id:
             env["NANOBOT_MODEL"] = model_id
+            env["NANOBOT_AGENTS__DEFAULTS__MODEL"] = model_id
 
-        cmds_to_try = [
-            ["nanobot", "run", "--message", prompt],
-            ["python", "-m", "nanobot", "run", "--message", prompt],
-        ]
+        cmds_to_try = _nanobot_agent_commands(skill_dir, workspace, prompt, config_path)
 
         for cmd in cmds_to_try:
             try:

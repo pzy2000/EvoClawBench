@@ -17,10 +17,12 @@ from lib_agent import (
     _coerce,
     _extract_usage,
     _load_openclaw_transcript,
+    _nanobot_agent_commands,
     _reset_openclaw_agent_workspace,
     _verify_bench_skills_loaded,
     copy_generated_skills,
     ensure_openclaw_agent,
+    execute_nanobot_task,
     get_mode_prefix,
     hash_skill_files,
     prepare_workspace,
@@ -553,3 +555,62 @@ class TestOpenClawAgentManagement:
             _reset_openclaw_agent_workspace("agent-a", "model-a", tmp_path)
 
         assert [cmd[2] for cmd in calls] == ["delete", "add"]
+
+
+# ---------------------------------------------------------------------------
+# nanobot runtime
+# ---------------------------------------------------------------------------
+
+
+class TestNanobotRuntime:
+    class Result:
+        def __init__(self, returncode: int = 0, stdout: str = "done", stderr: str = ""):
+            self.returncode = returncode
+            self.stdout = stdout
+            self.stderr = stderr
+
+    def test_execute_nanobot_task_uses_current_agent_cli(self, tmp_path, monkeypatch):
+        calls = []
+
+        def fake_run(cmd, **kwargs):
+            calls.append((cmd, kwargs))
+            return self.Result()
+
+        monkeypatch.setattr("lib_agent.subprocess.run", fake_run)
+
+        task = _make_task(prompt="Summarize logs")
+        result = execute_nanobot_task(
+            task=task,
+            model_id="openai/gpt-5.4-mini",
+            run_id="run_001",
+            timeout_multiplier=1.0,
+            skill_dir=tmp_path,
+        )
+
+        assert result["status"] == "success"
+        assert calls
+        cmd, kwargs = calls[0]
+        assert cmd[:2] == ["nanobot", "agent"]
+        assert "run" not in cmd
+        assert "--workspace" in cmd
+        assert "--config" in cmd
+        assert "--message" in cmd
+        config_path = Path(cmd[cmd.index("--config") + 1])
+        config = json.loads(config_path.read_text())
+        assert config["agents"]["defaults"]["model"] == "openai/gpt-5.4-mini"
+        assert config["agents"]["defaults"]["workspace"] == str(config_path.parents[1])
+        assert kwargs["env"]["NANOBOT_AGENTS__DEFAULTS__MODEL"] == "openai/gpt-5.4-mini"
+        assert kwargs["env"]["NANOBOT_MODEL"] == "openai/gpt-5.4-mini"
+
+    def test_nanobot_agent_commands_prefer_sibling_project(self, tmp_path):
+        repo = tmp_path / "repo"
+        skill_dir = repo / "evoclawbench"
+        nanobot_dir = repo / "nanobot"
+        (nanobot_dir / "nanobot").mkdir(parents=True)
+        (nanobot_dir / "pyproject.toml").write_text("[project]\nname = 'nanobot-ai'\n")
+
+        commands = _nanobot_agent_commands(skill_dir, tmp_path / "workspace", "hello")
+
+        assert commands[0][:4] == ["uv", "run", "--project", str(nanobot_dir)]
+        assert commands[0][4:6] == ["nanobot", "agent"]
+        assert commands[1][:2] == ["nanobot", "agent"]
