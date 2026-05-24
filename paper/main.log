@@ -1,6 +1,7 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.2.17)  24 MAY 2026 12:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.2.17)  24 MAY 2026 12:57
 entering extended mode
  restricted \write18 enabled.
+ file:line:error style messages enabled.
  %&-line parsing enabled.
 **main.tex
 (./main.tex
@@ -261,7 +262,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 305.
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/times.sty
-Package: times 2020/03/25 PSNFSS-v9.3 (SPQR)
+Package: times 2020/03/25 PSNFSS-v9.3 (SPQR) 
 )
 (/usr/local/texlive/2025/texmf-dist/tex/latex/base/latexsym.sty
 Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
@@ -554,7 +555,7 @@ e
 * paper: a4paper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: heightrounded
+* modes: heightrounded 
 * h-part:(L,W,R)=(71.13188pt, 455.24411pt, 71.13188pt)
 * v-part:(T,H,B)=(71.13188pt, 702.78308pt, 71.13188pt)
 * \paperwidth=597.50787pt
@@ -615,7 +616,7 @@ Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
 tim
 )
 (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-cmr.cfg
-File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
+File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
 LaTeX Font Info:    Trying to load font information for U+lasy on input line 32
@@ -730,7 +731,7 @@ ocal/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc}
 <Figures/fig_overview_imagegen.png, id=105, 1699.34875pt x 823.075pt>
 File: Figures/fig_overview_imagegen.png Graphic file (type png)
 <use Figures/fig_overview_imagegen.png>
-Package pdftex.def Info: Figures/fig_overview_imagegen.png  used on input line
+Package pdftex.def Info: Figures/fig_overview_imagegen.png  used on input line 
 82.
 (pdftex.def)             Requested size: 455.24411pt x 220.4875pt.
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 8
@@ -755,7 +756,7 @@ Underfull \vbox (badness 1052) has occurred while \output is active []
 <Figures/fig_task_taxonomy_imagegen.png, id=155, 1541.76pt x 1027.84pt>
 File: Figures/fig_task_taxonomy_imagegen.png Graphic file (type png)
 <use Figures/fig_task_taxonomy_imagegen.png>
-Package pdftex.def Info: Figures/fig_task_taxonomy_imagegen.png  used on input
+Package pdftex.def Info: Figures/fig_task_taxonomy_imagegen.png  used on input 
 line 153.
 (pdftex.def)             Requested size: 427.93057pt x 285.28387pt.
 
@@ -800,7 +801,7 @@ voked
 <Figures/fig_skill_anatomy_imagegen.png, id=163, 1541.76pt x 1027.84pt>
 File: Figures/fig_skill_anatomy_imagegen.png Graphic file (type png)
 <use Figures/fig_skill_anatomy_imagegen.png>
-Package pdftex.def Info: Figures/fig_skill_anatomy_imagegen.png  used on input
+Package pdftex.def Info: Figures/fig_skill_anatomy_imagegen.png  used on input 
 line 193.
 (pdftex.def)             Requested size: 391.51021pt x 261.00572pt.
 
@@ -966,7 +967,7 @@ Underfull \hbox (badness 1990) in paragraph at lines 347--351
 <Figures/fig_protocol_imagegen.png, id=220, 1780.6525pt x 890.32625pt>
 File: Figures/fig_protocol_imagegen.png Graphic file (type png)
 <use Figures/fig_protocol_imagegen.png>
-Package pdftex.def Info: Figures/fig_protocol_imagegen.png  used on input line
+Package pdftex.def Info: Figures/fig_protocol_imagegen.png  used on input line 
 357.
 (pdftex.def)             Requested size: 455.24411pt x 227.62114pt.
 
@@ -998,7 +999,7 @@ L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 12916C2D41C6EB779184F683E7540E06;2613.
- )
+ ) 
 Here is how much of TeX's memory you used:
  17715 strings out of 473190
  295147 string characters out of 5715800

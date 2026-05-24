@@ -1,0 +1,85 @@
+{
+  "latex-workshop.latex.recipe.default": "first",
+  "latex-workshop.latex.tools": [
+    {
+      "name": "xelatex",
+      "command": "/Library/TeX/texbin/xelatex",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "%DOCFILE%"
+      ],
+      "env": {
+        "BSTINPUTS": "./acl-style-files:"
+      }
+    },
+    {
+      "name": "pdflatex",
+      "command": "/Library/TeX/texbin/pdflatex",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "%DOCFILE%"
+      ],
+      "env": {
+        "BSTINPUTS": "./acl-style-files:"
+      }
+    },
+    {
+      "name": "bibtex",
+      "command": "/Library/TeX/texbin/bibtex",
+      "args": [
+        "%DOCFILE%"
+      ],
+      "env": {
+        "BSTINPUTS": "./acl-style-files:"
+      }
+    },
+    {
+      "name": "latexmk",
+      "command": "/Library/TeX/texbin/latexmk",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "-pdf",
+        "-outdir=%OUTDIR%",
+        "%DOCFILE%"
+      ],
+      "env": {
+        "BSTINPUTS": "./acl-style-files:"
+      }
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "XeLaTeX",
+      "tools": [
+        "xelatex"
+      ]
+    },
+    {
+      "name": "pdflatex -> bibtex -> pdflatex*2",
+      "tools": [
+        "pdflatex",
+        "bibtex",
+        "pdflatex",
+        "pdflatex"
+      ]
+    },
+    {
+      "name": "LaTeXmk",
+      "tools": [
+        "latexmk"
+      ]
+    },
+    {
+      "name": "PDFLaTeX",
+      "tools": [
+        "pdflatex"
+      ]
+    }
+  ]
+}
