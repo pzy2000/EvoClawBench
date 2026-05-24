@@ -1,6 +1,104 @@
-record_id,domain,signal,value,notes
-EAIT-03-01,Executive Action Item Tracking,stale_opportunities,"[""EAIT-03-01"", ""EAIT-03-02""]",synthetic stale_opportunities evidence
-EAIT-03-02,Executive Action Item Tracking,forecast_delta,9873.5,synthetic forecast_delta evidence
-EAIT-03-03,Executive Action Item Tracking,campaign_errors,"[""missing_utm""]",synthetic campaign_errors evidence
-EAIT-03-04,Executive Action Item Tracking,action_items,"[""Follow up account 3"", ""Update forecast 3""]",synthetic action_items evidence
-EAIT-03-05,Executive Action Item Tracking,executive_summary,"""pipeline_risk""",synthetic executive_summary evidence
+section,packet_id,nonce,checksum,state,superseded_by,source_weight,revision,channel,kind,record_id,status,operator,amount_minor,scale,action,value,target,bucket,delta,expected,observed,candidate,score,penalty,note
+protocol,,,,,,,,,,,,,,,,evoclawbench-hard-mode-v4,,,,,,,,,metadata row; use manifest and record rows for derivation
+manifest,PKT-576FB1,NON-32521D9E00,f6efa27cf4ce29e1,approved,,90,3,,,,,,,,,,,,,,,,,,candidate evidence packet; validate before using records
+manifest,PKT-49A26B,NON-ECDCDDA2B0,d2c318690a4d219e,approved,PKT-576FB1,83,2,,,,,,,,,,,,,,,,,,candidate evidence packet; validate before using records
+manifest,PKT-A3CD96,NON-BB0AE802F1,a55f1e5769cd39a0,approved,,76,1,,,,,,,,,,,,,,,,,,candidate evidence packet; validate before using records
+manifest,PKT-20DEE3,NON-CD04BDBC65,74b4030228bb5200,draft,,69,4,,,,,,,,,,,,,,,,,,candidate evidence packet; validate before using records
+record,PKT-20DEE3,,,,,,1,L1,list_action,NOI-5FD298ED,final,,,,include,STAOPP-03-103,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,2,L1,list_action,NOI-87BD36F4,draft,,,,include,STAOPP-03-40,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,2,L1,list_action,NOI-C4F6A742,draft,,,,include,STAOPP-03-92,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,1,L1,list_action,NOI-D518D5E2,final,,,,include,STAOPP-03-81,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,1,L1,list_action,NOI-F4635DEF,final,,,,include,STAOPP-03-90,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,2,L2,list_action,NOI-36CF86AE,draft,,,,include,CAMERR-03-41,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,1,L2,list_action,NOI-540CB649,final,,,,include,CAMERR-03-50,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,1,L2,list_action,NOI-DDA45897,final,,,,include,CAMERR-03-28,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,1,L2,list_action,NOI-F3E068AA,final,,,,include,CAMERR-03-103,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,2,L2,list_action,NOI-FD2CFB0F,draft,,,,include,CAMERR-03-15,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,1,L3,list_action,NOI-1EA24121,final,,,,include,ACTITE-03-46,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,1,L3,list_action,NOI-2E4096A2,final,,,,include,ACTITE-03-65,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,1,L3,list_action,NOI-BAA4AE4D,final,,,,include,ACTITE-03-82,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,2,L3,list_action,NOI-D325567E,draft,,,,include,ACTITE-03-36,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,2,L3,list_action,NOI-DD9B23D9,draft,,,,include,ACTITE-03-11,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,2,N1,numeric_delta,NOI-2982C7CA,draft,add,4153,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,1,N1,numeric_delta,NOI-2CC93B2C,final,add,860,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,1,N1,numeric_delta,NOI-9EEAC778,final,add,4261,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,1,N1,numeric_delta,NOI-B54CE467,final,add,4656,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,2,N1,numeric_delta,NOI-E895A895,draft,add,8803,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,1,T1,text_candidate,NOI-1A16A8CE,final,,,,,,,,,,,exec_escalation,84,4,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,2,T1,text_candidate,NOI-216A1308,draft,,,,,,,,,,,watchlist_review,85,3,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,1,T1,text_candidate,NOI-2D161290,final,,,,,,,,,,,watchlist_review,88,0,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,1,T1,text_candidate,NOI-755CBC40,final,,,,,,,,,,,routine_closeout,86,2,decoy from unselected or invalid packet
+record,PKT-20DEE3,,,,,,2,T1,text_candidate,NOI-F37CA81F,draft,,,,,,,,,,,exec_escalation,87,1,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,2,L1,list_action,NOI-7502D3E9,draft,,,,include,STAOPP-03-63,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,2,L1,list_action,NOI-9599B50C,draft,,,,include,STAOPP-03-96,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,1,L1,list_action,NOI-DDABBEAA,final,,,,include,STAOPP-03-103,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,1,L1,list_action,NOI-E832B8DD,final,,,,include,STAOPP-03-105,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,1,L1,list_action,NOI-F927F483,final,,,,include,STAOPP-03-86,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,1,L2,list_action,NOI-0B833A40,final,,,,include,CAMERR-03-21,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,2,L2,list_action,NOI-54474A58,draft,,,,include,CAMERR-03-41,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,1,L2,list_action,NOI-8A1A3A8E,final,,,,include,CAMERR-03-12,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,1,L2,list_action,NOI-AF6E69B0,final,,,,include,CAMERR-03-77,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,2,L2,list_action,NOI-B3F26178,draft,,,,include,CAMERR-03-63,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,1,L3,list_action,NOI-5695875B,final,,,,include,ACTITE-03-106,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,1,L3,list_action,NOI-74B959EB,final,,,,include,ACTITE-03-31,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,1,L3,list_action,NOI-992FDF69,final,,,,include,ACTITE-03-69,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,2,L3,list_action,NOI-F89C01CD,draft,,,,include,ACTITE-03-11,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,2,L3,list_action,NOI-FFCDE4B3,draft,,,,include,ACTITE-03-31,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,2,N1,numeric_delta,NOI-0AEAD60C,draft,add,2389,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,1,N1,numeric_delta,NOI-30AF5896,final,add,8076,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,1,N1,numeric_delta,NOI-4BB1B6AC,final,add,3877,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,2,N1,numeric_delta,NOI-9E2E0750,draft,add,7288,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,1,N1,numeric_delta,NOI-F09C1EA0,final,add,6896,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,2,T1,text_candidate,NOI-3114BF65,draft,,,,,,,,,,,watchlist_review,85,3,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,1,T1,text_candidate,NOI-3B74AE26,final,,,,,,,,,,,exec_escalation,84,4,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,2,T1,text_candidate,NOI-40B710B4,draft,,,,,,,,,,,exec_escalation,87,1,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,1,T1,text_candidate,NOI-9CB4AB13,final,,,,,,,,,,,watchlist_review,88,0,decoy from unselected or invalid packet
+record,PKT-49A26B,,,,,,1,T1,text_candidate,NOI-D216736E,final,,,,,,,,,,,routine_closeout,86,2,decoy from unselected or invalid packet
+record,PKT-576FB1,,,,,,3,L1,list_action,LST-3B9D04A9,final,,,,include,STAOPP-03-84,,,,,,,,,include unless a later remove or alias targets it
+record,PKT-576FB1,,,,,,3,L1,list_action,LST-4A5FEFE7,final,,,,include,STAOPP-03-61,,,,,,,,,include unless a later remove or alias targets it
+record,PKT-576FB1,,,,,,3,L1,list_action,LST-584BDF8C,final,,,,remove,STAOPP-03-DECOY,STAOPP-03-DECOY,,,,,,,,remove this candidate if it appears in a lower revision
+record,PKT-576FB1,,,,,,3,L1,list_action,LST-6E4D9BB7,final,,,,include,STAOPP-03-47,,,,,,,,,include unless a later remove or alias targets it
+record,PKT-576FB1,,,,,,3,L1,list_action,LST-B84670AF,final,,,,include,STAOPP-03-24,,,,,,,,,include unless a later remove or alias targets it
+record,PKT-576FB1,,,,,,3,L2,list_action,LST-946B88EC,final,,,,include,CAMERR-03-35,,,,,,,,,include unless a later remove or alias targets it
+record,PKT-576FB1,,,,,,3,L2,list_action,LST-A380BC92,final,,,,remove,CAMERR-03-DECOY,CAMERR-03-DECOY,,,,,,,,remove this candidate if it appears in a lower revision
+record,PKT-576FB1,,,,,,3,L2,list_action,LST-AD29C11D,final,,,,include,CAMERR-03-17,,,,,,,,,include unless a later remove or alias targets it
+record,PKT-576FB1,,,,,,3,L2,list_action,LST-BEC73214,final,,,,include,CAMERR-03-20,,,,,,,,,include unless a later remove or alias targets it
+record,PKT-576FB1,,,,,,3,L2,list_action,LST-DA85D62B,final,,,,include,CAMERR-03-98,,,,,,,,,include unless a later remove or alias targets it
+record,PKT-576FB1,,,,,,3,L3,list_action,LST-0E0F06A8,final,,,,include,ACTITE-03-35,,,,,,,,,include unless a later remove or alias targets it
+record,PKT-576FB1,,,,,,3,L3,list_action,LST-2595DA0C,final,,,,remove,ACTITE-03-DECOY,ACTITE-03-DECOY,,,,,,,,remove this candidate if it appears in a lower revision
+record,PKT-576FB1,,,,,,3,L3,list_action,LST-2636C507,final,,,,include,ACTITE-03-58,,,,,,,,,include unless a later remove or alias targets it
+record,PKT-576FB1,,,,,,3,L3,list_action,LST-2B47E290,final,,,,include,ACTITE-03-13,,,,,,,,,include unless a later remove or alias targets it
+record,PKT-576FB1,,,,,,3,L3,list_action,LST-954EA3AD,final,,,,include,ACTITE-03-14,,,,,,,,,include unless a later remove or alias targets it
+record,PKT-576FB1,,,,,,3,N1,numeric_delta,NUM-745B1EC5,final,add,3447,100,,,,,,,,,,,apply signed amount_minor divided by scale
+record,PKT-576FB1,,,,,,3,N1,numeric_delta,NUM-7747E685,final,subtract,2581,100,,,,,,,,,,,apply signed amount_minor divided by scale
+record,PKT-576FB1,,,,,,3,N1,numeric_delta,NUM-7AE712BE,final,add,2096,100,,,,,,,,,,,apply signed amount_minor divided by scale
+record,PKT-576FB1,,,,,,3,N1,numeric_delta,NUM-D5485477,final,add,2165,100,,,,,,,,,,,apply signed amount_minor divided by scale
+record,PKT-576FB1,,,,,,3,N1,numeric_delta,NUM-FCAE7938,final,subtract,4734,100,,,,,,,,,,,apply signed amount_minor divided by scale
+record,PKT-576FB1,,,,,,3,T1,text_candidate,TXT-13EB01C0,final,,,,,,,,,,,exec_escalation,94,9,rank by score minus penalty; tie by candidate text
+record,PKT-576FB1,,,,,,3,T1,text_candidate,TXT-244279D2,final,,,,,,,,,,,routine_closeout,42,12,rank by score minus penalty; tie by candidate text
+record,PKT-576FB1,,,,,,3,T1,text_candidate,TXT-EA90EB60,final,,,,,,,,,,,watchlist_review,50,16,rank by score minus penalty; tie by candidate text
+record,PKT-A3CD96,,,,,,1,L1,list_action,NOI-5AB3C50C,final,,,,include,STAOPP-03-65,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,1,L1,list_action,NOI-77E78BB9,final,,,,include,STAOPP-03-57,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,2,L1,list_action,NOI-8A21041C,draft,,,,include,STAOPP-03-88,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,1,L1,list_action,NOI-92852426,final,,,,include,STAOPP-03-39,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,2,L1,list_action,NOI-BEC6A66B,draft,,,,include,STAOPP-03-50,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,1,L2,list_action,NOI-142BF5B8,final,,,,include,CAMERR-03-14,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,1,L2,list_action,NOI-187E9431,final,,,,include,CAMERR-03-46,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,2,L2,list_action,NOI-475254BC,draft,,,,include,CAMERR-03-51,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,1,L2,list_action,NOI-5806FF54,final,,,,include,CAMERR-03-76,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,2,L2,list_action,NOI-B2577F46,draft,,,,include,CAMERR-03-85,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,1,L3,list_action,NOI-2A6F4955,final,,,,include,ACTITE-03-71,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,2,L3,list_action,NOI-606AC686,draft,,,,include,ACTITE-03-70,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,1,L3,list_action,NOI-6DFB916C,final,,,,include,ACTITE-03-56,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,1,L3,list_action,NOI-D41D33E4,final,,,,include,ACTITE-03-57,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,2,L3,list_action,NOI-E6108B84,draft,,,,include,ACTITE-03-88,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,1,N1,numeric_delta,NOI-249942E7,final,add,6445,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,1,N1,numeric_delta,NOI-2DDCF46A,final,add,4480,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,1,N1,numeric_delta,NOI-2FC0C53C,final,add,3842,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,2,N1,numeric_delta,NOI-7CB0E9E0,draft,add,3167,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,2,N1,numeric_delta,NOI-968F5D86,draft,add,3424,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,1,T1,text_candidate,NOI-02C757EE,final,,,,,,,,,,,routine_closeout,86,2,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,2,T1,text_candidate,NOI-086557A9,draft,,,,,,,,,,,watchlist_review,85,3,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,2,T1,text_candidate,NOI-3C92E35A,draft,,,,,,,,,,,exec_escalation,87,1,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,1,T1,text_candidate,NOI-8A78340E,final,,,,,,,,,,,exec_escalation,84,4,decoy from unselected or invalid packet
+record,PKT-A3CD96,,,,,,1,T1,text_candidate,NOI-DA245BA9,final,,,,,,,,,,,watchlist_review,88,0,decoy from unselected or invalid packet

@@ -94,6 +94,12 @@ uv run scripts/benchmark.py --runtime openclaw --model openai/gpt-5-nano --judge
 # uv run scripts/benchmark.py --model anthropic/claude-sonnet-4 --runtime nanobot --suite task_01_batch_data_transform
 ```
 
+### Paper Results Policy
+- Paper result tables must mark every incomplete or judge-failed run explicitly; do not present invalid runs as normal model-capability evidence.
+- For the 2026-05-24 EvoClawBench paper table, only `0061_openai-gpt-5-4_openclaw.json` and `0062_openai-qwen3-6-plus_openclaw.json` are valid capability rows. `0063_openai-deepseek-v4-pro_openclaw.json` is audit-only because the run had 13 LLM judge failures.
+- MiniMax and `openai/gpt-5.4-mini` full `mode=all` paper rows were not completed under a failure-free judge path in this batch; rerun them with the same judge before adding them to conclusions.
+- If a future paper edit includes any unfinished or judge-failed experiment, the table and prose must carry the validity caveat, and conclusions must be drawn only from valid runs.
+
 ---
 
 ## nanobot/ — Python
@@ -150,10 +156,10 @@ uv run pytest tests/path/test_foo.py::test_name -v   # single test
 - Group related changes; do not bundle unrelated refactors.
 - In `openclaw/`: use `scripts/committer "<msg>" <file...>` instead of manual `git add`/`git commit`.
 - Do not commit with failing format, lint, type, or test checks caused by your change.
-- Do not commit secrets, real phone numbers, or live config values. Use placeholders in docs/tests.
+- Do not commit secrets, real phone numbers, or live config values. Use synthetic examples in docs/tests.
 
 ## Security
 
-- Never commit credentials, API keys, tokens, or real PII. Use placeholder values in examples.
+- Never commit credentials, API keys, tokens, or real PII. Use synthetic example values in examples.
 - Do not edit `node_modules`. Do not patch dependencies without explicit approval.
 - Dependency version pins with `pnpm.patchedDependencies` must use exact versions (no `^`/`~`).

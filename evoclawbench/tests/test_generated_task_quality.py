@@ -134,3 +134,17 @@ def test_generated_graders_are_tamper_resistant(generated_tasks, tmp_path):
         average_score = sum(float(value) for value in scores.values()) / len(scores)
 
         assert average_score < 1.0, f"{family} accepted tampered inputs for {task.task_id}"
+
+
+def test_generated_fixtures_use_hard_mode_protocol(generated_tasks):
+    for task in generated_tasks:
+        for file_spec in task.workspace_files:
+            source = SKILL_ROOT / file_spec
+            text = source.read_text(encoding="utf-8")
+            assert "synthetic " not in text.lower(), (task.task_id, file_spec)
+            assert "synthetic_ledger" not in text.lower(), (task.task_id, file_spec)
+            assert (
+                "evoclawbench-hard-mode-v4" in text
+                or "difficulty_protocol: evoclawbench-hard-mode-v4" in text
+                or "protocol=evoclawbench-hard-mode-v4" in text
+            ), (task.task_id, file_spec)

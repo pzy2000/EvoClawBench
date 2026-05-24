@@ -3,7 +3,7 @@ id: task_49_app_review_theme_mining
 name: App Review Theme Mining
 category: support_product
 grading_type: automated
-timeout_seconds: 600
+timeout_seconds: 10
 sub_problems: 5
 skill_category: support_product
 task_family: Support/Product
@@ -18,28 +18,49 @@ workspace_files:
 
 # App Review Theme Mining
 
-Process five fixture-backed support/product cases. The files share a workflow pattern but require domain-specific parsing, normalization, and reporting.
+Process five hard-mode fixture-backed support/product cases. Each case includes competing evidence packets, stale revisions, and decoy records; only the selected packet should drive the final report.
 
 ---
 
 ## Prompt
 
-You have 5 synthetic app review theme mining fixture files under `assets/generated_tasks/task_49_app_review_theme_mining/`.
-For each input file, triage customer/product signals, group duplicates, and identify SLA or theme issues and save `outputs/case_XX_report.json`.
+You have 5 hard-mode app review theme mining fixture files under `assets/generated_tasks/task_49_app_review_theme_mining/`.
+For each input file, derive the required report from the evidence protocol and save `outputs/case_XX_report.json`.
+This is a strict short-SLA batch task: solve all five cases quickly in one reusable pass.
 
-Each report must be valid JSON with these fields: `priority_queue, duplicate_groups, themes, sla_breaches, reply_template`.
-Use exact identifiers from the source files, preserve list values as JSON arrays, and write one report per input case.
-Do not modify the input fixtures; only write files under `outputs/`.
+Each report must be valid JSON with exactly these required fields: `priority_queue`, `duplicate_groups`, `themes`, `sla_breaches`, `reply_template`.
+Use the channel map below to translate evidence channels into output fields:
+
+- `L1` -> `priority_queue` (list)
+- `L2` -> `duplicate_groups` (list)
+- `L3` -> `themes` (list)
+- `L4` -> `sla_breaches` (list)
+- `T1` -> `reply_template` (text)
+
+Hard-mode evidence protocol:
+0. JSON/YAML fixtures expose `packet_manifest` and `records` directly; CSV fixtures use
+`section=manifest` and `section=record` rows and may include a metadata `section=protocol` row;
+text fixtures use `MANIFEST`/`RECORD` JSON lines;
+HTML fixtures store JSON in `<script type="application/json" data-section="...">` blocks.
+1. Identify the selected packet from `packet_manifest`. Use only packets with `state=approved`, no `superseded_by`, and a valid checksum equal to the first 16 hex characters of `sha256("evoclawbench-difficulty-hardening-20260524-v4|<task_id>|<case_id>|<packet_id>|<nonce>")`. If more than one packet remains, choose the highest `revision`, then highest `source_weight`, then lowest `packet_id`.
+2. Use only `records` whose `packet_id` is the selected packet and whose `status` is `final`.
+3. Numeric channels: apply each `numeric_delta` as signed `amount_minor / scale`, subtracting rows whose `operator` is `subtract`; count-like fields must be integers, other numeric fields must be rounded to two decimals.
+4. List channels: apply `list_action` rows in revision order. `include` adds `value`, `remove` removes `target` or `value`, and `alias` replaces `target` with `value`. Emit sorted unique strings.
+5. Dict channels: sum `dict_delta.delta` by `bucket` and omit zero-valued buckets.
+6. Boolean channels: emit `true` only if every selected `boolean_gate` has `observed` equal to `expected`.
+7. Text channels: choose the `text_candidate` with the largest `score - penalty`; break ties by the lexicographically smallest candidate string and emit the candidate exactly.
+
+Do not copy values from unselected, draft, superseded, invalid-checksum, or decoy packets. Do not modify the input fixtures; only write files under `outputs/`.
 
 ---
 
 ## Expected Behavior
 
-1. Inspect the first one or two cases to identify the repeated domain workflow.
-2. Create a reusable procedure for the family-specific fields instead of solving each case from scratch.
-3. Apply the procedure to all five source files, adapting to the record details in each case.
-4. Emit the five JSON reports under `outputs/` with stable schemas and exact IDs.
-5. Keep any explanatory text inside concise summary-like field values when the schema asks for text.
+1. Parse each fixture format into packet manifest rows and evidence records.
+2. Validate packet checksums and discard draft, superseded, invalid, and decoy packets before aggregation.
+3. Apply the channel-specific derivation rules for numeric, list, dict, boolean, and text outputs.
+4. Write one strict JSON report per case under `outputs/`, preserving the required schema exactly.
+5. Recheck all five reports against the selected-packet evidence rather than trusting visible decoys.
 
 ---
 
@@ -47,27 +68,27 @@ Do not modify the input fixtures; only write files under `outputs/`.
 
 ### Sub-Problem 1: North Region Batch
 - Input: `assets/generated_tasks/task_49_app_review_theme_mining/case_01.json`
-- Special handling: derive `priority_queue, duplicate_groups, themes, sla_breaches, reply_template` for this support/product case.
+- Special handling: select the valid evidence packet, discard all decoys, and derive priority_queue, duplicate_groups, themes, sla_breaches, reply_template for this support/product case.
 - Expected output: `outputs/case_01_report.json`
 
 ### Sub-Problem 2: Partner Portal Export
 - Input: `assets/generated_tasks/task_49_app_review_theme_mining/case_02.json`
-- Special handling: derive `priority_queue, duplicate_groups, themes, sla_breaches, reply_template` for this support/product case.
+- Special handling: select the valid evidence packet, discard all decoys, and derive priority_queue, duplicate_groups, themes, sla_breaches, reply_template for this support/product case.
 - Expected output: `outputs/case_02_report.json`
 
 ### Sub-Problem 3: Back Office Queue
 - Input: `assets/generated_tasks/task_49_app_review_theme_mining/case_03.json`
-- Special handling: derive `priority_queue, duplicate_groups, themes, sla_breaches, reply_template` for this support/product case.
+- Special handling: select the valid evidence packet, discard all decoys, and derive priority_queue, duplicate_groups, themes, sla_breaches, reply_template for this support/product case.
 - Expected output: `outputs/case_03_report.json`
 
 ### Sub-Problem 4: Legacy System Extract
 - Input: `assets/generated_tasks/task_49_app_review_theme_mining/case_04.json`
-- Special handling: derive `priority_queue, duplicate_groups, themes, sla_breaches, reply_template` for this support/product case.
+- Special handling: select the valid evidence packet, discard all decoys, and derive priority_queue, duplicate_groups, themes, sla_breaches, reply_template for this support/product case.
 - Expected output: `outputs/case_04_report.json`
 
 ### Sub-Problem 5: Daily Exception Batch
 - Input: `assets/generated_tasks/task_49_app_review_theme_mining/case_05.json`
-- Special handling: derive `priority_queue, duplicate_groups, themes, sla_breaches, reply_template` for this support/product case.
+- Special handling: select the valid evidence packet, discard all decoys, and derive priority_queue, duplicate_groups, themes, sla_breaches, reply_template for this support/product case.
 - Expected output: `outputs/case_05_report.json`
 
 ---
@@ -75,12 +96,13 @@ Do not modify the input fixtures; only write files under `outputs/`.
 ## Grading Criteria
 
 - [ ] All five `outputs/case_XX_report.json` files exist.
-- [ ] Each report is valid JSON and contains the required family-specific fields.
-- [ ] Each report includes `priority_queue` with the correct value.
-- [ ] Each report includes `duplicate_groups` with the correct value.
-- [ ] Each report includes `themes` with the correct value.
-- [ ] Each report includes `sla_breaches` with the correct value.
-- [ ] Each report includes `reply_template` with the correct value.
+- [ ] Each report is valid JSON and contains every required field.
+- [ ] The report ignores draft, superseded, invalid-checksum, and decoy packet records.
+- [ ] Each report includes `priority_queue` with the correctly derived value.
+- [ ] Each report includes `duplicate_groups` with the correctly derived value.
+- [ ] Each report includes `themes` with the correctly derived value.
+- [ ] Each report includes `sla_breaches` with the correctly derived value.
+- [ ] Each report includes `reply_template` with the correctly derived value.
 
 ---
 
@@ -94,36 +116,32 @@ def grade(transcript: list, workspace_path: str) -> dict:
 
     workspace = Path(workspace_path)
     output_dir = workspace / "outputs"
-    expected = {'case_01': {'duplicate_groups': [['ARTM-01-02', 'ARTM-01-03']],
-             'priority_queue': ['ARTM-01-01', 'ARTM-01-02'],
-             'reply_template': 'escalation',
-             'sla_breaches': ['ARTM-01-05'],
-             'themes': ['billing', 'login']},
- 'case_02': {'duplicate_groups': [['ARTM-02-02', 'ARTM-02-03']],
-             'priority_queue': ['ARTM-02-01', 'ARTM-02-02'],
-             'reply_template': 'investigation',
-             'sla_breaches': ['ARTM-02-05'],
-             'themes': ['performance', 'mobile']},
- 'case_03': {'duplicate_groups': [['ARTM-03-02', 'ARTM-03-03']],
-             'priority_queue': ['ARTM-03-01', 'ARTM-03-02'],
-             'reply_template': 'escalation',
-             'sla_breaches': ['ARTM-03-05'],
-             'themes': ['billing', 'login']},
- 'case_04': {'duplicate_groups': [['ARTM-04-02', 'ARTM-04-03']],
-             'priority_queue': ['ARTM-04-01', 'ARTM-04-02'],
-             'reply_template': 'investigation',
-             'sla_breaches': ['ARTM-04-05'],
-             'themes': ['performance', 'mobile']},
- 'case_05': {'duplicate_groups': [['ARTM-05-02', 'ARTM-05-03']],
-             'priority_queue': ['ARTM-05-01', 'ARTM-05-02'],
-             'reply_template': 'escalation',
-             'sla_breaches': ['ARTM-05-05'],
-             'themes': ['billing', 'login']}}
-    required_fields = ['priority_queue',
- 'duplicate_groups',
- 'themes',
- 'sla_breaches',
- 'reply_template']
+    expected = {'case_01': {'duplicate_groups': ['DUPGRO-01-13', 'DUPGRO-01-32', 'DUPGRO-01-98'],
+             'priority_queue': ['PRIQUE-01-22', 'PRIQUE-01-31', 'PRIQUE-01-45', 'PRIQUE-01-86'],
+             'reply_template': 'policy_clarification',
+             'sla_breaches': ['SLABRE-01-13', 'SLABRE-01-21', 'SLABRE-01-27', 'SLABRE-01-29'],
+             'themes': ['THE-01-105', 'THE-01-23', 'THE-01-71', 'THE-01-85']},
+ 'case_02': {'duplicate_groups': ['DUPGRO-02-13', 'DUPGRO-02-32', 'DUPGRO-02-98'],
+             'priority_queue': ['PRIQUE-02-22', 'PRIQUE-02-31', 'PRIQUE-02-45', 'PRIQUE-02-86'],
+             'reply_template': 'policy_clarification',
+             'sla_breaches': ['SLABRE-02-13', 'SLABRE-02-21', 'SLABRE-02-27', 'SLABRE-02-29'],
+             'themes': ['THE-02-105', 'THE-02-23', 'THE-02-71', 'THE-02-85']},
+ 'case_03': {'duplicate_groups': ['DUPGRO-03-13', 'DUPGRO-03-32', 'DUPGRO-03-98'],
+             'priority_queue': ['PRIQUE-03-22', 'PRIQUE-03-31', 'PRIQUE-03-45', 'PRIQUE-03-86'],
+             'reply_template': 'policy_clarification',
+             'sla_breaches': ['SLABRE-03-13', 'SLABRE-03-21', 'SLABRE-03-27', 'SLABRE-03-29'],
+             'themes': ['THE-03-105', 'THE-03-23', 'THE-03-71', 'THE-03-85']},
+ 'case_04': {'duplicate_groups': ['DUPGRO-04-13', 'DUPGRO-04-32', 'DUPGRO-04-98'],
+             'priority_queue': ['PRIQUE-04-22', 'PRIQUE-04-31', 'PRIQUE-04-45', 'PRIQUE-04-86'],
+             'reply_template': 'policy_clarification',
+             'sla_breaches': ['SLABRE-04-13', 'SLABRE-04-21', 'SLABRE-04-27', 'SLABRE-04-29'],
+             'themes': ['THE-04-105', 'THE-04-23', 'THE-04-71', 'THE-04-85']},
+ 'case_05': {'duplicate_groups': ['DUPGRO-05-13', 'DUPGRO-05-32', 'DUPGRO-05-98'],
+             'priority_queue': ['PRIQUE-05-22', 'PRIQUE-05-31', 'PRIQUE-05-45', 'PRIQUE-05-86'],
+             'reply_template': 'apology_credit',
+             'sla_breaches': ['SLABRE-05-13', 'SLABRE-05-21', 'SLABRE-05-27', 'SLABRE-05-29'],
+             'themes': ['THE-05-105', 'THE-05-23', 'THE-05-71', 'THE-05-85']}}
+    required_fields = ['priority_queue', 'duplicate_groups', 'themes', 'sla_breaches', 'reply_template']
     numeric_fields = []
     list_fields = ['priority_queue', 'duplicate_groups', 'themes', 'sla_breaches']
     dict_fields = []
@@ -160,7 +178,9 @@ def grade(transcript: list, workspace_path: str) -> dict:
 
     def compare(field, actual, wanted):
         if field in numeric_fields:
-            return isinstance(actual, (int, float)) and math.isclose(float(actual), float(wanted), rel_tol=1e-4, abs_tol=1e-4)
+            return isinstance(actual, (int, float)) and math.isclose(
+                float(actual), float(wanted), rel_tol=1e-4, abs_tol=1e-4
+            )
         if field in list_fields:
             return normalize_list(actual) == normalize_list(wanted)
         if field in dict_fields:
@@ -187,8 +207,12 @@ def grade(transcript: list, workspace_path: str) -> dict:
                 scores[f"{prefix}_field_{field}"] = 0.0
             continue
         scores[f"{prefix}_{family_marker}_valid_json"] = 1.0
-        scores[f"{prefix}_{family_marker}_required_fields"] = 1.0 if all(field in data for field in required_fields) else 0.0
+        scores[f"{prefix}_{family_marker}_required_fields"] = (
+            1.0 if all(field in data for field in required_fields) else 0.0
+        )
         for field, wanted_value in wanted.items():
-            scores[f"{prefix}_field_{field}"] = 1.0 if compare(field, data.get(field), wanted_value) else 0.0
+            scores[f"{prefix}_field_{field}"] = (
+                1.0 if compare(field, data.get(field), wanted_value) else 0.0
+            )
     return scores
 ```

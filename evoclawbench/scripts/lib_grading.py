@@ -9,6 +9,8 @@ from __future__ import annotations
 import json
 import logging
 import re
+import threading
+import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List
@@ -20,6 +22,8 @@ logger = logging.getLogger(__name__)
 
 DEFAULT_JUDGE_MODEL = "openrouter/anthropic/claude-opus-4.5"
 DEFAULT_JUDGE_TIMEOUT_SECONDS = 180
+JUDGE_CALL_SEMAPHORE = threading.Semaphore(4)
+JUDGE_RETRY_DELAYS_SECONDS = (15, 30, 60, 90)
 
 
 @dataclass
@@ -202,7 +206,28 @@ def _grade_llm_judge(
         logger.info("   [VERBOSE] Judge prompt (first 800 chars):\n%s", prompt[:800])
 
     try:
-        response_text = _call_llm(judge_model, prompt, judge_timeout_seconds)
+        response_text = ""
+        max_attempts = len(JUDGE_RETRY_DELAYS_SECONDS) + 1
+        for attempt in range(1, max_attempts + 1):
+            try:
+                with JUDGE_CALL_SEMAPHORE:
+                    response_text = _call_llm(judge_model, prompt, judge_timeout_seconds)
+                break
+            except Exception as exc:
+                if attempt == max_attempts or not _is_transient_judge_error(exc):
+                    raise
+                delay_seconds = JUDGE_RETRY_DELAYS_SECONDS[attempt - 1]
+                logger.warning(
+                    "LLM judge transient failure for %s (runtime=%s, attempt=%s/%s); "
+                    "retrying in %ss: %s",
+                    task.task_id,
+                    runtime,
+                    attempt,
+                    max_attempts,
+                    delay_seconds,
+                    exc,
+                )
+                time.sleep(delay_seconds)
         if verbose:
             logger.info("   [VERBOSE] Judge raw response: %s", response_text[:500])
         scores = _parse_judge_response(response_text)
@@ -228,6 +253,24 @@ def _grade_llm_judge(
         )
 
 
+def _is_transient_judge_error(exc: Exception) -> bool:
+    text = str(exc).lower()
+    return any(
+        marker in text
+        for marker in (
+            "502",
+            "503",
+            "504",
+            "timeout",
+            "temporarily",
+            "rate limit",
+            "quota",
+            "upstream_error",
+            "资源配额不足",
+        )
+    )
+
+
 def _combine_grades(
     task: Task, auto_result: GradeResult, llm_result: GradeResult
 ) -> GradeResult:
@@ -238,7 +281,9 @@ def _combine_grades(
     if total_weight <= 0:
         auto_weight = llm_weight = 0.5
         total_weight = 1.0
-    combined_score = (auto_result.score * auto_weight + llm_result.score * llm_weight) / total_weight
+    combined_score = (
+        auto_result.score * auto_weight + llm_result.score * llm_weight
+    ) / total_weight
     breakdown = {
         **{f"automated.{k}": v for k, v in auto_result.breakdown.items()},
         **{f"llm_judge.{k}": v for k, v in llm_result.breakdown.items()},
@@ -470,9 +515,11 @@ def _build_workspace_context(task: Task, workspace: Path, max_chars_per_file: in
                 pass
 
     # Include source/asset files (text only, limited size) for accuracy checks
+    source_file_suffixes = (".txt", ".py", ".js", ".go")
     source_files = [
-        wf for wf in task.workspace_files
-        if isinstance(wf, str) and (wf.endswith(".txt") or wf.endswith(".py") or wf.endswith(".js") or wf.endswith(".go"))
+        wf
+        for wf in task.workspace_files
+        if isinstance(wf, str) and wf.endswith(source_file_suffixes)
     ]
     chars_budget = max_chars_per_file
     for wf in source_files[:5]:

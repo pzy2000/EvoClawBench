@@ -3,7 +3,7 @@ id: task_46_training_completion_audit
 name: Training Completion Audit
 category: hr_education
 grading_type: automated
-timeout_seconds: 600
+timeout_seconds: 10
 sub_problems: 5
 skill_category: hr_education
 task_family: HR/Education
@@ -18,28 +18,49 @@ workspace_files:
 
 # Training Completion Audit
 
-Process five fixture-backed hr/education cases. The files share a workflow pattern but require domain-specific parsing, normalization, and reporting.
+Process five hard-mode fixture-backed hr/education cases. Each case includes competing evidence packets, stale revisions, and decoy records; only the selected packet should drive the final report.
 
 ---
 
 ## Prompt
 
-You have 5 synthetic training completion audit fixture files under `assets/generated_tasks/task_46_training_completion_audit/`.
-For each input file, audit completion, calibrate scores, assign tracks, and flag interventions and save `outputs/case_XX_report.json`.
+You have 5 hard-mode training completion audit fixture files under `assets/generated_tasks/task_46_training_completion_audit/`.
+For each input file, derive the required report from the evidence protocol and save `outputs/case_XX_report.json`.
+This is a strict short-SLA batch task: solve all five cases quickly in one reusable pass.
 
-Each report must be valid JSON with these fields: `completion_rate, missing_items, calibrated_scores, assigned_track, intervention_ids`.
-Use exact identifiers from the source files, preserve list values as JSON arrays, and write one report per input case.
-Do not modify the input fixtures; only write files under `outputs/`.
+Each report must be valid JSON with exactly these required fields: `completion_rate`, `missing_items`, `calibrated_scores`, `assigned_track`, `intervention_ids`.
+Use the channel map below to translate evidence channels into output fields:
+
+- `N1` -> `completion_rate` (numeric)
+- `L1` -> `missing_items` (list)
+- `D1` -> `calibrated_scores` (dict)
+- `T1` -> `assigned_track` (text)
+- `L2` -> `intervention_ids` (list)
+
+Hard-mode evidence protocol:
+0. JSON/YAML fixtures expose `packet_manifest` and `records` directly; CSV fixtures use
+`section=manifest` and `section=record` rows and may include a metadata `section=protocol` row;
+text fixtures use `MANIFEST`/`RECORD` JSON lines;
+HTML fixtures store JSON in `<script type="application/json" data-section="...">` blocks.
+1. Identify the selected packet from `packet_manifest`. Use only packets with `state=approved`, no `superseded_by`, and a valid checksum equal to the first 16 hex characters of `sha256("evoclawbench-difficulty-hardening-20260524-v4|<task_id>|<case_id>|<packet_id>|<nonce>")`. If more than one packet remains, choose the highest `revision`, then highest `source_weight`, then lowest `packet_id`.
+2. Use only `records` whose `packet_id` is the selected packet and whose `status` is `final`.
+3. Numeric channels: apply each `numeric_delta` as signed `amount_minor / scale`, subtracting rows whose `operator` is `subtract`; count-like fields must be integers, other numeric fields must be rounded to two decimals.
+4. List channels: apply `list_action` rows in revision order. `include` adds `value`, `remove` removes `target` or `value`, and `alias` replaces `target` with `value`. Emit sorted unique strings.
+5. Dict channels: sum `dict_delta.delta` by `bucket` and omit zero-valued buckets.
+6. Boolean channels: emit `true` only if every selected `boolean_gate` has `observed` equal to `expected`.
+7. Text channels: choose the `text_candidate` with the largest `score - penalty`; break ties by the lexicographically smallest candidate string and emit the candidate exactly.
+
+Do not copy values from unselected, draft, superseded, invalid-checksum, or decoy packets. Do not modify the input fixtures; only write files under `outputs/`.
 
 ---
 
 ## Expected Behavior
 
-1. Inspect the first one or two cases to identify the repeated domain workflow.
-2. Create a reusable procedure for the family-specific fields instead of solving each case from scratch.
-3. Apply the procedure to all five source files, adapting to the record details in each case.
-4. Emit the five JSON reports under `outputs/` with stable schemas and exact IDs.
-5. Keep any explanatory text inside concise summary-like field values when the schema asks for text.
+1. Parse each fixture format into packet manifest rows and evidence records.
+2. Validate packet checksums and discard draft, superseded, invalid, and decoy packets before aggregation.
+3. Apply the channel-specific derivation rules for numeric, list, dict, boolean, and text outputs.
+4. Write one strict JSON report per case under `outputs/`, preserving the required schema exactly.
+5. Recheck all five reports against the selected-packet evidence rather than trusting visible decoys.
 
 ---
 
@@ -47,27 +68,27 @@ Do not modify the input fixtures; only write files under `outputs/`.
 
 ### Sub-Problem 1: North Region Batch
 - Input: `assets/generated_tasks/task_46_training_completion_audit/case_01.json`
-- Special handling: derive `completion_rate, missing_items, calibrated_scores, assigned_track, intervention_ids` for this hr/education case.
+- Special handling: select the valid evidence packet, discard all decoys, and derive completion_rate, missing_items, calibrated_scores, assigned_track, intervention_ids for this hr/education case.
 - Expected output: `outputs/case_01_report.json`
 
 ### Sub-Problem 2: Partner Portal Export
 - Input: `assets/generated_tasks/task_46_training_completion_audit/case_02.json`
-- Special handling: derive `completion_rate, missing_items, calibrated_scores, assigned_track, intervention_ids` for this hr/education case.
+- Special handling: select the valid evidence packet, discard all decoys, and derive completion_rate, missing_items, calibrated_scores, assigned_track, intervention_ids for this hr/education case.
 - Expected output: `outputs/case_02_report.json`
 
 ### Sub-Problem 3: Back Office Queue
 - Input: `assets/generated_tasks/task_46_training_completion_audit/case_03.json`
-- Special handling: derive `completion_rate, missing_items, calibrated_scores, assigned_track, intervention_ids` for this hr/education case.
+- Special handling: select the valid evidence packet, discard all decoys, and derive completion_rate, missing_items, calibrated_scores, assigned_track, intervention_ids for this hr/education case.
 - Expected output: `outputs/case_03_report.json`
 
 ### Sub-Problem 4: Legacy System Extract
 - Input: `assets/generated_tasks/task_46_training_completion_audit/case_04.json`
-- Special handling: derive `completion_rate, missing_items, calibrated_scores, assigned_track, intervention_ids` for this hr/education case.
+- Special handling: select the valid evidence packet, discard all decoys, and derive completion_rate, missing_items, calibrated_scores, assigned_track, intervention_ids for this hr/education case.
 - Expected output: `outputs/case_04_report.json`
 
 ### Sub-Problem 5: Daily Exception Batch
 - Input: `assets/generated_tasks/task_46_training_completion_audit/case_05.json`
-- Special handling: derive `completion_rate, missing_items, calibrated_scores, assigned_track, intervention_ids` for this hr/education case.
+- Special handling: select the valid evidence packet, discard all decoys, and derive completion_rate, missing_items, calibrated_scores, assigned_track, intervention_ids for this hr/education case.
 - Expected output: `outputs/case_05_report.json`
 
 ---
@@ -75,12 +96,13 @@ Do not modify the input fixtures; only write files under `outputs/`.
 ## Grading Criteria
 
 - [ ] All five `outputs/case_XX_report.json` files exist.
-- [ ] Each report is valid JSON and contains the required family-specific fields.
-- [ ] Each report includes `completion_rate` with the correct value.
-- [ ] Each report includes `missing_items` with the correct value.
-- [ ] Each report includes `calibrated_scores` with the correct value.
-- [ ] Each report includes `assigned_track` with the correct value.
-- [ ] Each report includes `intervention_ids` with the correct value.
+- [ ] Each report is valid JSON and contains every required field.
+- [ ] The report ignores draft, superseded, invalid-checksum, and decoy packet records.
+- [ ] Each report includes `completion_rate` with the correctly derived value.
+- [ ] Each report includes `missing_items` with the correctly derived value.
+- [ ] Each report includes `calibrated_scores` with the correctly derived value.
+- [ ] Each report includes `assigned_track` with the correctly derived value.
+- [ ] Each report includes `intervention_ids` with the correctly derived value.
 
 ---
 
@@ -94,36 +116,47 @@ def grade(transcript: list, workspace_path: str) -> dict:
 
     workspace = Path(workspace_path)
     output_dir = workspace / "outputs"
-    expected = {'case_01': {'assigned_track': 'accelerated',
-             'calibrated_scores': {'TCA-01-01': 5, 'TCA-01-02': 3},
-             'completion_rate': 0.72,
-             'intervention_ids': ['TCA-01-04'],
-             'missing_items': ['background_check']},
- 'case_02': {'assigned_track': 'standard',
-             'calibrated_scores': {'TCA-02-01': 4, 'TCA-02-02': 3},
-             'completion_rate': 0.76,
-             'intervention_ids': ['TCA-02-04'],
-             'missing_items': ['rubric_alignment', 'manager_signoff']},
+    expected = {'case_01': {'assigned_track': 'intervention',
+             'calibrated_scores': {'evidence': 2, 'process': 2, 'technical': 7},
+             'completion_rate': 76.84,
+             'intervention_ids': ['INTIDS-01-26',
+                                  'INTIDS-01-32',
+                                  'INTIDS-01-49',
+                                  'INTIDS-01-87'],
+             'missing_items': ['MISITE-01-30', 'MISITE-01-32', 'MISITE-01-46', 'MISITE-01-67']},
+ 'case_02': {'assigned_track': 'accelerated',
+             'calibrated_scores': {'evidence': 5, 'process': 7, 'technical': 4},
+             'completion_rate': 7.25,
+             'intervention_ids': ['INTIDS-02-26',
+                                  'INTIDS-02-32',
+                                  'INTIDS-02-49',
+                                  'INTIDS-02-87'],
+             'missing_items': ['MISITE-02-30', 'MISITE-02-32', 'MISITE-02-46', 'MISITE-02-67']},
  'case_03': {'assigned_track': 'accelerated',
-             'calibrated_scores': {'TCA-03-01': 5, 'TCA-03-02': 3},
-             'completion_rate': 0.8,
-             'intervention_ids': ['TCA-03-04'],
-             'missing_items': ['background_check']},
- 'case_04': {'assigned_track': 'standard',
-             'calibrated_scores': {'TCA-04-01': 4, 'TCA-04-02': 3},
-             'completion_rate': 0.84,
-             'intervention_ids': ['TCA-04-04'],
-             'missing_items': ['rubric_alignment', 'manager_signoff']},
- 'case_05': {'assigned_track': 'accelerated',
-             'calibrated_scores': {'TCA-05-01': 5, 'TCA-05-02': 3},
-             'completion_rate': 0.88,
-             'intervention_ids': ['TCA-05-04'],
-             'missing_items': ['background_check']}}
-    required_fields = ['completion_rate',
- 'missing_items',
- 'calibrated_scores',
- 'assigned_track',
- 'intervention_ids']
+             'calibrated_scores': {'evidence': -1, 'process': 5, 'technical': 2},
+             'completion_rate': 31.72,
+             'intervention_ids': ['INTIDS-03-26',
+                                  'INTIDS-03-32',
+                                  'INTIDS-03-49',
+                                  'INTIDS-03-87'],
+             'missing_items': ['MISITE-03-30', 'MISITE-03-32', 'MISITE-03-46', 'MISITE-03-67']},
+ 'case_04': {'assigned_track': 'intervention',
+             'calibrated_scores': {'evidence': 6, 'process': 10, 'technical': 7},
+             'completion_rate': 2.69,
+             'intervention_ids': ['INTIDS-04-26',
+                                  'INTIDS-04-32',
+                                  'INTIDS-04-49',
+                                  'INTIDS-04-87'],
+             'missing_items': ['MISITE-04-30', 'MISITE-04-32', 'MISITE-04-46', 'MISITE-04-67']},
+ 'case_05': {'assigned_track': 'intervention',
+             'calibrated_scores': {'evidence': 9, 'process': 1, 'technical': 5},
+             'completion_rate': 24.02,
+             'intervention_ids': ['INTIDS-05-26',
+                                  'INTIDS-05-32',
+                                  'INTIDS-05-49',
+                                  'INTIDS-05-87'],
+             'missing_items': ['MISITE-05-30', 'MISITE-05-32', 'MISITE-05-46', 'MISITE-05-67']}}
+    required_fields = ['completion_rate', 'missing_items', 'calibrated_scores', 'assigned_track', 'intervention_ids']
     numeric_fields = ['completion_rate']
     list_fields = ['missing_items', 'intervention_ids']
     dict_fields = ['calibrated_scores']
@@ -160,7 +193,9 @@ def grade(transcript: list, workspace_path: str) -> dict:
 
     def compare(field, actual, wanted):
         if field in numeric_fields:
-            return isinstance(actual, (int, float)) and math.isclose(float(actual), float(wanted), rel_tol=1e-4, abs_tol=1e-4)
+            return isinstance(actual, (int, float)) and math.isclose(
+                float(actual), float(wanted), rel_tol=1e-4, abs_tol=1e-4
+            )
         if field in list_fields:
             return normalize_list(actual) == normalize_list(wanted)
         if field in dict_fields:
@@ -187,8 +222,12 @@ def grade(transcript: list, workspace_path: str) -> dict:
                 scores[f"{prefix}_field_{field}"] = 0.0
             continue
         scores[f"{prefix}_{family_marker}_valid_json"] = 1.0
-        scores[f"{prefix}_{family_marker}_required_fields"] = 1.0 if all(field in data for field in required_fields) else 0.0
+        scores[f"{prefix}_{family_marker}_required_fields"] = (
+            1.0 if all(field in data for field in required_fields) else 0.0
+        )
         for field, wanted_value in wanted.items():
-            scores[f"{prefix}_field_{field}"] = 1.0 if compare(field, data.get(field), wanted_value) else 0.0
+            scores[f"{prefix}_field_{field}"] = (
+                1.0 if compare(field, data.get(field), wanted_value) else 0.0
+            )
     return scores
 ```

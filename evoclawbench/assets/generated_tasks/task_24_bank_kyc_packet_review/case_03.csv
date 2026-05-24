@@ -1,6 +1,103 @@
-record_id,domain,signal,value,notes
-BKPR-03-01,Bank KYC Packet Review,ledger_total,1612.5,synthetic ledger_total evidence
-BKPR-03-02,Bank KYC Packet Review,exception_ids,"[""BKPR-03-03"", ""BKPR-03-04""]",synthetic exception_ids evidence
-BKPR-03-03,Bank KYC Packet Review,currencies,"[""USD""]",synthetic currencies evidence
-BKPR-03-04,Bank KYC Packet Review,tax_total,111.75,synthetic tax_total evidence
-BKPR-03-05,Bank KYC Packet Review,balanced,false,synthetic balanced evidence
+section,packet_id,nonce,checksum,state,superseded_by,source_weight,revision,channel,kind,record_id,status,operator,amount_minor,scale,action,value,target,bucket,delta,expected,observed,candidate,score,penalty,note
+protocol,,,,,,,,,,,,,,,,evoclawbench-hard-mode-v4,,,,,,,,,metadata row; use manifest and record rows for derivation
+manifest,PKT-E95D91,NON-5EC81F95F7,d40918275f13c371,approved,,90,3,,,,,,,,,,,,,,,,,,candidate evidence packet; validate before using records
+manifest,PKT-9DA657,NON-F177FA8AB7,ea7ffa039b7a1402,approved,PKT-E95D91,83,2,,,,,,,,,,,,,,,,,,candidate evidence packet; validate before using records
+manifest,PKT-CE3138,NON-73138B7BF9,59e8affd7560d8d0,approved,,76,1,,,,,,,,,,,,,,,,,,candidate evidence packet; validate before using records
+manifest,PKT-79C7F8,NON-228F2F6041,9d7caff682f02d98,draft,,69,4,,,,,,,,,,,,,,,,,,candidate evidence packet; validate before using records
+record,PKT-79C7F8,,,,,,1,B1,boolean_gate,NOI-0742AADF,final,,,,,,,,,clear,clear,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,2,B1,boolean_gate,NOI-69E5F4AA,draft,,,,,,,,,clear,clear,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,2,B1,boolean_gate,NOI-8071D7F1,draft,,,,,,,,,clear,blocked,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,1,B1,boolean_gate,NOI-B81EF91E,final,,,,,,,,,clear,clear,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,1,B1,boolean_gate,NOI-E2B5AB14,final,,,,,,,,,clear,blocked,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,2,L1,list_action,NOI-091D0F57,draft,,,,include,EXCIDS-03-97,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,1,L1,list_action,NOI-3622119B,final,,,,include,EXCIDS-03-15,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,2,L1,list_action,NOI-581D9E65,draft,,,,include,EXCIDS-03-85,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,1,L1,list_action,NOI-C5D79D97,final,,,,include,EXCIDS-03-22,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,1,L1,list_action,NOI-DBF08820,final,,,,include,EXCIDS-03-73,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,1,L2,list_action,NOI-4CA80A93,final,,,,include,GBP,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,2,L2,list_action,NOI-6BD8BE60,draft,,,,include,AUD,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,2,L2,list_action,NOI-76C08AA8,draft,,,,include,CAD,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,1,L2,list_action,NOI-8EC4EE6C,final,,,,include,CAD,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,1,L2,list_action,NOI-C608817C,final,,,,include,AUD,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,1,N1,numeric_delta,NOI-11F5BEAA,final,add,1976,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,2,N1,numeric_delta,NOI-288085C8,draft,add,4877,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,1,N1,numeric_delta,NOI-32083B3E,final,add,4686,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,2,N1,numeric_delta,NOI-C8C999FC,draft,add,4918,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,1,N1,numeric_delta,NOI-EB295DA9,final,add,2869,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,2,N2,numeric_delta,NOI-3CFFF7BF,draft,add,5073,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,1,N2,numeric_delta,NOI-4C6BE5B3,final,add,1275,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,1,N2,numeric_delta,NOI-7EE94F9A,final,add,972,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,2,N2,numeric_delta,NOI-D7A7146C,draft,add,865,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-79C7F8,,,,,,1,N2,numeric_delta,NOI-E37034A4,final,add,6417,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,1,B1,boolean_gate,NOI-23F43EAC,final,,,,,,,,,clear,blocked,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,1,B1,boolean_gate,NOI-2BD25404,final,,,,,,,,,clear,clear,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,1,B1,boolean_gate,NOI-4009DEBF,final,,,,,,,,,clear,clear,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,2,B1,boolean_gate,NOI-7B737A28,draft,,,,,,,,,clear,clear,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,2,B1,boolean_gate,NOI-CD5C9691,draft,,,,,,,,,clear,blocked,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,2,L1,list_action,NOI-31403069,draft,,,,include,EXCIDS-03-24,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,1,L1,list_action,NOI-3B323736,final,,,,include,EXCIDS-03-11,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,2,L1,list_action,NOI-71F893F4,draft,,,,include,EXCIDS-03-14,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,1,L1,list_action,NOI-9F432291,final,,,,include,EXCIDS-03-99,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,1,L1,list_action,NOI-BB7FA9C3,final,,,,include,EXCIDS-03-22,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,1,L2,list_action,NOI-47DF25B4,final,,,,include,EUR,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,1,L2,list_action,NOI-6337E347,final,,,,include,JPY,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,1,L2,list_action,NOI-73D49A92,final,,,,include,GBP,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,2,L2,list_action,NOI-9B0ADD35,draft,,,,include,CAD,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,2,L2,list_action,NOI-B91BB4AB,draft,,,,include,JPY,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,1,N1,numeric_delta,NOI-2888EFE1,final,add,4277,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,2,N1,numeric_delta,NOI-54ACEE2E,draft,add,5456,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,1,N1,numeric_delta,NOI-71C634CF,final,add,2800,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,1,N1,numeric_delta,NOI-A0833BEA,final,add,4864,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,2,N1,numeric_delta,NOI-C86BBF31,draft,add,7146,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,1,N2,numeric_delta,NOI-389E035F,final,add,6073,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,1,N2,numeric_delta,NOI-6E7CEB39,final,add,1897,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,1,N2,numeric_delta,NOI-B8DBF3E7,final,add,6253,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,2,N2,numeric_delta,NOI-BEF3AEB8,draft,add,433,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-9DA657,,,,,,2,N2,numeric_delta,NOI-C7B67862,draft,add,7981,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,1,B1,boolean_gate,NOI-6437C4D5,final,,,,,,,,,clear,clear,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,1,B1,boolean_gate,NOI-96BD91D9,final,,,,,,,,,clear,clear,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,2,B1,boolean_gate,NOI-A6C6AA30,draft,,,,,,,,,clear,clear,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,1,B1,boolean_gate,NOI-A96E3D41,final,,,,,,,,,clear,blocked,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,2,B1,boolean_gate,NOI-F15944EC,draft,,,,,,,,,clear,blocked,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,1,L1,list_action,NOI-2A1D2BA9,final,,,,include,EXCIDS-03-13,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,1,L1,list_action,NOI-42224C6C,final,,,,include,EXCIDS-03-43,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,2,L1,list_action,NOI-66CECC81,draft,,,,include,EXCIDS-03-63,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,2,L1,list_action,NOI-A7C47BC6,draft,,,,include,EXCIDS-03-87,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,1,L1,list_action,NOI-D213CDF3,final,,,,include,EXCIDS-03-105,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,1,L2,list_action,NOI-04BEBEA8,final,,,,include,EUR,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,2,L2,list_action,NOI-335AE48B,draft,,,,include,CAD,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,1,L2,list_action,NOI-3F90A057,final,,,,include,EUR,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,2,L2,list_action,NOI-DFFB2B28,draft,,,,include,CAD,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,1,L2,list_action,NOI-E0EC3C3E,final,,,,include,CHF,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,1,N1,numeric_delta,NOI-24748705,final,add,5638,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,2,N1,numeric_delta,NOI-8035E000,draft,add,389,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,1,N1,numeric_delta,NOI-81F8D4B7,final,add,4365,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,2,N1,numeric_delta,NOI-AE964C59,draft,add,6839,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,1,N1,numeric_delta,NOI-B22F22C2,final,add,2743,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,2,N2,numeric_delta,NOI-0CE30748,draft,add,937,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,1,N2,numeric_delta,NOI-84FF8A8A,final,add,8616,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,1,N2,numeric_delta,NOI-99A02BA3,final,add,399,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,2,N2,numeric_delta,NOI-DF79479A,draft,add,3139,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-CE3138,,,,,,1,N2,numeric_delta,NOI-FFE0D37D,final,add,4431,100,,,,,,,,,,,decoy from unselected or invalid packet
+record,PKT-E95D91,,,,,,3,B1,boolean_gate,BOL-01F15629,final,,,,,,,,,clear,clear,,,,field is true only when all selected gates match expected
+record,PKT-E95D91,,,,,,3,B1,boolean_gate,BOL-92F6950A,final,,,,,,,,,clear,clear,,,,field is true only when all selected gates match expected
+record,PKT-E95D91,,,,,,3,B1,boolean_gate,BOL-D788EC86,final,,,,,,,,,clear,clear,,,,field is true only when all selected gates match expected
+record,PKT-E95D91,,,,,,3,B1,boolean_gate,BOL-F98FFB1C,final,,,,,,,,,clear,clear,,,,field is true only when all selected gates match expected
+record,PKT-E95D91,,,,,,3,L1,list_action,LST-0FDA24F7,final,,,,include,EXCIDS-03-19,,,,,,,,,include unless a later remove or alias targets it
+record,PKT-E95D91,,,,,,3,L1,list_action,LST-34A1180D,final,,,,include,EXCIDS-03-30,,,,,,,,,include unless a later remove or alias targets it
+record,PKT-E95D91,,,,,,3,L1,list_action,LST-3529BCF9,final,,,,remove,EXCIDS-03-DECOY,EXCIDS-03-DECOY,,,,,,,,remove this candidate if it appears in a lower revision
+record,PKT-E95D91,,,,,,3,L1,list_action,LST-B3BB3961,final,,,,include,EXCIDS-03-42,,,,,,,,,include unless a later remove or alias targets it
+record,PKT-E95D91,,,,,,3,L1,list_action,LST-F6668121,final,,,,include,EXCIDS-03-16,,,,,,,,,include unless a later remove or alias targets it
+record,PKT-E95D91,,,,,,3,L2,list_action,LST-05FBE834,final,,,,remove,CUR-03-DECOY,CUR-03-DECOY,,,,,,,,remove this candidate if it appears in a lower revision
+record,PKT-E95D91,,,,,,3,L2,list_action,LST-89EDA51B,final,,,,include,USD,,,,,,,,,include unless a later remove or alias targets it
+record,PKT-E95D91,,,,,,3,L2,list_action,LST-A39F3101,final,,,,include,CHF,,,,,,,,,include unless a later remove or alias targets it
+record,PKT-E95D91,,,,,,3,N1,numeric_delta,NUM-68E3959C,final,add,2982,100,,,,,,,,,,,apply signed amount_minor divided by scale
+record,PKT-E95D91,,,,,,3,N1,numeric_delta,NUM-74980ED5,final,subtract,2286,100,,,,,,,,,,,apply signed amount_minor divided by scale
+record,PKT-E95D91,,,,,,3,N1,numeric_delta,NUM-7E8B683D,final,add,2772,100,,,,,,,,,,,apply signed amount_minor divided by scale
+record,PKT-E95D91,,,,,,3,N1,numeric_delta,NUM-A2C37A2C,final,subtract,645,100,,,,,,,,,,,apply signed amount_minor divided by scale
+record,PKT-E95D91,,,,,,3,N1,numeric_delta,NUM-A763ABB7,final,add,4234,100,,,,,,,,,,,apply signed amount_minor divided by scale
+record,PKT-E95D91,,,,,,3,N2,numeric_delta,NUM-10272E76,final,add,886,100,,,,,,,,,,,apply signed amount_minor divided by scale
+record,PKT-E95D91,,,,,,3,N2,numeric_delta,NUM-1D3CFDEE,final,add,3245,100,,,,,,,,,,,apply signed amount_minor divided by scale
+record,PKT-E95D91,,,,,,3,N2,numeric_delta,NUM-6B9B6798,final,subtract,532,100,,,,,,,,,,,apply signed amount_minor divided by scale
+record,PKT-E95D91,,,,,,3,N2,numeric_delta,NUM-BC3F5B29,final,add,1522,100,,,,,,,,,,,apply signed amount_minor divided by scale
+record,PKT-E95D91,,,,,,3,N2,numeric_delta,NUM-C0B83897,final,subtract,2603,100,,,,,,,,,,,apply signed amount_minor divided by scale

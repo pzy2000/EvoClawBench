@@ -3,7 +3,7 @@ id: task_30_nda_obligation_review
 name: Nda Obligation Review
 category: legal_ops
 grading_type: automated
-timeout_seconds: 600
+timeout_seconds: 10
 sub_problems: 5
 skill_category: legal
 task_family: Legal
@@ -18,28 +18,49 @@ workspace_files:
 
 # Nda Obligation Review
 
-Process five fixture-backed legal cases. The files share a workflow pattern but require domain-specific parsing, normalization, and reporting.
+Process five hard-mode fixture-backed legal cases. Each case includes competing evidence packets, stale revisions, and decoy records; only the selected packet should drive the final report.
 
 ---
 
 ## Prompt
 
-You have 5 synthetic nda obligation review fixture files under `assets/generated_tasks/task_30_nda_obligation_review/`.
-For each input file, extract clause labels, parties, dates, missing fields, and risky terms and save `outputs/case_XX_report.json`.
+You have 5 hard-mode nda obligation review fixture files under `assets/generated_tasks/task_30_nda_obligation_review/`.
+For each input file, derive the required report from the evidence protocol and save `outputs/case_XX_report.json`.
+This is a strict short-SLA batch task: solve all five cases quickly in one reusable pass.
 
-Each report must be valid JSON with these fields: `clause_labels, missing_fields, high_risk_terms, parties, effective_date`.
-Use exact identifiers from the source files, preserve list values as JSON arrays, and write one report per input case.
-Do not modify the input fixtures; only write files under `outputs/`.
+Each report must be valid JSON with exactly these required fields: `clause_labels`, `missing_fields`, `high_risk_terms`, `parties`, `effective_date`.
+Use the channel map below to translate evidence channels into output fields:
+
+- `L1` -> `clause_labels` (list)
+- `L2` -> `missing_fields` (list)
+- `L3` -> `high_risk_terms` (list)
+- `L4` -> `parties` (list)
+- `T1` -> `effective_date` (text)
+
+Hard-mode evidence protocol:
+0. JSON/YAML fixtures expose `packet_manifest` and `records` directly; CSV fixtures use
+`section=manifest` and `section=record` rows and may include a metadata `section=protocol` row;
+text fixtures use `MANIFEST`/`RECORD` JSON lines;
+HTML fixtures store JSON in `<script type="application/json" data-section="...">` blocks.
+1. Identify the selected packet from `packet_manifest`. Use only packets with `state=approved`, no `superseded_by`, and a valid checksum equal to the first 16 hex characters of `sha256("evoclawbench-difficulty-hardening-20260524-v4|<task_id>|<case_id>|<packet_id>|<nonce>")`. If more than one packet remains, choose the highest `revision`, then highest `source_weight`, then lowest `packet_id`.
+2. Use only `records` whose `packet_id` is the selected packet and whose `status` is `final`.
+3. Numeric channels: apply each `numeric_delta` as signed `amount_minor / scale`, subtracting rows whose `operator` is `subtract`; count-like fields must be integers, other numeric fields must be rounded to two decimals.
+4. List channels: apply `list_action` rows in revision order. `include` adds `value`, `remove` removes `target` or `value`, and `alias` replaces `target` with `value`. Emit sorted unique strings.
+5. Dict channels: sum `dict_delta.delta` by `bucket` and omit zero-valued buckets.
+6. Boolean channels: emit `true` only if every selected `boolean_gate` has `observed` equal to `expected`.
+7. Text channels: choose the `text_candidate` with the largest `score - penalty`; break ties by the lexicographically smallest candidate string and emit the candidate exactly.
+
+Do not copy values from unselected, draft, superseded, invalid-checksum, or decoy packets. Do not modify the input fixtures; only write files under `outputs/`.
 
 ---
 
 ## Expected Behavior
 
-1. Inspect the first one or two cases to identify the repeated domain workflow.
-2. Create a reusable procedure for the family-specific fields instead of solving each case from scratch.
-3. Apply the procedure to all five source files, adapting to the record details in each case.
-4. Emit the five JSON reports under `outputs/` with stable schemas and exact IDs.
-5. Keep any explanatory text inside concise summary-like field values when the schema asks for text.
+1. Parse each fixture format into packet manifest rows and evidence records.
+2. Validate packet checksums and discard draft, superseded, invalid, and decoy packets before aggregation.
+3. Apply the channel-specific derivation rules for numeric, list, dict, boolean, and text outputs.
+4. Write one strict JSON report per case under `outputs/`, preserving the required schema exactly.
+5. Recheck all five reports against the selected-packet evidence rather than trusting visible decoys.
 
 ---
 
@@ -47,27 +68,27 @@ Do not modify the input fixtures; only write files under `outputs/`.
 
 ### Sub-Problem 1: North Region Batch
 - Input: `assets/generated_tasks/task_30_nda_obligation_review/case_01.txt`
-- Special handling: derive `clause_labels, missing_fields, high_risk_terms, parties, effective_date` for this legal case.
+- Special handling: select the valid evidence packet, discard all decoys, and derive clause_labels, missing_fields, high_risk_terms, parties, effective_date for this legal case.
 - Expected output: `outputs/case_01_report.json`
 
 ### Sub-Problem 2: Partner Portal Export
 - Input: `assets/generated_tasks/task_30_nda_obligation_review/case_02.txt`
-- Special handling: derive `clause_labels, missing_fields, high_risk_terms, parties, effective_date` for this legal case.
+- Special handling: select the valid evidence packet, discard all decoys, and derive clause_labels, missing_fields, high_risk_terms, parties, effective_date for this legal case.
 - Expected output: `outputs/case_02_report.json`
 
 ### Sub-Problem 3: Back Office Queue
 - Input: `assets/generated_tasks/task_30_nda_obligation_review/case_03.txt`
-- Special handling: derive `clause_labels, missing_fields, high_risk_terms, parties, effective_date` for this legal case.
+- Special handling: select the valid evidence packet, discard all decoys, and derive clause_labels, missing_fields, high_risk_terms, parties, effective_date for this legal case.
 - Expected output: `outputs/case_03_report.json`
 
 ### Sub-Problem 4: Legacy System Extract
 - Input: `assets/generated_tasks/task_30_nda_obligation_review/case_04.txt`
-- Special handling: derive `clause_labels, missing_fields, high_risk_terms, parties, effective_date` for this legal case.
+- Special handling: select the valid evidence packet, discard all decoys, and derive clause_labels, missing_fields, high_risk_terms, parties, effective_date for this legal case.
 - Expected output: `outputs/case_04_report.json`
 
 ### Sub-Problem 5: Daily Exception Batch
 - Input: `assets/generated_tasks/task_30_nda_obligation_review/case_05.txt`
-- Special handling: derive `clause_labels, missing_fields, high_risk_terms, parties, effective_date` for this legal case.
+- Special handling: select the valid evidence packet, discard all decoys, and derive clause_labels, missing_fields, high_risk_terms, parties, effective_date for this legal case.
 - Expected output: `outputs/case_05_report.json`
 
 ---
@@ -75,12 +96,13 @@ Do not modify the input fixtures; only write files under `outputs/`.
 ## Grading Criteria
 
 - [ ] All five `outputs/case_XX_report.json` files exist.
-- [ ] Each report is valid JSON and contains the required family-specific fields.
-- [ ] Each report includes `clause_labels` with the correct value.
-- [ ] Each report includes `missing_fields` with the correct value.
-- [ ] Each report includes `high_risk_terms` with the correct value.
-- [ ] Each report includes `parties` with the correct value.
-- [ ] Each report includes `effective_date` with the correct value.
+- [ ] Each report is valid JSON and contains every required field.
+- [ ] The report ignores draft, superseded, invalid-checksum, and decoy packet records.
+- [ ] Each report includes `clause_labels` with the correctly derived value.
+- [ ] Each report includes `missing_fields` with the correctly derived value.
+- [ ] Each report includes `high_risk_terms` with the correctly derived value.
+- [ ] Each report includes `parties` with the correctly derived value.
+- [ ] Each report includes `effective_date` with the correctly derived value.
 
 ---
 
@@ -94,36 +116,62 @@ def grade(transcript: list, workspace_path: str) -> dict:
 
     workspace = Path(workspace_path)
     output_dir = workspace / "outputs"
-    expected = {'case_01': {'clause_labels': ['confidentiality', 'termination', 'liability'],
-             'effective_date': '2026-07-11',
-             'high_risk_terms': ['auto-renewal'],
-             'missing_fields': ['effective_date'],
-             'parties': ['Nda Obligation Review Provider', 'Nda Obligation Review Client']},
- 'case_02': {'clause_labels': ['confidentiality', 'termination'],
-             'effective_date': '2026-07-12',
-             'high_risk_terms': ['auto-renewal'],
-             'missing_fields': ['governing_law'],
-             'parties': ['Nda Obligation Review Provider', 'Nda Obligation Review Client']},
- 'case_03': {'clause_labels': ['confidentiality', 'termination', 'liability'],
-             'effective_date': '2026-07-13',
-             'high_risk_terms': ['unlimited liability'],
-             'missing_fields': ['effective_date'],
-             'parties': ['Nda Obligation Review Provider', 'Nda Obligation Review Client']},
- 'case_04': {'clause_labels': ['confidentiality', 'termination'],
-             'effective_date': '2026-07-14',
-             'high_risk_terms': ['auto-renewal'],
-             'missing_fields': ['governing_law'],
-             'parties': ['Nda Obligation Review Provider', 'Nda Obligation Review Client']},
- 'case_05': {'clause_labels': ['confidentiality', 'termination', 'liability'],
-             'effective_date': '2026-07-15',
-             'high_risk_terms': ['auto-renewal'],
-             'missing_fields': ['effective_date'],
-             'parties': ['Nda Obligation Review Provider', 'Nda Obligation Review Client']}}
-    required_fields = ['clause_labels',
- 'missing_fields',
- 'high_risk_terms',
- 'parties',
- 'effective_date']
+    expected = {'case_01': {'clause_labels': ['CLALAB-01-24', 'CLALAB-01-30', 'CLALAB-01-73'],
+             'effective_date': '2026-02-14',
+             'high_risk_terms': ['HIGRISTER-01-104',
+                                 'HIGRISTER-01-24',
+                                 'HIGRISTER-01-36',
+                                 'HIGRISTER-01-52'],
+             'missing_fields': ['MISFIE-01-102',
+                                'MISFIE-01-58',
+                                'MISFIE-01-71',
+                                'MISFIE-01-87'],
+             'parties': ['PAR-01-100', 'PAR-01-23', 'PAR-01-38', 'PAR-01-47']},
+ 'case_02': {'clause_labels': ['CLALAB-02-24', 'CLALAB-02-30', 'CLALAB-02-73'],
+             'effective_date': '2026-01-14',
+             'high_risk_terms': ['HIGRISTER-02-104',
+                                 'HIGRISTER-02-24',
+                                 'HIGRISTER-02-36',
+                                 'HIGRISTER-02-52'],
+             'missing_fields': ['MISFIE-02-102',
+                                'MISFIE-02-58',
+                                'MISFIE-02-71',
+                                'MISFIE-02-87'],
+             'parties': ['PAR-02-100', 'PAR-02-23', 'PAR-02-38', 'PAR-02-47']},
+ 'case_03': {'clause_labels': ['CLALAB-03-24', 'CLALAB-03-30', 'CLALAB-03-73'],
+             'effective_date': '2026-02-14',
+             'high_risk_terms': ['HIGRISTER-03-104',
+                                 'HIGRISTER-03-24',
+                                 'HIGRISTER-03-36',
+                                 'HIGRISTER-03-52'],
+             'missing_fields': ['MISFIE-03-102',
+                                'MISFIE-03-58',
+                                'MISFIE-03-71',
+                                'MISFIE-03-87'],
+             'parties': ['PAR-03-100', 'PAR-03-23', 'PAR-03-38', 'PAR-03-47']},
+ 'case_04': {'clause_labels': ['CLALAB-04-24', 'CLALAB-04-30', 'CLALAB-04-73'],
+             'effective_date': '2026-04-14',
+             'high_risk_terms': ['HIGRISTER-04-104',
+                                 'HIGRISTER-04-24',
+                                 'HIGRISTER-04-36',
+                                 'HIGRISTER-04-52'],
+             'missing_fields': ['MISFIE-04-102',
+                                'MISFIE-04-58',
+                                'MISFIE-04-71',
+                                'MISFIE-04-87'],
+             'parties': ['PAR-04-100', 'PAR-04-23', 'PAR-04-38', 'PAR-04-47']},
+ 'case_05': {'clause_labels': ['CLALAB-05-24', 'CLALAB-05-30', 'CLALAB-05-73'],
+             'effective_date': '2026-04-14',
+             'high_risk_terms': ['HIGRISTER-05-104',
+                                 'HIGRISTER-05-24',
+                                 'HIGRISTER-05-36',
+                                 'HIGRISTER-05-52'],
+             'missing_fields': ['MISFIE-05-102',
+                                'MISFIE-05-58',
+                                'MISFIE-05-71',
+                                'MISFIE-05-87'],
+             'parties': ['PAR-05-100', 'PAR-05-23', 'PAR-05-38', 'PAR-05-47']}}
+    required_fields = ['clause_labels', 'missing_fields', 'high_risk_terms', 'parties', 'effective_date']
     numeric_fields = []
     list_fields = ['clause_labels', 'missing_fields', 'high_risk_terms', 'parties']
     dict_fields = []
@@ -160,7 +208,9 @@ def grade(transcript: list, workspace_path: str) -> dict:
 
     def compare(field, actual, wanted):
         if field in numeric_fields:
-            return isinstance(actual, (int, float)) and math.isclose(float(actual), float(wanted), rel_tol=1e-4, abs_tol=1e-4)
+            return isinstance(actual, (int, float)) and math.isclose(
+                float(actual), float(wanted), rel_tol=1e-4, abs_tol=1e-4
+            )
         if field in list_fields:
             return normalize_list(actual) == normalize_list(wanted)
         if field in dict_fields:
@@ -187,8 +237,12 @@ def grade(transcript: list, workspace_path: str) -> dict:
                 scores[f"{prefix}_field_{field}"] = 0.0
             continue
         scores[f"{prefix}_{family_marker}_valid_json"] = 1.0
-        scores[f"{prefix}_{family_marker}_required_fields"] = 1.0 if all(field in data for field in required_fields) else 0.0
+        scores[f"{prefix}_{family_marker}_required_fields"] = (
+            1.0 if all(field in data for field in required_fields) else 0.0
+        )
         for field, wanted_value in wanted.items():
-            scores[f"{prefix}_field_{field}"] = 1.0 if compare(field, data.get(field), wanted_value) else 0.0
+            scores[f"{prefix}_field_{field}"] = (
+                1.0 if compare(field, data.get(field), wanted_value) else 0.0
+            )
     return scores
 ```

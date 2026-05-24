@@ -1,46 +1,1174 @@
 {
+  "difficulty_protocol": "evoclawbench-hard-mode-v4",
+  "seed_hint": "evoclawbench-difficulty-hardening-20260524-v4",
+  "task_id": "task_97_calendar_conflict_resolution",
   "case_id": "case_01",
-  "domain": "Calendar Conflict Resolution",
+  "case_title": "North Region Batch",
+  "channel_map": {
+    "L1": {
+      "field": "conflicts",
+      "kind": "list"
+    },
+    "L2": {
+      "field": "exceptions",
+      "kind": "list"
+    },
+    "L3": {
+      "field": "action_items",
+      "kind": "list"
+    },
+    "L4": {
+      "field": "rule_labels",
+      "kind": "list"
+    },
+    "B1": {
+      "field": "resolved",
+      "kind": "bool"
+    }
+  },
+  "packet_manifest": [
+    {
+      "packet_id": "PKT-C1F08C",
+      "nonce": "NON-C7223B3451",
+      "checksum": "cd25d2f6f99c0c89",
+      "state": "approved",
+      "revision": 3,
+      "superseded_by": "",
+      "source_weight": 90,
+      "note": "candidate evidence packet; validate before using records"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "nonce": "NON-A6C2DF37E0",
+      "checksum": "6ea512461ae78b31",
+      "state": "approved",
+      "revision": 2,
+      "superseded_by": "PKT-C1F08C",
+      "source_weight": 83,
+      "note": "candidate evidence packet; validate before using records"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "nonce": "NON-082C7ACF04",
+      "checksum": "195195454e77b080",
+      "state": "approved",
+      "revision": 1,
+      "superseded_by": "",
+      "source_weight": 76,
+      "note": "candidate evidence packet; validate before using records"
+    },
+    {
+      "packet_id": "PKT-01EF96",
+      "nonce": "NON-44D776A21A",
+      "checksum": "470d195ed3eb2c64",
+      "state": "draft",
+      "revision": 4,
+      "superseded_by": "",
+      "source_weight": 69,
+      "note": "candidate evidence packet; validate before using records"
+    }
+  ],
   "records": [
     {
-      "id": "CCR-01-01",
-      "signal": "conflicts",
-      "value": [
-        "MTG-01-02"
-      ],
-      "note": "synthetic conflicts evidence"
+      "packet_id": "PKT-01EF96",
+      "channel": "B1",
+      "record_id": "NOI-18A78520",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "boolean_gate",
+      "expected": "clear",
+      "observed": "blocked"
     },
     {
-      "id": "CCR-01-02",
-      "signal": "exceptions",
-      "value": [
-        "visa_window"
-      ],
-      "note": "synthetic exceptions evidence"
+      "packet_id": "PKT-01EF96",
+      "channel": "B1",
+      "record_id": "NOI-1C1A52DD",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "boolean_gate",
+      "expected": "clear",
+      "observed": "clear"
     },
     {
-      "id": "CCR-01-03",
-      "signal": "action_items",
-      "value": [
-        "Notify owner 1",
-        "Rebook slot 1"
-      ],
-      "note": "synthetic action_items evidence"
+      "packet_id": "PKT-01EF96",
+      "channel": "B1",
+      "record_id": "NOI-3FF97128",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "boolean_gate",
+      "expected": "clear",
+      "observed": "clear"
     },
     {
-      "id": "CCR-01-04",
-      "signal": "rule_labels",
-      "value": [
-        "travel_policy",
-        "calendar_conflict"
-      ],
-      "note": "synthetic rule_labels evidence"
+      "packet_id": "PKT-01EF96",
+      "channel": "B1",
+      "record_id": "NOI-985A1DC2",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "boolean_gate",
+      "expected": "clear",
+      "observed": "clear"
     },
     {
-      "id": "CCR-01-05",
-      "signal": "resolved",
-      "value": true,
-      "note": "synthetic resolved evidence"
+      "packet_id": "PKT-01EF96",
+      "channel": "B1",
+      "record_id": "NOI-F028D623",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "boolean_gate",
+      "expected": "clear",
+      "observed": "blocked"
+    },
+    {
+      "packet_id": "PKT-01EF96",
+      "channel": "L1",
+      "record_id": "NOI-16FFA3CD",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "CON-01-48"
+    },
+    {
+      "packet_id": "PKT-01EF96",
+      "channel": "L1",
+      "record_id": "NOI-289E6DF9",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "CON-01-34"
+    },
+    {
+      "packet_id": "PKT-01EF96",
+      "channel": "L1",
+      "record_id": "NOI-3597F864",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "CON-01-13"
+    },
+    {
+      "packet_id": "PKT-01EF96",
+      "channel": "L1",
+      "record_id": "NOI-89F54848",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "CON-01-71"
+    },
+    {
+      "packet_id": "PKT-01EF96",
+      "channel": "L1",
+      "record_id": "NOI-9CB9AC6B",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "CON-01-26"
+    },
+    {
+      "packet_id": "PKT-01EF96",
+      "channel": "L2",
+      "record_id": "NOI-0496B0C5",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "EXC-01-45"
+    },
+    {
+      "packet_id": "PKT-01EF96",
+      "channel": "L2",
+      "record_id": "NOI-08A3C18E",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "EXC-01-44"
+    },
+    {
+      "packet_id": "PKT-01EF96",
+      "channel": "L2",
+      "record_id": "NOI-8CC5A39F",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "EXC-01-17"
+    },
+    {
+      "packet_id": "PKT-01EF96",
+      "channel": "L2",
+      "record_id": "NOI-8E1EFC9F",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "EXC-01-93"
+    },
+    {
+      "packet_id": "PKT-01EF96",
+      "channel": "L2",
+      "record_id": "NOI-C82893D8",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "EXC-01-85"
+    },
+    {
+      "packet_id": "PKT-01EF96",
+      "channel": "L3",
+      "record_id": "NOI-36FF0449",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "ACTITE-01-26"
+    },
+    {
+      "packet_id": "PKT-01EF96",
+      "channel": "L3",
+      "record_id": "NOI-3DE37A2B",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "ACTITE-01-29"
+    },
+    {
+      "packet_id": "PKT-01EF96",
+      "channel": "L3",
+      "record_id": "NOI-744E1E49",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "ACTITE-01-86"
+    },
+    {
+      "packet_id": "PKT-01EF96",
+      "channel": "L3",
+      "record_id": "NOI-8998309B",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "ACTITE-01-92"
+    },
+    {
+      "packet_id": "PKT-01EF96",
+      "channel": "L3",
+      "record_id": "NOI-8FDF68B7",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "ACTITE-01-24"
+    },
+    {
+      "packet_id": "PKT-01EF96",
+      "channel": "L4",
+      "record_id": "NOI-2C7F4870",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "RULLAB-01-30"
+    },
+    {
+      "packet_id": "PKT-01EF96",
+      "channel": "L4",
+      "record_id": "NOI-42C92E9E",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "RULLAB-01-40"
+    },
+    {
+      "packet_id": "PKT-01EF96",
+      "channel": "L4",
+      "record_id": "NOI-83EA0348",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "RULLAB-01-36"
+    },
+    {
+      "packet_id": "PKT-01EF96",
+      "channel": "L4",
+      "record_id": "NOI-AF28F34E",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "RULLAB-01-67"
+    },
+    {
+      "packet_id": "PKT-01EF96",
+      "channel": "L4",
+      "record_id": "NOI-E0B21834",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "RULLAB-01-26"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "B1",
+      "record_id": "NOI-2257E158",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "boolean_gate",
+      "expected": "clear",
+      "observed": "clear"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "B1",
+      "record_id": "NOI-30B5445F",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "boolean_gate",
+      "expected": "clear",
+      "observed": "clear"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "B1",
+      "record_id": "NOI-5E82380D",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "boolean_gate",
+      "expected": "clear",
+      "observed": "clear"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "B1",
+      "record_id": "NOI-643F71B7",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "boolean_gate",
+      "expected": "clear",
+      "observed": "blocked"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "B1",
+      "record_id": "NOI-D6BD2322",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "boolean_gate",
+      "expected": "clear",
+      "observed": "blocked"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "L1",
+      "record_id": "NOI-014034DB",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "CON-01-63"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "L1",
+      "record_id": "NOI-36BDB5D0",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "CON-01-58"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "L1",
+      "record_id": "NOI-7F86B399",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "CON-01-34"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "L1",
+      "record_id": "NOI-8AEA007D",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "CON-01-82"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "L1",
+      "record_id": "NOI-C04DECEE",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "CON-01-67"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "L2",
+      "record_id": "NOI-5E36F906",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "EXC-01-97"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "L2",
+      "record_id": "NOI-86A7B0C0",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "EXC-01-101"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "L2",
+      "record_id": "NOI-9B000898",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "EXC-01-40"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "L2",
+      "record_id": "NOI-AF80111A",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "EXC-01-25"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "L2",
+      "record_id": "NOI-C6B933E0",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "EXC-01-76"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "L3",
+      "record_id": "NOI-246ADA06",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "ACTITE-01-96"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "L3",
+      "record_id": "NOI-46851F82",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "ACTITE-01-28"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "L3",
+      "record_id": "NOI-56A10F72",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "ACTITE-01-93"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "L3",
+      "record_id": "NOI-5875D911",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "ACTITE-01-98"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "L3",
+      "record_id": "NOI-8DFA28A6",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "ACTITE-01-80"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "L4",
+      "record_id": "NOI-0646BF08",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "RULLAB-01-22"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "L4",
+      "record_id": "NOI-16509F1D",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "RULLAB-01-50"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "L4",
+      "record_id": "NOI-6C4F8DED",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "RULLAB-01-30"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "L4",
+      "record_id": "NOI-8C7290FC",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "RULLAB-01-61"
+    },
+    {
+      "packet_id": "PKT-1315D5",
+      "channel": "L4",
+      "record_id": "NOI-A5B27A1D",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "RULLAB-01-54"
+    },
+    {
+      "channel": "B1",
+      "kind": "boolean_gate",
+      "record_id": "BOL-06679DB1",
+      "expected": "clear",
+      "observed": "clear",
+      "status": "final",
+      "revision": 3,
+      "note": "field is true only when all selected gates match expected",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "channel": "B1",
+      "kind": "boolean_gate",
+      "record_id": "BOL-306CD290",
+      "expected": "clear",
+      "observed": "clear",
+      "status": "final",
+      "revision": 3,
+      "note": "field is true only when all selected gates match expected",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "channel": "B1",
+      "kind": "boolean_gate",
+      "record_id": "BOL-63D62377",
+      "expected": "clear",
+      "observed": "clear",
+      "status": "final",
+      "revision": 3,
+      "note": "field is true only when all selected gates match expected",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "channel": "B1",
+      "kind": "boolean_gate",
+      "record_id": "BOL-6CCABF22",
+      "expected": "clear",
+      "observed": "clear",
+      "status": "final",
+      "revision": 3,
+      "note": "field is true only when all selected gates match expected",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "channel": "L1",
+      "kind": "list_action",
+      "record_id": "LST-004C653C",
+      "action": "include",
+      "value": "CON-01-20",
+      "status": "final",
+      "revision": 3,
+      "note": "include unless a later remove or alias targets it",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "channel": "L1",
+      "kind": "list_action",
+      "record_id": "LST-4F28CAB4",
+      "action": "include",
+      "value": "CON-01-16",
+      "status": "final",
+      "revision": 3,
+      "note": "include unless a later remove or alias targets it",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "channel": "L1",
+      "kind": "list_action",
+      "record_id": "LST-B0DEF233",
+      "action": "include",
+      "value": "CON-01-41",
+      "status": "final",
+      "revision": 3,
+      "note": "include unless a later remove or alias targets it",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "channel": "L1",
+      "kind": "list_action",
+      "record_id": "LST-FBEBA161",
+      "action": "remove",
+      "target": "CON-01-DECOY",
+      "value": "CON-01-DECOY",
+      "status": "final",
+      "revision": 3,
+      "note": "remove this candidate if it appears in a lower revision",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "channel": "L1",
+      "kind": "list_action",
+      "record_id": "LST-FD66D45F",
+      "action": "include",
+      "value": "CON-01-76",
+      "status": "final",
+      "revision": 3,
+      "note": "include unless a later remove or alias targets it",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "channel": "L2",
+      "kind": "list_action",
+      "record_id": "LST-19E2152A",
+      "action": "include",
+      "value": "EXC-01-92",
+      "status": "final",
+      "revision": 3,
+      "note": "include unless a later remove or alias targets it",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "channel": "L2",
+      "kind": "list_action",
+      "record_id": "LST-6C8AF2C4",
+      "action": "remove",
+      "target": "EXC-01-DECOY",
+      "value": "EXC-01-DECOY",
+      "status": "final",
+      "revision": 3,
+      "note": "remove this candidate if it appears in a lower revision",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "channel": "L2",
+      "kind": "list_action",
+      "record_id": "LST-CB35D2B7",
+      "action": "include",
+      "value": "EXC-01-23",
+      "status": "final",
+      "revision": 3,
+      "note": "include unless a later remove or alias targets it",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "channel": "L2",
+      "kind": "list_action",
+      "record_id": "LST-DA454E14",
+      "action": "include",
+      "value": "EXC-01-27",
+      "status": "final",
+      "revision": 3,
+      "note": "include unless a later remove or alias targets it",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "channel": "L2",
+      "kind": "list_action",
+      "record_id": "LST-E8AA32A5",
+      "action": "include",
+      "value": "EXC-01-96",
+      "status": "final",
+      "revision": 3,
+      "note": "include unless a later remove or alias targets it",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "channel": "L3",
+      "kind": "list_action",
+      "record_id": "LST-2ED6894A",
+      "action": "remove",
+      "target": "ACTITE-01-DECOY",
+      "value": "ACTITE-01-DECOY",
+      "status": "final",
+      "revision": 3,
+      "note": "remove this candidate if it appears in a lower revision",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "channel": "L3",
+      "kind": "list_action",
+      "record_id": "LST-3B865B4A",
+      "action": "include",
+      "value": "ACTITE-01-88",
+      "status": "final",
+      "revision": 3,
+      "note": "include unless a later remove or alias targets it",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "channel": "L3",
+      "kind": "list_action",
+      "record_id": "LST-3C234703",
+      "action": "include",
+      "value": "ACTITE-01-40",
+      "status": "final",
+      "revision": 3,
+      "note": "include unless a later remove or alias targets it",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "channel": "L3",
+      "kind": "list_action",
+      "record_id": "LST-8E80ACD2",
+      "action": "include",
+      "value": "ACTITE-01-32",
+      "status": "final",
+      "revision": 3,
+      "note": "include unless a later remove or alias targets it",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "channel": "L3",
+      "kind": "list_action",
+      "record_id": "LST-B2D0C865",
+      "action": "include",
+      "value": "ACTITE-01-66",
+      "status": "final",
+      "revision": 3,
+      "note": "include unless a later remove or alias targets it",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "channel": "L4",
+      "kind": "list_action",
+      "record_id": "LST-177E2842",
+      "action": "remove",
+      "target": "RULLAB-01-DECOY",
+      "value": "RULLAB-01-DECOY",
+      "status": "final",
+      "revision": 3,
+      "note": "remove this candidate if it appears in a lower revision",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "channel": "L4",
+      "kind": "list_action",
+      "record_id": "LST-605DE906",
+      "action": "include",
+      "value": "RULLAB-01-101",
+      "status": "final",
+      "revision": 3,
+      "note": "include unless a later remove or alias targets it",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "channel": "L4",
+      "kind": "list_action",
+      "record_id": "LST-9FC62E61",
+      "action": "include",
+      "value": "RULLAB-01-86",
+      "status": "final",
+      "revision": 3,
+      "note": "include unless a later remove or alias targets it",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "channel": "L4",
+      "kind": "list_action",
+      "record_id": "LST-AB307B74",
+      "action": "include",
+      "value": "RULLAB-01-71",
+      "status": "final",
+      "revision": 3,
+      "note": "include unless a later remove or alias targets it",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "channel": "L4",
+      "kind": "list_action",
+      "record_id": "LST-F07E92F0",
+      "action": "include",
+      "value": "RULLAB-01-48",
+      "status": "final",
+      "revision": 3,
+      "note": "include unless a later remove or alias targets it",
+      "packet_id": "PKT-C1F08C"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "B1",
+      "record_id": "NOI-0DFE4F3E",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "boolean_gate",
+      "expected": "clear",
+      "observed": "clear"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "B1",
+      "record_id": "NOI-2D3BF68A",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "boolean_gate",
+      "expected": "clear",
+      "observed": "clear"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "B1",
+      "record_id": "NOI-4C878FF0",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "boolean_gate",
+      "expected": "clear",
+      "observed": "blocked"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "B1",
+      "record_id": "NOI-9CB125A6",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "boolean_gate",
+      "expected": "clear",
+      "observed": "clear"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "B1",
+      "record_id": "NOI-FF646F1D",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "boolean_gate",
+      "expected": "clear",
+      "observed": "blocked"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "L1",
+      "record_id": "NOI-0F643AEA",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "CON-01-16"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "L1",
+      "record_id": "NOI-1C1E1F16",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "CON-01-33"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "L1",
+      "record_id": "NOI-B423E33B",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "CON-01-98"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "L1",
+      "record_id": "NOI-C030836F",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "CON-01-55"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "L1",
+      "record_id": "NOI-CFD71037",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "CON-01-48"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "L2",
+      "record_id": "NOI-0F38867F",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "EXC-01-98"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "L2",
+      "record_id": "NOI-75FF4BF6",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "EXC-01-58"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "L2",
+      "record_id": "NOI-95AF8C07",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "EXC-01-49"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "L2",
+      "record_id": "NOI-C9F14782",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "EXC-01-19"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "L2",
+      "record_id": "NOI-D536BD44",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "EXC-01-52"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "L3",
+      "record_id": "NOI-02105DB6",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "ACTITE-01-81"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "L3",
+      "record_id": "NOI-4030575E",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "ACTITE-01-54"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "L3",
+      "record_id": "NOI-4665EEF6",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "ACTITE-01-52"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "L3",
+      "record_id": "NOI-8CE4A9D9",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "ACTITE-01-99"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "L3",
+      "record_id": "NOI-8EA6A642",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "ACTITE-01-28"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "L4",
+      "record_id": "NOI-1A42F4CD",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "RULLAB-01-87"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "L4",
+      "record_id": "NOI-7936CBCC",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "RULLAB-01-18"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "L4",
+      "record_id": "NOI-7990223E",
+      "status": "draft",
+      "revision": 2,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "RULLAB-01-59"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "L4",
+      "record_id": "NOI-79A809C1",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "RULLAB-01-106"
+    },
+    {
+      "packet_id": "PKT-FBFEE2",
+      "channel": "L4",
+      "record_id": "NOI-82EC59F1",
+      "status": "final",
+      "revision": 1,
+      "note": "decoy from unselected or invalid packet",
+      "kind": "list_action",
+      "action": "include",
+      "value": "RULLAB-01-22"
     }
-  ]
+  ],
+  "rules_digest": {
+    "packet": "approved, not superseded, valid checksum, then highest revision/source_weight",
+    "numeric": "sum selected numeric_delta rows by signed amount_minor / scale",
+    "list": "include/remove/alias selected list_action rows and sort final strings",
+    "dict": "sum selected dict_delta rows by bucket and omit zero buckets",
+    "bool": "true only when every selected boolean_gate observed equals expected",
+    "text": "choose selected text_candidate with max score minus penalty"
+  }
 }
