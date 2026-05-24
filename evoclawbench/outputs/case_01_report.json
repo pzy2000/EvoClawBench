@@ -1,0 +1,27 @@
+{
+  "clause_labels": [
+    "CLALAB-01-38",
+    "CLALAB-01-60",
+    "CLALAB-01-61",
+    "CLALAB-01-82"
+  ],
+  "missing_fields": [
+    "MISFIE-01-22",
+    "MISFIE-01-23",
+    "MISFIE-01-74",
+    "MISFIE-01-87"
+  ],
+  "high_risk_terms": [
+    "HIGRISTER-01-50",
+    "HIGRISTER-01-58",
+    "HIGRISTER-01-84",
+    "HIGRISTER-01-93"
+  ],
+  "parties": [
+    "PAR-01-19",
+    "PAR-01-20",
+    "PAR-01-60",
+    "PAR-01-62"
+  ],
+  "effective_date": "2026-01-14"
+}

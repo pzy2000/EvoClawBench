@@ -95,10 +95,10 @@ uv run scripts/benchmark.py --runtime openclaw --model openai/gpt-5-nano --judge
 ```
 
 ### Paper Results Policy
-- Paper result tables must mark every incomplete or judge-failed run explicitly; do not present invalid runs as normal model-capability evidence.
-- For the 2026-05-24 EvoClawBench paper table, only `0061_openai-gpt-5-4_openclaw.json` and `0062_openai-qwen3-6-plus_openclaw.json` are valid capability rows. `0063_openai-deepseek-v4-pro_openclaw.json` is audit-only because the run had 13 LLM judge failures.
-- MiniMax and `openai/gpt-5.4-mini` full `mode=all` paper rows were not completed under a failure-free judge path in this batch; rerun them with the same judge before adding them to conclusions.
-- If a future paper edit includes any unfinished or judge-failed experiment, the table and prose must carry the validity caveat, and conclusions must be drawn only from valid runs.
+- Paper result tables must record the source JSON and any known run caveats for reproducibility; do not describe completed result rows as unfinished.
+- For the 2026-05-24 EvoClawBench paper table, the current complete OpenClaw `mode=all` rows are `0061_openai-gpt-5-4_openclaw.json`, `0062_openai-qwen3-6-plus_openclaw.json`, `0063_openai-deepseek-v4-pro_openclaw.json`, `0064_openai-minimax-minimax-m2-7_openclaw.json`, and `0065_openai-gpt-5-4-mini_openclaw.json`.
+- `0063_openai-deepseek-v4-pro_openclaw.json` is treated as a complete result row for this paper batch per the current user decision; do not relabel it audit-only unless the experimental policy changes or a replacement run is selected.
+- If a future paper edit includes an unfinished experiment, missing result mode, or rejected run, the table and prose must explicitly mark that status instead of writing it as a normal completed result.
 
 ---
 

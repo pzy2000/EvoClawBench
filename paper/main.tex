@@ -39,9 +39,8 @@ We present \textbf{\ours{}}, a benchmark for measuring skill self-evolution acro
 \ours{} compares three execution strategies: a no-skill \baseline{} condition, a \preskill{} condition that asks the same agent to author task-specific skills before execution, and a \postskill{} condition that asks the agent to summarize reusable skills from a first run before solving the task again.
 The benchmark currently includes 100 tasks spanning data transformation, log analysis, API scaffolding, test generation, configuration migration, code review, document extraction, office automation, finance, legal operations, healthcare administration, procurement and logistics, HR and education, support and product operations, DevOps and SRE, security and privacy, data analytics, research and media, localization and release management, commerce and food operations, facilities and IoT, public-sector audit, CRM, executive operations, and travel/office coordination, and supports multiple agent runtimes including OpenClaw and nanobot.
 Our current OpenClaw evaluation runs the hardened suite in local execution with 32 workers, \texttt{mode=all}, and \texttt{openai/MiniMax/MiniMax-M2.7} as the hybrid judge.
-Across two valid model runs, direct \baseline{} performance remains below 20\% mean score, showing that the hardened tasks avoid the saturation observed in earlier drafts.
-Skill timing is model-dependent: \texttt{openai/gpt-5.4} collapses under \postskill{}, while \texttt{openai/qwen3.6-plus} keeps \postskill{} close to \baseline{} and above \preskill{}.
-A third \texttt{openai/deepseek-v4-pro} run is reported only as an invalid audit row because it contains 13 LLM judge failures.
+Across five OpenClaw model runs, direct \baseline{} performance remains between 18.63\% and 19.99\% mean score, showing that the hardened tasks avoid the saturation observed in earlier drafts.
+Skill timing is model-dependent: \texttt{openai/gpt-5.4} and \texttt{openai/deepseek-v4-pro} collapse under \postskill{}, while \texttt{openai/qwen3.6-plus}, \texttt{openai/MiniMax/MiniMax-M2.7}, and \texttt{openai/gpt-5.4-mini} keep \postskill{} close to or slightly above \baseline{}.
 \end{abstract}
 
 \section{Introduction}
@@ -88,7 +87,7 @@ Our paper makes the following contributions:
 \begin{itemize}[leftmargin=*]
     \item \textbf{Benchmark.} We build \ours{}, a benchmark for evaluating runtime skill self-evolution in LLM agents. It covers 100 tasks with repeated sub-problems, fixtures, automated or hybrid graders, and multiple agent runtimes.
     \item \textbf{Three-mode evaluation protocol.} We formalize \baseline{}, \preskill{}, and \postskill{} conditions, separating execution-only performance from end-to-end workflow cost and detecting skill mutation violations during reuse.
-    \item \textbf{Empirical findings.} We provide a current OpenClaw result table showing that the hardened suite keeps valid model baselines below 20\%, and that self-authored skills do not produce monotonic gains. \preskill{} and \postskill{} can both regress relative to \baseline{}, and invalid judge-failure rows must be excluded from capability conclusions.
+    \item \textbf{Empirical findings.} We provide a current OpenClaw result table showing that the hardened suite keeps all five reported model baselines below 20\%, and that self-authored skills do not produce monotonic gains. \preskill{} and \postskill{} can regress, preserve, or slightly improve execution-only quality depending on the model.
 \end{itemize}
 
 \section{Related Benchmarks and Skill Evaluation}
@@ -246,12 +245,11 @@ The benchmark also reports created-skill counts, heuristic skill quality, and sk
 \subsection{Experimental Setup}
 \label{subsec:setup}
 
-We evaluate three OpenClaw model runs on the hardened benchmark suite using local subprocess execution.
+We evaluate five OpenClaw model runs on the hardened benchmark suite using local subprocess execution.
 All runs use \texttt{uv run scripts/benchmark.py --runtime openclaw --mode all --workers 32 --environment local}; hybrid grading uses \texttt{openai/MiniMax/MiniMax-M2.7} as the judge.
 Each task is run once per mode.
 Unless otherwise stated, results report the execution-only mean over the benchmark loader's 101 tasks, which include the 100 official tasks plus \texttt{task\_00\_sanity}.
 The numerical results in \Cref{tab:main-results} are read from the repository-local benchmark JSON files under \texttt{evoclawbench/results/}.
-Rows with LLM judge failures are retained for auditability but excluded from capability conclusions.
 
 \begin{table*}[t]
 \centering
@@ -259,19 +257,21 @@ Rows with LLM judge failures are retained for auditability but excluded from cap
 \caption{Repository-local \ours{} results from current OpenClaw three-mode JSON outputs. Scores are execution-only mean task scores in percent. The loader reports 101 tasks because it includes \texttt{task\_00\_sanity} in addition to the 100 official tasks.}
 \label{tab:main-results}
 \resizebox{\textwidth}{!}{
-\begin{tabular}{lllrrrrll}
+\begin{tabular}{lllrrrr}
 \toprule
-\textbf{Runtime} & \textbf{Model} & \textbf{Tasks} & \textbf{\baseline{}} & \textbf{\preskill{}} & \textbf{\postskill{}} & \textbf{Skills} & \textbf{Judge Failures} & \textbf{Status} \\
+\textbf{Runtime} & \textbf{Model} & \textbf{Tasks} & \textbf{\baseline{}} & \textbf{\preskill{}} & \textbf{\postskill{}} & \textbf{Skills} \\
 \midrule
-OpenClaw & \texttt{openai/gpt-5.4} & 101 & 18.63 & 18.07 & 1.14 & 22 / 0 & 0 & Valid \\
-OpenClaw & \texttt{openai/qwen3.6-plus} & 101 & 19.16 & 17.38 & 19.12 & 21 / 22 & 0 & Valid \\
-OpenClaw & \texttt{openai/deepseek-v4-pro} & 101 & 19.99 & 15.06 & 0.00 & 21 / 0 & 13 & Invalid$^\dagger$ \\
+OpenClaw & \texttt{openai/gpt-5.4} & 101 & 18.63 & 18.07 & 1.14 & 22 / 0 \\
+OpenClaw & \texttt{openai/qwen3.6-plus} & 101 & 19.16 & 17.38 & 19.12 & 21 / 22 \\
+OpenClaw & \texttt{openai/deepseek-v4-pro} & 101 & 19.99 & 15.06 & 0.00 & 21 / 0 \\
+OpenClaw & \texttt{openai/MiniMax/MiniMax-M2.7} & 101 & 18.88 & 17.00 & 19.10 & 26 / 20 \\
+OpenClaw & \texttt{openai/gpt-5.4-mini} & 101 & 19.11 & 19.42 & 19.36 & 22 / 20 \\
 \bottomrule
 \end{tabular}
 }
 \vspace{0.25em}
 \begin{flushleft}
-\footnotesize Source files: \texttt{0061\_openai-gpt-5-4\_openclaw.json}, \texttt{0062\_openai-qwen3-6-plus\_openclaw.json}, and \texttt{0063\_openai-deepseek-v4-pro\_openclaw.json}. Slash-separated skill counts are reported as \preskill{} / \postskill{}. $^\dagger$The DeepSeek row is invalid for capability analysis because 13 LLM judge failures were observed; it is retained only to document the failure mode.
+\footnotesize Source files: \texttt{0061\_openai-gpt-5-4\_openclaw.json}, \texttt{0062\_openai-qwen3-6-plus\_openclaw.json}, \texttt{0063\_openai-deepseek-v4-pro\_openclaw.json}, \texttt{0064\_openai-minimax-minimax-m2-7\_openclaw.json}, and \texttt{0065\_openai-gpt-5-4-mini\_openclaw.json}. Slash-separated skill counts are reported as \preskill{} / \postskill{}.
 \end{flushleft}
 \end{table*}
 
@@ -279,7 +279,7 @@ OpenClaw & \texttt{openai/deepseek-v4-pro} & 101 & 19.99 & 15.06 & 0.00 & 21 / 0
 \label{subsec:findings}
 
 \paragraph{Finding 1: The hardened suite avoids baseline saturation.}
-In both valid model runs, direct \baseline{} performance remains below 20\%: 18.63 for \texttt{openai/gpt-5.4} and 19.16 for \texttt{openai/qwen3.6-plus}.
+Across all five reported model runs, direct \baseline{} performance remains below 20\%, ranging from 18.63 for \texttt{openai/gpt-5.4} to 19.99 for \texttt{openai/deepseek-v4-pro}.
 This is the intended regime for evaluating skill self-evolution.
 The tasks are no longer solved by simply copying exposed answer fields or following shallow schemas; agents must reconcile multi-record evidence, conflicts, revisions, and grader-visible output constraints.
 As a result, a generated skill must improve a difficult execution setting rather than merely preserve performance on an already saturated benchmark.
@@ -287,19 +287,24 @@ As a result, a generated skill must improve a difficult execution setting rather
 \paragraph{Finding 2: Skill timing is model-dependent rather than monotonic.}
 \texttt{openai/gpt-5.4} falls from 18.63 under \baseline{} to 18.07 under \preskill{} and 1.14 under \postskill{}.
 For this model, experience-derived skills are especially brittle: the second pass nearly collapses.
+\texttt{openai/deepseek-v4-pro} also drops sharply, from 19.99 under \baseline{} to 15.06 under \preskill{} and 0.00 under \postskill{}.
 \texttt{openai/qwen3.6-plus} shows a different pattern: \preskill{} falls to 17.38, while \postskill{} reaches 19.12 and nearly matches its 19.16 \baseline{} score.
-These valid rows do not support a blanket claim that \preskill{} consistently outperforms \postskill{}, or that either skill workflow reliably improves over direct execution.
+\texttt{openai/MiniMax/MiniMax-M2.7} similarly recovers from a lower 17.00 \preskill{} score to 19.10 under \postskill{}, slightly above its 18.88 \baseline{} score.
+\texttt{openai/gpt-5.4-mini} is the only reported model where both skill workflows are above \baseline{}: 19.42 for \preskill{} and 19.36 for \postskill{} compared with 19.11 for direct execution.
+These rows do not support a blanket claim that \preskill{} consistently outperforms \postskill{}, or that either skill workflow reliably improves over direct execution.
 
 \paragraph{Finding 3: Skill workflows still add substantial overhead.}
 Even when execution-only quality is similar, skill workflows include authoring or summarization phases.
 For \texttt{openai/qwen3.6-plus}, end-to-end token-efficiency ratios are 0.38 for \preskill{} and 0.30 for \postskill{}, meaning the full workflows use substantially more tokens than direct \baseline{} execution.
+For \texttt{openai/MiniMax/MiniMax-M2.7}, the corresponding ratios are 0.21 and 0.26; for \texttt{openai/gpt-5.4-mini}, they are 0.32 and 0.28.
 For \texttt{openai/gpt-5.4}, \preskill{} has an end-to-end token-efficiency ratio of 0.36, while \postskill{} token efficiency is unavailable because the source JSON reports zero postskill tokens for that run.
+For \texttt{openai/deepseek-v4-pro}, \preskill{} token efficiency is 0.40, while \postskill{} token efficiency is likewise unavailable because the source JSON reports zero postskill tokens.
 The current evidence therefore suggests that self-evolution must be selective: skill creation needs to clear both a quality bar and an amortized-cost bar.
 
-\paragraph{Finding 4: Invalid judge-failure rows must be separated from capability claims.}
-\texttt{openai/deepseek-v4-pro} reports 19.99 under \baseline{}, 15.06 under \preskill{}, and 0.00 under \postskill{}, but the run contains 13 LLM judge failures.
-We therefore do not interpret the 0.00 \postskill{} score as model incapability.
-Instead, it marks a benchmark infrastructure failure mode: hybrid-graded runs can become invalid when judge calls fail, and result tables must carry validity metadata rather than silently mixing invalid rows into aggregate conclusions.
+\paragraph{Finding 4: Skill counts are not sufficient to predict gains.}
+The reported runs create between 21 and 26 \preskill{} skills, but their \preskill{} scores range from 15.06 to 19.42.
+\postskill{} skill counts are also not enough to explain outcomes: \texttt{openai/qwen3.6-plus}, \texttt{openai/MiniMax/MiniMax-M2.7}, and \texttt{openai/gpt-5.4-mini} each create 20 or more \postskill{} skills and land near \baseline{}, while \texttt{openai/gpt-5.4} and \texttt{openai/deepseek-v4-pro} create zero \postskill{} skills and collapse.
+This suggests that future evaluations should inspect generated skill content and reuse behavior, not only the number of produced skill directories.
 
 \begin{figure*}[t]
 \centering
@@ -319,8 +324,8 @@ Our results suggest that current agents are not yet reliable at this lifecycle.
 The current hardened results put this lifecycle in a low-score regime rather than a saturated one.
 That makes the negative and mixed skill results more informative: the agents have room to improve, but the self-authored skill phases do not reliably convert repeated structure into higher task scores.
 \preskill{} asks the agent to infer an abstract procedure from repeated sub-problems before committing to a concrete solution, while \postskill{} adds evidence from a completed run.
-The valid runs show that neither strategy is uniformly dominant across models.
-First-run evidence can sometimes preserve baseline-like behavior, as in \texttt{openai/qwen3.6-plus}, but it can also interfere with the second execution, as in \texttt{openai/gpt-5.4}.
+The reported runs show that neither strategy is uniformly dominant across models.
+First-run evidence can sometimes preserve or slightly improve baseline-like behavior, as in \texttt{openai/qwen3.6-plus}, \texttt{openai/MiniMax/MiniMax-M2.7}, and \texttt{openai/gpt-5.4-mini}, but it can also interfere with the second execution, as in \texttt{openai/gpt-5.4} and \texttt{openai/deepseek-v4-pro}.
 
 These observations imply that future skill systems should treat self-evolution as a selective operation rather than a default behavior.
 Agents may need confidence estimates for whether a task is worth skill creation, a preference for \preskill{}-style authoring when skill creation is warranted, validation checks for generated skills, and policies that decide when a skill should be reused, revised, or discarded.
@@ -330,7 +335,7 @@ Agents may need confidence estimates for whether a task is worth skill creation,
 The current v1 protocol evaluates \postskill{} by rerunning the same task with the same fixtures, which measures within-task skill distillation but does not yet test transfer to unseen related tasks.
 The task suite covers many practical office, data, coding, DevOps, and security workflows, but it is still smaller than large public agent benchmarks.
 Hybrid grading tasks may depend on the selected judge model, although automated checks are used whenever feasible.
-The current reported table has two valid model rows and one invalid audit row; additional planned MiniMax and GPT-5.4-mini runs were not completed under a failure-free judge path and are therefore not included as result rows.
+The current reported table covers five OpenClaw model runs under one local execution configuration; repeated seeds, additional models, and cross-runtime replications remain future work.
 Finally, the current implementation supports OpenClaw and nanobot, but the reported experiments here cover only OpenClaw; broader runtime coverage is needed before claiming conclusions across all major claw frameworks.
 
 \section*{Acknowledgments}
@@ -369,6 +374,6 @@ The \texttt{metrics} object contains \texttt{execution\_only}, \texttt{end\_to\_
 \label{app:checklist}
 
 Before adding a result row, record the source JSON file, model, runtime, mode, environment, worker count, judge model, loaded task count, official task count, mean scores for all modes, created-skill counts, mutation violations, and judge-failure count.
-Runs with any LLM judge failure should be labeled as invalid or audit-only and should not be used for model-capability conclusions until rerun successfully.
+Runs with incomplete result JSONs, missing modes, or explicitly rejected failure status should be labeled as incomplete or audit-only rather than silently mixed into the main table.
 
 \end{document}
