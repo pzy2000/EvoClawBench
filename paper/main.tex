@@ -297,16 +297,16 @@ The numerical results in \Cref{tab:main-results} are computed from the repositor
 \toprule
 \textbf{Runtime} & \textbf{Model} & \textbf{Loaded} & \textbf{\baseline{}} & \textbf{\preskill{}} & \textbf{\postskill{}} & \textbf{Skills} \\
 \midrule
-OpenClaw & \texttt{openai/gpt-5.4} & 101 & 18.63 & 18.07 & 1.14 & 22 / 0 \\
-OpenClaw & \texttt{openai/qwen3.6-plus} & 101 & 19.16 & 17.38 & 19.12 & 21 / 22 \\
-OpenClaw & \texttt{openai/deepseek-v4-pro} & 101 & 19.99 & 15.06 & 0.00 & 21 / 0 \\
-OpenClaw & \texttt{openai/MiniMax/MiniMax-M2.7} & 101 & 18.88 & 17.00 & 19.10 & 26 / 20 \\
-OpenClaw & \texttt{openai/gpt-5.4-mini} & 101 & 19.11 & 19.42 & 19.36 & 22 / 20 \\
-nanobot & \texttt{openai/gpt-5.4} & 101 & 96.13 & 96.73 & 96.17 & 101 / 100 \\
-nanobot & \texttt{openai/qwen3.6-plus} & 101 & 56.45 & 59.90 & 54.33 & 70 / 39 \\
-nanobot & \texttt{openai/deepseek-v4-pro} & 101 & 77.77 & 4.80 & 0.99 & 27 / 0 \\
-nanobot & \texttt{openai/MiniMax/MiniMax-M2.7} & 101 & 90.97 & 92.90 & 94.50 & 99 / 99 \\
-nanobot & \texttt{openai/gpt-5.4-mini} & 101 & 88.71 & 87.41 & 89.77 & 100 / 82 \\
+OpenClaw & \texttt{gpt-5.4} & 101 & 18.63 & 18.07 & 1.14 & 22 / 0 \\
+OpenClaw & \texttt{qwen3.6-plus} & 101 & 19.16 & 17.38 & 19.12 & 21 / 22 \\
+OpenClaw & \texttt{deepseek-v4-pro} & 101 & 19.99 & 15.06 & 0.00 & 21 / 0 \\
+OpenClaw & \texttt{MiniMax/MiniMax-M2.7} & 101 & 18.88 & 17.00 & 19.10 & 26 / 20 \\
+OpenClaw & \texttt{gpt-5.4-mini} & 101 & 19.11 & 19.42 & 19.36 & 22 / 20 \\
+nanobot & \texttt{gpt-5.4} & 101 & 96.13 & 96.73 & 96.17 & 101 / 100 \\
+nanobot & \texttt{qwen3.6-plus} & 101 & 56.45 & 59.90 & 54.33 & 70 / 39 \\
+nanobot & \texttt{deepseek-v4-pro} & 101 & 77.77 & 4.80 & 0.99 & 27 / 0 \\
+nanobot & \texttt{MiniMax/MiniMax-M2.7} & 101 & 90.97 & 92.90 & 94.50 & 99 / 99 \\
+nanobot & \texttt{gpt-5.4-mini} & 101 & 88.71 & 87.41 & 89.77 & 100 / 82 \\
 \bottomrule
 \end{tabular}
 }
@@ -316,24 +316,24 @@ nanobot & \texttt{openai/gpt-5.4-mini} & 101 & 88.71 & 87.41 & 89.77 & 100 / 82 
 \label{subsec:findings}
 
 \paragraph{Finding 1: Runtime scaffolding strongly changes the execution regime.}
-Under OpenClaw, direct \baseline{} performance remains below 20\%, ranging from 18.63 for \texttt{openai/gpt-5.4} to 19.99 for \texttt{openai/deepseek-v4-pro}.
-Under nanobot, direct \baseline{} scores are substantially higher, ranging from 56.45 for \texttt{openai/qwen3.6-plus} to 96.13 for \texttt{openai/gpt-5.4}.
+Under OpenClaw, direct \baseline{} performance remains below 20\%, ranging from 18.63 for \texttt{gpt-5.4} to 19.99 for \texttt{deepseek-v4-pro}.
+Under nanobot, direct \baseline{} scores are substantially higher, ranging from 56.45 for \texttt{qwen3.6-plus} to 96.13 for \texttt{gpt-5.4}.
 This contrast shows why \ours{} reports runtime as part of the experimental condition rather than treating the model identifier alone as sufficient.
 It should not be read as a leaderboard claim that one runtime is inherently superior, because the runtime also determines prompt wrapping, workspace setup, tool invocation, and usage extraction.
 The hardened tasks are designed to resist shallow copying of exposed answer fields or schemas: agents must reconcile multi-record evidence, conflicts, revisions, and grader-visible output constraints.
 As a result, a generated skill must improve the specific model-runtime execution setting rather than merely preserve performance on an already saturated benchmark.
 
 \paragraph{Finding 2: Skill timing is model-dependent rather than monotonic.}
-\texttt{openai/gpt-5.4} illustrates the runtime dependence sharply: OpenClaw falls from 18.63 under \baseline{} to 1.14 under \postskill{}, while nanobot stays above 96\% in all three modes.
-\texttt{openai/qwen3.6-plus} improves under nanobot \preskill{} but regresses under nanobot \postskill{}, whereas its OpenClaw row remains near 19\% for \baseline{} and \postskill{}.
-\texttt{openai/gpt-5.4-mini} improves under OpenClaw skill workflows and under nanobot \postskill{}, but its nanobot \preskill{} score is slightly below its nanobot \baseline{}.
+\texttt{gpt-5.4} illustrates the runtime dependence sharply: OpenClaw falls from 18.63 under \baseline{} to 1.14 under \postskill{}, while nanobot stays above 96\% in all three modes.
+\texttt{qwen3.6-plus} improves under nanobot \preskill{} but regresses under nanobot \postskill{}, whereas its OpenClaw row remains near 19\% for \baseline{} and \postskill{}.
+\texttt{gpt-5.4-mini} improves under OpenClaw skill workflows and under nanobot \postskill{}, but its nanobot \preskill{} score is slightly below its nanobot \baseline{}.
 These rows do not support a blanket claim that \preskill{} consistently outperforms \postskill{}, or that either skill workflow reliably improves over direct execution across runtimes.
 
 \paragraph{Finding 3: Skill workflows still add substantial overhead.}
 Even when execution-only quality is similar, skill workflows include authoring or summarization phases.
-For \texttt{openai/qwen3.6-plus}, end-to-end token-efficiency ratios are 0.38 for \preskill{} and 0.30 for \postskill{}, meaning the full workflows use substantially more tokens than direct \baseline{} execution.
-For \texttt{openai/MiniMax/MiniMax-M2.7}, the corresponding ratios are 0.21 and 0.26; for \texttt{openai/gpt-5.4-mini}, they are 0.32 and 0.28.
-For \texttt{openai/gpt-5.4}, \preskill{} has an end-to-end token-efficiency ratio of 0.36; for \texttt{openai/deepseek-v4-pro}, the corresponding ratio is 0.40.
+For \texttt{qwen3.6-plus}, end-to-end token-efficiency ratios are 0.38 for \preskill{} and 0.30 for \postskill{}, meaning the full workflows use substantially more tokens than direct \baseline{} execution.
+For \texttt{MiniMax/MiniMax-M2.7}, the corresponding ratios are 0.21 and 0.26; for \texttt{gpt-5.4-mini}, they are 0.32 and 0.28.
+For \texttt{gpt-5.4}, \preskill{} has an end-to-end token-efficiency ratio of 0.36; for \texttt{deepseek-v4-pro}, the corresponding ratio is 0.40.
 The current evidence therefore suggests that runtime skill creation must be selective: skill creation needs to clear both a quality bar and an amortized-cost bar.
 
 \paragraph{Finding 4: Skill counts are not sufficient to predict gains.}
@@ -346,7 +346,7 @@ Most observed regressions are therefore better explained by the quality and fit 
 \subsection{Subset Cost, Amortization, and Robustness Checks}
 \label{subsec:subset-checks}
 
-To address cost and judge-sensitivity concerns directly, we ran focused subset experiments on the 12 hybrid tasks using OpenClaw and \texttt{openai/gpt-5.4-mini}.
+To address cost and judge-sensitivity concerns directly, we ran focused subset experiments on the 12 hybrid tasks using OpenClaw and \texttt{gpt-5.4-mini}.
 \Cref{tab:subset-cost} shows the end-to-end resource tradeoff.
 On this subset, both skill workflows slightly reduce score while increasing tokens, cost, and wall-clock time.
 The negative score-per-extra-token values therefore make the cost-quality tradeoff explicit rather than hiding it behind execution-only scores.
@@ -367,8 +367,8 @@ Finally, we regraded the 36 task-mode outputs from the 12 hybrid-task subset wit
 Because hybrid scores combine deterministic checks with an LLM judgment, the regrade holds the automated sub-scores fixed and replaces only the LLM-judge component.
 One alternate judge shows high agreement with the original scores: Pearson correlation is 0.9970, mean absolute score delta is 0.0141, 35 of 36 pairs are within 0.05, and all 36 pairs are within 0.10.
 The largest disagreement is \texttt{task\_18\_dep\_audit} in \preskill{} (+0.0880).
-As a second check, \texttt{openai/gpt-5.4-mini} also preserves the overall trend, though less tightly: Pearson correlation is 0.9512, mean absolute score delta is 0.0609, and 30 of 36 pairs are within 0.10.
-The largest \texttt{openai/gpt-5.4-mini} disagreement is \texttt{task\_11\_web\_extraction} in \baseline{} (-0.3972).
+As a second check, \texttt{gpt-5.4-mini} also preserves the overall trend, though less tightly: Pearson correlation is 0.9512, mean absolute score delta is 0.0609, and 30 of 36 pairs are within 0.10.
+The largest \texttt{gpt-5.4-mini} disagreement is \texttt{task\_11\_web\_extraction} in \baseline{} (-0.3972).
 These subset audits reduce the concern that the reported hybrid-task pattern is an artifact of a single judge, while the remaining disagreements still motivate auditing high-stakes leaderboard claims.
 They do not remove judge dependence as a limitation; instead, they show how future benchmark releases should report both original and alternate-judge agreement when hybrid grading affects a result.
 
