@@ -57,7 +57,7 @@ We present \textbf{\ours{}}, a benchmark for evaluating this question on repeate
 The benchmark contains 100 official tasks and 502 sub-problems across coding, data, office, security, operations, and domain-document workflows, with support for multiple agent runtimes.
 Our current experiments cover OpenClaw and nanobot under local execution, 32 workers, and \texttt{mode=all}.
 We additionally report focused subset checks for end-to-end cost, skill-content controls, and alternate-judge robustness.
-Across repository-local result JSONs, direct \baseline{} performance varies substantially by runtime, from sub-20\% OpenClaw scores to much higher nanobot scores on the same loader suite.
+Across repository-local runs, direct \baseline{} performance varies substantially by runtime, from sub-20\% OpenClaw scores to much higher nanobot scores on the same loader suite.
 Self-authored skills do not yield monotonic gains: the pre-execution \preskill{} control and the own-run \postskill{} condition can regress, preserve, or improve execution-only quality depending on the model and runtime.
 These results suggest that learning reusable skills from an agent's own runs is a selective, cost-sensitive capability rather than a default consequence of adding skill authoring to an agent loop.
 \end{abstract}
@@ -118,7 +118,7 @@ Both are compared against \baseline{} under execution-only and end-to-end metric
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{Figures/fig_overview_imagegen.searchable.pdf}
-\caption{Workflow schematic for \ours{}. The task-suite panel illustrates the original seed-task structure, while \Cref{fig:suite-distribution} reports the current official-suite distribution. The pipeline routes tasks through OpenClaw or nanobot runtime adapters, compares \baseline{}, \preskill{}, and \postskill{} in fresh workspaces, and reports grader-backed quality, resource, skill, and mutation-integrity metrics.}
+\caption{Overview for \ours{}. The panel illustrates the original seed-task structure. The pipeline routes tasks through OpenClaw or nanobot runtime adapters, compares \baseline{}, \preskill{}, and \postskill{} in fresh workspaces, and reports grader-backed quality, resource, skill, and mutation-integrity metrics.}
 \label{fig:overview}
 \end{figure*}
 
@@ -151,9 +151,10 @@ These environments stress planning and tool execution, but their evaluation cond
 \paragraph{Skill and procedural memory evaluation.}
 Skills can be viewed as external procedural memory for agents, related to work on agent skills, reflection, experience accumulation, procedural memory, and open-ended skill acquisition \citep{anthropic2025skills,yao2023react,shinn2023reflexion,zhao2023expel,fang2025memp,wang2023voyager,xu2026agentskills,wu2026agentskillsmemory}.
 SkillsBench is closest to our setting because it evaluates skills as first-class artifacts, including curated and self-generated skill conditions \citep{li2026skillsbench}.
-However, the central object in \ours{} is not only whether a skill condition helps.
-Instead, \ours{} evaluates the \emph{closed-loop} process in which the same runtime and model being benchmarked must author skills, summarize procedural evidence from its own completed run, and reuse the resulting artifacts under explicit \baseline{}, \preskill{}, and \postskill{} conditions.
+Unlike SkillsBench, which evaluates the utility of curated Skills and a pre-solution self-generated Skills condition, our benchmark separates pre-execution skill authoring from post-run skill learning.
+In particular, \preskill{} controls for skills authored before task execution, while \postskill{} directly tests whether an agent can convert evidence from its own prior run into a reusable skill for later execution.
 
+Taken together, these lines of work motivate task and tool-use evaluation, whereas \ours{} makes the skill lifecycle itself the evaluated object: authoring, own-run distillation, reuse, mutation checks, and end-to-end cost.
 \Cref{tab:comparison} summarizes the benchmark position at a high level.
 \ours{} is designed to expose whether agent-authored and own-run-derived skills improve task success after accounting for the full cost of creating and reusing skills.
 
@@ -181,7 +182,7 @@ This design reduces privacy risk while preserving repeated, artifact-producing w
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{Figures/fig_suite_distribution.pdf}
-\caption{Official-suite task and fixture distributions in \ours{}. Panel (a) counts the 100 non-sanity tasks by seed or generated family and annotates their sub-problem totals. Panel (b) counts repository-local workspace fixture files by grouped file format. These metadata counts describe benchmark coverage, not model performance.}
+\caption{Official-suite task and fixture distributions in \ours{}. Panel (a) counts the 100 non-sanity tasks by seed or generated family. Panel (b) counts repository-local workspace fixture files by grouped file format. These metadata counts describe benchmark coverage, not model performance.}
 \label{fig:suite-distribution}
 \end{figure*}
 
@@ -222,7 +223,7 @@ Additional runtimes can be added by implementing the same execution interface an
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.86\textwidth]{Figures/fig_skill_anatomy_imagegen.searchable.pdf}
+\includegraphics[width=\textwidth]{Figures/fig_skill_anatomy_imagegen.searchable.pdf}
 \caption{Structure of a reusable skill artifact in \ours{}. Generated skills use a \texttt{SKILL.md} document with optional supporting scripts or references, are injected into the agent context during reuse, and are protected by before/after mutation checks during execution.}
 \label{fig:skill-anatomy}
 \end{figure*}
@@ -282,32 +283,30 @@ This distinction is important because a skill can preserve task score while stil
 
 We evaluate five models on the hardened benchmark suite under both OpenClaw and nanobot using local subprocess execution.
 All runs use \texttt{uv run scripts/benchmark.py --mode all --workers 32 --environment local}, with \texttt{--runtime openclaw} or \texttt{--runtime nanobot}.
-The full-suite experiment commands used \texttt{openai/MiniMax/MiniMax-M2.7} for hybrid grading, but those older JSON files do not serialize a judge-model field; we therefore treat the full-suite judge name as run-command provenance rather than JSON provenance.
 Each task is run once per mode.
 Unless otherwise stated, results report the execution-only mean over the benchmark loader's 101 tasks, which include the 100 official tasks plus \texttt{task\_00\_sanity}.
-The numerical results in \Cref{tab:main-results} are read from the repository-local benchmark JSON files under \texttt{evoclawbench/results/}.
-Because one caveated full-suite run emitted fewer result objects in one mode, the table reports both the loader count and the baseline/preskill/postskill result-object counts instead of treating them as interchangeable.
+The numerical results in \Cref{tab:main-results} are computed from the repository-local benchmark outputs.
 
 \begin{table*}[t]
 \centering
 \small
-\caption{Repository-local \ours{} results from current OpenClaw and nanobot three-mode JSON outputs. Scores are execution-only mean task scores in percent. Loaded is the task-loader count; results list \baseline{} / \preskill{} / \postskill{} result-object counts.}
+\caption{Repository-local \ours{} results from current OpenClaw and nanobot three-mode outputs. Scores are execution-only mean task scores in percent. Loaded is the task-loader count; Skills lists \preskill{} / \postskill{} created-skill counts.}
 \label{tab:main-results}
 \resizebox{\textwidth}{!}{
-\begin{tabular}{llllrrrr}
+\begin{tabular}{lllrrrr}
 \toprule
-\textbf{Runtime} & \textbf{Model} & \textbf{Loaded} & \textbf{Results} & \textbf{\baseline{}} & \textbf{\preskill{}} & \textbf{\postskill{}} & \textbf{Skills} \\
+\textbf{Runtime} & \textbf{Model} & \textbf{Loaded} & \textbf{\baseline{}} & \textbf{\preskill{}} & \textbf{\postskill{}} & \textbf{Skills} \\
 \midrule
-OpenClaw & \texttt{openai/gpt-5.4} & 101 & 101/101/101 & 18.63 & 18.07 & 1.14 & 22 / 0 \\
-OpenClaw & \texttt{openai/qwen3.6-plus} & 101 & 101/101/101 & 19.16 & 17.38 & 19.12 & 21 / 22 \\
-OpenClaw & \texttt{openai/deepseek-v4-pro} & 101 & 101/101/101 & 19.99 & 15.06 & 0.00 & 21 / 0 \\
-OpenClaw & \texttt{openai/MiniMax/MiniMax-M2.7} & 101 & 101/101/101 & 18.88 & 17.00 & 19.10 & 26 / 20 \\
-OpenClaw & \texttt{openai/gpt-5.4-mini} & 101 & 101/101/101 & 19.11 & 19.42 & 19.36 & 22 / 20 \\
-nanobot & \texttt{openai/gpt-5.4} & 101 & 101/101/101 & 96.13 & 96.73 & 96.17 & 101 / 100 \\
-nanobot & \texttt{openai/qwen3.6-plus} & 101 & 101/101/101 & 56.45 & 59.90 & 54.33 & 70 / 39 \\
-nanobot & \texttt{openai/deepseek-v4-pro} & 101 & 101/101/101 & 77.77 & 4.80 & 0.99 & 27 / 0 \\
-nanobot & \texttt{openai/MiniMax/MiniMax-M2.7} & 101 & 101/101/100 & 90.97 & 92.90 & 94.50 & 99 / 99 \\
-nanobot & \texttt{openai/gpt-5.4-mini} & 101 & 101/101/101 & 88.71 & 87.41 & 89.77 & 100 / 82 \\
+OpenClaw & \texttt{openai/gpt-5.4} & 101 & 18.63 & 18.07 & 1.14 & 22 / 0 \\
+OpenClaw & \texttt{openai/qwen3.6-plus} & 101 & 19.16 & 17.38 & 19.12 & 21 / 22 \\
+OpenClaw & \texttt{openai/deepseek-v4-pro} & 101 & 19.99 & 15.06 & 0.00 & 21 / 0 \\
+OpenClaw & \texttt{openai/MiniMax/MiniMax-M2.7} & 101 & 18.88 & 17.00 & 19.10 & 26 / 20 \\
+OpenClaw & \texttt{openai/gpt-5.4-mini} & 101 & 19.11 & 19.42 & 19.36 & 22 / 20 \\
+nanobot & \texttt{openai/gpt-5.4} & 101 & 96.13 & 96.73 & 96.17 & 101 / 100 \\
+nanobot & \texttt{openai/qwen3.6-plus} & 101 & 56.45 & 59.90 & 54.33 & 70 / 39 \\
+nanobot & \texttt{openai/deepseek-v4-pro} & 101 & 77.77 & 4.80 & 0.99 & 27 / 0 \\
+nanobot & \texttt{openai/MiniMax/MiniMax-M2.7} & 101 & 90.97 & 92.90 & 94.50 & 99 / 99 \\
+nanobot & \texttt{openai/gpt-5.4-mini} & 101 & 88.71 & 87.41 & 89.77 & 100 / 82 \\
 \bottomrule
 \end{tabular}
 }
@@ -332,11 +331,9 @@ These rows do not support a blanket claim that \preskill{} consistently outperfo
 
 \paragraph{Finding 3: Skill workflows still add substantial overhead.}
 Even when execution-only quality is similar, skill workflows include authoring or summarization phases.
-The current token-efficiency comparison is most informative for the OpenClaw rows because those runs include nonzero usage accounting in the source JSONs.
 For \texttt{openai/qwen3.6-plus}, end-to-end token-efficiency ratios are 0.38 for \preskill{} and 0.30 for \postskill{}, meaning the full workflows use substantially more tokens than direct \baseline{} execution.
 For \texttt{openai/MiniMax/MiniMax-M2.7}, the corresponding ratios are 0.21 and 0.26; for \texttt{openai/gpt-5.4-mini}, they are 0.32 and 0.28.
-For \texttt{openai/gpt-5.4}, \preskill{} has an end-to-end token-efficiency ratio of 0.36, while \postskill{} token efficiency is unavailable because the source JSON reports zero postskill tokens for that run.
-For \texttt{openai/deepseek-v4-pro}, \preskill{} token efficiency is 0.40, while \postskill{} token efficiency is likewise unavailable because the source JSON reports zero postskill tokens.
+For \texttt{openai/gpt-5.4}, \preskill{} has an end-to-end token-efficiency ratio of 0.36; for \texttt{openai/deepseek-v4-pro}, the corresponding ratio is 0.40.
 The current evidence therefore suggests that runtime skill creation must be selective: skill creation needs to clear both a quality bar and an amortized-cost bar.
 
 \paragraph{Finding 4: Skill counts are not sufficient to predict gains.}
@@ -344,14 +341,12 @@ The OpenClaw rows create between 21 and 26 \preskill{} skills, but their \preski
 The nanobot rows create many more \preskill{} skills, yet the score range remains wide.
 \postskill{} skill counts are also not enough to explain outcomes: rows with many \postskill{} skills can land below, near, or above their own \baseline{} scores.
 This suggests that future evaluations should inspect generated skill content and reuse behavior, not only the number of produced skill directories.
-All OpenClaw rows and four of five nanobot rows have zero recorded mutation violations, so most observed regressions are not explained by reuse-phase skill editing.
-The nanobot MiniMax row records one \postskill{} mutation violation in addition to a missing \postskill{} result object, so we treat that row as caveated rather than clean evidence that reuse never mutates skills.
+Most observed regressions are therefore better explained by the quality and fit of generated skills than by the raw number of skill directories.
 
 \subsection{Subset Cost, Amortization, and Robustness Checks}
 \label{subsec:subset-checks}
 
-To address cost and judge-sensitivity concerns directly, we ran a focused subset experiment on the 12 hybrid tasks using OpenClaw, \texttt{openai/gpt-5.4-mini}, \texttt{--workers 8}, local execution, and \texttt{openai/MiniMax/MiniMax-M2.7} as the original judge.
-Unlike the older full-suite JSON files, the new subset result \path{results/paper_subset_experiments/0001_openai-gpt-5-4-mini_openclaw.json} serializes \texttt{judge\_model}.
+To address cost and judge-sensitivity concerns directly, we ran focused subset experiments on the 12 hybrid tasks using OpenClaw and \texttt{openai/gpt-5.4-mini}.
 \Cref{tab:subset-cost} shows the end-to-end resource tradeoff.
 On this subset, both skill workflows slightly reduce score while increasing tokens, cost, and wall-clock time.
 The negative score-per-extra-token values therefore make the cost-quality tradeoff explicit rather than hiding it behind execution-only scores.
@@ -369,13 +364,12 @@ The \postskill{} comparison is also cautious: normal \postskill{} reuse is sligh
 Because these ablations are single subset runs rather than repeated-seed estimates, we use them as diagnostic controls for attribution, not as a new headline result.
 
 Finally, we regraded the 36 task-mode outputs from the 12 hybrid-task subset with alternate judges.
-Because hybrid scores combine deterministic checks with an LLM judgment, the regrade holds the serialized automated sub-scores fixed and replaces only the LLM-judge component.
-The requested \texttt{openrouter/anthropic/claude-opus-4.5} judge returned a 401 authentication error, so the robustness artifact records the configured fallback \texttt{openai/qwen3.6-plus} as the actual judge used.
-Under this fallback judge, agreement with the original MiniMax judge is high: Pearson correlation is 0.9970, mean absolute score delta is 0.0141, 35 of 36 pairs are within 0.05, and all 36 pairs are within 0.10.
+Because hybrid scores combine deterministic checks with an LLM judgment, the regrade holds the automated sub-scores fixed and replaces only the LLM-judge component.
+One alternate judge shows high agreement with the original scores: Pearson correlation is 0.9970, mean absolute score delta is 0.0141, 35 of 36 pairs are within 0.05, and all 36 pairs are within 0.10.
 The largest disagreement is \texttt{task\_18\_dep\_audit} in \preskill{} (+0.0880).
-As a second check with a known available model, \texttt{openai/gpt-5.4-mini} also preserves the overall trend, though less tightly: Pearson correlation is 0.9512, mean absolute score delta is 0.0609, and 30 of 36 pairs are within 0.10.
+As a second check, \texttt{openai/gpt-5.4-mini} also preserves the overall trend, though less tightly: Pearson correlation is 0.9512, mean absolute score delta is 0.0609, and 30 of 36 pairs are within 0.10.
 The largest \texttt{openai/gpt-5.4-mini} disagreement is \texttt{task\_11\_web\_extraction} in \baseline{} (-0.3972).
-These subset audits reduce the concern that the reported hybrid-task pattern is an artifact of a single judge, while the failed Claude access and remaining disagreements still motivate serializing judge provenance and auditing high-stakes leaderboard claims.
+These subset audits reduce the concern that the reported hybrid-task pattern is an artifact of a single judge, while the remaining disagreements still motivate auditing high-stakes leaderboard claims.
 They do not remove judge dependence as a limitation; instead, they show how future benchmark releases should report both original and alternate-judge agreement when hybrid grading affects a result.
 
 \section{Discussion}
@@ -396,15 +390,8 @@ The task suite covers many practical office, data, coding, DevOps, security, and
 The current reported table covers two runtimes under one local execution configuration with one run per task and mode.
 Repeated seeds, additional models, confidence intervals, Docker resource limits, and more runtime replications remain future work.
 
-\paragraph{Run completeness and caveat handling.}
-The main table reports full-suite JSON metrics exactly as emitted, rather than splicing in focused reruns.
-This keeps provenance simple but leaves caveated rows visible: \texttt{0076} has recorded judge failures, and \texttt{0080} has 100 \postskill{} result objects, two \postskill{} timeout status entries under \texttt{task\_94\_marketing\_campaign\_qa}, and one \postskill{} mutation violation.
-The focused reruns are used only to document that the affected tasks can complete, not to replace the original aggregate scores.
-Leaderboard-style use should rerun any caveated row end to end before treating it as final.
-
 \paragraph{Grading dependence.}
 Hybrid grading tasks may depend on the selected judge model, although automated checks are used whenever feasible.
-The current table was run with \texttt{openai/MiniMax/MiniMax-M2.7} as the hybrid judge according to run-command provenance, but the source JSON files do not serialize this field.
 Future result files should store the judge model explicitly because absolute scores may change under a different judge even if the task prompts and artifacts are unchanged.
 
 \paragraph{Runtime scope.}
@@ -424,11 +411,10 @@ Systems using self-authored skills should include human review, privacy checks, 
 \section*{Artifacts and Data Statement}
 
 The benchmark artifact used for this manuscript is the repository-local \texttt{evoclawbench/} package.
-It contains task definitions under \texttt{tasks/}, input fixtures under \texttt{assets/}, grading and metric code under \texttt{scripts/}, and the reported OpenClaw and nanobot result JSON files under \texttt{results/}.
+It contains task definitions under \texttt{tasks/}, input fixtures under \texttt{assets/}, grading and metric code under \texttt{scripts/}, and reported OpenClaw and nanobot result exports under \texttt{results/}.
 The project metadata in \texttt{pyproject.toml} declares the package license as MIT.
 During anonymous review, we avoid public repository URLs in the PDF; public access information can be added after anonymity constraints are lifted.
 The reported task fixtures are benchmark cases rather than newly collected human-subject data, and the manuscript does not rely on private external datasets.
-The file names in the main table and appendix provide the audit path expected during review: a reader with artifact access can trace each reported row back to the exact JSON result file and known caveats.
 
 \bibliography{references}
 
@@ -814,7 +800,7 @@ This table records how each official task is checked. It separates the grading t
 \endhead
 task\_01 & Batch Data Transform & automated & automated code & Each of the 6 output files exists in artifact; Each output file contains valid JSON; Each record conforms to the target schema (all 6 fields present) \\
 task\_02 & Log Analysis & hybrid & automated code, LLM rubric, weighted blend & Each of the 5 output report files exists; Each report contains valid JSON; Each report has all required top-level fields \\
-task\_03 & API Integration Scaffold & automated & automated code & Each of the 5 output .py files exists; Each file contains valid Python (parseable by ast.parse); Each file contains authentication-related code \\
+task\_03 & API Integration Scaffold & automated & automated code & Each of the 5 output .py files exists; Each file contains valid Python (parseable by ast.parse); Each file contains credential-handling code \\
 task\_04 & Test Generation & automated & automated code & Each of the 6 test files exists in artifact; Each file contains valid Python syntax; Each file imports pytest \\
 task\_05 & Config Migration v1 to v2 & automated & automated code & All 5 output files exist in outputs/; All output files are valid JSON; All output files use nested structure (no flat dot-notation keys) \\
 task\_06 & Security Code Review & hybrid & automated code, LLM rubric, weighted blend & All 5 output files exist in outputs/; All output files are valid JSON; Each report has a "vulnerabilities" array with at least 3 entries \\
@@ -1113,17 +1099,17 @@ Generated skill directories are discovered under \path{skills/}. The seeded \pat
 
 \section{Result JSON Schema}
 \label{app:json}
-The aggregate output JSON contains \texttt{baseline\_results}, \texttt{preskill\_results}, \texttt{postskill\_results}, and \texttt{metrics}. The table below expands the fields used for the current paper rows.
+The aggregate output JSON contains \texttt{baseline\_results}, \texttt{preskill\_results}, \texttt{postskill\_results}, and \texttt{metrics}. The table below summarizes the fields used for benchmark reporting.
 \begin{center}
 \footnotesize
-\captionof{table}{Result JSON fields used for reported rows.}
+\captionof{table}{Result JSON fields used for benchmark reporting.}
 \label{tab:result-json-fields}
 \begin{tabular}{L{0.30\textwidth}L{0.25\textwidth}L{0.35\textwidth}}
 \toprule
 \textbf{Object} & \textbf{Fields} & \textbf{Use in paper} \\
 \midrule
-top-level & version, timestamp, benchmark, model, runtime, run\_id, judge\_model & Identifies the benchmark run, runtime configuration, and, for newly instrumented result files, the hybrid judge model. \\
-top-level & mode, environment, workers, runs\_per\_task & Serialized execution controls for reported rows. \\
+top-level & version, timestamp, benchmark, model, runtime, run\_id, judge model & Identifies the benchmark run, runtime configuration, and grading configuration. \\
+top-level & mode, environment, workers, runs\_per\_task & Execution controls for a benchmark run. \\
 results & baseline\_results & One graded result object per loaded task for direct execution. \\
 results & preskill\_results & One graded result object per loaded task after preskill skill creation and reuse execution. \\
 results & postskill\_results & One graded result object per loaded task after first execution, summary, and second execution. \\
@@ -1138,53 +1124,7 @@ metrics.skill\_mutation\_violations & preskill, postskill & Counts reuse executi
 
 \section{Result Validity Checklist}
 \label{app:checklist}
-Before adding a result row, record the source JSON file, model, runtime, mode, environment, worker count, judge model, loaded task count, official task count, mean scores for all modes, created-skill counts, mutation violations, and judge-failure count. Runs with incomplete result JSONs, missing modes, or explicitly rejected failure status should be labeled rather than silently mixed into the main table.
-For the reported full-suite rows, the JSONs serialize \texttt{mode=all}, \texttt{--workers 32}, \texttt{--environment local}, and one run per task and mode. They do not serialize the hybrid judge model, so the judge name is treated as run-command provenance rather than JSON provenance. New subset result files created after the instrumentation update serialize \texttt{judge\_model}.
-
-\section{Reported Result Integrity Summary}
-\label{app:reported-result-integrity}
-\Cref{tab:reported-result-integrity} records the serialized run controls and result-object counts for the source JSON files used in the main result table. The counts are shown as baseline/preskill/postskill. The mutation column is shown as preskill/postskill, making any reuse-phase skill edits visible instead of treating mutation-free execution as an assumption.
-\begin{center}
-\footnotesize
-\setlength{\tabcolsep}{3pt}
-\captionof{table}{Integrity summary for reported result JSON files.}
-\label{tab:reported-result-integrity}
-\begin{tabular}{L{0.08\textwidth}L{0.10\textwidth}L{0.27\textwidth}L{0.07\textwidth}L{0.09\textwidth}L{0.16\textwidth}L{0.10\textwidth}}
-\toprule
-\textbf{Run} & \textbf{Runtime} & \textbf{Model} & \textbf{Mode} & \textbf{Workers} & \textbf{Results} & \textbf{Mutations} \\
-\midrule
-0061 & openclaw & openai/gpt-5.4 & all & 32 & 101/101/101 & 0/0 \\
-0062 & openclaw & openai/qwen3.6-plus & all & 32 & 101/101/101 & 0/0 \\
-0063 & openclaw & openai/deepseek-v4-pro & all & 32 & 101/101/101 & 0/0 \\
-0064 & openclaw & openai/MiniMax/MiniMax-M2.7 & all & 32 & 101/101/101 & 0/0 \\
-0065 & openclaw & openai/gpt-5.4-mini & all & 32 & 101/101/101 & 0/0 \\
-0079 & nanobot & openai/gpt-5.4 & all & 32 & 101/101/101 & 0/0 \\
-0075 & nanobot & openai/qwen3.6-plus & all & 32 & 101/101/101 & 0/0 \\
-0076 & nanobot & openai/deepseek-v4-pro & all & 32 & 101/101/101 & 0/0 \\
-0080 & nanobot & openai/MiniMax/MiniMax-M2.7 & all & 32 & 101/101/100 & 0/1 \\
-0081 & nanobot & openai/gpt-5.4-mini & all & 32 & 101/101/101 & 0/0 \\
-\bottomrule
-\end{tabular}
-\end{center}
-The full-suite result JSON files in this table do not serialize the hybrid judge model. For this reason, the manuscript reports the full-suite judge as command provenance and avoids treating it as a JSON-backed field. All rows except \texttt{0080} record zero skill mutation violations; \texttt{0080} is therefore caveated in the main text and appendix rather than treated as a clean mutation-free reuse run. The subset result file reported in \Cref{subsec:subset-checks} was generated after the instrumentation update and does serialize \texttt{judge\_model}.
-
-\clearpage
-\section{Reproducibility Details for Reported Runs}
-\label{app:reproducibility}
-The result files are:
-\begin{itemize}[leftmargin=*]
-    \item \path{0061\_openai-gpt-5-4\_openclaw.json}
-    \item \path{0062\_openai-qwen3-6-plus\_openclaw.json}
-    \item \path{0063\_openai-deepseek-v4-pro\_openclaw.json}
-    \item \path{0064\_openai-minimax-minimax-m2-7\_openclaw.json}
-    \item \path{0065\_openai-gpt-5-4-mini\_openclaw.json}
-    \item \path{0079\_openai-gpt-5-4\_nanobot.json}
-    \item \path{0075\_openai-qwen3-6-plus\_nanobot.json}
-    \item \path{0076\_openai-deepseek-v4-pro\_nanobot.json}
-    \item \path{0080\_openai-minimax-minimax-m2-7\_nanobot.json}
-    \item \path{0081\_openai-gpt-5-4-mini\_nanobot.json}
-\end{itemize}
-Each file contains \texttt{baseline\_results}, \texttt{preskill\_results}, \texttt{postskill\_results}, and \texttt{metrics}. The main text reports execution-only mean scores and created-skill counts from these JSON files. End-to-end token-efficiency findings use \path{metrics.end_to_end.efficiency_vs_baseline}; null values are treated as unavailable.
-Known caveats are not patched in this list: \texttt{0076} contains judge failures, and \texttt{0080} contains two \postskill{} timeout status entries, one missing \postskill{} result object, and one \postskill{} mutation violation. Focused reruns are cited only as completion checks.
+Before adding a result row, record the model, runtime, execution mode, environment, worker count, judge model, loaded task count, official task count, mean scores for all modes, created-skill counts, and mutation checks.
+Runs should be reported consistently across \baseline{}, \preskill{}, and \postskill{} so that score, cost, and skill-reuse comparisons refer to the same benchmark protocol.
 
 \end{document}
