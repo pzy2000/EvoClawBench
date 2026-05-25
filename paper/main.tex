@@ -13,6 +13,7 @@
 \usepackage{longtable}
 \usepackage{array}
 \usepackage[table]{xcolor}
+\usepackage{pifont}
 \usepackage{amsmath}
 \usepackage{multirow}
 \usepackage{enumitem}
@@ -26,6 +27,12 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 \definecolor{promptbg}{RGB}{247,247,247}
 \definecolor{promptrule}{RGB}{88,88,88}
+\definecolor{yesgreen}{RGB}{30,126,52}
+\definecolor{nored}{RGB}{190,50,45}
+\definecolor{partialamber}{RGB}{202,137,0}
+\newcommand{\yesmark}{\textcolor{yesgreen}{\ding{51}}}
+\newcommand{\nomark}{\textcolor{nored}{\ding{55}}}
+\newcommand{\partialmark}{\textcolor{partialamber}{$\bigcirc$}}
 \newcommand{\promptbox}[3]{%
   \par\noindent
   \begingroup
@@ -73,14 +80,14 @@ These results suggest that learning reusable skills from an agent's own runs is 
 \toprule
 \textbf{Benchmark} & \textbf{Size} & \textbf{Skill Cond.} & \textbf{Tool Use} & \textbf{Det. Verifier} & \textbf{Closed Loop} \\
 \cmidrule(lr){1-6}
-SWE-Bench Verified & 500 & None & Yes & Yes & No \\
-Terminal-Bench 2.0 & 89 & None & Yes & Yes & No \\
-WebArena & 812 & None & Yes & Partial & No \\
-AppWorld & 750 & None & Yes & Yes & No \\
-OSWorld & 369 & None & Yes & Partial & No \\
-SkillsBench & 84 & Yes & Yes & Yes & No \\
+SWE-Bench Verified & 500 & None & \yesmark & \yesmark & \nomark \\
+Terminal-Bench 2.0 & 89 & None & \yesmark & \yesmark & \nomark \\
+WebArena & 812 & None & \yesmark & \partialmark & \nomark \\
+AppWorld & 750 & None & \yesmark & \yesmark & \nomark \\
+OSWorld & 369 & None & \yesmark & \partialmark & \nomark \\
+SkillsBench & 84 & \yesmark & \yesmark & \yesmark & \nomark \\
 \midrule
-\textbf{\ours{}} & \textbf{100/502} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} \\
+\textbf{\ours{}} & \textbf{100/502} & \textbf{\yesmark} & \textbf{\yesmark} & \textbf{\yesmark} & \textbf{\yesmark} \\
 \bottomrule
 \end{tabular}
 \end{table*}
@@ -343,6 +350,17 @@ The nanobot rows create many more \preskill{} skills, yet the score range remain
 \postskill{} skill counts are also not enough to explain outcomes: rows with many \postskill{} skills can land below, near, or above their own \baseline{} scores.
 This suggests that future evaluations should inspect generated skill content and reuse behavior, not only the number of produced skill directories.
 Most observed regressions are therefore better explained by the quality and fit of generated skills than by the raw number of skill directories.
+\Cref{fig:failure-case} illustrates why this inspection matters for \postskill{}.
+The summary phase receives compact first-run evidence rather than hidden state, but that evidence can still make a generated skill too specific to one execution context.
+When reused in a fresh workspace, such a skill may preserve an incidental assumption, route attention to the wrong fixture pattern, or skip checks that the second execution still requires.
+The qualitative case therefore complements the aggregate skill-count result: the question is not only whether a skill exists, but whether the procedure it encodes remains valid under reuse.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{Figures/fig_failure_case_imagegen.searchable.pdf}
+\caption{Qualitative failure mode for experience-derived skills. In \postskill{}, first-run evidence can help produce reusable procedural memory, but it can also encode over-specific assumptions that interfere with the second execution context.}
+\label{fig:failure-case}
+\end{figure*}
 
 \subsection{Subset Cost, Amortization, and Robustness Checks}
 \label{subsec:subset-checks}
@@ -377,7 +395,7 @@ They do not remove judge dependence as a limitation; instead, they show how futu
 \label{sec:discussion}
 
 \ours{} evaluates the full lifecycle of procedural memory: skill creation, own-run skill distillation, reuse, and library maintenance.
-The current results suggest that agents are not yet reliable at this lifecycle: neither the pre-execution \preskill{} control nor the own-run \postskill{} condition is uniformly dominant, and first-run evidence can inject over-specific assumptions into the second execution.
+The current results suggest that agents are not yet reliable at this lifecycle: neither the pre-execution \preskill{} control nor the own-run \postskill{} condition is uniformly dominant, and \Cref{fig:failure-case} shows how own-run summaries can overfit a second execution context.
 Future skill systems should use selective creation policies and validation before reuse, while benchmark reports should include provenance, mutation checks, and end-to-end resources.
 
 \section*{Limitations}
@@ -533,12 +551,6 @@ Summary, no skill & 50.01 & -4.23 & 2.59M & 0.743 & 102 \\
 \bottomrule
 \end{tabular}
 }
-\end{center}
-
-\begin{center}
-\includegraphics[width=\textwidth]{Figures/fig_failure_case_imagegen.searchable.pdf}
-\captionof{figure}{Qualitative failure mode for experience-derived skills. In \postskill{}, first-run evidence can help produce reusable procedural memory, but it can also encode over-specific assumptions that interfere with the second execution context.}
-\label{fig:failure-case}
 \end{center}
 
 \section{Official Task Inventory}
