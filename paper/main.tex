@@ -58,17 +58,16 @@
 \maketitle
 
 \begin{abstract}
-LLM agents have become a prominent target for evaluation as tool-using workers that operate across repositories, terminals, browsers, applications, graphical interfaces, and document workflows.
-Benchmarks such as SWE-Bench, Terminal-Bench, WebArena, AppWorld, OSWorld, and SkillsBench now measure many aspects of this agent capability.
-However, they mainly evaluate task completion, tool use, or skill utility, and do not isolate whether the same runtime can create reusable skills from evidence produced by its own runs and benefit from them in fresh executions.
-We present \textbf{\ours{}}, a benchmark for evaluating this closed-loop question on repeated, fixture-backed tasks.
-\ours{} compares three controlled strategies: direct execution with no skills, \preskill{} authoring before execution, and \postskill{} summarization from first-run evidence before a fresh second execution.
-The benchmark contains 100 official tasks and 502 sub-problems across coding, data, office, security, operations, and domain-document workflows, with support for multiple agent runtimes.
-Our current experiments cover OpenClaw and nanobot under local execution, 32 workers, and \texttt{mode=all}.
-We additionally report focused subset checks for end-to-end cost, skill-content controls, and alternate-judge robustness.
-Across repository-local runs, direct \baseline{} performance varies substantially by runtime, from sub-20\% OpenClaw scores to much higher nanobot scores on the same loader suite.
-Self-authored skills do not yield monotonic gains: the pre-execution \preskill{} control and the own-run \postskill{} condition can regress, preserve, or improve execution-only quality depending on the model and runtime.
-These results suggest that learning reusable skills from an agent's own runs is a selective, cost-sensitive capability rather than a default consequence of adding skill authoring to an agent loop.
+LLM agents are increasingly evaluated as tool-using workers that operate across repositories, terminals, browsers, applications, graphical interfaces, and document workflows.
+Existing benchmarks such as SWE-Bench, Terminal-Bench, WebArena, AppWorld, OSWorld, and SkillsBench measure important aspects of this capability, but they primarily test task completion, tool use, or skill utility.
+They do not isolate whether the same runtime can turn evidence from its own runs into reusable skills that improve fresh executions after accounting for authoring overhead.
+We introduce \textbf{\ours{}}, a benchmark for this closed-loop skill-learning question on repeated, fixture-backed tasks.
+\ours{} compares three controlled strategies: direct execution without skills, \preskill{} authoring before execution, and \postskill{} summarization from first-run evidence followed by a fresh second execution.
+The official suite contains 100 tasks and 502 sub-problems across coding, data, office, security, operations, and domain-document workflows, with shared support for multiple agent runtimes.
+Our current experiments evaluate OpenClaw and nanobot under local execution with 32 workers and \texttt{mode=all}, complemented by focused subset checks for end-to-end cost, skill-content controls, and alternate-judge robustness.
+Across repository-local runs, direct \baseline{} performance differs sharply by runtime, ranging from sub-20\% OpenClaw scores to much higher nanobot scores on the same loader suite.
+Self-authored skills also do not produce monotonic gains: both the pre-execution \preskill{} control and the own-run \postskill{} condition can regress, preserve, or improve execution-only quality depending on the model and runtime.
+These findings suggest that learning reusable skills from an agent's own runs is a selective and cost-sensitive capability, not an automatic consequence of adding skill authoring to an agent loop.
 \end{abstract}
 
 \begin{table*}[!t]
@@ -98,27 +97,23 @@ SkillsBench & 84 & \yesmark & \yesmark & \yesmark & \nomark \\
 Large language model agents are increasingly used to turn foundation models into interactive workers.
 Recent evaluations place agents in repositories, terminals, browsers, graphical interfaces, tool APIs, and executable environments \citep{fourney2024magenticone,wang2025openhands,xu2025agentcompany,agashe2025agents2,cursor2026composer2}.
 As a result, the benchmark ecosystem has expanded rapidly.
-SWE-Bench and SWE-agent-style evaluations emphasize repository-level software engineering \citep{jimenez2024swebench,yang2024sweagent}; Terminal-Bench, AppWorld, WebArena, and OSWorld measure command-line, app-world, browser, and desktop interaction \citep{zhou2023webarena,trivedi2024appworld,xie2024osworld,merrill2026terminalbench}; and SkillsBench evaluates skills as first-class artifacts across diverse tasks \citep{li2026skillsbench}.
-
-These benchmarks have made agent capability more measurable, but they leave a closed-loop learning question under-specified.
+SWE-Bench and SWE-agent-style evaluations emphasize repository-level software engineering \citep{jimenez2024swebench,yang2024sweagent}; Terminal-Bench, AppWorld, WebArena, and OSWorld measure command-line, app-world, browser, and desktop interaction \citep{zhou2023webarena,trivedi2024appworld,xie2024osworld,merrill2026terminalbench}; and SkillsBench evaluates skills as first-class artifacts across diverse tasks \citep{li2026skillsbench}. These benchmarks have made agent capability more measurable, but they leave a closed-loop learning question under-specified.
 They primarily test task completion, tool use, environment interaction, or the utility of curated and self-generated skills.
 They do not isolate the process in which the same agent runtime creates a skill, summarizes evidence from its own completed run, reuses that skill in a fresh execution, and pays the full token, cost, and time overhead of doing so.
 This leaves a focused evaluation question: \emph{Can LLM agents learn reusable skills from their own runs?}
 
-Reusable skills are becoming a practical way to specialize LLM agents for recurring tool-use tasks.
+We introduce \ours{}, a benchmark designed around this question.
+\ours{} evaluates an agent on repeated, structured tasks that contain multiple related sub-problems.
+This design creates an opportunity for the agent to recognize shared patterns and, in the own-run condition, convert first-run evidence into reusable skills. 
+The benchmark focuses on reusable skills because they are becoming a practical way to specialize LLM agents for recurring tool-use tasks.
 SkillsBench reports 84{,}192 skills collected within 136 days \citep{li2026skillsbench}, suggesting a shift from prompt engineering by individual users toward a marketplace of reusable procedural memory.
 Alongside stronger foundation models and richer harnesses, a complementary line of work treats procedural artifacts as external skills or learned procedures that can be derived, refined, reused, or moved into compact task-family state from agent experience \citep{yang2026autoskill,ni2026trace2skill,wang2026skillx,yang2026skillmaster,xie2026historytostate}.
 In this paper, we use \emph{skills} for lightweight, inspectable procedural documents with optional scripts, templates, and references, because such artifacts can be installed, edited, and injected into an agent's context without retraining the model.
 
-We introduce \ours{}, a benchmark designed around this question.
-\ours{} evaluates an agent on repeated, structured tasks that contain multiple related sub-problems.
-This design creates an opportunity for the agent to recognize shared patterns and, in the own-run condition, convert first-run evidence into reusable skills.
 For each task, we compare three strategies.
 In \baseline{}, the agent solves the task directly and is forbidden from creating or editing skills.
 In \preskill{}, the same model and runtime first create one or more task-specific skills, then a fresh execution workspace solves the task using only those generated skills.
-In \postskill{}, the agent first solves the task without skills, receives a compact first-run context containing the prompt, grading summary, output previews, and transcript summary, then writes reusable skills that are copied into a fresh second execution.
-
-This protocol isolates two related but distinct forms of self-authored skill construction.
+In \postskill{}, the agent first solves the task without skills, receives a compact first-run context containing the prompt, grading summary, output previews, and transcript summary, then writes reusable skills that are copied into a fresh second execution. This protocol isolates two related but distinct forms of self-authored skill construction.
 \preskill{} is a pre-execution control that measures whether an agent can infer a useful reusable procedure before solving a task.
 \postskill{} most directly tests the title question: whether an agent can distill reusable procedural memory from its own completed run.
 Both are compared against \baseline{} under execution-only and end-to-end metrics, so a skill workflow must improve not only task score but also justify its additional token, cost, and time overhead.
