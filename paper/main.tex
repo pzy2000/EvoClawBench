@@ -86,10 +86,9 @@ SkillsBench & 84 & Yes & Yes & Yes & No \\
 \section{Introduction}
 \label{sec:intro}
 
-Large language model agents are increasingly deployed as interactive workers that read files, call tools, write code, inspect outputs, and revise their own solutions.
-Alongside stronger foundation models, a complementary trend has emerged: users package procedural knowledge into reusable \emph{skills}, typically written as structured markdown documents with optional scripts, templates, and references.
-Skills encode task-specific expertise such as how to audit dependencies, generate CI configurations, scaffold APIs, extract tables, or perform domain-specific data analysis.
-They are attractive because they are lightweight: a skill can be installed, inspected, edited, and injected into an agent's context without retraining the model.
+Large language model agents are increasingly evaluated as interactive workers that operate across repositories, terminals, browsers, graphical interfaces, tool APIs, and executable code environments \citep{cursor2026composer2,wang2025openhands,xu2025agentcompany,fourney2024magenticone,agashe2025agents2}.
+Alongside stronger foundation models and richer harnesses, a complementary line of work treats reusable procedural artifacts as external skills or learned procedures that can be derived, refined, reused, or moved into compact task-family state from agent experience \citep{yang2026autoskill,ni2026trace2skill,wang2026skillx,yang2026skillmaster,xie2026historytostate}.
+In this paper, we use \emph{skills} for lightweight, inspectable procedural documents with optional scripts, templates, and references, because such artifacts can be installed, edited, and injected into an agent's context without retraining the model.
 
 The skill ecosystem is growing at a speed that outpaces careful evaluation.
 SkillsBench reports 84{,}192 skills collected within 136 days \citep{li2026skillsbench}, suggesting a shift from prompt engineering by individual users toward a marketplace of reusable procedural memory.
@@ -402,9 +401,7 @@ Broader runtime coverage is still needed before claiming conclusions across a wi
 
 \ours{} is intended as a research benchmark for evaluating agent skill authoring, own-run skill distillation, and reuse, not as a deployment recipe for autonomous skill libraries.
 The benchmark uses repository-local task fixtures and synthetic examples whenever sensitive domains are represented; it does not involve human subjects, crowdworkers, or newly collected personal data.
-Several tasks simulate workflows involving privacy, security, legal, healthcare, finance, or public-sector records, but these are benchmark scenarios for controlled evaluation rather than operational recommendations.
-
-The main risk is dual use: better skill creation from an agent's own runs could make agents more effective at legitimate repeated work, but could also preserve unsafe procedures, overfit to private context, or automate harmful operational tasks if deployed without review.
+Several tasks simulate workflows involving privacy, security, legal, healthcare, finance, or public-sector records, but these are benchmark scenarios for controlled evaluation rather than operational recommendations. The main risk is dual use: better skill creation from an agent's own runs could make agents more effective at legitimate repeated work, but could also preserve unsafe procedures, overfit to private context, or automate harmful operational tasks if deployed without review.
 The benchmark therefore records skill mutation violations and separates execution-only quality from end-to-end cost, but it does not solve policy questions about which generated skills should be installed, shared, or trusted.
 Systems using self-authored skills should include human review, privacy checks, provenance tracking, and mechanisms for disabling or deleting unsafe skills.
 
