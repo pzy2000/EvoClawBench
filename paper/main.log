@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.2.17)  25 MAY 2026 22:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.2.17)  26 MAY 2026 01:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -683,13 +683,13 @@ ocal/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
 
 {/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}]
-<Figures/fig_overview_imagegen.searchable.pdf, id=182, 407.8437pt x 197.53801pt
+<Figures/fig_overview_imagegen.searchable.pdf, id=182, 433.86089pt x 182.6022pt
 >
 File: Figures/fig_overview_imagegen.searchable.pdf Graphic file (type pdf)
 <use Figures/fig_overview_imagegen.searchable.pdf>
 Package pdftex.def Info: Figures/fig_overview_imagegen.searchable.pdf  used on 
 input line 123.
-(pdftex.def)             Requested size: 455.24411pt x 220.51161pt.
+(pdftex.def)             Requested size: 455.24411pt x 191.607pt.
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 1
 29.
 
@@ -782,18 +782,17 @@ Underfull \hbox (badness 1845) in paragraph at lines 281--286
 \T1/ptm/m/n/10.95 (+20) us-ing lo-cal sub-pro-cess ex-e-cu-tion. All runs
  []
 
-
-
-[5 <./Figures/fig_suite_distribution.pdf>]
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
 (Font)              scaled to size 9.0pt on input line 309.
 
+
+[5 <./Figures/fig_suite_distribution.pdf>]
 Underfull \hbox (badness 4391) in paragraph at lines 316--322
  []\T1/ptm/b/n/10.95 (+20) Finding 1: Run-time scaf-fold-ing strongly
  []
 
 
-Underfull \vbox (badness 1092) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
@@ -823,13 +822,13 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [8 <./Figures/fig_failure_case_imagegen.searchable.pdf>]
 
 (./main.bbl
-
-[9]
 Underfull \hbox (badness 1107) in paragraph at lines 59--66
 []\T1/ptm/m/n/10 (+20) Carlos E Jimenez, John Yang, Alexan-der Wet-tig,
  []
 
 
+
+[9]
 
 
 Underfull \hbox (badness 1917) in paragraph at lines 189--193
@@ -943,7 +942,7 @@ Here is how much of TeX's memory you used:
  40676 multiletter control sequences out of 15000+600000
  658251 words of font info for 473 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,14n,93p,1001b,659s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,14n,93p,1001b,661s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/inconsolata/Inconsolat
 a-zi4r.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cm
@@ -953,7 +952,7 @@ mi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr1
 /texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2
 025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb></usr/local/texlive/2025/texmf
 -dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on main.pdf (28 pages, 6210412 bytes).
+Output written on main.pdf (28 pages, 6185686 bytes).
 PDF statistics:
  663 PDF objects out of 1000 (max. 8388607)
  568 compressed objects within 6 object streams
