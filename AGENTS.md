@@ -100,6 +100,22 @@ uv run scripts/benchmark.py --runtime openclaw --model openai/gpt-5-nano --judge
 - `0063_openai-deepseek-v4-pro_openclaw.json` is treated as a complete result row for this paper batch per the current user decision; do not relabel it audit-only unless the experimental policy changes or a replacement run is selected.
 - If a future paper edit includes an unfinished experiment, missing result mode, or rejected run, the table and prose must explicitly mark that status instead of writing it as a normal completed result.
 
+### Paper Figure OCR PDF Conversion
+- Scope: convert PNG figures actually referenced by `paper/main.tex` into searchable PDFs with copyable Chinese/English text. Do not treat unused PNG files in `paper/Figures/` as paper-used unless the LaTeX reference changes. In the current manuscript, `fig_suite_distribution.png` is not part of this pass because `paper/main.tex` includes `Figures/fig_suite_distribution.pdf`.
+- Method:
+```bash
+cd paper/Figures
+img2pdf <figure>.png -o <figure>.raw.pdf
+ocrmypdf -l chi_sim+eng --deskew --output-type pdf \
+  <figure>.raw.pdf <figure>.searchable.pdf
+```
+- Conversion record, 2026-05-25: used `/opt/homebrew/bin/img2pdf` and `/opt/homebrew/bin/ocrmypdf`; Tesseract language data included `chi_sim` and `eng`; `ocrmypdf` completed successfully with non-fatal Noto CJK font warnings; `paper/main.tex` now includes the `*.searchable.pdf` outputs instead of the source PNG files.
+- Converted paper PNG figures:
+  - `fig_overview_imagegen.png` -> `fig_overview_imagegen.raw.pdf` -> `fig_overview_imagegen.searchable.pdf`; verified 1 page, `pdftotext` extracted 1459 characters.
+  - `fig_skill_anatomy_imagegen.png` -> `fig_skill_anatomy_imagegen.raw.pdf` -> `fig_skill_anatomy_imagegen.searchable.pdf`; verified 1 page, `pdftotext` extracted 1352 characters.
+  - `fig_failure_case_imagegen.png` -> `fig_failure_case_imagegen.raw.pdf` -> `fig_failure_case_imagegen.searchable.pdf`; verified 1 page, `pdftotext` extracted 1872 characters.
+  - `fig_protocol_imagegen.png` -> `fig_protocol_imagegen.raw.pdf` -> `fig_protocol_imagegen.searchable.pdf`; verified 1 page, `pdftotext` extracted 1444 characters.
+
 ### Changes to Paper (GOAL)
 - Anticipated reviewer concern: "The paper overclaims self-evolution and hides the mixed/negative result behind a broad benchmark pitch." Location: `paper/main.tex` title, abstract, Introduction, Results, and Discussion. Change: replaced the title's "Self-Evolving Agents" wording with "LLM Agents That Create and Reuse Skills at Runtime"; rewrote the abstract to foreground the closed-loop evaluation question, three controlled strategies, 100-task/502-subproblem suite, JSON-backed OpenClaw local/worker/mode setup, and mixed result pattern; replaced remaining broad "self-evolution" phrasing with narrower runtime skill creation/reuse language. Evidence: current manuscript, current `0061`-`0065` result JSON metrics, and ARR review-form emphasis on soundness and adequately supported claims.
 - Anticipated reviewer concern: "The abstract and introduction contain unsupported breadth signaling and make the benchmark contribution sound broader than the evidence." Location: `paper/main.tex` abstract and Introduction. Change: shortened the long domain enumeration in the abstract, moved the broad task description to the construction section, and reframed novelty as a focused gap in same-runtime skill authoring, summarization, and reuse rather than an absolute first-ever claim. Evidence: existing `SkillsBench` citation, existing related-work bibliography, and official EMNLP paper-integrity warning against hallucinated or overbroad claims.

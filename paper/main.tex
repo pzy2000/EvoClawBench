@@ -117,7 +117,7 @@ Both are compared against \baseline{} under execution-only and end-to-end metric
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=\textwidth]{Figures/fig_overview_imagegen.png}
+\includegraphics[width=\textwidth]{Figures/fig_overview_imagegen.searchable.pdf}
 \caption{Workflow schematic for \ours{}. The task-suite panel illustrates the original seed-task structure, while \Cref{fig:suite-distribution} reports the current official-suite distribution. The pipeline routes tasks through OpenClaw or nanobot runtime adapters, compares \baseline{}, \preskill{}, and \postskill{} in fresh workspaces, and reports grader-backed quality, resource, skill, and mutation-integrity metrics.}
 \label{fig:overview}
 \end{figure*}
@@ -222,7 +222,7 @@ Additional runtimes can be added by implementing the same execution interface an
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.86\textwidth]{Figures/fig_skill_anatomy_imagegen.png}
+\includegraphics[width=0.86\textwidth]{Figures/fig_skill_anatomy_imagegen.searchable.pdf}
 \caption{Structure of a reusable skill artifact in \ours{}. Generated skills use a \texttt{SKILL.md} document with optional supporting scripts or references, are injected into the agent context during reuse, and are protected by before/after mutation checks during execution.}
 \label{fig:skill-anatomy}
 \end{figure*}
@@ -551,7 +551,7 @@ Summary, no skill & 50.01 & -4.23 & 2.59M & 0.743 & 102 \\
 \end{center}
 
 \begin{center}
-\includegraphics[width=\textwidth]{Figures/fig_failure_case_imagegen.png}
+\includegraphics[width=\textwidth]{Figures/fig_failure_case_imagegen.searchable.pdf}
 \captionof{figure}{Qualitative failure mode for experience-derived skills. In \postskill{}, first-run evidence can help produce reusable procedural memory, but it can also encode over-specific assumptions that interfere with the second execution context.}
 \label{fig:failure-case}
 \end{center}
@@ -1106,7 +1106,7 @@ yaml & 56 \\
 \label{app:skill-artifact}
 Generated skill directories are discovered under \path{skills/}. The seeded \path{skills/skill-creator} bundle is excluded from created-skill metrics. A generated skill must include \path{SKILL.md}; optional scripts and references are counted when present. Before reuse execution, non-seeded skill files are hashed. The same files are hashed after execution, and any add, delete, or content change is recorded as a mutation violation for that phase.
 \begin{center}
-\includegraphics[width=0.86\textwidth]{Figures/fig_protocol_imagegen.png}
+\includegraphics[width=0.86\textwidth]{Figures/fig_protocol_imagegen.searchable.pdf}
 \captionof{figure}{Three-mode evaluation protocol. \baseline{} directly executes a task without skill creation; \preskill{} first creates task-specific skills and then reuses them in a fresh workspace; \postskill{} summarizes reusable skills from first-run evidence before a second execution. Skill reuse phases are checked for mutation violations.}
 \label{fig:protocol}
 \end{center}
