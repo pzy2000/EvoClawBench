@@ -41,7 +41,7 @@
   \par\vspace{0.55\baselineskip}%
 }
 
-\title{\ours{}: Benchmarking LLM Agents That Create and Reuse Skills at Runtime}
+\title{\ours{}: Can LLM Agents Learn Reusable Skills from Their Own Runs?}
 
 \author{
   Anonymous ACL submission
@@ -51,15 +51,15 @@
 \maketitle
 
 \begin{abstract}
-Reusable skills are becoming a practical way to specialize LLM agents for recurring tool-use tasks, but it remains unclear whether agents can write such skills for themselves and benefit from them in later executions.
-We present \textbf{\ours{}}, a benchmark for evaluating this closed-loop capability on repeated, fixture-backed tasks.
+Reusable skills are becoming a practical way to specialize LLM agents for recurring tool-use tasks, but it remains unclear whether agents can learn such skills from evidence produced by their own runs and benefit from them later.
+We present \textbf{\ours{}}, a benchmark for evaluating this question on repeated, fixture-backed tasks.
 \ours{} compares three controlled strategies: direct execution with no skills, \preskill{} authoring before execution, and \postskill{} summarization from first-run evidence before a fresh second execution.
 The benchmark contains 100 official tasks and 502 sub-problems across coding, data, office, security, operations, and domain-document workflows, with support for multiple agent runtimes.
 Our current experiments cover OpenClaw and nanobot under local execution, 32 workers, and \texttt{mode=all}.
 We additionally report focused subset checks for end-to-end cost, skill-content controls, and alternate-judge robustness.
 Across repository-local result JSONs, direct \baseline{} performance varies substantially by runtime, from sub-20\% OpenClaw scores to much higher nanobot scores on the same loader suite.
-Self-authored skills do not yield monotonic gains: \preskill{} and \postskill{} can regress, preserve, or improve execution-only quality depending on the model and runtime.
-These results suggest that runtime skill creation should be evaluated as a selective, cost-sensitive capability rather than assumed to improve agent performance by default.
+Self-authored skills do not yield monotonic gains: the pre-execution \preskill{} control and the own-run \postskill{} condition can regress, preserve, or improve execution-only quality depending on the model and runtime.
+These results suggest that learning reusable skills from an agent's own runs is a selective, cost-sensitive capability rather than a default consequence of adding skill authoring to an agent loop.
 \end{abstract}
 
 \begin{table*}[!t]
@@ -94,25 +94,25 @@ They are attractive because they are lightweight: a skill can be installed, insp
 The skill ecosystem is growing at a speed that outpaces careful evaluation.
 SkillsBench reports 84{,}192 skills collected within 136 days \citep{li2026skillsbench}, suggesting a shift from prompt engineering by individual users toward a marketplace of reusable procedural memory.
 However, the central question is no longer only whether a human-written skill can help an agent.
-If agents are to become long-running assistants, they must also decide when to create skills, what to write into them, and whether those self-authored skills improve later work.
+If agents are to become long-running assistants, they must also decide when to create skills, what to write into them, and whether skills distilled from their own runs improve later work.
 
 Existing benchmarks leave this closed-loop capability under-specified.
 SWE-Bench and SWE-agent-style evaluations emphasize repository-level software engineering \citep{jimenez2024swebench,yang2024sweagent}.
 Terminal-Bench and AppWorld evaluate tool use and command-line or app-world interaction \citep{merrill2026terminalbench,trivedi2024appworld}.
-SkillsBench treats skills as first-class artifacts across domains, including curated and self-generated skill settings \citep{li2026skillsbench}, but it does not isolate the closed-loop process in which the same runtime creates, summarizes, and reuses its own skills across fresh benchmark executions.
-This leaves a focused evaluation question: \emph{Can an LLM agent improve later task execution by creating and reusing its own skills at runtime?}
+SkillsBench treats skills as first-class artifacts across domains, including curated and self-generated skill settings \citep{li2026skillsbench}, but it does not isolate the closed-loop process in which the same runtime creates, summarizes from its own run evidence, and reuses skills across fresh benchmark executions.
+This leaves a focused evaluation question: \emph{Can LLM agents learn reusable skills from their own runs?}
 
 We introduce \ours{}, a benchmark designed around this question.
 \ours{} evaluates an agent on repeated, structured tasks that contain multiple related sub-problems.
-This design creates an opportunity for the agent to recognize shared patterns and convert them into reusable skills.
+This design creates an opportunity for the agent to recognize shared patterns and, in the own-run condition, convert first-run evidence into reusable skills.
 For each task, we compare three strategies.
 In \baseline{}, the agent solves the task directly and is forbidden from creating or editing skills.
 In \preskill{}, the same model and runtime first create one or more task-specific skills, then a fresh execution workspace solves the task using only those generated skills.
 In \postskill{}, the agent first solves the task without skills, receives a compact first-run context containing the prompt, grading summary, output previews, and transcript summary, then writes reusable skills that are copied into a fresh second execution.
 
-This protocol isolates two related but distinct forms of runtime skill construction.
-\preskill{} measures whether an agent can infer a useful reusable procedure before solving a task.
-\postskill{} measures whether an agent can distill reusable procedural memory from experience.
+This protocol isolates two related but distinct forms of self-authored skill construction.
+\preskill{} is a pre-execution control that measures whether an agent can infer a useful reusable procedure before solving a task.
+\postskill{} most directly tests the title question: whether an agent can distill reusable procedural memory from its own completed run.
 Both are compared against \baseline{} under execution-only and end-to-end metrics, so a skill workflow must improve not only task score but also justify its additional token, cost, and time overhead.
 
 \begin{figure*}[t]
@@ -124,7 +124,7 @@ Both are compared against \baseline{} under execution-only and end-to-end metric
 
 Our paper makes the following contributions:
 \begin{itemize}[leftmargin=*]
-    \item \textbf{Benchmark.} We build \ours{}, a benchmark for evaluating runtime skill creation and reuse in LLM agents. It covers 100 tasks with repeated sub-problems, fixtures, automated or hybrid graders, and multiple agent runtimes.
+    \item \textbf{Benchmark.} We build \ours{}, a benchmark for evaluating whether LLM agents can learn reusable skills from controlled self-authored skill workflows and their own first-run evidence. It covers 100 tasks with repeated sub-problems, fixtures, automated or hybrid graders, and multiple agent runtimes.
     \item \textbf{Three-mode evaluation protocol.} We formalize \baseline{}, \preskill{}, and \postskill{} conditions, separating execution-only performance from end-to-end workflow cost and detecting skill mutation violations during reuse.
     \item \textbf{Empirical findings.} We provide a current cross-runtime result table showing that runtime scaffolding strongly affects absolute scores, and that self-authored skills do not produce monotonic gains. Focused subset checks make the cost tradeoff, skill-content controls, and hybrid-judge robustness explicit.
 \end{itemize}
@@ -152,10 +152,10 @@ These environments stress planning and tool execution, but their evaluation cond
 Skills can be viewed as external procedural memory for agents, related to work on agent skills, reflection, experience accumulation, procedural memory, and open-ended skill acquisition \citep{anthropic2025skills,yao2023react,shinn2023reflexion,zhao2023expel,fang2025memp,wang2023voyager,xu2026agentskills,wu2026agentskillsmemory}.
 SkillsBench is closest to our setting because it evaluates skills as first-class artifacts, including curated and self-generated skill conditions \citep{li2026skillsbench}.
 However, the central object in \ours{} is not only whether a skill condition helps.
-Instead, \ours{} evaluates the \emph{closed-loop} process in which the same runtime and model being benchmarked must author, summarize, and reuse its own skill artifacts under explicit \baseline{}, \preskill{}, and \postskill{} conditions.
+Instead, \ours{} evaluates the \emph{closed-loop} process in which the same runtime and model being benchmarked must author skills, summarize procedural evidence from its own completed run, and reuse the resulting artifacts under explicit \baseline{}, \preskill{}, and \postskill{} conditions.
 
 \Cref{tab:comparison} summarizes the benchmark position at a high level.
-\ours{} is designed to expose whether runtime-authored skills improve task success after accounting for the full cost of creating and reusing skills.
+\ours{} is designed to expose whether agent-authored and own-run-derived skills improve task success after accounting for the full cost of creating and reusing skills.
 
 \section{\ours{} Construction}
 \label{sec:construction}
@@ -381,8 +381,8 @@ They do not remove judge dependence as a limitation; instead, they show how futu
 \section{Discussion}
 \label{sec:discussion}
 
-\ours{} evaluates the full lifecycle of procedural memory: skill creation, reuse, and library maintenance.
-The current results suggest that agents are not yet reliable at this lifecycle: neither \preskill{} nor \postskill{} is uniformly dominant, and first-run evidence can inject over-specific assumptions into the second execution.
+\ours{} evaluates the full lifecycle of procedural memory: skill creation, own-run skill distillation, reuse, and library maintenance.
+The current results suggest that agents are not yet reliable at this lifecycle: neither the pre-execution \preskill{} control nor the own-run \postskill{} condition is uniformly dominant, and first-run evidence can inject over-specific assumptions into the second execution.
 Future skill systems should use selective creation policies and validation before reuse, while benchmark reports should include provenance, mutation checks, and end-to-end resources.
 
 \section*{Limitations}
@@ -413,11 +413,11 @@ Broader runtime coverage is still needed before claiming conclusions across a wi
 
 \section*{Ethical Considerations}
 
-\ours{} is intended as a research benchmark for evaluating agent skill authoring and reuse, not as a deployment recipe for autonomous skill libraries.
+\ours{} is intended as a research benchmark for evaluating agent skill authoring, own-run skill distillation, and reuse, not as a deployment recipe for autonomous skill libraries.
 The benchmark uses repository-local task fixtures and synthetic examples whenever sensitive domains are represented; it does not involve human subjects, crowdworkers, or newly collected personal data.
 Several tasks simulate workflows involving privacy, security, legal, healthcare, finance, or public-sector records, but these are benchmark scenarios for controlled evaluation rather than operational recommendations.
 
-The main risk is dual use: better skill creation could make agents more effective at legitimate repeated work, but could also preserve unsafe procedures, overfit to private context, or automate harmful operational tasks if deployed without review.
+The main risk is dual use: better skill creation from an agent's own runs could make agents more effective at legitimate repeated work, but could also preserve unsafe procedures, overfit to private context, or automate harmful operational tasks if deployed without review.
 The benchmark therefore records skill mutation violations and separates execution-only quality from end-to-end cost, but it does not solve policy questions about which generated skills should be installed, shared, or trusted.
 Systems using self-authored skills should include human review, privacy checks, provenance tracking, and mechanisms for disabling or deleting unsafe skills.
 

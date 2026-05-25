@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.2.17)  25 MAY 2026 18:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.2.17)  25 MAY 2026 18:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -669,14 +669,8 @@ ocal/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
 
 {/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}]
-Underfull \hbox (badness 1221) in paragraph at lines 113--117
-\T1/ptm/m/n/10.95 (+20) reusable pro-ce-du-ral mem-ory from ex-pe-ri-ence.
- []
-
-
-Underfull \hbox (badness 1533) in paragraph at lines 113--117
-\T1/ptm/m/n/10.95 (+20) Both are com-pared against \T1/ptm/m/sc/10.95 (+20) Bas
-e-line \T1/ptm/m/n/10.95 (+20) un-der
+Underfull \hbox (badness 1648) in paragraph at lines 113--117
+[]\T1/ptm/m/n/10.95 (+20) This pro-to-col iso-lates two re-lated but dis-
  []
 
 <Figures/fig_overview_imagegen.searchable.pdf, id=157, 1274.51157pt x 617.30624
@@ -691,6 +685,12 @@ LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 1
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
+Underfull \hbox (badness 1472) in paragraph at lines 127--128
+[]\T1/ptm/b/n/10.95 (+20) Benchmark. \T1/ptm/m/n/10.95 (+20) We build Evo-Claw-
+Bench, a
+ []
+
+
 
 
 
@@ -712,6 +712,8 @@ Package pdftex.def Info: Figures/fig_suite_distribution.pdf  used on input line
 (pdftex.def)             Requested size: 455.24411pt x 188.35773pt.
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
 (Font)              scaled to size 10.95pt on input line 197.
+
+
 
 Underfull \hbox (badness 4686) in paragraph at lines 208--211
 \T1/ptm/m/n/10.95 (+20) other au-thor-ing run, Evo-Claw-Bench hashes
@@ -737,8 +739,6 @@ ail
 Underfull \hbox (badness 10000) in paragraph at lines 208--211
 \T1/ptm/m/n/10.95 (+20) makes the ex-per-i-men-tal con-di-tion ex-plicit:
  []
-
-
 
 
 Underfull \hbox (badness 3271) in paragraph at lines 215--219
@@ -814,6 +814,9 @@ Underfull \hbox (badness 3000) in paragraph at lines 283--290
 \T1/zi4/m/n/10.95 --mode all --workers 32 --environment
  []
 
+
+
+[5 <./Figures/fig_suite_distribution.pdf>]
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
 (Font)              scaled to size 9.0pt on input line 313.
 
@@ -871,24 +874,16 @@ Underfull \hbox (badness 1478) in paragraph at lines 320--326
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-
-[5 <./Figures/fig_suite_distribution.pdf>]
-
-
-Underfull \vbox (badness 4660) has occurred while \output is active []
-
-
-
-[6 <./Figures/fig_skill_anatomy_imagegen.searchable.pdf>]
 Underfull \hbox (badness 1694) in paragraph at lines 334--341
 \T1/ptm/m/n/10.95 (+20) For \T1/zi4/m/n/10.95 openai/qwen3.6-plus\T1/ptm/m/n/10
 .95 (+20) , end-to-end token-
  []
 
 
+
+[6 <./Figures/fig_skill_anatomy_imagegen.searchable.pdf>]
 
 
 Underfull \hbox (badness 6792) in paragraph at lines 353--359
@@ -988,6 +983,9 @@ ion \T1/ptm/m/n/10.95 (+20) in
  []
 
 
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 
 Underfull \hbox (badness 1769) in paragraph at lines 406--409
@@ -1013,9 +1011,9 @@ Underfull \hbox (badness 1107) in paragraph at lines 406--409
 
 
 
-[8] (./main.bbl
+[8]
 
-
+(./main.bbl
 
 [9]
 Underfull \hbox (badness 1515) in paragraph at lines 115--120
@@ -1140,11 +1138,11 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: B176C557B70DC36EE7928481C1BFCCE4;5163.
  ) 
 Here is how much of TeX's memory you used:
- 18234 strings out of 473190
- 303056 string characters out of 5715800
- 920201 words of memory out of 5000000
+ 18241 strings out of 473190
+ 303123 string characters out of 5715800
+ 919201 words of memory out of 5000000
  40598 multiletter control sequences out of 15000+600000
- 654975 words of font info for 437 fonts, out of 8000000 for 9000
+ 655394 words of font info for 442 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,11n,93p,1001b,646s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/inconsolata/Inconsolat
@@ -1155,7 +1153,7 @@ mi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr1
 /usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local
 /texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2
 025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (29 pages, 6244637 bytes).
+Output written on main.pdf (29 pages, 6245732 bytes).
 PDF statistics:
  630 PDF objects out of 1000 (max. 8388607)
  533 compressed objects within 6 object streams
