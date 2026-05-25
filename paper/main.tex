@@ -1040,52 +1040,56 @@ Travel/Office & task\_97: Calendar Conflict Resolution & conflicts, exceptions, 
 
 \section{Suite Distributions}
 \label{app:suite-distributions}
+\begingroup
 \begin{center}
 \small
-\captionof{table}{Official-suite grading, sub-problem, and fixture-extension distributions.}
-\label{tab:suite-distributions}
-\label{tab:fixture-extension-distribution}
-\begin{minipage}[t]{0.42\textwidth}
-\vspace{0pt}
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.08}
+\begin{minipage}[t]{0.34\textwidth}
 \centering
-\begin{tabular}{@{}lrr@{}}
+\captionof{table}{Grading types.}
+\label{tab:suite-distributions}
+\begin{tabular}{@{}lr@{}}
 \toprule
-\textbf{Measure} & \textbf{Value} & \textbf{Count} \\
+\textbf{Type} & \textbf{Tasks} \\
 \midrule
-grading\_type & automated & 88 \\
-grading\_type & hybrid & 12 \\
-sub\_problems & 5 & 98 \\
-sub\_problems & 6 & 2 \\
+automated & 88 \\
+hybrid & 12 \\
 \bottomrule
 \end{tabular}
 \end{minipage}
 \hspace{0.08\textwidth}
-\begin{minipage}[t]{0.28\textwidth}
-\vspace{0pt}
+\begin{minipage}[t]{0.34\textwidth}
 \centering
+\captionof{table}{Sub-problem counts.}
+\label{tab:subproblem-distribution}
 \begin{tabular}{@{}lr@{}}
 \toprule
-\textbf{Extension} & \textbf{Files} \\
+\textbf{Sub-problems} & \textbf{Tasks} \\
 \midrule
-csv & 128 \\
-go & 1 \\
-html & 30 \\
-js & 1 \\
-json & 228 \\
-log & 5 \\
-mod & 1 \\
-none & 1 \\
-py & 9 \\
-sh & 5 \\
-sql & 5 \\
-tsv & 2 \\
-txt & 37 \\
-xml & 3 \\
-yaml & 56 \\
+5 & 98 \\
+6 & 2 \\
 \bottomrule
 \end{tabular}
 \end{minipage}
+
+\vspace{0.75\baselineskip}
+
+\captionof{table}{Fixture extensions.}
+\label{tab:fixture-extension-distribution}
+\begin{tabular}{@{}lr@{\hspace{2em}}lr@{\hspace{2em}}lr@{}}
+\toprule
+\textbf{Ext.} & \textbf{Files} & \textbf{Ext.} & \textbf{Files} & \textbf{Ext.} & \textbf{Files} \\
+\midrule
+json & 228 & csv & 128 & yaml & 56 \\
+txt & 37 & html & 30 & py & 9 \\
+log & 5 & sh & 5 & sql & 5 \\
+xml & 3 & tsv & 2 & go & 1 \\
+js & 1 & mod & 1 & none & 1 \\
+\bottomrule
+\end{tabular}
 \end{center}
+\endgroup
 
 \section{Skill Artifact Structure}
 \label{app:skill-artifact}
