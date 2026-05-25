@@ -246,7 +246,7 @@ The benchmark then creates a fresh workspace, copies the generated skills into i
 
 \paragraph{\postskill{}.}
 The agent first solves the task in a no-skill execution phase.
-The benchmark writes a compact \texttt{.evoclawbench/first\_run\_context.json} file containing the task prompt, grading details, output summaries, and transcript summaries.
+The benchmark writes a compact file containing the task prompt, grading details, output summaries, and transcript summaries.
 The same runtime and model then summarize reusable skills from that first-run evidence.
 A fresh second workspace executes the same task using the summarized skills.
 
