@@ -102,7 +102,7 @@ They primarily test task completion, tool use, environment interaction, or the u
 They do not isolate the process in which the same agent runtime creates a skill, summarizes evidence from its own completed run, reuses that skill in a fresh execution, and pays the full token, cost, and time overhead of doing so.
 This leaves a focused evaluation question: \emph{Can LLM agents learn reusable skills from their own runs?}
 
-We introduce \ours{}, a benchmark designed around this question.
+To answer this question, we introduce \ours{}, a benchmark designed around this question.
 \ours{} evaluates an agent on repeated, structured tasks that contain multiple related sub-problems.
 This design creates an opportunity for the agent to recognize shared patterns and, in the own-run condition, convert first-run evidence into reusable skills. 
 The benchmark focuses on reusable skills because they are becoming a practical way to specialize LLM agents for recurring tool-use tasks.
