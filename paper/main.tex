@@ -141,7 +141,7 @@ Our paper makes the following contributions:
 \label{sec:related}
 
 \paragraph{Agent and software engineering benchmarks.}
-Repository-level software engineering benchmarks evaluate whether agents can modify realistic codebases and satisfy executable checks.
+Repository-level benchmarks evaluate whether agents can modify realistic codebases and satisfy executable checks.
 SWE-Bench evaluates real GitHub issue resolution \citep{jimenez2024swebench}, while SWE-agent studies agent-computer interfaces for automated software engineering \citep{yang2024sweagent}.
 Terminal-Bench focuses on realistic command-line tasks in isolated environments \citep{merrill2026terminalbench}.
 MLE-bench extends this line to end-to-end machine-learning engineering on Kaggle competitions \citep{chan2024mlebench}.
@@ -160,9 +160,7 @@ These environments stress planning and tool execution, but their evaluation cond
 Skills can be viewed as external procedural memory for agents, related to work on agent skills, reflection, experience accumulation, procedural memory, and open-ended skill acquisition \citep{anthropic2025skills,yao2023react,shinn2023reflexion,zhao2023expel,fang2025memp,wang2023voyager,xu2026agentskills,wu2026agentskillsmemory}.
 SkillsBench is closest to our setting because it evaluates skills as first-class artifacts, including curated and self-generated skill conditions \citep{li2026skillsbench}.
 Unlike SkillsBench, which evaluates the utility of curated Skills and a pre-solution self-generated Skills condition, our benchmark separates pre-execution skill authoring from post-run skill learning.
-In particular, \preskill{} controls for skills authored before task execution, while \postskill{} directly tests whether an agent can convert evidence from its own prior run into a reusable skill for later execution.
-
-Taken together, these lines of work motivate task and tool-use evaluation, whereas \ours{} makes the skill lifecycle itself the evaluated object: authoring, own-run distillation, reuse, mutation checks, and end-to-end cost.
+In particular, \preskill{} controls for skills authored before task execution, while \postskill{} directly tests whether an agent can convert evidence from its own prior run into a reusable skill for later execution. Taken together, these lines of work motivate task and tool-use evaluation, whereas \ours{} makes the skill lifecycle itself the evaluated object: authoring, own-run distillation, reuse, mutation checks, and end-to-end cost.
 \Cref{tab:comparison} summarizes the benchmark position at a high level.
 \ours{} is designed to expose whether agent-authored and own-run-derived skills improve task success after accounting for the full cost of creating and reusing skills.
 
