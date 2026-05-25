@@ -62,6 +62,27 @@ Self-authored skills do not yield monotonic gains: \preskill{} and \postskill{} 
 These results suggest that runtime skill creation should be evaluated as a selective, cost-sensitive capability rather than assumed to improve agent performance by default.
 \end{abstract}
 
+\begin{table*}[!t]
+\centering
+\caption{Comparison of \ours{} with existing benchmarks. ``Skill Cond.'' indicates whether the benchmark includes agent skills. ``Det. Verifier'' indicates whether deterministic (non-LLM) verification is included. ``Closed Loop'' indicates whether the same runtime creates and reuses skills in fresh runs. For \ours{}, size reports tasks/sub-problems.}
+\label{tab:comparison}
+\small
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Benchmark} & \textbf{Size} & \textbf{Skill Cond.} & \textbf{Tool Use} & \textbf{Det. Verifier} & \textbf{Closed Loop} \\
+\cmidrule(lr){1-6}
+SWE-Bench Verified & 500 & None & Yes & Yes & No \\
+Terminal-Bench 2.0 & 89 & None & Yes & Yes & No \\
+WebArena & 812 & None & Yes & Partial & No \\
+AppWorld & 750 & None & Yes & Yes & No \\
+OSWorld & 369 & None & Yes & Partial & No \\
+SkillsBench & 84 & Yes & Yes & Yes & No \\
+\midrule
+\textbf{\ours{}} & \textbf{100/502} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
 \section{Introduction}
 \label{sec:intro}
 
@@ -135,27 +156,6 @@ Instead, \ours{} evaluates the \emph{closed-loop} process in which the same runt
 
 \Cref{tab:comparison} summarizes the benchmark position at a high level.
 \ours{} is designed to expose whether runtime-authored skills improve task success after accounting for the full cost of creating and reusing skills.
-
-\begin{table*}[t]
-\centering
-\caption{Comparison of \ours{} with existing benchmarks. ``Skill Cond.'' indicates whether the benchmark includes agent skills. ``Det. Verifier'' indicates whether deterministic (non-LLM) verification is included. ``Closed Loop'' indicates whether the same runtime creates and reuses skills in fresh runs. For \ours{}, size reports tasks/sub-problems.}
-\label{tab:comparison}
-\small
-\begin{tabular}{lccccc}
-\toprule
-\textbf{Benchmark} & \textbf{Size} & \textbf{Skill Cond.} & \textbf{Tool Use} & \textbf{Det. Verifier} & \textbf{Closed Loop} \\
-\cmidrule(lr){1-6}
-SWE-Bench Verified & 500 & None & Yes & Yes & No \\
-Terminal-Bench 2.0 & 89 & None & Yes & Yes & No \\
-WebArena & 812 & None & Yes & Partial & No \\
-AppWorld & 750 & None & Yes & Yes & No \\
-OSWorld & 369 & None & Yes & Partial & No \\
-SkillsBench & 84 & Yes & Yes & Yes & No \\
-\midrule
-\textbf{\ours{}} & \textbf{100/502} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} \\
-\bottomrule
-\end{tabular}
-\end{table*}
 
 \section{\ours{} Construction}
 \label{sec:construction}

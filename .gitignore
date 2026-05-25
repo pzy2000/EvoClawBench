@@ -4,3 +4,4 @@ data/ZClawBench/ZClawBench.train.jsonl
 .DS_Store
 *.pyc
 uv.lock
+paper/main.synctex.gz

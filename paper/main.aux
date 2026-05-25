@@ -53,8 +53,8 @@
 \@LN{39}{0}
 \@LN{40}{0}
 \@LN{41}{0}
-\@LN{42}{0}
 \@LN@col{2}
+\@LN{42}{0}
 \@LN{43}{0}
 \@LN{44}{0}
 \@LN{45}{0}
@@ -95,7 +95,6 @@
 \@LN{80}{0}
 \@LN{81}{0}
 \@LN{82}{0}
-\@LN{83}{0}
 \citation{jimenez2024swebench}
 \citation{yang2024sweagent}
 \citation{merrill2026terminalbench}
@@ -107,9 +106,12 @@
 \citation{xie2024osworld}
 \citation{qin2023toolllm}
 \citation{trivedi2024appworld,yao2025taubench}
-\citation{anthropic2025skills,yao2023react,shinn2023reflexion,zhao2023expel,fang2025memp,wang2023voyager,xu2026agentskills,wu2026agentskillsmemory}
-\citation{li2026skillsbench}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Comparison of EvoClawBench{} with existing benchmarks. ``Skill Cond.'' indicates whether the benchmark includes agent skills. ``Det. Verifier'' indicates whether deterministic (non-LLM) verification is included. ``Closed Loop'' indicates whether the same runtime creates and reuses skills in fresh runs. For EvoClawBench{}, size reports tasks/sub-problems.}}{2}{table.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{tab:comparison}{{1}{2}{Comparison of \ours {} with existing benchmarks. ``Skill Cond.'' indicates whether the benchmark includes agent skills. ``Det. Verifier'' indicates whether deterministic (non-LLM) verification is included. ``Closed Loop'' indicates whether the same runtime creates and reuses skills in fresh runs. For \ours {}, size reports tasks/sub-problems}{table.caption.1}{}}
+\newlabel{tab:comparison@cref}{{[table][1][]1}{[1][1][]2}{}{}{}}
 \@LN@col{1}
+\@LN{83}{1}
 \@LN{84}{1}
 \@LN{85}{1}
 \@LN{86}{1}
@@ -146,6 +148,7 @@
 \@LN{117}{1}
 \@LN{118}{1}
 \@LN{119}{1}
+\@LN@col{2}
 \@LN{120}{1}
 \@LN{121}{1}
 \@LN{122}{1}
@@ -154,7 +157,7 @@
 \@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{2}{section.2}\protected@file@percent }
 \newlabel{sec:related}{{2}{2}{Related Work}{section.2}{}}
 \newlabel{sec:related@cref}{{[section][2][]2}{[1][2][]2}{}{}{}}
-\@writefile{toc}{\contentsline {paragraph}{Agent and software engineering benchmarks.}{2}{section*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Agent and software engineering benchmarks.}{2}{section*.3}\protected@file@percent }
 \@LN{125}{1}
 \@LN{126}{1}
 \@LN{127}{1}
@@ -163,7 +166,6 @@
 \@LN{130}{1}
 \@LN{131}{1}
 \@LN{132}{1}
-\@LN@col{2}
 \@LN{133}{1}
 \@LN{134}{1}
 \@LN{135}{1}
@@ -176,7 +178,7 @@
 \@LN{142}{1}
 \@LN{143}{1}
 \@LN{144}{1}
-\@writefile{toc}{\contentsline {paragraph}{Web, GUI, and tool-use benchmarks.}{2}{section*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Web, GUI, and tool-use benchmarks.}{2}{section*.4}\protected@file@percent }
 \@LN{145}{1}
 \@LN{146}{1}
 \@LN{147}{1}
@@ -189,41 +191,43 @@
 \@LN{154}{1}
 \@LN{155}{1}
 \@LN{156}{1}
-\@LN{157}{1}
-\@LN{158}{1}
-\@LN{159}{1}
-\@LN{160}{1}
-\@LN{161}{1}
-\@LN{162}{1}
-\@LN{163}{1}
-\@LN{164}{1}
-\@writefile{toc}{\contentsline {paragraph}{Skill and procedural memory evaluation.}{2}{section*.4}\protected@file@percent }
-\@LN{165}{1}
-\@LN{166}{1}
-\@LN{167}{1}
-\@LN{168}{1}
-\@LN{169}{1}
-\@LN{170}{1}
-\@LN{171}{1}
-\@LN{172}{1}
-\@LN{173}{1}
-\@LN{174}{1}
-\@LN{175}{1}
-\@LN{176}{1}
-\@LN{177}{1}
-\@LN{178}{1}
-\@LN{179}{1}
-\@LN{180}{1}
-\@LN{181}{1}
-\@LN{182}{1}
-\@LN{183}{1}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Workflow schematic for EvoClawBench{}. The task-suite panel illustrates the original seed-task structure, while \Cref  {fig:suite-distribution} reports the current official-suite distribution. The pipeline routes tasks through OpenClaw or nanobot runtime adapters, compares \textsc  {Baseline}{}, \textsc  {PreSkill}{}, and \textsc  {PostSkill}{} in fresh workspaces, and reports grader-backed quality, resource, skill, and mutation-integrity metrics.}}{3}{figure.caption.1}\protected@file@percent }
-\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:overview}{{1}{3}{Workflow schematic for \ours {}. The task-suite panel illustrates the original seed-task structure, while \Cref {fig:suite-distribution} reports the current official-suite distribution. The pipeline routes tasks through OpenClaw or nanobot runtime adapters, compares \baseline {}, \preskill {}, and \postskill {} in fresh workspaces, and reports grader-backed quality, resource, skill, and mutation-integrity metrics}{figure.caption.1}{}}
+\citation{anthropic2025skills,yao2023react,shinn2023reflexion,zhao2023expel,fang2025memp,wang2023voyager,xu2026agentskills,wu2026agentskillsmemory}
+\citation{li2026skillsbench}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Workflow schematic for EvoClawBench{}. The task-suite panel illustrates the original seed-task structure, while \Cref  {fig:suite-distribution} reports the current official-suite distribution. The pipeline routes tasks through OpenClaw or nanobot runtime adapters, compares \textsc  {Baseline}{}, \textsc  {PreSkill}{}, and \textsc  {PostSkill}{} in fresh workspaces, and reports grader-backed quality, resource, skill, and mutation-integrity metrics.}}{3}{figure.caption.2}\protected@file@percent }
+\newlabel{fig:overview}{{1}{3}{Workflow schematic for \ours {}. The task-suite panel illustrates the original seed-task structure, while \Cref {fig:suite-distribution} reports the current official-suite distribution. The pipeline routes tasks through OpenClaw or nanobot runtime adapters, compares \baseline {}, \preskill {}, and \postskill {} in fresh workspaces, and reports grader-backed quality, resource, skill, and mutation-integrity metrics}{figure.caption.2}{}}
 \newlabel{fig:overview@cref}{{[figure][1][]1}{[1][2][]3}{}{}{}}
 \@LN@col{1}
+\@LN{157}{2}
+\@LN{158}{2}
+\@LN{159}{2}
+\@LN{160}{2}
+\@LN{161}{2}
+\@LN{162}{2}
+\@LN{163}{2}
+\@LN{164}{2}
+\@writefile{toc}{\contentsline {paragraph}{Skill and procedural memory evaluation.}{3}{section*.5}\protected@file@percent }
+\@LN{165}{2}
+\@LN{166}{2}
+\@LN{167}{2}
+\@LN{168}{2}
+\@LN{169}{2}
+\@LN{170}{2}
+\@LN{171}{2}
+\@LN{172}{2}
+\@LN{173}{2}
+\@LN{174}{2}
+\@LN{175}{2}
+\@LN{176}{2}
+\@LN{177}{2}
+\@LN{178}{2}
+\@LN{179}{2}
+\@LN{180}{2}
+\@LN{181}{2}
+\@LN{182}{2}
+\@LN{183}{2}
 \@LN{184}{2}
 \@LN{185}{2}
+\@LN@col{2}
 \@LN{186}{2}
 \@LN{187}{2}
 \@LN{188}{2}
@@ -256,46 +260,39 @@
 \@LN{209}{2}
 \@LN{210}{2}
 \@LN{211}{2}
-\@LN@col{2}
 \@LN{212}{2}
 \@LN{213}{2}
-\@LN{214}{2}
-\@LN{215}{2}
-\@LN{216}{2}
-\@LN{217}{2}
-\@LN{218}{2}
-\@LN{219}{2}
-\@LN{220}{2}
-\@LN{221}{2}
-\@LN{222}{2}
-\@LN{223}{2}
-\@LN{224}{2}
-\@LN{225}{2}
-\@LN{226}{2}
-\@LN{227}{2}
-\@LN{228}{2}
-\@LN{229}{2}
-\@LN{230}{2}
-\@LN{231}{2}
-\@LN{232}{2}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Workspace and Fixtures}{3}{subsection.3.2}\protected@file@percent }
-\newlabel{subsec:workspace}{{3.2}{3}{Workspace and Fixtures}{subsection.3.2}{}}
-\newlabel{subsec:workspace@cref}{{[subsection][2][3]3.2}{[1][3][]3}{}{}{}}
-\@LN{233}{2}
-\@LN{234}{2}
-\@LN{235}{2}
-\@LN{236}{2}
-\@LN{237}{2}
-\@LN{238}{2}
-\@LN{239}{2}
-\@LN{240}{2}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Comparison of EvoClawBench{} with existing benchmarks. ``Skill Cond.'' indicates whether the benchmark includes agent skills. ``Det. Verifier'' indicates whether deterministic (non-LLM) verification is included. ``Closed Loop'' indicates whether the same runtime creates and reuses skills in fresh runs. For EvoClawBench{}, size reports tasks/sub-problems.}}{4}{table.caption.5}\protected@file@percent }
-\newlabel{tab:comparison}{{1}{4}{Comparison of \ours {} with existing benchmarks. ``Skill Cond.'' indicates whether the benchmark includes agent skills. ``Det. Verifier'' indicates whether deterministic (non-LLM) verification is included. ``Closed Loop'' indicates whether the same runtime creates and reuses skills in fresh runs. For \ours {}, size reports tasks/sub-problems}{table.caption.5}{}}
-\newlabel{tab:comparison@cref}{{[table][1][]1}{[1][3][]4}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Official-suite task and fixture distributions in EvoClawBench{}. Panel (a) counts the 100 non-sanity tasks by seed or generated family and annotates their sub-problem totals. Panel (b) counts repository-local workspace fixture files by grouped file format. These metadata counts describe benchmark coverage, not model performance.}}{4}{figure.caption.6}\protected@file@percent }
-\newlabel{fig:suite-distribution}{{2}{4}{Official-suite task and fixture distributions in \ours {}. Panel (a) counts the 100 non-sanity tasks by seed or generated family and annotates their sub-problem totals. Panel (b) counts repository-local workspace fixture files by grouped file format. These metadata counts describe benchmark coverage, not model performance}{figure.caption.6}{}}
-\newlabel{fig:suite-distribution@cref}{{[figure][2][]2}{[1][3][]4}{}{}{}}
 \@LN@col{1}
+\@LN{214}{3}
+\@LN{215}{3}
+\@LN{216}{3}
+\@LN{217}{3}
+\@LN{218}{3}
+\@LN{219}{3}
+\@LN{220}{3}
+\@LN{221}{3}
+\@LN{222}{3}
+\@LN{223}{3}
+\@LN{224}{3}
+\@LN{225}{3}
+\@LN{226}{3}
+\@LN{227}{3}
+\@LN{228}{3}
+\@LN{229}{3}
+\@LN{230}{3}
+\@LN{231}{3}
+\@LN{232}{3}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Workspace and Fixtures}{4}{subsection.3.2}\protected@file@percent }
+\newlabel{subsec:workspace}{{3.2}{4}{Workspace and Fixtures}{subsection.3.2}{}}
+\newlabel{subsec:workspace@cref}{{[subsection][2][3]3.2}{[1][4][]4}{}{}{}}
+\@LN{233}{3}
+\@LN{234}{3}
+\@LN{235}{3}
+\@LN{236}{3}
+\@LN{237}{3}
+\@LN{238}{3}
+\@LN{239}{3}
+\@LN{240}{3}
 \@LN{241}{3}
 \@LN{242}{3}
 \@LN{243}{3}
@@ -319,9 +316,9 @@
 \@LN{258}{3}
 \@LN{259}{3}
 \@LN{260}{3}
-\@LN@col{2}
 \@LN{261}{3}
 \@LN{262}{3}
+\@LN@col{2}
 \@LN{263}{3}
 \@LN{264}{3}
 \@LN{265}{3}
@@ -343,46 +340,49 @@
 \@LN{278}{3}
 \@LN{279}{3}
 \@LN{280}{3}
+\@LN{281}{3}
+\@LN{282}{3}
+\@LN{283}{3}
+\@LN{284}{3}
+\@LN{285}{3}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Evaluation Protocol}{4}{section.4}\protected@file@percent }
+\newlabel{sec:protocol}{{4}{4}{Evaluation Protocol}{section.4}{}}
+\newlabel{sec:protocol@cref}{{[section][4][]4}{[1][4][]4}{}{}{}}
+\@LN{286}{3}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Three Execution Strategies}{4}{subsection.4.1}\protected@file@percent }
+\newlabel{subsec:modes}{{4.1}{4}{Three Execution Strategies}{subsection.4.1}{}}
+\newlabel{subsec:modes@cref}{{[subsection][1][4]4.1}{[1][4][]4}{}{}{}}
+\@LN{287}{3}
+\@LN{288}{3}
+\@writefile{toc}{\contentsline {paragraph}{\textsc  {Baseline}{}.}{4}{section*.8}\protected@file@percent }
+\@LN{289}{3}
+\@LN{290}{3}
+\@LN{291}{3}
+\@LN{292}{3}
+\@writefile{toc}{\contentsline {paragraph}{\textsc  {PreSkill}{}.}{4}{section*.9}\protected@file@percent }
+\@LN{293}{3}
+\@LN{294}{3}
+\@LN{295}{3}
+\@LN{296}{3}
+\@LN{297}{3}
+\@LN{298}{3}
+\@LN{299}{3}
+\@LN{300}{3}
+\@writefile{toc}{\contentsline {paragraph}{\textsc  {PostSkill}{}.}{4}{section*.10}\protected@file@percent }
+\@LN{301}{3}
+\@LN{302}{3}
+\@LN{303}{3}
+\@LN{304}{3}
+\@LN{305}{3}
+\@LN{306}{3}
+\@LN{307}{3}
+\@LN{308}{3}
+\@LN{309}{3}
+\@LN{310}{3}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Official-suite task and fixture distributions in EvoClawBench{}. Panel (a) counts the 100 non-sanity tasks by seed or generated family and annotates their sub-problem totals. Panel (b) counts repository-local workspace fixture files by grouped file format. These metadata counts describe benchmark coverage, not model performance.}}{5}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:suite-distribution}{{2}{5}{Official-suite task and fixture distributions in \ours {}. Panel (a) counts the 100 non-sanity tasks by seed or generated family and annotates their sub-problem totals. Panel (b) counts repository-local workspace fixture files by grouped file format. These metadata counts describe benchmark coverage, not model performance}{figure.caption.6}{}}
+\newlabel{fig:suite-distribution@cref}{{[figure][2][]2}{[1][4][]5}{}{}{}}
 \@LN@col{1}
-\@LN{281}{4}
-\@LN{282}{4}
-\@LN{283}{4}
-\@LN{284}{4}
-\@LN{285}{4}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Evaluation Protocol}{5}{section.4}\protected@file@percent }
-\newlabel{sec:protocol}{{4}{5}{Evaluation Protocol}{section.4}{}}
-\newlabel{sec:protocol@cref}{{[section][4][]4}{[1][5][]5}{}{}{}}
-\@LN{286}{4}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Three Execution Strategies}{5}{subsection.4.1}\protected@file@percent }
-\newlabel{subsec:modes}{{4.1}{5}{Three Execution Strategies}{subsection.4.1}{}}
-\newlabel{subsec:modes@cref}{{[subsection][1][4]4.1}{[1][5][]5}{}{}{}}
-\@LN{287}{4}
-\@LN{288}{4}
-\@writefile{toc}{\contentsline {paragraph}{\textsc  {Baseline}{}.}{5}{section*.8}\protected@file@percent }
-\@LN{289}{4}
-\@LN{290}{4}
-\@LN{291}{4}
-\@LN{292}{4}
-\@writefile{toc}{\contentsline {paragraph}{\textsc  {PreSkill}{}.}{5}{section*.9}\protected@file@percent }
-\@LN{293}{4}
-\@LN{294}{4}
-\@LN{295}{4}
-\@LN{296}{4}
-\@LN{297}{4}
-\@LN{298}{4}
-\@LN{299}{4}
-\@LN{300}{4}
-\@writefile{toc}{\contentsline {paragraph}{\textsc  {PostSkill}{}.}{5}{section*.10}\protected@file@percent }
-\@LN{301}{4}
-\@LN{302}{4}
-\@LN{303}{4}
-\@LN{304}{4}
-\@LN{305}{4}
-\@LN{306}{4}
-\@LN{307}{4}
-\@LN{308}{4}
-\@LN{309}{4}
-\@LN{310}{4}
 \@LN{311}{4}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Metrics}{5}{subsection.4.2}\protected@file@percent }
 \newlabel{subsec:metrics}{{4.2}{5}{Metrics}{subsection.4.2}{}}
@@ -402,7 +402,6 @@
 \@LN{324}{4}
 \@LN{325}{4}
 \@LN{326}{4}
-\@LN@col{2}
 \@LN{327}{4}
 \@LN{328}{4}
 \@LN{329}{4}
@@ -417,6 +416,7 @@
 \@LN{338}{4}
 \@LN{339}{4}
 \@LN{340}{4}
+\@LN@col{2}
 \@LN{341}{4}
 \@LN{342}{4}
 \@LN{343}{4}
@@ -451,23 +451,23 @@
 \@LN{366}{4}
 \@LN{367}{4}
 \@LN{368}{4}
-\@LN{369}{4}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Evaluation Findings}{5}{subsection.5.2}\protected@file@percent }
-\newlabel{subsec:findings}{{5.2}{5}{Evaluation Findings}{subsection.5.2}{}}
-\newlabel{subsec:findings@cref}{{[subsection][2][5]5.2}{[1][5][]5}{}{}{}}
-\@LN{370}{4}
-\@writefile{toc}{\contentsline {paragraph}{Finding 1: Runtime scaffolding strongly changes the execution regime.}{5}{section*.12}\protected@file@percent }
-\@LN{371}{4}
-\@LN{372}{4}
-\@LN{373}{4}
-\@LN{374}{4}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Structure of a reusable skill artifact in EvoClawBench{}. Generated skills use a \texttt  {SKILL.md} document with optional supporting scripts or references, are injected into the agent context during reuse, and are protected by before/after mutation checks during execution.}}{6}{figure.caption.7}\protected@file@percent }
 \newlabel{fig:skill-anatomy}{{3}{6}{Structure of a reusable skill artifact in \ours {}. Generated skills use a \texttt {SKILL.md} document with optional supporting scripts or references, are injected into the agent context during reuse, and are protected by before/after mutation checks during execution}{figure.caption.7}{}}
-\newlabel{fig:skill-anatomy@cref}{{[figure][3][]3}{[1][5][]6}{}{}{}}
+\newlabel{fig:skill-anatomy@cref}{{[figure][3][]3}{[1][4][]6}{}{}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Repository-local EvoClawBench{} results from current OpenClaw and nanobot three-mode JSON outputs. Scores are execution-only mean task scores in percent. Loaded is the task-loader count; results list \textsc  {Baseline}{} / \textsc  {PreSkill}{} / \textsc  {PostSkill}{} result-object counts.}}{6}{table.caption.11}\protected@file@percent }
 \newlabel{tab:main-results}{{2}{6}{Repository-local \ours {} results from current OpenClaw and nanobot three-mode JSON outputs. Scores are execution-only mean task scores in percent. Loaded is the task-loader count; results list \baseline {} / \preskill {} / \postskill {} result-object counts}{table.caption.11}{}}
 \newlabel{tab:main-results@cref}{{[table][2][]2}{[1][5][]6}{}{}{}}
 \@LN@col{1}
+\@LN{369}{5}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Evaluation Findings}{6}{subsection.5.2}\protected@file@percent }
+\newlabel{subsec:findings}{{5.2}{6}{Evaluation Findings}{subsection.5.2}{}}
+\newlabel{subsec:findings@cref}{{[subsection][2][5]5.2}{[1][5][]6}{}{}{}}
+\@LN{370}{5}
+\@writefile{toc}{\contentsline {paragraph}{Finding 1: Runtime scaffolding strongly changes the execution regime.}{6}{section*.12}\protected@file@percent }
+\@LN{371}{5}
+\@LN{372}{5}
+\@LN{373}{5}
+\@LN{374}{5}
 \@LN{375}{5}
 \@LN{376}{5}
 \@LN{377}{5}
@@ -477,13 +477,13 @@
 \@LN{381}{5}
 \@LN{382}{5}
 \@LN{383}{5}
+\@LN@col{2}
 \@LN{384}{5}
 \@LN{385}{5}
 \@LN{386}{5}
 \@LN{387}{5}
 \@LN{388}{5}
 \@LN{389}{5}
-\@LN@col{2}
 \@LN{390}{5}
 \@LN{391}{5}
 \@LN{392}{5}
@@ -493,13 +493,13 @@
 \@LN{395}{5}
 \@LN{396}{5}
 \@LN{397}{5}
-\@LN{398}{5}
-\@LN{399}{5}
-\@LN{400}{5}
-\@LN{401}{5}
-\@LN{402}{5}
-\@LN{403}{5}
 \@LN@col{1}
+\@LN{398}{6}
+\@LN{399}{6}
+\@LN{400}{6}
+\@LN{401}{6}
+\@LN{402}{6}
+\@LN{403}{6}
 \@LN{404}{6}
 \@LN{405}{6}
 \@LN{406}{6}
@@ -547,13 +547,13 @@
 \@LN{446}{6}
 \@LN{447}{6}
 \@LN{448}{6}
+\@LN@col{2}
 \@LN{449}{6}
 \@LN{450}{6}
 \@LN{451}{6}
 \@LN{452}{6}
 \@LN{453}{6}
 \@LN{454}{6}
-\@LN@col{2}
 \@LN{455}{6}
 \@LN{456}{6}
 \@LN{457}{6}
@@ -602,13 +602,13 @@
 \@LN{497}{6}
 \@LN{498}{6}
 \@LN{499}{6}
-\@LN{500}{6}
-\@LN{501}{6}
-\@LN{502}{6}
-\@LN{503}{6}
-\@LN{504}{6}
-\@LN{505}{6}
 \@LN@col{1}
+\@LN{500}{7}
+\@LN{501}{7}
+\@LN{502}{7}
+\@LN{503}{7}
+\@LN{504}{7}
+\@LN{505}{7}
 \@LN{506}{7}
 \@LN{507}{7}
 \@LN{508}{7}
@@ -656,10 +656,10 @@
 \@LN{547}{7}
 \@LN{548}{7}
 \@LN{549}{7}
+\@LN@col{2}
 \@LN{550}{7}
 \@LN{551}{7}
 \@LN{552}{7}
-\@LN@col{2}
 \@LN{553}{7}
 \@writefile{toc}{\contentsline {paragraph}{Transfer scope.}{8}{section*.17}\protected@file@percent }
 \@LN{554}{7}
@@ -710,8 +710,6 @@
 \@LN{595}{7}
 \@LN{596}{7}
 \@LN{597}{7}
-\@LN{598}{7}
-\@LN{599}{7}
 \bibdata{references}
 \bibcite{anthropic2025skills}{{1}{2025}{{Anthropic}}{{}}}
 \bibcite{boisvert2024workarena}{{2}{2024}{{Boisvert et~al.}}{{Boisvert, Thakkar, Gasse, Caccia, Le~Sellier De~Chezelles, Cappart, Chapados, Lacoste, and Drouin}}}
@@ -723,8 +721,9 @@
 \bibcite{liu2023agentbench}{{8}{2023}{{Liu et~al.}}{{Liu, Yu, Zhang, Xu, Lei, Lai, Gu, Ding, Men, Yang, Zhang, Deng, Zeng, Du, Zhang, Shen, Zhang, Su, Sun, Huang, Dong, and Tang}}}
 \bibcite{merrill2026terminalbench}{{9}{2026}{{Merrill et~al.}}{{Merrill, Shaw, Carlini, Li, Raj, Bercovich, Shi, Shin, Walshe, Buchanan, Shen, Ye, Lin, Poulos, Wang, Nezhurina, Jitsev, Lu, Mastromichalakis, Xu, Chen, Liu, Zhang, Chen, Kashyap, Uslu, Li, Wu, Yan, Bian, Sharma, Sun, Dillmann, Anand, Lanpouthakoun, Koopah, Hu, Guha, Dreiman, Zhu, Krauth, Zhong, Muennighoff, Amanfu, Tan, Pimpalgaonkar, Aggarwal, Lin, Lan, Zhao, Liang, Wang, Wang, Zhou, Heineman, Liu, Trivedi, Yang, Lin, Shetty, Yang, Omi, Raoof, Li, Zhuo, Lin, Dai, Wang, Chai, Zhou, Wahdany, She, Hu, Dong, Zhu, Cui, Saiyed, Kolbeinsson, Hu, Rytting, Marten, Wang, Dimakis, Konwinski, and Schmidt}}}
 \bibcite{mialon2023gaia}{{10}{2023}{{Mialon et~al.}}{{Mialon, Fourrier, Swift, Wolf, LeCun, and Scialom}}}
-\bibcite{qin2023toolllm}{{11}{2023}{{Qin et~al.}}{{Qin, Liang, Ye, Zhu, Yan, Lu, Lin, Cong, Tang, Qian, Zhao, Hong, Tian, Xie, Zhou, Gerstein, Li, Liu, and Sun}}}
 \@LN@col{1}
+\@LN{598}{8}
+\@LN{599}{8}
 \@LN{600}{8}
 \@LN{601}{8}
 \@LN{602}{8}
@@ -770,10 +769,10 @@
 \@LN{642}{8}
 \@LN{643}{8}
 \@LN{644}{8}
+\@LN@col{2}
 \@LN{645}{8}
 \@LN{646}{8}
 \@LN{647}{8}
-\@LN@col{2}
 \@LN{648}{8}
 \@LN{649}{8}
 \@LN{650}{8}
@@ -827,10 +826,7 @@
 \@LN{698}{8}
 \@LN{699}{8}
 \@LN{700}{8}
-\@LN{701}{8}
-\@LN{702}{8}
-\@LN{703}{8}
-\@LN{704}{8}
+\bibcite{qin2023toolllm}{{11}{2023}{{Qin et~al.}}{{Qin, Liang, Ye, Zhu, Yan, Lu, Lin, Cong, Tang, Qian, Zhao, Hong, Tian, Xie, Zhou, Gerstein, Li, Liu, and Sun}}}
 \bibcite{shinn2023reflexion}{{12}{2023}{{Shinn et~al.}}{{Shinn, Cassano, Berman, Gopinath, Narasimhan, and Yao}}}
 \bibcite{trivedi2024appworld}{{13}{2024}{{Trivedi et~al.}}{{Trivedi, Khot, Hartmann, Manku, Dong, Li, Gupta, Sabharwal, and Balasubramanian}}}
 \bibcite{wang2023voyager}{{14}{2024}{{Wang et~al.}}{{Wang, Xie, Jiang, Mandlekar, Xiao, Zhu, Fan, and Anandkumar}}}
@@ -843,6 +839,10 @@
 \bibcite{zhao2023expel}{{21}{2023}{{Zhao et~al.}}{{Zhao, Huang, Xu, Lin, Liu, and Huang}}}
 \bibcite{zhou2023webarena}{{22}{2023}{{Zhou et~al.}}{{Zhou, Xu, Zhu, Zhou, Lo, Sridhar, Cheng, Ou, Bisk, Fried, Alon, and Neubig}}}
 \@LN@col{1}
+\@LN{701}{9}
+\@LN{702}{9}
+\@LN{703}{9}
+\@LN{704}{9}
 \@LN{705}{9}
 \@LN{706}{9}
 \@LN{707}{9}
@@ -894,11 +894,11 @@
 \@LN{753}{9}
 \@LN{754}{9}
 \@LN{755}{9}
+\@LN@col{2}
 \@LN{756}{9}
 \@LN{757}{9}
 \@LN{758}{9}
 \@LN{759}{9}
-\@LN@col{2}
 \@LN{760}{9}
 \@LN{761}{9}
 \@LN{762}{9}
