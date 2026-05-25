@@ -138,18 +138,21 @@ Instead, \ours{} evaluates the \emph{closed-loop} process in which the same runt
 
 \begin{table*}[t]
 \centering
-\small
-\caption{High-level positioning of \ours{} relative to related benchmarks. The table summarizes the evaluation focus needed for our argument rather than attempting an exhaustive versioned feature audit of each benchmark.}
+\caption{Comparison of \ours{} with existing benchmarks. ``Skill Cond.'' indicates whether the benchmark includes agent skills. ``Det. Verifier'' indicates whether deterministic (non-LLM) verification is included. ``Closed Loop'' indicates whether the same runtime creates and reuses skills in fresh runs. For \ours{}, size reports tasks/sub-problems.}
 \label{tab:comparison}
-\begin{tabular}{p{0.24\textwidth}p{0.42\textwidth}p{0.26\textwidth}}
+\small
+\begin{tabular}{lccccc}
 \toprule
-\textbf{Benchmark family} & \textbf{Primary evaluation focus} & \textbf{How skills enter evaluation} \\
+\textbf{Benchmark} & \textbf{Size} & \textbf{Skill Cond.} & \textbf{Tool Use} & \textbf{Det. Verifier} & \textbf{Closed Loop} \\
+\cmidrule(lr){1-6}
+SWE-Bench Verified & 500 & None & Yes & Yes & No \\
+Terminal-Bench 2.0 & 89 & None & Yes & Yes & No \\
+WebArena & 812 & None & Yes & Partial & No \\
+AppWorld & 750 & None & Yes & Yes & No \\
+OSWorld & 369 & None & Yes & Partial & No \\
+SkillsBench & 84 & Yes & Yes & Yes & No \\
 \midrule
-Software-engineering and CLI benchmarks \citep{jimenez2024swebench,yang2024sweagent,merrill2026terminalbench,chan2024mlebench} & Task completion in repositories, terminals, or engineering workflows. & Skills are not the primary benchmark object. \\
-Web, GUI, and tool-use benchmarks \citep{zhou2023webarena,deng2023mind2web,trivedi2024appworld,yao2025taubench,boisvert2024workarena,xie2024osworld,qin2023toolllm,liu2023agentbench,mialon2023gaia} & Planning and acting through browsers, apps, APIs, or heterogeneous agent environments. & Agent-authored skill reuse is not isolated as a controlled condition. \\
-SkillsBench \citep{li2026skillsbench} & Skill artifacts as first-class evaluation objects, including curated and self-generated skill settings. & Evaluates skill conditions, but not the same-runtime \baseline{}/\preskill{}/\postskill{} loop studied here. \\
-\midrule
-\textbf{\ours{}} & Repeated fixture-backed tasks designed to measure runtime skill creation, summarization, and reuse. & The same model/runtime authors skills and reuses them in fresh execution workspaces with mutation checks and end-to-end cost accounting. \\
+\textbf{\ours{}} & \textbf{100/502} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} \\
 \bottomrule
 \end{tabular}
 \end{table*}
