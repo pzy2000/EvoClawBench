@@ -9,44 +9,56 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Database file #1: references.bib
+Warning--empty journal in chan2024mlebench
+Warning--empty journal in liu2023agentbench
+Warning--empty journal in qin2023toolllm
+Warning--empty journal in shinn2023reflexion
+Warning--empty journal in wang2023voyager
+Warning--empty journal in xie2024osworld
+Warning--empty journal in xu2026agentskills
+Warning--empty booktitle in yao2025taubench
+Warning--empty journal in yao2023react
+Warning--empty journal in zhao2023expel
+Warning--empty journal in zhou2023webarena
 You've used 32 entries,
             3764 wiz_defined-function locations,
-            902 strings with 17986 characters,
-and the built_in function-call counts, 38496 in all, are:
-= -- 2720
-> -- 3625
-< -- 8
-+ -- 1533
-- -- 1198
-* -- 3232
-:= -- 5960
-add.period$ -- 126
+            901 strings with 17296 characters,
+and the built_in function-call counts, 38613 in all, are:
+= -- 2793
+> -- 3513
+< -- 11
++ -- 1486
+- -- 1162
+* -- 3236
+:= -- 5903
+add.period$ -- 117
 call.type$ -- 32
-change.case$ -- 598
+change.case$ -- 583
 chr.to.int$ -- 35
-cite$ -- 32
-duplicate$ -- 1711
-empty$ -- 1770
-format.name$ -- 1291
-if$ -- 7711
+cite$ -- 43
+duplicate$ -- 1732
+empty$ -- 1813
+format.name$ -- 1254
+if$ -- 7742
 int.to.chr$ -- 2
-int.to.str$ -- 7
-missing$ -- 489
-newline$ -- 162
+int.to.str$ -- 8
+missing$ -- 490
+newline$ -- 153
 num.names$ -- 128
-pop$ -- 1415
+pop$ -- 1438
 preamble$ -- 1
-purify$ -- 556
+purify$ -- 543
 quote$ -- 0
-skip$ -- 1834
+skip$ -- 1793
 stack$ -- 0
-substring$ -- 451
-swap$ -- 1078
-text.length$ -- 5
+substring$ -- 718
+swap$ -- 1074
+text.length$ -- 8
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 288
-warning$ -- 0
-while$ -- 102
+warning$ -- 11
+while$ -- 118
 width$ -- 0
-write$ -- 396
+write$ -- 385
+(There were 11 warnings)

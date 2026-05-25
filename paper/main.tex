@@ -51,8 +51,10 @@
 \maketitle
 
 \begin{abstract}
-Reusable skills are becoming a practical way to specialize LLM agents for recurring tool-use tasks, but it remains unclear whether agents can learn such skills from evidence produced by their own runs and benefit from them later.
-We present \textbf{\ours{}}, a benchmark for evaluating this question on repeated, fixture-backed tasks.
+LLM agents have become a prominent target for evaluation as tool-using workers that operate across repositories, terminals, browsers, applications, graphical interfaces, and document workflows.
+Benchmarks such as SWE-Bench, Terminal-Bench, WebArena, AppWorld, OSWorld, and SkillsBench now measure many aspects of this agent capability.
+However, they mainly evaluate task completion, tool use, or skill utility, and do not isolate whether the same runtime can create reusable skills from evidence produced by its own runs and benefit from them in fresh executions.
+We present \textbf{\ours{}}, a benchmark for evaluating this closed-loop question on repeated, fixture-backed tasks.
 \ours{} compares three controlled strategies: direct execution with no skills, \preskill{} authoring before execution, and \postskill{} summarization from first-run evidence before a fresh second execution.
 The benchmark contains 100 official tasks and 502 sub-problems across coding, data, office, security, operations, and domain-document workflows, with support for multiple agent runtimes.
 Our current experiments cover OpenClaw and nanobot under local execution, 32 workers, and \texttt{mode=all}.
@@ -86,20 +88,20 @@ SkillsBench & 84 & Yes & Yes & Yes & No \\
 \section{Introduction}
 \label{sec:intro}
 
-Large language model agents are increasingly evaluated as interactive workers that operate across repositories, terminals, browsers, graphical interfaces, tool APIs, and executable code environments \citep{cursor2026composer2,wang2025openhands,xu2025agentcompany,fourney2024magenticone,agashe2025agents2}.
-Alongside stronger foundation models and richer harnesses, a complementary line of work treats reusable procedural artifacts as external skills or learned procedures that can be derived, refined, reused, or moved into compact task-family state from agent experience \citep{yang2026autoskill,ni2026trace2skill,wang2026skillx,yang2026skillmaster,xie2026historytostate}.
-In this paper, we use \emph{skills} for lightweight, inspectable procedural documents with optional scripts, templates, and references, because such artifacts can be installed, edited, and injected into an agent's context without retraining the model.
+Large language model agents are increasingly used to turn foundation models into interactive workers.
+Recent evaluations place agents in repositories, terminals, browsers, graphical interfaces, tool APIs, and executable environments \citep{fourney2024magenticone,wang2025openhands,xu2025agentcompany,agashe2025agents2,cursor2026composer2}.
+As a result, the benchmark ecosystem has expanded rapidly.
+SWE-Bench and SWE-agent-style evaluations emphasize repository-level software engineering \citep{jimenez2024swebench,yang2024sweagent}; Terminal-Bench, AppWorld, WebArena, and OSWorld measure command-line, app-world, browser, and desktop interaction \citep{zhou2023webarena,trivedi2024appworld,xie2024osworld,merrill2026terminalbench}; and SkillsBench evaluates skills as first-class artifacts across diverse tasks \citep{li2026skillsbench}.
 
-The skill ecosystem is growing at a speed that outpaces careful evaluation.
-SkillsBench reports 84{,}192 skills collected within 136 days \citep{li2026skillsbench}, suggesting a shift from prompt engineering by individual users toward a marketplace of reusable procedural memory.
-However, the central question is no longer only whether a human-written skill can help an agent.
-If agents are to become long-running assistants, they must also decide when to create skills, what to write into them, and whether skills distilled from their own runs improve later work.
-
-Existing benchmarks leave this closed-loop capability under-specified.
-SWE-Bench and SWE-agent-style evaluations emphasize repository-level software engineering \citep{jimenez2024swebench,yang2024sweagent}.
-Terminal-Bench and AppWorld evaluate tool use and command-line or app-world interaction \citep{merrill2026terminalbench,trivedi2024appworld}.
-SkillsBench treats skills as first-class artifacts across domains, including curated and self-generated skill settings \citep{li2026skillsbench}, but it does not isolate the closed-loop process in which the same runtime creates, summarizes from its own run evidence, and reuses skills across fresh benchmark executions.
+These benchmarks have made agent capability more measurable, but they leave a closed-loop learning question under-specified.
+They primarily test task completion, tool use, environment interaction, or the utility of curated and self-generated skills.
+They do not isolate the process in which the same agent runtime creates a skill, summarizes evidence from its own completed run, reuses that skill in a fresh execution, and pays the full token, cost, and time overhead of doing so.
 This leaves a focused evaluation question: \emph{Can LLM agents learn reusable skills from their own runs?}
+
+Reusable skills are becoming a practical way to specialize LLM agents for recurring tool-use tasks.
+SkillsBench reports 84{,}192 skills collected within 136 days \citep{li2026skillsbench}, suggesting a shift from prompt engineering by individual users toward a marketplace of reusable procedural memory.
+Alongside stronger foundation models and richer harnesses, a complementary line of work treats procedural artifacts as external skills or learned procedures that can be derived, refined, reused, or moved into compact task-family state from agent experience \citep{yang2026autoskill,ni2026trace2skill,wang2026skillx,yang2026skillmaster,xie2026historytostate}.
+In this paper, we use \emph{skills} for lightweight, inspectable procedural documents with optional scripts, templates, and references, because such artifacts can be installed, edited, and injected into an agent's context without retraining the model.
 
 We introduce \ours{}, a benchmark designed around this question.
 \ours{} evaluates an agent on repeated, structured tasks that contain multiple related sub-problems.
@@ -289,23 +291,23 @@ The numerical results in \Cref{tab:main-results} are computed from the repositor
 \begin{table*}[t]
 \centering
 \small
-\caption{Repository-local \ours{} results from current OpenClaw and nanobot three-mode outputs. Scores are execution-only mean task scores in percent. Loaded is the task-loader count; Skills lists \preskill{} / \postskill{} created-skill counts.}
+\caption{Repository-local \ours{} results from current OpenClaw and nanobot three-mode outputs. Scores are execution-only mean task scores in percent over the 101-task loader suite; Skills lists \preskill{} / \postskill{} created-skill counts.}
 \label{tab:main-results}
 \resizebox{\textwidth}{!}{
-\begin{tabular}{lllrrrr}
+\begin{tabular}{cccccc}
 \toprule
-\textbf{Runtime} & \textbf{Model} & \textbf{Loaded} & \textbf{\baseline{}} & \textbf{\preskill{}} & \textbf{\postskill{}} & \textbf{Skills} \\
+\textbf{Runtime} & \textbf{Model} & \textbf{\baseline{}} & \textbf{\preskill{}} & \textbf{\postskill{}} & \textbf{Skills} \\
 \midrule
-OpenClaw & \texttt{gpt-5.4} & 101 & 18.63 & 18.07 & 1.14 & 22 / 0 \\
-OpenClaw & \texttt{qwen3.6-plus} & 101 & 19.16 & 17.38 & 19.12 & 21 / 22 \\
-OpenClaw & \texttt{deepseek-v4-pro} & 101 & 19.99 & 15.06 & 0.00 & 21 / 0 \\
-OpenClaw & \texttt{MiniMax/MiniMax-M2.7} & 101 & 18.88 & 17.00 & 19.10 & 26 / 20 \\
-OpenClaw & \texttt{gpt-5.4-mini} & 101 & 19.11 & 19.42 & 19.36 & 22 / 20 \\
-nanobot & \texttt{gpt-5.4} & 101 & 96.13 & 96.73 & 96.17 & 101 / 100 \\
-nanobot & \texttt{qwen3.6-plus} & 101 & 56.45 & 59.90 & 54.33 & 70 / 39 \\
-nanobot & \texttt{deepseek-v4-pro} & 101 & 77.77 & 4.80 & 0.99 & 27 / 0 \\
-nanobot & \texttt{MiniMax/MiniMax-M2.7} & 101 & 90.97 & 92.90 & 94.50 & 99 / 99 \\
-nanobot & \texttt{gpt-5.4-mini} & 101 & 88.71 & 87.41 & 89.77 & 100 / 82 \\
+OpenClaw & \texttt{GPT-5.4} & 18.63 & 18.07 & 1.14 & 22 / 0 \\
+OpenClaw & \texttt{Qwen3.6-Plus} & 19.16 & 17.38 & 19.12 & 21 / 22 \\
+OpenClaw & \texttt{DeepSeek-V4-Pro} & 19.99 & 15.06 & 0.00 & 21 / 0 \\
+OpenClaw & \texttt{MiniMax-M2.7} & 18.88 & 17.00 & 19.10 & 26 / 20 \\
+OpenClaw & \texttt{GPT-5.4 mini} & 19.11 & 19.42 & 19.36 & 22 / 20 \\
+nanobot & \texttt{GPT-5.4} & 96.13 & 96.73 & 96.17 & 101 / 100 \\
+nanobot & \texttt{Qwen3.6-Plus} & 56.45 & 59.90 & 54.33 & 70 / 39 \\
+nanobot & \texttt{DeepSeek-V4-Pro} & 77.77 & 4.80 & 0.99 & 27 / 0 \\
+nanobot & \texttt{MiniMax-M2.7} & 90.97 & 92.90 & 94.50 & 99 / 99 \\
+nanobot & \texttt{GPT-5.4 mini} & 88.71 & 87.41 & 89.77 & 100 / 82 \\
 \bottomrule
 \end{tabular}
 }
@@ -315,24 +317,24 @@ nanobot & \texttt{gpt-5.4-mini} & 101 & 88.71 & 87.41 & 89.77 & 100 / 82 \\
 \label{subsec:findings}
 
 \paragraph{Finding 1: Runtime scaffolding strongly changes the execution regime.}
-Under OpenClaw, direct \baseline{} performance remains below 20\%, ranging from 18.63 for \texttt{gpt-5.4} to 19.99 for \texttt{deepseek-v4-pro}.
-Under nanobot, direct \baseline{} scores are substantially higher, ranging from 56.45 for \texttt{qwen3.6-plus} to 96.13 for \texttt{gpt-5.4}.
+Under OpenClaw, direct \baseline{} performance remains below 20\%, ranging from 18.63 for \texttt{GPT-5.4} to 19.99 for \texttt{DeepSeek-V4-Pro}.
+Under nanobot, direct \baseline{} scores are substantially higher, ranging from 56.45 for \texttt{Qwen3.6-Plus} to 96.13 for \texttt{GPT-5.4}.
 This contrast shows why \ours{} reports runtime as part of the experimental condition rather than treating the model identifier alone as sufficient.
 It should not be read as a leaderboard claim that one runtime is inherently superior, because the runtime also determines prompt wrapping, workspace setup, tool invocation, and usage extraction.
 The hardened tasks are designed to resist shallow copying of exposed answer fields or schemas: agents must reconcile multi-record evidence, conflicts, revisions, and grader-visible output constraints.
 As a result, a generated skill must improve the specific model-runtime execution setting rather than merely preserve performance on an already saturated benchmark.
 
 \paragraph{Finding 2: Skill timing is model-dependent rather than monotonic.}
-\texttt{gpt-5.4} illustrates the runtime dependence sharply: OpenClaw falls from 18.63 under \baseline{} to 1.14 under \postskill{}, while nanobot stays above 96\% in all three modes.
-\texttt{qwen3.6-plus} improves under nanobot \preskill{} but regresses under nanobot \postskill{}, whereas its OpenClaw row remains near 19\% for \baseline{} and \postskill{}.
-\texttt{gpt-5.4-mini} improves under OpenClaw skill workflows and under nanobot \postskill{}, but its nanobot \preskill{} score is slightly below its nanobot \baseline{}.
+\texttt{GPT-5.4} illustrates the runtime dependence sharply: OpenClaw falls from 18.63 under \baseline{} to 1.14 under \postskill{}, while nanobot stays above 96\% in all three modes.
+\texttt{Qwen3.6-Plus} improves under nanobot \preskill{} but regresses under nanobot \postskill{}, whereas its OpenClaw row remains near 19\% for \baseline{} and \postskill{}.
+\texttt{GPT-5.4 mini} improves under OpenClaw skill workflows and under nanobot \postskill{}, but its nanobot \preskill{} score is slightly below its nanobot \baseline{}.
 These rows do not support a blanket claim that \preskill{} consistently outperforms \postskill{}, or that either skill workflow reliably improves over direct execution across runtimes.
 
 \paragraph{Finding 3: Skill workflows still add substantial overhead.}
 Even when execution-only quality is similar, skill workflows include authoring or summarization phases.
-For \texttt{qwen3.6-plus}, end-to-end token-efficiency ratios are 0.38 for \preskill{} and 0.30 for \postskill{}, meaning the full workflows use substantially more tokens than direct \baseline{} execution.
-For \texttt{MiniMax/MiniMax-M2.7}, the corresponding ratios are 0.21 and 0.26; for \texttt{gpt-5.4-mini}, they are 0.32 and 0.28.
-For \texttt{gpt-5.4}, \preskill{} has an end-to-end token-efficiency ratio of 0.36; for \texttt{deepseek-v4-pro}, the corresponding ratio is 0.40.
+For \texttt{Qwen3.6-Plus}, end-to-end token-efficiency ratios are 0.38 for \preskill{} and 0.30 for \postskill{}, meaning the full workflows use substantially more tokens than direct \baseline{} execution.
+For \texttt{MiniMax-M2.7}, the corresponding ratios are 0.21 and 0.26; for \texttt{GPT-5.4 mini}, they are 0.32 and 0.28.
+For \texttt{GPT-5.4}, \preskill{} has an end-to-end token-efficiency ratio of 0.36; for \texttt{DeepSeek-V4-Pro}, the corresponding ratio is 0.40.
 The current evidence therefore suggests that runtime skill creation must be selective: skill creation needs to clear both a quality bar and an amortized-cost bar.
 
 \paragraph{Finding 4: Skill counts are not sufficient to predict gains.}
@@ -345,7 +347,7 @@ Most observed regressions are therefore better explained by the quality and fit 
 \subsection{Subset Cost, Amortization, and Robustness Checks}
 \label{subsec:subset-checks}
 
-To address cost and judge-sensitivity concerns directly, we ran focused subset experiments on the 12 hybrid tasks using OpenClaw and \texttt{gpt-5.4-mini}.
+To address cost and judge-sensitivity concerns directly, we ran focused subset experiments on the 12 hybrid tasks using OpenClaw and \texttt{GPT-5.4 mini}.
 \Cref{tab:subset-cost} shows the end-to-end resource tradeoff.
 On this subset, both skill workflows slightly reduce score while increasing tokens, cost, and wall-clock time.
 The negative score-per-extra-token values therefore make the cost-quality tradeoff explicit rather than hiding it behind execution-only scores.
@@ -366,8 +368,8 @@ Finally, we regraded the 36 task-mode outputs from the 12 hybrid-task subset wit
 Because hybrid scores combine deterministic checks with an LLM judgment, the regrade holds the automated sub-scores fixed and replaces only the LLM-judge component.
 One alternate judge shows high agreement with the original scores: Pearson correlation is 0.9970, mean absolute score delta is 0.0141, 35 of 36 pairs are within 0.05, and all 36 pairs are within 0.10.
 The largest disagreement is \texttt{task\_18\_dep\_audit} in \preskill{} (+0.0880).
-As a second check, \texttt{gpt-5.4-mini} also preserves the overall trend, though less tightly: Pearson correlation is 0.9512, mean absolute score delta is 0.0609, and 30 of 36 pairs are within 0.10.
-The largest \texttt{gpt-5.4-mini} disagreement is \texttt{task\_11\_web\_extraction} in \baseline{} (-0.3972).
+As a second check, \texttt{GPT-5.4 mini} also preserves the overall trend, though less tightly: Pearson correlation is 0.9512, mean absolute score delta is 0.0609, and 30 of 36 pairs are within 0.10.
+The largest \texttt{GPT-5.4 mini} disagreement is \texttt{task\_11\_web\_extraction} in \baseline{} (-0.3972).
 These subset audits reduce the concern that the reported hybrid-task pattern is an artifact of a single judge, while the remaining disagreements still motivate auditing high-stakes leaderboard claims.
 They do not remove judge dependence as a limitation; instead, they show how future benchmark releases should report both original and alternate-judge agreement when hybrid grading affects a result.
 
