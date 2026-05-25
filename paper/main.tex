@@ -97,7 +97,7 @@ Both are compared against \baseline{} under execution-only and end-to-end metric
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{Figures/fig_overview_imagegen.png}
-\caption{Overview of \ours{}. The benchmark runs repeated, fixture-backed tasks through shared runtime adapters, compares \baseline{}, \preskill{}, and \postskill{} execution in fresh workspaces, and reports task quality, efficiency, skill creation, and mutation-integrity metrics.}
+\caption{Workflow schematic for \ours{}. The task-suite panel illustrates the original seed-task structure, while \Cref{fig:suite-distribution} reports the current official-suite distribution. The pipeline routes tasks through OpenClaw or nanobot runtime adapters, compares \baseline{}, \preskill{}, and \postskill{} in fresh workspaces, and reports grader-backed quality, resource, skill, and mutation-integrity metrics.}
 \label{fig:overview}
 \end{figure*}
 
@@ -176,6 +176,14 @@ The full 100-task suite expands these surfaces into harder repository-local fami
 The suite size is 100 tasks and 502 sub-problems after excluding the sanity task.
 Many hard-mode fixtures are synthetic, repository-local cases with competing evidence packets, stale revisions, and decoy records.
 This design reduces privacy risk while preserving repeated, artifact-producing workflows.
+\Cref{fig:suite-distribution} summarizes the official-suite coverage from task metadata rather than model results: the suite combines seed workflows, generated hard-mode families, and repository-local fixtures in multiple file formats.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{Figures/fig_suite_distribution.pdf}
+\caption{Official-suite task and fixture distributions in \ours{}. Panel (a) counts the 100 non-sanity tasks by seed or generated family and annotates their sub-problem totals. Panel (b) counts repository-local workspace fixture files by grouped file format. These metadata counts describe benchmark coverage, not model performance.}
+\label{fig:suite-distribution}
+\end{figure*}
 
 \subsection{Workspace and Fixtures}
 \label{subsec:workspace}
