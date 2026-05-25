@@ -121,7 +121,7 @@ Both are compared against \baseline{} under execution-only and end-to-end metric
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{Figures/fig_overview_imagegen.searchable.pdf}
-\caption{Overview for \ours{}. The panel illustrates the original seed-task structure. The pipeline routes tasks through OpenClaw or nanobot runtime adapters, compares \baseline{}, \preskill{}, and \postskill{} in fresh workspaces, and reports grader-backed quality, resource, skill, and mutation-integrity metrics.}
+\caption{Overview for \ours{}. The task-suite panel summarizes the 100 non-sanity tasks in the official suite; \Cref{fig:suite-distribution} breaks down their families and fixture formats. The pipeline routes tasks through OpenClaw or nanobot runtime adapters, compares \baseline{}, \preskill{}, and \postskill{} in fresh workspaces, and reports grader-backed quality, resource, skill, and mutation-integrity metrics.}
 \label{fig:overview}
 \end{figure*}
 
@@ -149,7 +149,7 @@ WebArena builds realistic web environments for long-horizon browser tasks \citep
 WorkArena++ targets compositional knowledge-work workflows in ServiceNow \citep{boisvert2024workarena}, while OSWorld evaluates multimodal agents on real desktop-computer tasks \citep{xie2024osworld}.
 ToolLLM and ToolBench evaluate API-use capability at large scale \citep{qin2023toolllm}.
 AppWorld and $\tau$-Bench broaden the scope to controllable app worlds and tool-agent-user interaction settings \citep{trivedi2024appworld,yao2025taubench}.
-These environments stress planning and tool execution, but their evaluation conditions do not center on agent-authored procedural artifacts that are reused in fresh runs.
+These environments stress planning and tool execution, but their evaluation conditions do not center on agent-authored artifacts that are reused in fresh runs.
 
 \paragraph{Skill and procedural memory evaluation.}
 Skills can be viewed as external procedural memory for agents, related to work on agent skills, reflection, experience accumulation, procedural memory, and open-ended skill acquisition \citep{anthropic2025skills,yao2023react,shinn2023reflexion,zhao2023expel,fang2025memp,wang2023voyager,xu2026agentskills,wu2026agentskillsmemory}.
@@ -168,17 +168,15 @@ The benchmark implementation is organized around task definitions, workspace fix
 \subsection{Task Suite}
 \label{subsec:tasks}
 
-Tasks are written as markdown files with YAML frontmatter, a natural-language prompt, expected behavior, sub-problem descriptions, grading criteria, and automated or hybrid grading logic.
-Each task usually contains five to ten structurally related sub-problems.
-This repeated structure is important: it gives the agent a reason to write down a general procedure rather than solve a single isolated instance.
-The repository also includes a sanity task used by the loader, but we exclude it when describing the official suite size.
-
-The task suite summarizes recurring workflows such as data transformation, log analysis, API scaffolding, test generation, configuration migration, security review, document extraction, database operations, Excel analytics, web extraction, document generation, data pipelines, email and invoice processing, shell automation, CI generation, dependency audit, environment configuration, and metrics anomaly detection.
-The full 100-task suite expands these surfaces into harder repository-local families such as finance, legal, healthcare, procurement, HR, support, DevOps/SRE, privacy, localization, commerce, facilities, public-sector audit, CRM, and travel/office coordination.
-The suite size is 100 tasks and 502 sub-problems after excluding the sanity task.
-Many hard-mode fixtures are synthetic, repository-local cases with competing evidence packets, stale revisions, and decoy records.
+Tasks are specified as markdown files with YAML frontmatter, a natural-language prompt, expected behavior, sub-problem descriptions, grading criteria, and automated or hybrid grading logic.
+Each task typically contains five to ten structurally related sub-problems, creating repeated situations in which an agent can benefit from recording a general procedure rather than solving each instance independently.
+The repository also includes a sanity task used by the loader, but we exclude it from official suite counts.
+After this exclusion, the suite contains 100 tasks and 502 sub-problems.
+It covers recurring workflows such as data transformation, log analysis, API scaffolding, test generation, configuration migration, security review, document extraction, database operations, Excel analytics, web extraction, document generation, data pipelines, email and invoice processing, shell automation, CI generation, dependency audit, environment configuration, and metrics anomaly detection.
+The full suite extends these surfaces into harder repository-local families, including finance, legal, healthcare, procurement, HR, support, DevOps/SRE, privacy, localization, commerce, facilities, public-sector audit, CRM, and travel/office coordination.
+Many hard-mode fixtures are synthetic repository-local cases with competing evidence packets, stale revisions, and decoy records.
 This design reduces privacy risk while preserving repeated, artifact-producing workflows.
-\Cref{fig:suite-distribution} summarizes the official-suite coverage from task metadata rather than model results: the suite combines seed workflows, generated hard-mode families, and repository-local fixtures in multiple file formats.
+\Cref{fig:suite-distribution} summarizes official-suite coverage from task metadata rather than model results: the suite combines seed workflows, generated hard-mode families, and repository-local fixtures in multiple file formats.
 
 \begin{figure*}[t]
 \centering
@@ -190,26 +188,24 @@ This design reduces privacy risk while preserving repeated, artifact-producing w
 \subsection{Workspace and Fixtures}
 \label{subsec:workspace}
 
-Each task run receives an isolated workspace.
-Input assets are copied from the benchmark's fixture directory into the workspace, and the agent must write grader-visible outputs under the expected output paths.
-This setup avoids relying on conversation-only answers and encourages concrete artifacts such as JSON files, scripts, reports, Dockerfiles, CI files, and structured extraction outputs.
-Task definitions tell agents not to modify input fixtures; graders inspect output artifacts rather than trusting the agent's final natural-language answer.
+Each task run is executed in an isolated workspace.
+The benchmark copies input assets from its fixture directory into that workspace, and the agent must write grader-visible outputs to the expected paths.
+This design avoids relying on conversation-only answers and instead requires concrete artifacts, including JSON files, scripts, reports, Dockerfiles, CI files, and structured extraction outputs.
+Task definitions instruct agents not to modify input fixtures, while graders inspect output artifacts rather than trusting the agent's final natural-language answer.
 
 The benchmark supports both local subprocess execution and Docker-based execution.
-For reported experiments, we use local subprocess execution through the OpenClaw and nanobot runtimes, set \texttt{--environment local}, run 32 workers, and execute one benchmark run per task and mode.
-No Docker resource limit is applied in these local runs.
-Thus the reported table should be read as local runtime-adapter results, not as a claim about all supported sandbox configurations.
+For the reported experiments, we use local subprocess execution through the OpenClaw and nanobot runtimes, set \texttt{--environment local}, run 32 workers, and execute one benchmark run per task and mode.
+Because these runs do not use the Docker sandbox, no Docker resource limit is applied.
+The reported table should therefore be read as local runtime-adapter results rather than as a claim about all supported sandbox configurations.
 
 \subsection{Skill Authoring and Reuse}
 \label{subsec:skills}
 
-\ours{} uses the standard \texttt{SKILL.md} format adopted by the supported runtimes.
-During skill-authoring phases, the workspace is seeded with a \texttt{skill-creator} bundle that instructs the agent how to create a well-formed skill.
-Generated skills are scanned from the workspace and copied into fresh execution workspaces for reuse.
-
-To prevent a reuse run from becoming another authoring run, \ours{} hashes all non-seeded skill files before and after execution.
+\ours{} represents reusable procedures with the standard \texttt{SKILL.md} format adopted by the supported runtimes.
+During skill-authoring phases, the workspace is seeded with a \texttt{skill-creator} bundle that instructs the agent to create a well-formed skill.
+The benchmark then scans generated skills from the authoring workspace and copies them into fresh execution workspaces for reuse. To prevent a reuse run from becoming another authoring run, \ours{} hashes all non-seeded skill files before and after execution.
 If a reuse execution adds, deletes, or edits a skill, the benchmark records a \texttt{skill\_mutation\_violation}.
-This guardrail makes the experimental condition explicit: \preskill{} and \postskill{} execution may use generated skills, but may not improve those skills while solving the task.
+This guardrail fixes the experimental condition: \preskill{} and \postskill{} execution may consult generated skills, but may not revise them while solving the task.
 
 \subsection{Runtimes}
 \label{subsec:runtimes}

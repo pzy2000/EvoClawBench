@@ -7,7 +7,7 @@ checked for legibility in the ACL manuscript.
 ## Fig. 1: EvoClawBench Overview
 
 ```text
-Create a clean academic paper overview diagram for "EvoClawBench", vector-style, white background, ACL paper aesthetic. Show a left-to-right pipeline: Task Suite with repeated sub-problems and fixtures -> Runtime Adapter with OpenClaw and nanobot -> three evaluation lanes labeled Baseline, PreSkill, PostSkill -> fresh execution workspaces -> automated/hybrid graders -> metrics: score, token, cost, time, created skills, mutation violations. Make Baseline show direct execution with no skills, PreSkill show skill authoring before execution, PostSkill show first run, first_run_context.json, skill summary, second run. Use minimal readable labels, thin arrows, muted blue/green/orange accents, no decorative 3D, no fake numeric results.
+Create a clean academic paper overview diagram for "EvoClawBench", vector-style, white background, ACL paper aesthetic. Show a left-to-right pipeline: Task Suite with 100 non-sanity tasks, repeated sub-problems, and fixtures -> Runtime Adapter with OpenClaw and nanobot -> three evaluation lanes labeled Baseline, PreSkill, PostSkill -> fresh execution workspaces -> automated/hybrid graders -> metrics: score, token, cost, time, created skills, mutation violations. Make Baseline show direct execution with no skills, PreSkill show skill authoring before execution, PostSkill show first run, first_run_context.json, skill summary, second run. Use minimal readable labels, thin arrows, muted blue/green/orange accents, no decorative 3D, no fake numeric results.
 ```
 
 ## Fig. 2: Task Lifecycle / Per-Task Structure
