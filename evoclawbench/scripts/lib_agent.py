@@ -806,8 +806,15 @@ def execute_nanobot_task(
 
 def _load_nanobot_transcript(workspace: Path, stdout: str) -> List[Dict[str, Any]]:
     """Load transcript from nanobot's workspace or parse from stdout."""
-    session_dir = workspace / ".nanobot" / "sessions"
-    if session_dir.exists():
+    for session_dir in (workspace / "sessions", workspace / ".nanobot" / "sessions"):
+        if not session_dir.exists():
+            continue
+
+        for f in sorted(session_dir.glob("*.jsonl"), key=lambda p: p.stat().st_mtime, reverse=True):
+            messages = _load_nanobot_jsonl_messages(f)
+            if messages:
+                return messages
+
         for f in sorted(session_dir.glob("*.json"), key=lambda p: p.stat().st_mtime, reverse=True):
             try:
                 data = json.loads(f.read_text(encoding="utf-8"))
@@ -829,6 +836,27 @@ def _load_nanobot_transcript(workspace: Path, stdout: str) -> List[Dict[str, Any
             }
         ]
     return []
+
+
+def _load_nanobot_jsonl_messages(path: Path) -> List[Dict[str, Any]]:
+    messages: List[Dict[str, Any]] = []
+    try:
+        lines = path.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return messages
+
+    for line in lines:
+        if not line.strip():
+            continue
+        try:
+            data = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(data, dict) or data.get("_type") == "metadata":
+            continue
+        if "role" in data:
+            messages.append({"type": "message", "message": data})
+    return messages
 
 
 # ---------------------------------------------------------------------------
@@ -1043,11 +1071,23 @@ def _extract_usage(transcript: List[Dict[str, Any]]) -> Dict[str, Any]:
             continue
         totals["request_count"] += 1
         usage = msg.get("usage", {})
-        totals["input_tokens"] += int(usage.get("input", 0) or 0)
-        totals["output_tokens"] += int(usage.get("output", 0) or 0)
-        totals["total_tokens"] += int(usage.get("totalTokens", 0) or 0)
-        totals["cache_read_tokens"] += int(usage.get("cacheRead", 0) or 0)
-        totals["cache_write_tokens"] += int(usage.get("cacheWrite", 0) or 0)
+        input_tokens = int(usage.get("input", usage.get("prompt_tokens", 0)) or 0)
+        output_tokens = int(usage.get("output", usage.get("completion_tokens", 0)) or 0)
+        total_tokens = int(usage.get("totalTokens", usage.get("total_tokens", 0)) or 0)
+        if total_tokens == 0 and (input_tokens or output_tokens):
+            total_tokens = input_tokens + output_tokens
+        totals["input_tokens"] += input_tokens
+        totals["output_tokens"] += output_tokens
+        totals["total_tokens"] += total_tokens
+        totals["cache_read_tokens"] += int(
+            usage.get("cacheRead", usage.get("cache_read_tokens", 0)) or 0
+        )
+        totals["cache_write_tokens"] += int(
+            usage.get("cacheWrite", usage.get("cache_write_tokens", 0)) or 0
+        )
         cost = usage.get("cost", {})
-        totals["cost_usd"] += float(cost.get("total", 0.0) or 0.0)
+        if isinstance(cost, dict):
+            totals["cost_usd"] += float(cost.get("total", usage.get("cost_usd", 0.0)) or 0.0)
+        else:
+            totals["cost_usd"] += float(usage.get("cost_usd", 0.0) or 0.0)
     return totals

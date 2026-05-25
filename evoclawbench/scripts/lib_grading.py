@@ -271,9 +271,7 @@ def _is_transient_judge_error(exc: Exception) -> bool:
     )
 
 
-def _combine_grades(
-    task: Task, auto_result: GradeResult, llm_result: GradeResult
-) -> GradeResult:
+def _combine_grades(task: Task, auto_result: GradeResult, llm_result: GradeResult) -> GradeResult:
     weights = task.grading_weights or {"automated": 0.5, "llm_judge": 0.5}
     auto_weight = float(weights.get("automated", 0.5))
     llm_weight = float(weights.get("llm_judge", 0.5))

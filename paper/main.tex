@@ -276,7 +276,7 @@ This distinction is important because a skill can preserve task score while stil
 
 We evaluate five models on the hardened benchmark suite under both OpenClaw and nanobot using local subprocess execution.
 All runs use \texttt{uv run scripts/benchmark.py --mode all --workers 32 --environment local}, with \texttt{--runtime openclaw} or \texttt{--runtime nanobot}.
-The experiment command used \texttt{openai/MiniMax/MiniMax-M2.7} for hybrid grading, but the current JSON schema does not serialize a judge-model field; we therefore treat the judge name as run-command provenance rather than JSON provenance.
+The full-suite experiment commands used \texttt{openai/MiniMax/MiniMax-M2.7} for hybrid grading, but those older JSON files do not serialize a judge-model field; we therefore treat the full-suite judge name as run-command provenance rather than JSON provenance.
 Each task is run once per mode.
 Unless otherwise stated, results report the execution-only mean over the benchmark loader's 101 tasks, which include the 100 official tasks plus \texttt{task\_00\_sanity}.
 The numerical results in \Cref{tab:main-results} are read from the repository-local benchmark JSON files under \texttt{evoclawbench/results/}.
@@ -341,6 +341,88 @@ The nanobot rows create many more \preskill{} skills, yet the score range remain
 \postskill{} skill counts are also not enough to explain outcomes: rows with many \postskill{} skills can land below, near, or above their own \baseline{} scores.
 This suggests that future evaluations should inspect generated skill content and reuse behavior, not only the number of produced skill directories.
 The reported runs have zero recorded skill mutation violations, so the observed regressions are not explained by reuse-phase skill editing.
+
+\subsection{Subset Cost, Amortization, and Robustness Checks}
+\label{subsec:subset-checks}
+
+To address cost and judge-sensitivity concerns directly, we ran a focused subset experiment on the 12 hybrid tasks using OpenClaw, \texttt{openai/gpt-5.4-mini}, \texttt{--workers 8}, local execution, and \texttt{openai/MiniMax/MiniMax-M2.7} as the original judge.
+Unlike the older full-suite JSON files, the new subset result \path{results/paper_subset_experiments/0001_openai-gpt-5-4-mini_openclaw.json} serializes \texttt{judge\_model}.
+\Cref{tab:subset-cost} shows the end-to-end resource tradeoff.
+On this subset, both skill workflows slightly reduce score while increasing tokens, cost, and wall-clock time.
+The negative score-per-extra-token values therefore make the cost-quality tradeoff explicit rather than hiding it behind execution-only scores.
+
+\begin{table*}[t]
+\centering
+\small
+\caption{End-to-end cost on the 12-task hybrid subset. Scores are percentages. ``Delta/1M tok.'' is score-point change per one million extra tokens relative to \baseline{}.}
+\label{tab:subset-cost}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lrrrrrrr}
+\toprule
+\textbf{Mode} & \textbf{Score} & \textbf{Delta} & \textbf{Tokens} & \textbf{USD} & \textbf{Time h} & \textbf{Requests} & \textbf{Delta/1M tok.} \\
+\midrule
+\baseline{} & 80.96 & 0.00 & 1.94M & 1.262 & 0.305 & 84 & -- \\
+\preskill{} & 79.77 & -1.19 & 7.07M & 3.745 & 0.689 & 270 & -0.232 \\
+\postskill{} & 79.21 & -1.75 & 7.71M & 4.128 & 0.833 & 306 & -0.303 \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+
+\begin{table}[t]
+\centering
+\small
+\caption{Amortized break-even reuse count on the same subset. ``Never'' means the reuse execution is not cheaper than direct \baseline{} execution for that resource.}
+\label{tab:subset-break-even}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Mode} & \textbf{Tokens} & \textbf{USD} & \textbf{Time} \\
+\midrule
+\preskill{} & never & never & 14 \\
+\postskill{} & never & never & 9 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\Cref{tab:subset-break-even} estimates how many repeated reuses would be needed before the authoring or summary overhead is amortized.
+For tokens and provider cost, neither \preskill{} nor \postskill{} breaks even on this subset because the reuse executions are not cheaper than direct execution.
+Wall-clock time can break even after repeated reuse, but only after 14 \preskill{} executions or 9 \postskill{} executions under the observed local run times.
+Thus the subset supports a cost-sensitive interpretation: skills may be worth keeping only when they are reused many times and preserve or improve quality.
+
+We also ran a 4-task ablation subset (\texttt{task\_02}, \texttt{task\_07}, \texttt{task\_15}, and \texttt{task\_21}) to separate skill content from reuse scaffolding.
+\Cref{tab:subset-ablation} shows that normal \preskill{} reuse improves the mean score by 4.05 points, but an empty-skill scaffold improves by 19.84 points, while an irrelevant skill improves by only 1.52 points.
+This pattern is not evidence that empty skills are generally useful; rather, it shows that the reuse prompt, context reset, and run-to-run variance can explain some gains that might otherwise be attributed to skill content.
+The \postskill{} comparison is also cautious: normal \postskill{} reuse is slightly above baseline, but discarding the generated skill after the summary phase falls below baseline.
+
+\begin{table*}[t]
+\centering
+\small
+\caption{Skill-content ablation on a 4-task representative subset. Scores and deltas are percentages; resources are end-to-end for each variant.}
+\label{tab:subset-ablation}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lrrrrr}
+\toprule
+\textbf{Variant} & \textbf{Score} & \textbf{Delta} & \textbf{Tokens} & \textbf{USD} & \textbf{Requests} \\
+\midrule
+\baseline{} & 54.24 & 0.00 & 0.80M & 0.236 & 35 \\
+\preskill{} normal & 58.28 & 4.05 & 2.80M & 0.658 & 102 \\
+Empty scaffold & 74.08 & 19.84 & 0.54M & 0.196 & 24 \\
+Irrelevant skill & 55.76 & 1.52 & 0.92M & 0.241 & 38 \\
+\postskill{} normal & 55.70 & 1.47 & 2.79M & 0.810 & 108 \\
+Summary, no skill & 50.01 & -4.23 & 2.59M & 0.743 & 102 \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+
+Finally, we regraded the 36 task-mode outputs from the 12 hybrid-task subset with alternate judges.
+Because hybrid scores combine deterministic checks with an LLM judgment, the regrade holds the serialized automated sub-scores fixed and replaces only the LLM-judge component.
+The requested \texttt{openrouter/anthropic/claude-opus-4.5} judge returned a 401 authentication error, so the robustness artifact records the configured fallback \texttt{openai/qwen3.6-plus} as the actual judge used.
+Under this fallback judge, agreement with the original MiniMax judge is high: Pearson correlation is 0.9970, mean absolute score delta is 0.0141, 35 of 36 pairs are within 0.05, and all 36 pairs are within 0.10.
+The largest disagreement is \texttt{task\_18\_dep\_audit} in \preskill{} (+0.0880).
+As a second check with a known available model, \texttt{openai/gpt-5.4-mini} also preserves the overall trend, though less tightly: Pearson correlation is 0.9512, mean absolute score delta is 0.0609, and 30 of 36 pairs are within 0.10.
+The largest \texttt{openai/gpt-5.4-mini} disagreement is \texttt{task\_11\_web\_extraction} in \baseline{} (-0.3972).
+These subset audits reduce the concern that the reported hybrid-task pattern is an artifact of a single judge, while the failed Claude access and remaining disagreements still motivate serializing judge provenance and auditing high-stakes leaderboard claims.
 
 \begin{figure*}[t]
 \centering
@@ -1035,7 +1117,7 @@ The aggregate output JSON contains \texttt{baseline\_results}, \texttt{preskill\
 \toprule
 \textbf{Object} & \textbf{Fields} & \textbf{Use in paper} \\
 \midrule
-top-level & version, timestamp, benchmark, model, runtime, run\_id & Identifies the benchmark run and runtime configuration. \\
+top-level & version, timestamp, benchmark, model, runtime, run\_id, judge\_model & Identifies the benchmark run, runtime configuration, and, for newly instrumented result files, the hybrid judge model. \\
 top-level & mode, environment, workers, runs\_per\_task & Serialized execution controls for reported rows. \\
 results & baseline\_results & One graded result object per loaded task for direct execution. \\
 results & preskill\_results & One graded result object per loaded task after preskill skill creation and reuse execution. \\
@@ -1052,7 +1134,7 @@ metrics.skill\_mutation\_violations & preskill, postskill & Counts reuse executi
 \section{Result Validity Checklist}
 \label{app:checklist}
 Before adding a result row, record the source JSON file, model, runtime, mode, environment, worker count, judge model, loaded task count, official task count, mean scores for all modes, created-skill counts, mutation violations, and judge-failure count. Runs with incomplete result JSONs, missing modes, or explicitly rejected failure status should be labeled rather than silently mixed into the main table.
-For the reported rows, the JSONs serialize \texttt{mode=all}, \texttt{--workers 32}, \texttt{--environment local}, and one run per task and mode. They do not serialize the hybrid judge model, so the judge name is treated as run-command provenance rather than JSON provenance.
+For the reported full-suite rows, the JSONs serialize \texttt{mode=all}, \texttt{--workers 32}, \texttt{--environment local}, and one run per task and mode. They do not serialize the hybrid judge model, so the judge name is treated as run-command provenance rather than JSON provenance. New subset result files created after the instrumentation update serialize \texttt{judge\_model}.
 
 \section{Reported Result Integrity Summary}
 \label{app:reported-result-integrity}
@@ -1079,7 +1161,7 @@ For the reported rows, the JSONs serialize \texttt{mode=all}, \texttt{--workers 
 \bottomrule
 \end{tabular}
 \end{center}
-The result JSON files do not serialize the hybrid judge model. For this reason, the manuscript reports the judge as command provenance and avoids treating it as a JSON-backed field. Future benchmark rows should add a serialized judge-model field so that score provenance is fully recoverable from the result file alone.
+The full-suite result JSON files in this table do not serialize the hybrid judge model. For this reason, the manuscript reports the full-suite judge as command provenance and avoids treating it as a JSON-backed field. The subset result file reported in \Cref{subsec:subset-checks} was generated after the instrumentation update and does serialize \texttt{judge\_model}.
 
 \clearpage
 \section{Reproducibility Details for Reported Runs}

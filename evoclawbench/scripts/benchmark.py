@@ -41,7 +41,7 @@ from lib_agent import (
     slugify_model,
 )
 from lib_environment import DockerEnvironment, LocalEnvironment
-from lib_grading import GradeResult, grade_skill_quality, grade_task
+from lib_grading import DEFAULT_JUDGE_MODEL, GradeResult, grade_skill_quality, grade_task
 from lib_metrics import aggregate_three_mode_metrics, scan_created_skills
 from lib_tasks import Task, TaskLoader
 from lib_trajectory import (
@@ -424,7 +424,7 @@ def _execute_phase(
                 task=task,
                 execution_result=exec_result,
                 skill_dir=ctx.skill_dir,
-                judge_model=args.judge or "openrouter/anthropic/claude-opus-4.5",
+                judge_model=args.judge or DEFAULT_JUDGE_MODEL,
                 verbose=args.verbose,
                 runtime=args.runtime,
             )
@@ -1184,6 +1184,7 @@ def main():
         "mode": args.mode,
         "run_id": run_id,
         "timestamp": time.time(),
+        "judge_model": args.judge or DEFAULT_JUDGE_MODEL,
         "runs_per_task": max(1, args.runs),
         "workers": args.workers,
         "environment": args.environment,

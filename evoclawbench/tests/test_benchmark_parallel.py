@@ -522,6 +522,8 @@ class TestBenchmarkIntegration:
             {"name": "preskill-skill"}
         ]
         mock_summary.assert_called_once_with({"execution_only": {"mean_scores": {}}})
+        aggregate = json.loads((tmp_path / "0001_test-model_nanobot.json").read_text())
+        assert aggregate["judge_model"] == "openrouter/anthropic/claude-opus-4.5"
 
     def test_run_preskill_mode_uses_author_then_execution(self, tmp_path):
         from argparse import Namespace

@@ -16,6 +16,7 @@ from lib_agent import (
     SKILL_REUSE_PREFIX,
     _coerce,
     _extract_usage,
+    _load_nanobot_transcript,
     _load_openclaw_transcript,
     _nanobot_agent_commands,
     _nanobot_timeout_seconds,
@@ -166,6 +167,31 @@ class TestExtractUsage:
         assert usage["cost_usd"] == pytest.approx(0.03)
         assert usage["request_count"] == 2
 
+    def test_with_nanobot_usage_shape(self):
+        transcript = [
+            {
+                "type": "message",
+                "message": {
+                    "role": "assistant",
+                    "content": "hello",
+                    "usage": {
+                        "prompt_tokens": 120,
+                        "completion_tokens": 30,
+                        "total_tokens": 150,
+                        "cost_usd": 0.04,
+                    },
+                },
+            }
+        ]
+
+        usage = _extract_usage(transcript)
+
+        assert usage["input_tokens"] == 120
+        assert usage["output_tokens"] == 30
+        assert usage["total_tokens"] == 150
+        assert usage["cost_usd"] == pytest.approx(0.04)
+        assert usage["request_count"] == 1
+
     def test_ignores_non_assistant(self):
         transcript = [
             {"type": "message", "message": {"role": "user", "content": "hi"}},
@@ -173,6 +199,41 @@ class TestExtractUsage:
         ]
         usage = _extract_usage(transcript)
         assert usage["request_count"] == 0
+
+
+class TestLoadNanobotTranscript:
+    def test_reads_workspace_jsonl_session(self, tmp_path):
+        session_dir = tmp_path / "sessions"
+        session_dir.mkdir()
+        session_file = session_dir / "cli_direct.jsonl"
+        session_file.write_text(
+            "\n".join(
+                [
+                    json.dumps({"_type": "metadata", "key": "cli:direct"}),
+                    json.dumps({"role": "user", "content": "hello"}),
+                    json.dumps(
+                        {
+                            "role": "assistant",
+                            "content": "done",
+                            "usage": {
+                                "prompt_tokens": 10,
+                                "completion_tokens": 5,
+                                "total_tokens": 15,
+                            },
+                        }
+                    ),
+                ]
+            ),
+            encoding="utf-8",
+        )
+
+        transcript = _load_nanobot_transcript(tmp_path, "")
+
+        assert [entry["message"]["role"] for entry in transcript] == ["user", "assistant"]
+        usage = _extract_usage(transcript)
+        assert usage["input_tokens"] == 10
+        assert usage["output_tokens"] == 5
+        assert usage["total_tokens"] == 15
 
 
 # ---------------------------------------------------------------------------

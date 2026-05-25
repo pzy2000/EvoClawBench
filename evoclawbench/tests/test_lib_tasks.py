@@ -14,6 +14,7 @@ from lib_tasks import SubProblem, Task, TaskLoader
 # SubProblem
 # ---------------------------------------------------------------------------
 
+
 class TestSubProblem:
     def test_creation(self):
         sp = SubProblem(index=1, title="Parse CSV", description="Handle CSV files")
@@ -31,6 +32,7 @@ class TestSubProblem:
 # ---------------------------------------------------------------------------
 # Task
 # ---------------------------------------------------------------------------
+
 
 class TestTask:
     def _make_task(self, **overrides):
@@ -75,6 +77,7 @@ class TestTask:
 # ---------------------------------------------------------------------------
 # TaskLoader – section parsing
 # ---------------------------------------------------------------------------
+
 
 class TestTaskLoaderParsing:
     def setup_method(self):
@@ -143,6 +146,7 @@ class TestTaskLoaderParsing:
 # ---------------------------------------------------------------------------
 # TaskLoader – load from file
 # ---------------------------------------------------------------------------
+
 
 class TestTaskLoaderFile:
     def test_load_task_from_file(self, tmp_path):

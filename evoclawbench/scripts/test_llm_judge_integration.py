@@ -42,6 +42,7 @@ INFO = "\033[94m·\033[0m"
 # Helpers
 # ---------------------------------------------------------------------------
 
+
 def _print(symbol: str, msg: str) -> None:
     print(f"  {symbol} {msg}")
 
@@ -128,94 +129,258 @@ def _write_mock_doc_extraction_outputs(workspace: Path) -> None:
     outputs = workspace / "outputs"
     outputs.mkdir(parents=True, exist_ok=True)
 
-    (outputs / "invoice_001.json").write_text(json.dumps({
-        "vendor": {"name": "TechVision Solutions", "address": "123 Tech St", "phone": "555-0100", "email": "billing@techvision.com", "tax_id": "12-3456789"},
-        "client": {"name": "DataFlow Corp", "address": "456 Data Ave", "contact_person": "Jane Smith"},
-        "invoice_number": "INV-2024-001",
-        "invoice_date": "2024-01-15",
-        "due_date": "2024-02-14",
-        "payment_terms": "Net 30",
-        "purchase_order": "PO-2024-0042",
-        "line_items": [
-            {"description": "Software License", "quantity": 1, "unit_price": 2500.0, "total": 2500.0},
-            {"description": "Support Services", "quantity": 40, "unit_price": 150.0, "total": 6000.0},
-            {"description": "Training", "quantity": 8, "unit_price": 200.0, "total": 1600.0},
-        ],
-        "subtotal": 10100.0, "tax_rate": "8.5%", "tax_amount": 858.5, "grand_total": 10958.5,
-        "bank_details": {"bank": "First National Bank", "account_name": "TechVision", "routing_number": "021000021", "account_number": "1234567890"},
-    }, indent=2))
+    (outputs / "invoice_001.json").write_text(
+        json.dumps(
+            {
+                "vendor": {
+                    "name": "TechVision Solutions",
+                    "address": "123 Tech St",
+                    "phone": "555-0100",
+                    "email": "billing@techvision.com",
+                    "tax_id": "12-3456789",
+                },
+                "client": {
+                    "name": "DataFlow Corp",
+                    "address": "456 Data Ave",
+                    "contact_person": "Jane Smith",
+                },
+                "invoice_number": "INV-2024-001",
+                "invoice_date": "2024-01-15",
+                "due_date": "2024-02-14",
+                "payment_terms": "Net 30",
+                "purchase_order": "PO-2024-0042",
+                "line_items": [
+                    {
+                        "description": "Software License",
+                        "quantity": 1,
+                        "unit_price": 2500.0,
+                        "total": 2500.0,
+                    },
+                    {
+                        "description": "Support Services",
+                        "quantity": 40,
+                        "unit_price": 150.0,
+                        "total": 6000.0,
+                    },
+                    {
+                        "description": "Training",
+                        "quantity": 8,
+                        "unit_price": 200.0,
+                        "total": 1600.0,
+                    },
+                ],
+                "subtotal": 10100.0,
+                "tax_rate": "8.5%",
+                "tax_amount": 858.5,
+                "grand_total": 10958.5,
+                "bank_details": {
+                    "bank": "First National Bank",
+                    "account_name": "TechVision",
+                    "routing_number": "021000021",
+                    "account_number": "1234567890",
+                },
+            },
+            indent=2,
+        )
+    )
 
-    (outputs / "resume_001.json").write_text(json.dumps({
-        "name": "Alex Johnson",
-        "title": "Senior Software Engineer",
-        "contact": {"email": "alex@email.com", "phone": "555-0200", "location": "San Francisco, CA", "linkedin": "linkedin.com/in/alex", "github": "github.com/alex"},
-        "summary": "Experienced engineer with 8 years in distributed systems.",
-        "work_experience": [
-            {"title": "Senior Engineer", "company": "TechCorp", "start_date": "2020-01", "end_date": "Present", "highlights": ["Led migration to microservices"]},
-            {"title": "Engineer", "company": "StartupX", "start_date": "2017-06", "end_date": "2019-12", "highlights": ["Built real-time analytics"]},
-        ],
-        "education": [{"degree": "BS Computer Science", "institution": "UC Berkeley", "year": "2017", "details": "GPA 3.8"}],
-        "skills": {"languages": ["Python", "Go", "Java"], "frameworks": ["Django", "FastAPI"], "cloud": ["AWS", "GCP"], "data": ["PostgreSQL", "Redis"], "tools": ["Docker", "Kubernetes"]},
-        "certifications": ["AWS Solutions Architect"],
-    }, indent=2))
+    (outputs / "resume_001.json").write_text(
+        json.dumps(
+            {
+                "name": "Alex Johnson",
+                "title": "Senior Software Engineer",
+                "contact": {
+                    "email": "alex@email.com",
+                    "phone": "555-0200",
+                    "location": "San Francisco, CA",
+                    "linkedin": "linkedin.com/in/alex",
+                    "github": "github.com/alex",
+                },
+                "summary": "Experienced engineer with 8 years in distributed systems.",
+                "work_experience": [
+                    {
+                        "title": "Senior Engineer",
+                        "company": "TechCorp",
+                        "start_date": "2020-01",
+                        "end_date": "Present",
+                        "highlights": ["Led migration to microservices"],
+                    },
+                    {
+                        "title": "Engineer",
+                        "company": "StartupX",
+                        "start_date": "2017-06",
+                        "end_date": "2019-12",
+                        "highlights": ["Built real-time analytics"],
+                    },
+                ],
+                "education": [
+                    {
+                        "degree": "BS Computer Science",
+                        "institution": "UC Berkeley",
+                        "year": "2017",
+                        "details": "GPA 3.8",
+                    }
+                ],
+                "skills": {
+                    "languages": ["Python", "Go", "Java"],
+                    "frameworks": ["Django", "FastAPI"],
+                    "cloud": ["AWS", "GCP"],
+                    "data": ["PostgreSQL", "Redis"],
+                    "tools": ["Docker", "Kubernetes"],
+                },
+                "certifications": ["AWS Solutions Architect"],
+            },
+            indent=2,
+        )
+    )
 
-    (outputs / "contract_001.json").write_text(json.dumps({
-        "title": "Software Development Services Agreement",
-        "effective_date": "2024-01-01",
-        "parties": [
-            {"name": "DevShop LLC", "address": "789 Dev Rd", "contact_person": "Bob Dev", "role": "Service Provider"},
-            {"name": "ClientCo", "address": "321 Client Ave", "contact_person": "Alice Client", "role": "Client"},
-        ],
-        "scope_of_work": ["Develop web application", "Provide 6 months support"],
-        "total_value": 150000.0,
-        "payment_schedule": [
-            {"milestone": "Project kickoff", "percentage": "25%", "amount": 37500.0, "due_date": "2024-01-15"},
-            {"milestone": "MVP delivery", "percentage": "50%", "amount": 75000.0, "due_date": "2024-04-01"},
-            {"milestone": "Final delivery", "percentage": "25%", "amount": 37500.0, "due_date": "2024-06-30"},
-        ],
-        "duration": {"start_date": "2024-01-01", "end_date": "2024-06-30", "support_period": "6 months"},
-        "termination_notice_days": 30,
-        "governing_law": "California",
-        "dispute_resolution": "Arbitration",
-    }, indent=2))
+    (outputs / "contract_001.json").write_text(
+        json.dumps(
+            {
+                "title": "Software Development Services Agreement",
+                "effective_date": "2024-01-01",
+                "parties": [
+                    {
+                        "name": "DevShop LLC",
+                        "address": "789 Dev Rd",
+                        "contact_person": "Bob Dev",
+                        "role": "Service Provider",
+                    },
+                    {
+                        "name": "ClientCo",
+                        "address": "321 Client Ave",
+                        "contact_person": "Alice Client",
+                        "role": "Client",
+                    },
+                ],
+                "scope_of_work": ["Develop web application", "Provide 6 months support"],
+                "total_value": 150000.0,
+                "payment_schedule": [
+                    {
+                        "milestone": "Project kickoff",
+                        "percentage": "25%",
+                        "amount": 37500.0,
+                        "due_date": "2024-01-15",
+                    },
+                    {
+                        "milestone": "MVP delivery",
+                        "percentage": "50%",
+                        "amount": 75000.0,
+                        "due_date": "2024-04-01",
+                    },
+                    {
+                        "milestone": "Final delivery",
+                        "percentage": "25%",
+                        "amount": 37500.0,
+                        "due_date": "2024-06-30",
+                    },
+                ],
+                "duration": {
+                    "start_date": "2024-01-01",
+                    "end_date": "2024-06-30",
+                    "support_period": "6 months",
+                },
+                "termination_notice_days": 30,
+                "governing_law": "California",
+                "dispute_resolution": "Arbitration",
+            },
+            indent=2,
+        )
+    )
 
-    (outputs / "meeting_notes_001.json").write_text(json.dumps({
-        "project": "Platform Redesign",
-        "meeting_type": "Sprint Planning",
-        "date": "2024-01-10",
-        "time": "14:00",
-        "location": "Conference Room A",
-        "attendees": {"present": ["Alice", "Bob", "Carol"], "absent": ["Dave"]},
-        "agenda": ["Sprint review", "Planning next sprint", "Blockers"],
-        "discussion_points": [
-            {"topic": "Performance issues", "summary": "API latency above threshold"},
-            {"topic": "New features", "summary": "User dashboard requested by stakeholders"},
-        ],
-        "action_items": [
-            {"assignee": "Alice", "task": "Optimize DB queries", "deadline": "2024-01-17"},
-            {"assignee": "Bob", "task": "Design dashboard mockup", "deadline": "2024-01-15"},
-            {"assignee": "Carol", "task": "Update documentation", "deadline": "2024-01-19"},
-        ],
-        "decisions": ["Use Redis for caching", "Delay mobile app to Q2"],
-        "next_meeting": {"date": "2024-01-17", "time": "14:00", "location": "Conference Room A"},
-    }, indent=2))
+    (outputs / "meeting_notes_001.json").write_text(
+        json.dumps(
+            {
+                "project": "Platform Redesign",
+                "meeting_type": "Sprint Planning",
+                "date": "2024-01-10",
+                "time": "14:00",
+                "location": "Conference Room A",
+                "attendees": {"present": ["Alice", "Bob", "Carol"], "absent": ["Dave"]},
+                "agenda": ["Sprint review", "Planning next sprint", "Blockers"],
+                "discussion_points": [
+                    {"topic": "Performance issues", "summary": "API latency above threshold"},
+                    {
+                        "topic": "New features",
+                        "summary": "User dashboard requested by stakeholders",
+                    },
+                ],
+                "action_items": [
+                    {"assignee": "Alice", "task": "Optimize DB queries", "deadline": "2024-01-17"},
+                    {
+                        "assignee": "Bob",
+                        "task": "Design dashboard mockup",
+                        "deadline": "2024-01-15",
+                    },
+                    {"assignee": "Carol", "task": "Update documentation", "deadline": "2024-01-19"},
+                ],
+                "decisions": ["Use Redis for caching", "Delay mobile app to Q2"],
+                "next_meeting": {
+                    "date": "2024-01-17",
+                    "time": "14:00",
+                    "location": "Conference Room A",
+                },
+            },
+            indent=2,
+        )
+    )
 
-    (outputs / "expense_report_001.json").write_text(json.dumps({
-        "employee": {"name": "John Doe", "employee_id": "EMP-042", "department": "Engineering", "manager": "Jane Manager"},
-        "period": {"start_date": "2024-01-01", "end_date": "2024-01-31"},
-        "purpose": "Q1 Client Visit - San Francisco",
-        "line_items": [
-            {"date": "2024-01-15", "category": "Airfare", "description": "Round trip NYC-SFO", "amount": 450.0},
-            {"date": "2024-01-15", "category": "Hotel", "description": "Marriott 3 nights", "amount": 675.0},
-            {"date": "2024-01-16", "category": "Meals", "description": "Client dinner", "amount": 185.0},
-            {"date": "2024-01-17", "category": "Transport", "description": "Uber to client office", "amount": 45.0},
-            {"date": "2024-01-17", "category": "Meals", "description": "Team lunch", "amount": 120.0},
-        ],
-        "category_totals": {"Airfare": 450.0, "Hotel": 675.0, "Meals": 305.0, "Transport": 45.0},
-        "total": 1475.0,
-        "approval_status": "Pending",
-        "receipts_count": 5,
-    }, indent=2))
+    (outputs / "expense_report_001.json").write_text(
+        json.dumps(
+            {
+                "employee": {
+                    "name": "John Doe",
+                    "employee_id": "EMP-042",
+                    "department": "Engineering",
+                    "manager": "Jane Manager",
+                },
+                "period": {"start_date": "2024-01-01", "end_date": "2024-01-31"},
+                "purpose": "Q1 Client Visit - San Francisco",
+                "line_items": [
+                    {
+                        "date": "2024-01-15",
+                        "category": "Airfare",
+                        "description": "Round trip NYC-SFO",
+                        "amount": 450.0,
+                    },
+                    {
+                        "date": "2024-01-15",
+                        "category": "Hotel",
+                        "description": "Marriott 3 nights",
+                        "amount": 675.0,
+                    },
+                    {
+                        "date": "2024-01-16",
+                        "category": "Meals",
+                        "description": "Client dinner",
+                        "amount": 185.0,
+                    },
+                    {
+                        "date": "2024-01-17",
+                        "category": "Transport",
+                        "description": "Uber to client office",
+                        "amount": 45.0,
+                    },
+                    {
+                        "date": "2024-01-17",
+                        "category": "Meals",
+                        "description": "Team lunch",
+                        "amount": 120.0,
+                    },
+                ],
+                "category_totals": {
+                    "Airfare": 450.0,
+                    "Hotel": 675.0,
+                    "Meals": 305.0,
+                    "Transport": 45.0,
+                },
+                "total": 1475.0,
+                "approval_status": "Pending",
+                "receipts_count": 5,
+            },
+            indent=2,
+        )
+    )
 
 
 def _write_mock_log_analysis_outputs(workspace: Path) -> None:
@@ -223,7 +388,13 @@ def _write_mock_log_analysis_outputs(workspace: Path) -> None:
     outputs = workspace / "outputs"
     outputs.mkdir(parents=True, exist_ok=True)
 
-    services = ["auth_service", "payment_service", "api_gateway", "notification_service", "scheduler_service"]
+    services = [
+        "auth_service",
+        "payment_service",
+        "api_gateway",
+        "notification_service",
+        "scheduler_service",
+    ]
     for service in services:
         report = {
             "service_name": service,
@@ -232,12 +403,27 @@ def _write_mock_log_analysis_outputs(workspace: Path) -> None:
             "warn_count": 5,
             "info_count": 12,
             "errors": [
-                {"timestamp": "2024-03-15T10:23:45", "message": "Connection timeout", "context": "req-001"},
-                {"timestamp": "2024-03-15T10:45:12", "message": "Auth failure", "context": "req-042"},
-                {"timestamp": "2024-03-15T11:02:33", "message": "DB query error", "context": "req-099"},
+                {
+                    "timestamp": "2024-03-15T10:23:45",
+                    "message": "Connection timeout",
+                    "context": "req-001",
+                },
+                {
+                    "timestamp": "2024-03-15T10:45:12",
+                    "message": "Auth failure",
+                    "context": "req-042",
+                },
+                {
+                    "timestamp": "2024-03-15T11:02:33",
+                    "message": "DB query error",
+                    "context": "req-099",
+                },
             ],
             "time_range": {"start": "2024-03-15T10:00:00", "end": "2024-03-15T12:00:00"},
-            "summary": f"Service {service} shows 3 errors including connection timeouts and auth failures; overall health is degraded.",
+            "summary": (
+                f"Service {service} shows 3 errors including connection timeouts and auth "
+                "failures; overall health is degraded."
+            ),
         }
         (outputs / f"{service}_report.json").write_text(json.dumps(report, indent=2))
 
@@ -246,16 +432,22 @@ def _write_mock_log_analysis_outputs(workspace: Path) -> None:
 # Test 1: Unit tests for helper functions
 # ---------------------------------------------------------------------------
 
+
 def test_helpers() -> None:
     print("\n[Test 1] Helper functions")
 
     # _parse_model_name
     _assert(_parse_model_name("openai/gpt-4o") == ("openai", "gpt-4o"), "_parse_model_name openai/")
-    _assert(_parse_model_name("openrouter/anthropic/claude-3") == ("openrouter", "anthropic/claude-3"), "_parse_model_name openrouter/")
+    _assert(
+        _parse_model_name("openrouter/anthropic/claude-3") == ("openrouter", "anthropic/claude-3"),
+        "_parse_model_name openrouter/",
+    )
     _assert(_parse_model_name("gpt-4o") == ("openai", "gpt-4o"), "_parse_model_name bare")
 
     # _parse_judge_response - normal
-    r = _parse_judge_response('{"scores": {"recall": 0.8, "accuracy": 0.7}, "total": 0.75, "notes": "ok"}')
+    r = _parse_judge_response(
+        '{"scores": {"recall": 0.8, "accuracy": 0.7}, "total": 0.75, "notes": "ok"}'
+    )
     _assert(r.get("recall") == 0.8, "_parse_judge_response: recall=0.8")
     _assert(r.get("total") == 0.75, "_parse_judge_response: total=0.75")
     _assert(r.get("notes") == "ok", "_parse_judge_response: notes")
@@ -277,6 +469,7 @@ def test_helpers() -> None:
 # Test 2: Real LLM call via proxy
 # ---------------------------------------------------------------------------
 
+
 def test_llm_api_call() -> None:
     print("\n[Test 2] Real LLM API call via proxy")
     base_url = os.environ.get("OPENAI_BASE_URL", "http://localhost:16666/v1")
@@ -290,9 +483,18 @@ def test_llm_api_call() -> None:
         response = _call_llm(JUDGE_MODEL, prompt, timeout=60.0)
         _print(INFO, f"Raw response (first 200 chars): {response[:200]}")
         parsed = _parse_judge_response(response)
-        _assert(isinstance(parsed.get("total"), (int, float)), "LLM returned parseable JSON with 'total'")
+        _assert(
+            isinstance(parsed.get("total"), (int, float)),
+            "LLM returned parseable JSON with 'total'",
+        )
         _assert(0.0 <= float(parsed["total"]) <= 1.0, f"total={parsed['total']} is in [0,1]")
-        _print(PASS, f"LLM judge API call succeeded: total={parsed['total']}, notes={parsed.get('notes', '')!r}")
+        _print(
+            PASS,
+            (
+                f"LLM judge API call succeeded: total={parsed['total']}, "
+                f"notes={parsed.get('notes', '')!r}"
+            ),
+        )
     except Exception as e:
         _print(FAIL, f"LLM API call failed: {e}")
         sys.exit(1)
@@ -301,6 +503,7 @@ def test_llm_api_call() -> None:
 # ---------------------------------------------------------------------------
 # Test 3: Full hybrid grading — task_06 (Security Code Review)
 # ---------------------------------------------------------------------------
+
 
 def test_hybrid_task06() -> None:
     print("\n[Test 3] Hybrid grading – task_06_code_review (auto=0.6 / llm=0.4)")
@@ -346,6 +549,7 @@ def test_hybrid_task06() -> None:
 # Test 4: Full hybrid grading — task_07 (Document Data Extraction)
 # ---------------------------------------------------------------------------
 
+
 def test_hybrid_task07() -> None:
     print("\n[Test 4] Hybrid grading – task_07_doc_extraction (auto=0.5 / llm=0.5)")
     task = _load_task("task_07_doc_extraction")
@@ -385,6 +589,7 @@ def test_hybrid_task07() -> None:
 # Test 5: Full hybrid grading — task_02 (Log Analysis, summary-only)
 # ---------------------------------------------------------------------------
 
+
 def test_hybrid_task02() -> None:
     print("\n[Test 5] Hybrid grading – task_02_log_analysis (auto=0.85 / llm=0.15)")
     task = _load_task("task_02_log_analysis")
@@ -418,21 +623,40 @@ def test_hybrid_task02() -> None:
 # Test 6: Score weighting math
 # ---------------------------------------------------------------------------
 
+
 def test_score_weighting() -> None:
     print("\n[Test 6] Score weighting math")
     from lib_grading import GradeResult, _combine_grades
 
     task = _load_task("task_06_code_review")
-    auto = GradeResult(task_id=task.task_id, score=1.0, max_score=1.0,
-                       grading_type="automated", breakdown={"sub_1_exists": 1.0}, notes="")
-    llm  = GradeResult(task_id=task.task_id, score=0.0, max_score=1.0,
-                       grading_type="llm_judge", breakdown={"recall": 0.0}, notes="")
+    auto = GradeResult(
+        task_id=task.task_id,
+        score=1.0,
+        max_score=1.0,
+        grading_type="automated",
+        breakdown={"sub_1_exists": 1.0},
+        notes="",
+    )
+    llm = GradeResult(
+        task_id=task.task_id,
+        score=0.0,
+        max_score=1.0,
+        grading_type="llm_judge",
+        breakdown={"recall": 0.0},
+        notes="",
+    )
 
     combined = _combine_grades(task, auto, llm)
-    expected = 1.0 * 0.6 + 0.0 * 0.4   # = 0.6
-    _assert(abs(combined.score - expected) < 1e-6, f"combined score={combined.score:.4f} == {expected} (0.6*auto + 0.4*llm)")
+    expected = 1.0 * 0.6 + 0.0 * 0.4  # = 0.6
+    _assert(
+        abs(combined.score - expected) < 1e-6,
+        f"combined score={combined.score:.4f} == {expected} (0.6*auto + 0.4*llm)",
+    )
     _assert(combined.grading_type == "hybrid", "combined.grading_type == 'hybrid'")
-    _assert("automated.sub_1_exists" in combined.breakdown, "breakdown contains 'automated.sub_1_exists'")
+    _assert(
+        "automated.sub_1_exists" in combined.breakdown,
+        "breakdown contains 'automated.sub_1_exists'",
+    )
     _assert("llm_judge.recall" in combined.breakdown, "breakdown contains 'llm_judge.recall'")
 
 

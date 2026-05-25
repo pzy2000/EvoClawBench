@@ -57,22 +57,20 @@ class TestAllTasksLoad:
 
     def test_all_tasks_have_grading_criteria(self, all_tasks):
         for task in all_tasks:
-            assert len(task.grading_criteria) >= 1, (
-                f"Task {task.task_id} has no grading criteria"
-            )
+            assert len(task.grading_criteria) >= 1, f"Task {task.task_id} has no grading criteria"
 
     def test_valid_grading_types(self, all_tasks):
         valid_types = {"automated", "llm_judge", "hybrid"}
         for task in all_tasks:
-            assert task.grading_type in valid_types, (
-                f"Task {task.task_id} has invalid grading_type: {task.grading_type}"
-            )
+            assert (
+                task.grading_type in valid_types
+            ), f"Task {task.task_id} has invalid grading_type: {task.grading_type}"
 
     def test_reasonable_timeouts(self, all_tasks):
         for task in all_tasks:
-            assert 10 <= task.timeout_seconds <= 1800, (
-                f"Task {task.task_id} has unreasonable timeout: {task.timeout_seconds}"
-            )
+            assert (
+                10 <= task.timeout_seconds <= 1800
+            ), f"Task {task.task_id} has unreasonable timeout: {task.timeout_seconds}"
 
     def test_unique_task_ids(self, all_tasks):
         ids = [t.task_id for t in all_tasks]
@@ -105,9 +103,7 @@ class TestAutomatedChecks:
             namespace = {}
             exec(code, namespace)
             assert "grade" in namespace, f"Task {task.task_id}: no 'grade' function defined"
-            assert callable(namespace["grade"]), (
-                f"Task {task.task_id}: 'grade' is not callable"
-            )
+            assert callable(namespace["grade"]), f"Task {task.task_id}: 'grade' is not callable"
 
     def test_grade_returns_dict(self, tasks_with_checks):
         """Call grade() with empty transcript and a temp workspace to verify it returns dict."""
@@ -121,19 +117,21 @@ class TestAutomatedChecks:
             if not grade_func:
                 continue
             import tempfile
+
             with tempfile.TemporaryDirectory() as tmpdir:
                 try:
                     result = grade_func([], tmpdir)
                 except Exception:
                     # Some grade functions may fail with empty data; that's ok
                     continue
-                assert isinstance(result, dict), (
-                    f"Task {task.task_id}: grade() returned {type(result)}, expected dict"
-                )
+                assert isinstance(
+                    result, dict
+                ), f"Task {task.task_id}: grade() returned {type(result)}, expected dict"
                 # All values should be numeric
                 for key, val in result.items():
                     assert isinstance(val, (int, float)), (
-                        f"Task {task.task_id}: grade()['{key}'] = {val} ({type(val)}), expected number"
+                        f"Task {task.task_id}: grade()['{key}'] = {val} "
+                        f"({type(val)}), expected number"
                     )
 
     def _extract_code(self, text):
@@ -154,9 +152,9 @@ class TestSubProblems:
 
     def test_core_tasks_have_sub_problems(self, core_tasks):
         for task_id, task in core_tasks.items():
-            assert task.num_sub_problems >= 3, (
-                f"Task {task_id} has only {task.num_sub_problems} sub-problems (expected >= 3)"
-            )
+            assert (
+                task.num_sub_problems >= 3
+            ), f"Task {task_id} has only {task.num_sub_problems} sub-problems (expected >= 3)"
 
 
 class TestWorkspaceFiles:
@@ -173,9 +171,9 @@ class TestWorkspaceFiles:
                 if isinstance(file_spec, str):
                     # Plain string: "assets/foo/bar.txt"
                     source_path = SKILL_ROOT / file_spec
-                    assert source_path.exists(), (
-                        f"Task {task.task_id}: workspace source file not found: {source_path}"
-                    )
+                    assert (
+                        source_path.exists()
+                    ), f"Task {task.task_id}: workspace source file not found: {source_path}"
                     continue
                 if "content" in file_spec:
                     continue
@@ -183,9 +181,9 @@ class TestWorkspaceFiles:
                 if not source:
                     continue
                 source_path = SKILL_ROOT / source
-                assert source_path.exists(), (
-                    f"Task {task.task_id}: workspace source file not found: {source_path}"
-                )
+                assert (
+                    source_path.exists()
+                ), f"Task {task.task_id}: workspace source file not found: {source_path}"
 
 
 class TestAssetFiles:
@@ -208,12 +206,12 @@ class TestAssetFiles:
     def test_csv_assets_have_headers(self):
         for csv_file in ASSETS_DIR.rglob("*.csv"):
             content = csv_file.read_text(encoding="utf-8")
-            lines = [l for l in content.strip().split("\n") if l.strip()]
+            lines = [line for line in content.strip().split("\n") if line.strip()]
             assert len(lines) >= 2, f"CSV {csv_file} has fewer than 2 lines (header + data)"
 
     def test_sql_assets_valid(self):
         for sql_file in ASSETS_DIR.rglob("*.sql"):
             content = sql_file.read_text(encoding="utf-8").upper()
-            assert "CREATE TABLE" in content or "ALTER TABLE" in content, (
-                f"SQL file {sql_file} missing CREATE/ALTER TABLE"
-            )
+            assert (
+                "CREATE TABLE" in content or "ALTER TABLE" in content
+            ), f"SQL file {sql_file} missing CREATE/ALTER TABLE"

@@ -9,6 +9,7 @@ Fetches skills from ClawHub's public Convex API with support for:
 - incremental state (skip unchanged records)
 - proxy from env and/or --proxy (CLI has priority)
 """
+
 # /// script
 # requires-python = ">=3.10"
 # ///
@@ -112,7 +113,9 @@ class ClawHubCrawler:
         self.opener = setup_opener(proxy)
         self.stats = CrawlerStats(mode=mode)
 
-        self.state = load_json_file(state_path, default={"items": {}, "updated_at": None, "meta": {}})
+        self.state = load_json_file(
+            state_path, default={"items": {}, "updated_at": None, "meta": {}}
+        )
         if not isinstance(self.state, dict):
             self.state = {"items": {}, "updated_at": None, "meta": {}}
         self.state.setdefault("items", {})
@@ -137,12 +140,18 @@ class ClawHubCrawler:
                     if data.get("status") != "success":
                         raise RuntimeError(f"Convex non-success status: {data}")
                     return data.get("value")
-            except (error.URLError, error.HTTPError, TimeoutError, RuntimeError, json.JSONDecodeError) as exc:
+            except (
+                error.URLError,
+                error.HTTPError,
+                TimeoutError,
+                RuntimeError,
+                json.JSONDecodeError,
+            ) as exc:
                 if attempt >= self.max_retries:
                     self.stats.failed_requests += 1
                     raise RuntimeError(f"request failed after retries: {exc}") from exc
                 self.stats.retries += 1
-                sleep_s = self.backoff_base * (2 ** attempt)
+                sleep_s = self.backoff_base * (2**attempt)
                 time.sleep(sleep_s)
 
     @staticmethod
@@ -282,7 +291,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--proxy", default=None, help="proxy URL, e.g. http://127.0.0.1:7890")
     parser.add_argument("--timeout", type=float, default=15.0, help="request timeout seconds")
     parser.add_argument("--retries", type=int, default=4, help="max retries per request")
-    parser.add_argument("--backoff-base", type=float, default=0.5, help="retry backoff base seconds")
+    parser.add_argument(
+        "--backoff-base", type=float, default=0.5, help="retry backoff base seconds"
+    )
     parser.add_argument("--page-size", type=int, default=DEFAULT_PAGE_SIZE, help="items per page")
     parser.add_argument(
         "--max-pages",

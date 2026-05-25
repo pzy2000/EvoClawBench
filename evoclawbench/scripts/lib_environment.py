@@ -16,7 +16,6 @@ from typing import Any
 
 from pydantic import BaseModel
 
-
 COMMON_API_ENV_VARS = [
     "OPENAI_API_KEY",
     "ANTHROPIC_AUTH_TOKEN",
