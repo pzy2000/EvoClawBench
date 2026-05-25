@@ -168,17 +168,11 @@ Each task usually contains five to ten structurally related sub-problems.
 This repeated structure is important: it gives the agent a reason to write down a general procedure rather than solve a single isolated instance.
 The repository also includes a sanity task used by the loader, but we exclude it when describing the official suite size.
 
-The current task suite covers data transformation, log analysis, API scaffolding, test generation, configuration migration, security review, document extraction, database operations, Excel analytics, web extraction, document generation, data pipelines, email and invoice processing, shell automation, CI generation, dependency audit, environment configuration, metrics anomaly detection, finance operations, legal operations, healthcare administration, procurement and logistics, HR and education, support and product operations, DevOps/SRE, security and privacy, data analytics, research and media, localization and release management, commerce and food operations, facilities and IoT, public-sector audit, CRM and executive operations, and travel/office coordination.
+The task suite summarizes recurring workflows such as data transformation, log analysis, API scaffolding, test generation, configuration migration, security review, document extraction, database operations, Excel analytics, web extraction, document generation, data pipelines, email and invoice processing, shell automation, CI generation, dependency audit, environment configuration, and metrics anomaly detection.
+The full 100-task suite expands these surfaces into harder repository-local families such as finance, legal, healthcare, procurement, HR, support, DevOps/SRE, privacy, localization, commerce, facilities, public-sector audit, CRM, and travel/office coordination.
 The suite size is 100 tasks and 502 sub-problems after excluding the sanity task.
 Many hard-mode fixtures are synthetic, repository-local cases with competing evidence packets, stale revisions, and decoy records.
 This design reduces privacy risk while preserving repeated, artifact-producing workflows.
-
-\begin{figure*}[t]
-\centering
-\includegraphics[width=0.94\textwidth]{Figures/fig_task_taxonomy_imagegen.png}
-\caption{Task-suite structure in \ours{}. Tasks are organized around repeated tool-using sub-problems: input fixtures are copied into isolated workspaces, agents produce grader-visible artifacts, and automated or hybrid graders evaluate the resulting files.}
-\label{fig:task-taxonomy}
-\end{figure*}
 
 \subsection{Workspace and Fixtures}
 \label{subsec:workspace}
