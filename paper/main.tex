@@ -32,7 +32,7 @@
 \definecolor{partialamber}{RGB}{202,137,0}
 \newcommand{\yesmark}{\textcolor{yesgreen}{\ding{51}}}
 \newcommand{\nomark}{\textcolor{nored}{\ding{55}}}
-\newcommand{\partialmark}{\textcolor{partialamber}{$\bigcirc$}}
+\newcommand{\partialmark}{\textcolor{partialamber}{\makebox[1em][c]{\ooalign{\hfil\ding{51}\hfil\cr\hfil\ding{55}\hfil\cr}}}}
 \newcommand{\promptbox}[3]{%
   \par\noindent
   \begingroup
@@ -271,10 +271,10 @@ Given baseline usage $U_b$ and candidate usage $U_x$, efficiency gain is compute
 \begin{equation}
     E_x = \frac{U_b}{U_x}.
 \end{equation}
-Values greater than $1.0$ indicate that the skill workflow uses fewer resources than baseline.
+Values above $1.0$ therefore indicate that the skill workflow uses fewer resources than the baseline.
 The benchmark also reports created-skill counts, heuristic skill quality, and skill mutation violations.
-Execution-only metrics answer whether a generated skill helps the final task attempt, while end-to-end metrics answer whether the full skill workflow is worth its authoring and summarization overhead.
-This distinction is important because a skill can preserve task score while still being unattractive if it requires substantially more tokens, cost, or wall time.
+Execution-only metrics test whether a generated skill improves the final task attempt, whereas end-to-end metrics test whether the full workflow justifies its authoring and summarization overhead.
+This distinction matters because a skill may preserve task score yet remain unattractive if it substantially increases token use, cost, or wall time.
 
 \section{Results}
 \label{sec:results}

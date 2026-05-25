@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.2.17)  25 MAY 2026 21:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.2.17)  25 MAY 2026 22:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -613,7 +613,7 @@ Underfull \hbox (badness 6125) in paragraph at lines 155--161
 
 
 [3 <./Figures/fig_overview_imagegen.searchable.pdf>]
-<Figures/fig_suite_distribution.pdf, id=291, 843.20398pt x 372.10016pt>
+<Figures/fig_suite_distribution.pdf, id=290, 843.20398pt x 372.10016pt>
 File: Figures/fig_suite_distribution.pdf Graphic file (type pdf)
 <use Figures/fig_suite_distribution.pdf>
 Package pdftex.def Info: Figures/fig_suite_distribution.pdf  used on input line 185.
@@ -652,7 +652,7 @@ Underfull \hbox (badness 3271) in paragraph at lines 217--221
 \T1/ptm/m/n/10.95 (+20) EvoClawBench cur-rently sup-ports Open-Claw
  []
 
-<Figures/fig_skill_anatomy_imagegen.searchable.pdf, id=292, 1156.32pt x 770.88pt>
+<Figures/fig_skill_anatomy_imagegen.searchable.pdf, id=291, 1156.32pt x 770.88pt>
 File: Figures/fig_skill_anatomy_imagegen.searchable.pdf Graphic file (type pdf)
 <use Figures/fig_skill_anatomy_imagegen.searchable.pdf>
 Package pdftex.def Info: Figures/fig_skill_anatomy_imagegen.searchable.pdf  used on input line 227.
@@ -692,13 +692,16 @@ Underfull \vbox (badness 1092) has occurred while \output is active []
 
 
 
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 [6 <./Figures/fig_skill_anatomy_imagegen.searchable.pdf>]
 Underfull \vbox (badness 2529) has occurred while \output is active []
 
 
 
-<Figures/fig_failure_case_imagegen.searchable.pdf, id=352, 1335.48938pt x 667.74469pt>
+<Figures/fig_failure_case_imagegen.searchable.pdf, id=351, 1335.48938pt x 667.74469pt>
 File: Figures/fig_failure_case_imagegen.searchable.pdf Graphic file (type pdf)
 <use Figures/fig_failure_case_imagegen.searchable.pdf>
 Package pdftex.def Info: Figures/fig_failure_case_imagegen.searchable.pdf  used on input line 353.
@@ -798,7 +801,7 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 1083.
 See the caption package documentation for explanation.
 
-<Figures/fig_protocol_imagegen.searchable.pdf, id=566, 1335.48938pt x 667.74469pt>
+<Figures/fig_protocol_imagegen.searchable.pdf, id=565, 1335.48938pt x 667.74469pt>
 File: Figures/fig_protocol_imagegen.searchable.pdf Graphic file (type pdf)
 <use Figures/fig_protocol_imagegen.searchable.pdf>
 Package pdftex.def Info: Figures/fig_protocol_imagegen.searchable.pdf  used on input line 1103.
@@ -836,12 +839,12 @@ Here is how much of TeX's memory you used:
  40676 multiletter control sequences out of 15000+600000
  658121 words of font info for 471 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,11n,93p,997b,658s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on main.pdf (28 pages, 6255131 bytes).
+ 84i,14n,93p,997b,658s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
+Output written on main.pdf (28 pages, 6247000 bytes).
 PDF statistics:
- 673 PDF objects out of 1000 (max. 8388607)
- 574 compressed objects within 6 object streams
+ 668 PDF objects out of 1000 (max. 8388607)
+ 571 compressed objects within 6 object streams
  133 named destinations out of 1000 (max. 500000)
  82178 words of extra memory for PDF output out of 89155 (max. 10000000)
 
