@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.2.17)  25 MAY 2026 13:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.2.17)  25 MAY 2026 14:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -669,117 +669,114 @@ ocal/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
 
 {/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}]
-Underfull \hbox (badness 1221) in paragraph at lines 91--95
+Underfull \hbox (badness 1221) in paragraph at lines 92--96
 \T1/ptm/m/n/10.95 (+20) reusable pro-ce-du-ral mem-ory from ex-pe-ri-ence.
  []
 
 
-Underfull \hbox (badness 1533) in paragraph at lines 91--95
+Underfull \hbox (badness 1533) in paragraph at lines 92--96
 \T1/ptm/m/n/10.95 (+20) Both are com-pared against \T1/ptm/m/sc/10.95 (+20) Bas
 e-line \T1/ptm/m/n/10.95 (+20) un-der
  []
 
-<Figures/fig_overview_imagegen.png, id=153, 1699.34875pt x 823.075pt>
+<Figures/fig_overview_imagegen.png, id=157, 1699.34875pt x 823.075pt>
 File: Figures/fig_overview_imagegen.png Graphic file (type png)
 <use Figures/fig_overview_imagegen.png>
 Package pdftex.def Info: Figures/fig_overview_imagegen.png  used on input line 
-98.
+99.
 (pdftex.def)             Requested size: 455.24411pt x 220.4875pt.
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 1
-04.
+05.
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
 
 
-Underfull \hbox (badness 6125) in paragraph at lines 130--134
+Underfull \hbox (badness 6125) in paragraph at lines 131--135
  []\T1/ptm/b/n/10.95 (+20) Skill and pro-ce-du-ral mem-ory eval-u-a-tion.[]
  []
 
 
 
 [2]
-Underfull \hbox (badness 3323) in paragraph at lines 148--148
+Underfull \hbox (badness 3323) in paragraph at lines 149--149
 \T1/ptm/m/n/9 (+20) marks ([][]Zhou et al.[][], [][]2023[][];
  []
 
 
-Underfull \hbox (badness 2253) in paragraph at lines 148--148
+Underfull \hbox (badness 2253) in paragraph at lines 149--149
 [][]\T1/ptm/m/n/9 (+20) Deng et al.[][], [][]2023[][]; [][]Trivedi
  []
 
 
-Underfull \hbox (badness 1331) in paragraph at lines 148--148
+Underfull \hbox (badness 1331) in paragraph at lines 149--149
 \T1/ptm/m/n/9 (+20) et al.[][], [][]2023[][]; [][]Mi-alon et al.[][],
  []
 
 
-Underfull \hbox (badness 4927) in paragraph at lines 149--150
+Underfull \hbox (badness 4927) in paragraph at lines 150--151
 \T1/ptm/m/n/9 (+20) not the same-runtime \T1/ptm/m/sc/9 (+20) Base-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 149--150
+Underfull \hbox (badness 10000) in paragraph at lines 150--151
 \T1/ptm/m/sc/9 (+20) line\T1/ptm/m/n/9 (+20) /\T1/ptm/m/sc/9 (+20) PreSkill\T1/
 ptm/m/n/9 (+20) /\T1/ptm/m/sc/9 (+20) PostSkill
  []
 
 
 
-<Figures/fig_task_taxonomy_imagegen.png, id=258, 1541.76pt x 1027.84pt>
+<Figures/fig_task_taxonomy_imagegen.png, id=262, 1541.76pt x 1027.84pt>
 File: Figures/fig_task_taxonomy_imagegen.png Graphic file (type png)
 <use Figures/fig_task_taxonomy_imagegen.png>
 Package pdftex.def Info: Figures/fig_task_taxonomy_imagegen.png  used on input 
-line 177.
+line 178.
 (pdftex.def)             Requested size: 427.93057pt x 285.28387pt.
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 10.95pt on input line 191.
+(Font)              scaled to size 10.95pt on input line 192.
 
 
 [3 <./Figures/fig_overview_imagegen.png (PNG copy)>]
-Underfull \hbox (badness 4686) in paragraph at lines 202--205
+Underfull \hbox (badness 4686) in paragraph at lines 203--206
 \T1/ptm/m/n/10.95 (+20) other au-thor-ing run, Evo-Claw-Bench hashes
  []
 
 
-Underfull \hbox (badness 1259) in paragraph at lines 202--205
+Underfull \hbox (badness 1259) in paragraph at lines 203--206
 \T1/ptm/m/n/10.95 (+20) e-cu-tion. If a reuse ex-e-cu-tion adds, deletes,
  []
 
 
-Underfull \hbox (badness 4205) in paragraph at lines 202--205
+Underfull \hbox (badness 4205) in paragraph at lines 203--206
 \T1/ptm/m/n/10.95 (+20) or ed-its a skill, the bench-mark records a
  []
 
 
-Underfull \hbox (badness 2261) in paragraph at lines 202--205
+Underfull \hbox (badness 2261) in paragraph at lines 203--206
 \T1/zi4/m/n/10.95 skill_mutation_violation\T1/ptm/m/n/10.95 (+20) . This guardr
 ail
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 202--205
+Underfull \hbox (badness 10000) in paragraph at lines 203--206
 \T1/ptm/m/n/10.95 (+20) makes the ex-per-i-men-tal con-di-tion ex-plicit:
  []
 
 
-Underfull \hbox (badness 3271) in paragraph at lines 209--213
+
+
+Underfull \hbox (badness 3271) in paragraph at lines 210--214
 \T1/ptm/m/n/10.95 (+20) EvoClawBench cur-rently sup-ports Open-Claw
  []
 
-
-Underfull \vbox (badness 4416) has occurred while \output is active []
-
-
-
-<Figures/fig_skill_anatomy_imagegen.png, id=264, 1541.76pt x 1027.84pt>
+<Figures/fig_skill_anatomy_imagegen.png, id=268, 1541.76pt x 1027.84pt>
 File: Figures/fig_skill_anatomy_imagegen.png Graphic file (type png)
 <use Figures/fig_skill_anatomy_imagegen.png>
 Package pdftex.def Info: Figures/fig_skill_anatomy_imagegen.png  used on input 
-line 219.
+line 220.
 (pdftex.def)             Requested size: 391.51021pt x 261.00572pt.
 
-Underfull \hbox (badness 3838) in paragraph at lines 235--239
+Underfull \hbox (badness 3838) in paragraph at lines 236--240
  []\T1/ptm/b/sc/10.95 (+20) PreSkill\T1/ptm/b/n/10.95 (+20) .[] \T1/ptm/m/n/10.
 95 (+20) The agent first en-ters a skill-
  []
@@ -787,55 +784,55 @@ Underfull \hbox (badness 3838) in paragraph at lines 235--239
 
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 241--245
+Underfull \hbox (badness 10000) in paragraph at lines 242--246
  []\T1/ptm/b/sc/10.95 (+20) PostSkill\T1/ptm/b/n/10.95 (+20) .[] \T1/ptm/m/n/10
 .95 (+20) The agent first solves
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 241--245
+Underfull \hbox (badness 10000) in paragraph at lines 242--246
 \T1/ptm/m/n/10.95 (+20) the task in a no-skill ex-e-cu-tion phase.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 241--245
+Underfull \hbox (badness 10000) in paragraph at lines 242--246
 \T1/ptm/m/n/10.95 (+20) The bench-mark writes a com-pact
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 241--245
+Underfull \hbox (badness 10000) in paragraph at lines 242--246
 \T1/zi4/m/n/10.95 .evoclawbench/first_run_context.json
  []
 
 
-Underfull \hbox (badness 2644) in paragraph at lines 241--245
+Underfull \hbox (badness 2644) in paragraph at lines 242--246
 \T1/ptm/m/n/10.95 (+20) out-put sum-maries, and tran-script sum-maries.
  []
 
 
-Underfull \hbox (badness 3078) in paragraph at lines 257--260
+Underfull \hbox (badness 3078) in paragraph at lines 258--261
 []\T1/ptm/m/n/10.95 (+20) EvoClawBench re-ports two met-ric scopes.
  []
 
 
 
 
-Underfull \hbox (badness 5519) in paragraph at lines 277--283
+Underfull \hbox (badness 5519) in paragraph at lines 278--285
 \T1/ptm/m/n/10.95 (+20) We eval-u-ate five mod-els on the hard-ened
  []
 
 
-Underfull \hbox (badness 3039) in paragraph at lines 277--283
+Underfull \hbox (badness 3039) in paragraph at lines 278--285
 \T1/ptm/m/n/10.95 (+20) bench-mark suite un-der both Open-Claw and
  []
 
 
-Underfull \hbox (badness 4832) in paragraph at lines 277--283
+Underfull \hbox (badness 4832) in paragraph at lines 278--285
 \T1/ptm/m/n/10.95 (+20) runs use \T1/zi4/m/n/10.95 uv run scripts/benchmark.py
  []
 
 
-Underfull \hbox (badness 3000) in paragraph at lines 277--283
+Underfull \hbox (badness 3000) in paragraph at lines 278--285
 \T1/zi4/m/n/10.95 --mode all --workers 32 --environment
  []
 
@@ -846,182 +843,59 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [5 <./Figures/fig_task_taxonomy_imagegen.png (PNG copy)>]
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 9.0pt on input line 306.
+(Font)              scaled to size 9.0pt on input line 308.
 
-Underfull \hbox (badness 4391) in paragraph at lines 317--322
+Underfull \hbox (badness 4391) in paragraph at lines 315--321
  []\T1/ptm/b/n/10.95 (+20) Finding 1: Run-time scaf-fold-ing strongly
  []
 
 
-Underfull \hbox (badness 1087) in paragraph at lines 317--322
+Underfull \hbox (badness 1087) in paragraph at lines 315--321
 \T1/ptm/m/n/10.95 (+20) to 19.99 for \T1/zi4/m/n/10.95 openai/deepseek-v4-pro\T
 1/ptm/m/n/10.95 (+20) . Un-
  []
 
 
-Underfull \hbox (badness 7649) in paragraph at lines 317--322
+Underfull \hbox (badness 7649) in paragraph at lines 315--321
 \T1/ptm/m/n/10.95 (+20) der nanobot, di-rect \T1/ptm/m/sc/10.95 (+20) Base-line
  \T1/ptm/m/n/10.95 (+20) scores are
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 317--322
+Underfull \hbox (badness 10000) in paragraph at lines 315--321
 \T1/ptm/m/n/10.95 (+20) sub-stan-tially higher, rang-ing from 56.45
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 317--322
+Underfull \hbox (badness 10000) in paragraph at lines 315--321
 \T1/ptm/m/n/10.95 (+20) for \T1/zi4/m/n/10.95 openai/qwen3.6-plus \T1/ptm/m/n/1
 0.95 (+20) to 96.13 for
  []
 
 
-Underfull \hbox (badness 1910) in paragraph at lines 317--322
+Underfull \hbox (badness 1910) in paragraph at lines 315--321
 \T1/zi4/m/n/10.95 openai/gpt-5.4\T1/ptm/m/n/10.95 (+20) . This con-trast shows 
 why
  []
 
 
-
-
-
-[6 <./Figures/fig_skill_anatomy_imagegen.png (PNG copy)>]
-Underfull \hbox (badness 1694) in paragraph at lines 330--337
-\T1/ptm/m/n/10.95 (+20) For \T1/zi4/m/n/10.95 openai/qwen3.6-plus\T1/ptm/m/n/10
-.95 (+20) , end-to-end token-
+Underfull \hbox (badness 1014) in paragraph at lines 315--321
+\T1/ptm/m/n/10.95 (+20) not be read as a leader-board claim that one
  []
 
 
-
-
-Underfull \hbox (badness 6792) in paragraph at lines 348--353
-\T1/ptm/m/n/10.95 (+20) di-rectly, we ran a fo-cused sub-set ex-per-i-
+Underfull \hbox (badness 1259) in paragraph at lines 315--321
+\T1/ptm/m/n/10.95 (+20) also de-ter-mines prompt wrap-ping, workspace
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 348--353
-\T1/ptm/m/n/10.95 (+20) cu-tion, and \T1/zi4/m/n/10.95 openai/MiniMax/MiniMax-M
-2.7
+Underfull \hbox (badness 2932) in paragraph at lines 315--321
+\T1/ptm/m/n/10.95 (+20) agents must rec-on-cile multi-record ev-i-dence,
  []
 
 
-Underfull \hbox (badness 5490) in paragraph at lines 348--353
-\T1/ptm/m/n/10.95 (+20) as the orig-i-nal judge. Un-like the older
- []
-
-
-Underfull \hbox (badness 2376) in paragraph at lines 348--353
-\T1/ptm/m/n/10.95 (+20) full-suite JSON files, the new sub-set re-sult
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 348--353
-\T1/zi4/m/n/10.95 results / paper _ subset _ experiments / 0001 _
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 348--353
-\T1/zi4/m/n/10.95 openai-[]gpt-[]5-[]4-[]mini _ openclaw . json$ \T1/ptm/m/n/10
-.95 (+20) se-ri-al-
- []
-
-
-
-[7]
-Underfull \hbox (badness 8170) in paragraph at lines 418--426
-[]\T1/ptm/m/n/10.95 (+20) Finally, we re-graded the 36 task-mode
- []
-
-
-Underfull \hbox (badness 1558) in paragraph at lines 418--426
-\T1/ptm/m/n/10.95 (+20) out-puts from the 12 hybrid-task sub-set with
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 418--426
-\T1/ptm/m/n/10.95 (+20) al-ter-nate judges. Be-cause hy-brid scores
- []
-
-
-Underfull \hbox (badness 2564) in paragraph at lines 418--426
-\T1/ptm/m/n/10.95 (+20) com-bine de-ter-min-is-tic checks with an LLM
- []
-
-
-Underfull \hbox (badness 5490) in paragraph at lines 418--426
-\T1/ptm/m/n/10.95 (+20) judg-ment, the re-grade holds the se-ri-al-ized
- []
-
-
-Underfull \hbox (badness 2573) in paragraph at lines 418--426
-\T1/ptm/m/n/10.95 (+20) the LLM-judge com-po-nent. The re-quested
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 418--426
-\T1/zi4/m/n/10.95 openrouter/anthropic/claude-opus-4.5
- []
-
-
-Underfull \hbox (badness 1237) in paragraph at lines 418--426
-\T1/ptm/m/n/10.95 (+20) the ro-bust-ness ar-ti-fact records the con-fig-ured
- []
-
-
-Underfull \hbox (badness 2269) in paragraph at lines 418--426
-\T1/ptm/m/n/10.95 (+20) fall-back \T1/zi4/m/n/10.95 openai/qwen3.6-plus \T1/ptm
-/m/n/10.95 (+20) as the ac-tual
- []
-
-
-Underfull \hbox (badness 4024) in paragraph at lines 418--426
-\T1/ptm/m/n/10.95 (+20) avail-able model, \T1/zi4/m/n/10.95 openai/gpt-5.4-mini
- \T1/ptm/m/n/10.95 (+20) also
- []
-
-
-Underfull \hbox (badness 1117) in paragraph at lines 418--426
-\T1/ptm/m/n/10.95 (+20) Pear-son cor-re-la-tion is 0.9512, mean ab-so-lute
- []
-
-
-Underfull \hbox (badness 2671) in paragraph at lines 418--426
-\T1/ptm/m/n/10.95 (+20) dis-agree-ment is \T1/zi4/m/n/10.95 task_11_web_extract
-ion \T1/ptm/m/n/10.95 (+20) in
- []
-
-
-
-<Figures/fig_failure_case_imagegen.png, id=304, 1780.6525pt x 890.32625pt>
-File: Figures/fig_failure_case_imagegen.png Graphic file (type png)
-<use Figures/fig_failure_case_imagegen.png>
-Package pdftex.def Info: Figures/fig_failure_case_imagegen.png  used on input l
-ine 429.
-(pdftex.def)             Requested size: 455.24411pt x 227.62114pt.
-
-
-[8]
-
-
-Underfull \hbox (badness 1769) in paragraph at lines 463--466
- []\T1/ptm/b/n/10.95 (+20) Grading de-pen-dence.[] \T1/ptm/m/n/10.95 (+20) Hy-b
-rid grad-ing tasks
- []
-
-
-Underfull \hbox (badness 1565) in paragraph at lines 463--466
-\T1/ptm/m/n/10.95 (+20) though au-to-mated checks are used when-ever
- []
-
-
-Underfull \hbox (badness 3199) in paragraph at lines 463--466
-\T1/ptm/m/n/10.95 (+20) fea-si-ble. The cur-rent ta-ble was run with
- []
-
-
-Underfull \hbox (badness 1107) in paragraph at lines 463--466
-\T1/zi4/m/n/10.95 openai/MiniMax/MiniMax-M2.7 \T1/ptm/m/n/10.95 (+20) as the hy
--brid
+Underfull \hbox (badness 1478) in paragraph at lines 315--321
+\T1/ptm/m/n/10.95 (+20) con-flicts, re-vi-sions, and grader-visible out-put
  []
 
 
@@ -1029,11 +903,144 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[9 <./Figures/fig_failure_case_imagegen.png (PNG copy)>]
+
+
+[6 <./Figures/fig_skill_anatomy_imagegen.png (PNG copy)>]
+Underfull \hbox (badness 1694) in paragraph at lines 329--336
+\T1/ptm/m/n/10.95 (+20) For \T1/zi4/m/n/10.95 openai/qwen3.6-plus\T1/ptm/m/n/10
+.95 (+20) , end-to-end token-
+ []
+
+
+
+
+Underfull \hbox (badness 6792) in paragraph at lines 348--354
+\T1/ptm/m/n/10.95 (+20) di-rectly, we ran a fo-cused sub-set ex-per-i-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 348--354
+\T1/ptm/m/n/10.95 (+20) cu-tion, and \T1/zi4/m/n/10.95 openai/MiniMax/MiniMax-M
+2.7
+ []
+
+
+Underfull \hbox (badness 5490) in paragraph at lines 348--354
+\T1/ptm/m/n/10.95 (+20) as the orig-i-nal judge. Un-like the older
+ []
+
+
+Underfull \hbox (badness 2376) in paragraph at lines 348--354
+\T1/ptm/m/n/10.95 (+20) full-suite JSON files, the new sub-set re-sult
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 348--354
+\T1/zi4/m/n/10.95 results / paper _ subset _ experiments / 0001 _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 348--354
+\T1/zi4/m/n/10.95 openai-[]gpt-[]5-[]4-[]mini _ openclaw . json$ \T1/ptm/m/n/10
+.95 (+20) se-ri-al-
+ []
+
+
+
+[7]
+Underfull \hbox (badness 8170) in paragraph at lines 366--375
+[]\T1/ptm/m/n/10.95 (+20) Finally, we re-graded the 36 task-mode
+ []
+
+
+Underfull \hbox (badness 1558) in paragraph at lines 366--375
+\T1/ptm/m/n/10.95 (+20) out-puts from the 12 hybrid-task sub-set with
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 366--375
+\T1/ptm/m/n/10.95 (+20) al-ter-nate judges. Be-cause hy-brid scores
+ []
+
+
+Underfull \hbox (badness 2564) in paragraph at lines 366--375
+\T1/ptm/m/n/10.95 (+20) com-bine de-ter-min-is-tic checks with an LLM
+ []
+
+
+Underfull \hbox (badness 5490) in paragraph at lines 366--375
+\T1/ptm/m/n/10.95 (+20) judg-ment, the re-grade holds the se-ri-al-ized
+ []
+
+
+Underfull \hbox (badness 2573) in paragraph at lines 366--375
+\T1/ptm/m/n/10.95 (+20) the LLM-judge com-po-nent. The re-quested
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 366--375
+\T1/zi4/m/n/10.95 openrouter/anthropic/claude-opus-4.5
+ []
+
+
+Underfull \hbox (badness 1237) in paragraph at lines 366--375
+\T1/ptm/m/n/10.95 (+20) the ro-bust-ness ar-ti-fact records the con-fig-ured
+ []
+
+
+Underfull \hbox (badness 2269) in paragraph at lines 366--375
+\T1/ptm/m/n/10.95 (+20) fall-back \T1/zi4/m/n/10.95 openai/qwen3.6-plus \T1/ptm
+/m/n/10.95 (+20) as the ac-tual
+ []
+
+
+Underfull \hbox (badness 4024) in paragraph at lines 366--375
+\T1/ptm/m/n/10.95 (+20) avail-able model, \T1/zi4/m/n/10.95 openai/gpt-5.4-mini
+ \T1/ptm/m/n/10.95 (+20) also
+ []
+
+
+Underfull \hbox (badness 1117) in paragraph at lines 366--375
+\T1/ptm/m/n/10.95 (+20) Pear-son cor-re-la-tion is 0.9512, mean ab-so-lute
+ []
+
+
+Underfull \hbox (badness 2671) in paragraph at lines 366--375
+\T1/ptm/m/n/10.95 (+20) dis-agree-ment is \T1/zi4/m/n/10.95 task_11_web_extract
+ion \T1/ptm/m/n/10.95 (+20) in
+ []
+
+
+
+
+
+[8]
+Underfull \hbox (badness 1769) in paragraph at lines 401--404
+ []\T1/ptm/b/n/10.95 (+20) Grading de-pen-dence.[] \T1/ptm/m/n/10.95 (+20) Hy-b
+rid grad-ing tasks
+ []
+
+
+Underfull \hbox (badness 1565) in paragraph at lines 401--404
+\T1/ptm/m/n/10.95 (+20) though au-to-mated checks are used when-ever
+ []
+
+
+Underfull \hbox (badness 3199) in paragraph at lines 401--404
+\T1/ptm/m/n/10.95 (+20) fea-si-ble. The cur-rent ta-ble was run with
+ []
+
+
+Underfull \hbox (badness 1107) in paragraph at lines 401--404
+\T1/zi4/m/n/10.95 openai/MiniMax/MiniMax-M2.7 \T1/ptm/m/n/10.95 (+20) as the hy
+-brid
+ []
+
+
 
 (./main.bbl
 
-[10]
+[9]
 Underfull \hbox (badness 1515) in paragraph at lines 115--120
 \T1/ptm/m/n/10 (+20) ver-bal re-in-force-ment learn-ing[][].  \T1/ptm/m/it/10 (
 +20) arXiv preprint
@@ -1043,54 +1050,75 @@ Underfull \hbox (badness 1515) in paragraph at lines 115--120
 
 )
 
-[11]
+[10]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 514.
+(caption)                particular \caption on input line 453.
 See the caption package documentation for explanation.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 535.
+(caption)                particular \caption on input line 474.
 See the caption package documentation for explanation.
 
 
 
-[12
+[11
 
 
-] [13]
+]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 499.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 516.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 530.
+See the caption package documentation for explanation.
+
+<Figures/fig_failure_case_imagegen.png, id=416, 1780.6525pt x 890.32625pt>
+File: Figures/fig_failure_case_imagegen.png Graphic file (type png)
+<use Figures/fig_failure_case_imagegen.png>
+Package pdftex.def Info: Figures/fig_failure_case_imagegen.png  used on input l
+ine 549.
+(pdftex.def)             Requested size: 455.24411pt x 227.62114pt.
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 550.
+See the caption package documentation for explanation.
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[14] [15] [16] [17] [18] [19] [20] [21] [22] [23] [24]
+[12] [13 <./Figures/fig_failure_case_imagegen.png (PNG copy)>] [14] [15]
+[16] [17] [18] [19] [20] [21] [22] [23] [24]
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
 (Font)              scaled to size 7.0pt on input line 993.
 
+
+[25]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 998.
 See the caption package documentation for explanation.
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-[25]
-
 Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 1055.
 See the caption package documentation for explanation.
 
 
-Underfull \vbox (badness 1163) has occurred while \output is active []
-
-
 
 [26]
-<Figures/fig_protocol_imagegen.png, id=485, 1780.6525pt x 890.32625pt>
+<Figures/fig_protocol_imagegen.png, id=490, 1780.6525pt x 890.32625pt>
 File: Figures/fig_protocol_imagegen.png Graphic file (type png)
 <use Figures/fig_protocol_imagegen.png>
 Package pdftex.def Info: Figures/fig_protocol_imagegen.png  used on input line 
@@ -1130,16 +1158,16 @@ LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 10B752D01DB99F1AFE4DCCFE881C4C12;5012.
+(rerunfilecheck)             Checksum: B176C557B70DC36EE7928481C1BFCCE4;5163.
  ) 
 Here is how much of TeX's memory you used:
- 18251 strings out of 473190
- 302890 string characters out of 5715800
- 915201 words of memory out of 5000000
- 40600 multiletter control sequences out of 15000+600000
- 655899 words of font info for 450 fonts, out of 8000000 for 9000
+ 18240 strings out of 473190
+ 302703 string characters out of 5715800
+ 919201 words of memory out of 5000000
+ 40598 multiletter control sequences out of 15000+600000
+ 655303 words of font info for 442 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,11n,93p,1419b,646s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,11n,93p,1001b,646s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/inconsolata/Inconsolat
 a-zi4r.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cm
@@ -1148,10 +1176,10 @@ mi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr1
 /usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local
 /texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2
 025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (29 pages, 6667985 bytes).
+Output written on main.pdf (29 pages, 6903813 bytes).
 PDF statistics:
- 569 PDF objects out of 1000 (max. 8388607)
- 511 compressed objects within 6 object streams
- 124 named destinations out of 1000 (max. 500000)
- 82186 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 575 PDF objects out of 1000 (max. 8388607)
+ 517 compressed objects within 6 object streams
+ 126 named destinations out of 1000 (max. 500000)
+ 82194 words of extra memory for PDF output out of 89155 (max. 10000000)
 
