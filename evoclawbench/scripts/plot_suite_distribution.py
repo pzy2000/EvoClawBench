@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import sys
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -21,6 +22,18 @@ OFFICIAL_TASK_COUNT = 100
 OFFICIAL_SUBPROBLEM_COUNT = 502
 OFFICIAL_FIXTURE_COUNT = 512
 FIGURE_BASENAME = "fig_suite_distribution"
+
+
+def _default_output_dir(repo_dir: Path) -> Path:
+    standard_dir = repo_dir / "paper" / "Figures"
+    if standard_dir.exists():
+        return standard_dir
+
+    nested_figure_dirs = sorted((repo_dir / "paper").glob("*/Figures"))
+    if len(nested_figure_dirs) == 1:
+        return nested_figure_dirs[0]
+
+    return standard_dir
 
 
 def _task_number(task: Task) -> int:
@@ -136,7 +149,7 @@ def _plot(
     fig, axes = plt.subplots(
         1,
         2,
-        figsize=(12.0, 5.35),
+        figsize=(12.0, 4.65),
         gridspec_kw={"width_ratios": [1.55, 1.0], "wspace": 0.28},
     )
 
@@ -209,7 +222,7 @@ def _plot(
 
     fig.text(
         0.24,
-        0.025,
+        0.060,
         "(a) Official tasks across benchmark families",
         ha="center",
         va="bottom",
@@ -218,7 +231,7 @@ def _plot(
     )
     fig.text(
         0.74,
-        0.025,
+        0.060,
         "(b) Repository-local fixture files across formats",
         ha="center",
         va="bottom",
@@ -226,7 +239,7 @@ def _plot(
         fontweight="bold",
     )
 
-    fig.subplots_adjust(left=0.07, right=0.985, top=0.95, bottom=0.445)
+    fig.subplots_adjust(left=0.07, right=0.985, top=0.95, bottom=0.36)
     output_dir.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_dir / f"{FIGURE_BASENAME}.pdf", bbox_inches="tight")
     fig.savefig(output_dir / f"{FIGURE_BASENAME}.png", dpi=260, bbox_inches="tight")
@@ -234,8 +247,20 @@ def _plot(
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Plot official EvoClawBench suite distribution figures for the paper."
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=None,
+        help="Directory for fig_suite_distribution.pdf and fig_suite_distribution.png.",
+    )
+    args = parser.parse_args()
+
     bench_dir = SCRIPT_DIR.parent
     repo_dir = bench_dir.parent
+    output_dir = args.output_dir or _default_output_dir(repo_dir)
     tasks = _official_tasks(bench_dir / "tasks")
     ordered_families, family_counts, subproblem_counts = _family_distribution(tasks)
     fixture_counts = _fixture_distribution(tasks)
@@ -245,14 +270,14 @@ def main() -> None:
         family_counts,
         subproblem_counts,
         fixture_counts,
-        repo_dir / "paper" / "Figures",
+        output_dir,
     )
 
     print(f"Official tasks: {sum(family_counts.values())}")
     print(f"Official sub-problems: {sum(subproblem_counts.values())}")
     print(f"Official fixture files: {sum(fixture_counts.values())}")
-    print(f"Wrote paper/Figures/{FIGURE_BASENAME}.pdf")
-    print(f"Wrote paper/Figures/{FIGURE_BASENAME}.png")
+    print(f"Wrote {output_dir / f'{FIGURE_BASENAME}.pdf'}")
+    print(f"Wrote {output_dir / f'{FIGURE_BASENAME}.png'}")
 
 
 if __name__ == "__main__":
