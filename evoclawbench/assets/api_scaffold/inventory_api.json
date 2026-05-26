@@ -1,0 +1,33 @@
+{
+  "name": "InventoryAPI",
+  "base_url": "https://inventory.example.com/api/v3",
+  "auth": {
+    "type": "basic",
+    "username_env": "INV_USER",
+    "password_env": "INV_PASS"
+  },
+  "endpoints": [
+    {
+      "path": "/products",
+      "method": "GET",
+      "params": ["category", "in_stock"],
+      "description": "List products with optional filters"
+    },
+    {
+      "path": "/products/{sku}",
+      "method": "PUT",
+      "body": ["quantity", "price"],
+      "description": "Update product inventory and pricing"
+    }
+  ],
+  "rate_limit": {
+    "requests_per_minute": 120
+  },
+  "pagination": {
+    "type": "offset",
+    "params": {
+      "offset": "offset",
+      "limit": "limit"
+    }
+  }
+}

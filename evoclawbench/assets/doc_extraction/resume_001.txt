@@ -1,0 +1,71 @@
+RESUME
+
+ALEXANDRA CHEN
+Senior Software Engineer
+
+Contact Information:
+  Email: alexandra.chen@email.com
+  Phone: (415) 555-0273
+  Location: San Francisco, CA 94102
+  LinkedIn: linkedin.com/in/alexandrachen
+  GitHub: github.com/achen-dev
+
+PROFESSIONAL SUMMARY
+Experienced software engineer with 8+ years of expertise in building scalable
+distributed systems and cloud-native applications. Proven track record of
+leading cross-functional teams and delivering high-impact projects. Strong
+background in Python, Go, and cloud infrastructure (AWS, GCP).
+
+NOTE FROM RECRUITER
+Do not treat conference talks as certifications. Alexandra presented at KubeCon
+2023 and PyData SF 2024, but those are not certifications.
+
+WORK EXPERIENCE
+
+Senior Software Engineer | Stratos Cloud Inc. | March 2021 - Present
+  - Architected and deployed a microservices platform handling 2M+ daily requests
+  - Led a team of 6 engineers to migrate monolithic application to Kubernetes
+  - Reduced infrastructure costs by 35% through auto-scaling optimization
+  - Implemented CI/CD pipelines reducing deployment time from 2 hours to 15 minutes
+  - Mentored 4 junior developers through structured onboarding program
+
+Software Engineer II | DataBridge Analytics | June 2018 - February 2021
+  - Designed real-time data processing pipeline using Apache Kafka and Spark
+  - Built RESTful APIs serving 500K+ daily active users with 99.9% uptime
+  - Developed automated testing framework increasing code coverage from 45% to 92%
+  - Contributed to open-source data validation library (1.2K GitHub stars)
+
+Software Engineer | NexaPoint Solutions | August 2016 - May 2018
+  - Developed backend services for e-commerce platform processing $50M+ annually
+  - Implemented caching layer reducing API response times by 60%
+  - Created internal tooling for log aggregation and monitoring dashboards
+
+EDUCATION
+
+CERTIFICATIONS
+  - AWS Certified Solutions Architect - Professional (2022)
+  - Certified Kubernetes Administrator (CKA) (2023)
+
+Master of Science in Computer Science | Stanford University | 2016
+  Specialization: Distributed Systems
+  GPA: 3.85/4.0
+
+Bachelor of Science in Computer Engineering | UC Berkeley | 2014
+  GPA: 3.72/4.0, Dean's List (6 semesters)
+
+TECHNICAL SKILLS
+  Languages: Python, Go, Java, TypeScript, SQL, Rust
+  Frameworks: Django, FastAPI, gRPC, React, Next.js
+  Cloud/Infra: AWS (ECS, Lambda, S3, RDS), GCP, Kubernetes, Docker, Terraform
+  Data: PostgreSQL, Redis, MongoDB, Kafka, Elasticsearch, Spark
+  Tools: Git, GitHub Actions, Jenkins, Datadog, Grafana, Jira
+
+CERTIFICATIONS
+  - AWS Solutions Architect Professional (2023)
+  - Certified Kubernetes Administrator (CKA) (2022)
+  - Google Cloud Professional Cloud Architect (2021)
+
+HR CORRECTION NOTE
+The final CERTIFICATIONS block supersedes the earlier certification block for
+the canonical certification list and years. The recruiter note about KubeCon
+and PyData remains valid: conference talks are not certifications.

@@ -1,0 +1,94 @@
+MEETING MINUTES
+
+Project: Aurora Platform Redesign
+Meeting Type: Weekly Sprint Review
+Date: February 12, 2025
+Time: 10:00 AM - 11:30 AM EST
+Location: Conference Room B / Zoom (Meeting ID: 845-3921-7760)
+
+ATTENDEES:
+  Present:
+    - James Hartwell (Product Manager, Chair)
+    - Priya Sharma (Tech Lead)
+    - Marcus Johnson (Senior Developer)
+    - Elena Rodriguez (UX Designer)
+    - Kevin Tanaka (QA Engineer)
+    - Lisa Park (DevOps Engineer)
+
+  Absent:
+    - Tom Bradley (Backend Developer) - out sick
+    - Marcus Johnston (External QA vendor) - not invited; do not confuse with Marcus Johnson
+
+AGENDA:
+  1. Sprint 14 progress review
+  2. Demo of new dashboard components
+  3. Performance testing results
+  4. Upcoming sprint planning
+  5. Open discussion
+
+DISCUSSION:
+
+1. Sprint 14 Progress Review (James Hartwell)
+   - 18 of 22 story points completed (82% velocity)
+   - 3 stories carried over: AUTH-451, DASH-298, API-117
+   - AUTH-451 blocked by third-party SSO provider delay
+   - Overall project is on track for March 28 beta release
+
+2. Dashboard Components Demo (Elena Rodriguez, Marcus Johnson)
+   - New analytics dashboard demonstrated with real-time data visualization
+   - Stakeholder feedback: positive reception, requested additional filtering
+   - Chart rendering performance improved by 40% using canvas-based approach
+   - Mobile responsive layout needs refinement for tablets
+
+DECISIONS:
+  - Keep March 28 beta release date unchanged.
+  - Move tablet layout refinements into Sprint 15.
+  - Do not add vendor QA until after the beta release.
+
+ACTION ITEMS:
+  - Priya Sharma: confirm SSO provider unblock plan for AUTH-451 by February 14, 2025.
+  - Elena Rodriguez: deliver tablet dashboard mockups by February 18, 2025.
+  - Kevin Tanaka: rerun performance regression suite by February 16, 2025.
+  - Lisa Park: verify staging auto-scaling thresholds by February 17, 2025.
+
+NEXT MEETING:
+  February 19, 2025, 10:00 AM EST, Conference Room B / Zoom.
+
+3. Performance Testing Results (Kevin Tanaka)
+   - Load test: system handles 5,000 concurrent users (target: 3,000)
+   - Average API response time: 142ms (target: <200ms)
+   - Memory leak identified in WebSocket connection handler
+   - Database query optimization needed for report generation (currently 3.2s)
+
+4. Upcoming Sprint Planning (James Hartwell, Priya Sharma)
+   - Sprint 15 focus: authentication module completion and API stabilization
+   - Estimated capacity: 20 story points (Kevin partially allocated to regression)
+   - Priority items: SSO integration, rate limiting, audit logging
+
+ACTION ITEMS:
+  1. Priya Sharma - Follow up with SSO provider on API access timeline
+     Deadline: February 14, 2025
+  2. Marcus Johnson - Fix WebSocket memory leak in connection manager
+     Deadline: February 17, 2025
+  3. Elena Rodriguez - Create tablet-optimized layouts for dashboard
+     Deadline: February 19, 2025
+  4. Kevin Tanaka - Complete regression test suite for auth module
+     Deadline: February 21, 2025
+  5. Lisa Park - Set up staging environment for beta testing
+     Deadline: February 18, 2025
+  6. James Hartwell - Schedule stakeholder demo for Sprint 15 review
+     Deadline: February 14, 2025
+
+DECISIONS MADE:
+  - Approved canvas-based charting approach for production
+  - Agreed to postpone advanced filtering to Sprint 16
+  - Database optimization will be prioritized in Sprint 15
+
+FACILITATOR CLEANUP NOTE
+The numbered ACTION ITEMS list above replaces the earlier four-item draft list.
+Do not merge duplicate owner/task pairs. Use the later deadlines when they differ.
+
+NEXT MEETING:
+  Date: February 19, 2025
+  Time: 10:00 AM EST
+  Location: Conference Room B / Zoom

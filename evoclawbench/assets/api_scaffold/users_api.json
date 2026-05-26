@@ -1,0 +1,37 @@
+{
+  "name": "UserManagement",
+  "base_url": "https://api.users.example.com/v2",
+  "auth": {
+    "type": "bearer_token"
+  },
+  "endpoints": [
+    {
+      "path": "/users",
+      "method": "GET",
+      "params": ["page", "limit"],
+      "description": "List users with pagination"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "GET",
+      "params": [],
+      "description": "Get a single user by ID"
+    },
+    {
+      "path": "/users",
+      "method": "POST",
+      "body": ["name", "email"],
+      "description": "Create a new user"
+    }
+  ],
+  "rate_limit": {
+    "requests_per_minute": 100
+  },
+  "pagination": {
+    "type": "offset",
+    "params": {
+      "page": "page",
+      "limit": "limit"
+    }
+  }
+}

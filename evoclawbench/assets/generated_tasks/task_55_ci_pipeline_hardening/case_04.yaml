@@ -1,0 +1,966 @@
+difficulty_protocol: evoclawbench-hard-mode-v4
+seed_hint: evoclawbench-difficulty-hardening-20260524-v4
+task_id: task_55_ci_pipeline_hardening
+case_id: case_04
+case_title: Legacy System Extract
+channel_map:
+  L1:
+    field: policy_violations
+    kind: list
+  L2:
+    field: required_changes
+    kind: list
+  T1:
+    field: slo_status
+    kind: text
+  B1:
+    field: backup_passed
+    kind: bool
+  N1:
+    field: risk_score
+    kind: numeric
+packet_manifest:
+- packet_id: PKT-E44197
+  nonce: NON-4477394453
+  checksum: 838c0695805f8b79
+  state: approved
+  revision: 3
+  superseded_by: ''
+  source_weight: 90
+  note: candidate evidence packet; validate before using records
+- packet_id: PKT-1F3796
+  nonce: NON-BC5972FF85
+  checksum: e704cb6cd7fa9354
+  state: approved
+  revision: 2
+  superseded_by: PKT-E44197
+  source_weight: 83
+  note: candidate evidence packet; validate before using records
+- packet_id: PKT-5288CD
+  nonce: NON-A8885078B4
+  checksum: 59dfc2bd1b400330
+  state: approved
+  revision: 1
+  superseded_by: ''
+  source_weight: 76
+  note: candidate evidence packet; validate before using records
+- packet_id: PKT-D72D58
+  nonce: NON-56E6C62AC0
+  checksum: cc4b05317f77d086
+  state: draft
+  revision: 4
+  superseded_by: ''
+  source_weight: 69
+  note: candidate evidence packet; validate before using records
+records:
+- packet_id: PKT-1F3796
+  channel: B1
+  record_id: NOI-131978CE
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: boolean_gate
+  expected: clear
+  observed: clear
+- packet_id: PKT-1F3796
+  channel: B1
+  record_id: NOI-30F3B570
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: boolean_gate
+  expected: clear
+  observed: blocked
+- packet_id: PKT-1F3796
+  channel: B1
+  record_id: NOI-47D70707
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: boolean_gate
+  expected: clear
+  observed: clear
+- packet_id: PKT-1F3796
+  channel: B1
+  record_id: NOI-597D823F
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: boolean_gate
+  expected: clear
+  observed: clear
+- packet_id: PKT-1F3796
+  channel: B1
+  record_id: NOI-A1422625
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: boolean_gate
+  expected: clear
+  observed: blocked
+- packet_id: PKT-1F3796
+  channel: L1
+  record_id: NOI-03C3E23E
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: POLVIO-04-22
+- packet_id: PKT-1F3796
+  channel: L1
+  record_id: NOI-CF1E37B6
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: POLVIO-04-14
+- packet_id: PKT-1F3796
+  channel: L1
+  record_id: NOI-E3DB9694
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: POLVIO-04-28
+- packet_id: PKT-1F3796
+  channel: L1
+  record_id: NOI-ECE6059E
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: POLVIO-04-94
+- packet_id: PKT-1F3796
+  channel: L1
+  record_id: NOI-FFDC0CE9
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: POLVIO-04-90
+- packet_id: PKT-1F3796
+  channel: L2
+  record_id: NOI-1DE7A826
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: REQCHA-04-31
+- packet_id: PKT-1F3796
+  channel: L2
+  record_id: NOI-774F4778
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: REQCHA-04-24
+- packet_id: PKT-1F3796
+  channel: L2
+  record_id: NOI-EC89A7C2
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: REQCHA-04-35
+- packet_id: PKT-1F3796
+  channel: L2
+  record_id: NOI-F889FBF3
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: REQCHA-04-62
+- packet_id: PKT-1F3796
+  channel: L2
+  record_id: NOI-FE1C49AA
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: REQCHA-04-25
+- packet_id: PKT-1F3796
+  channel: N1
+  record_id: NOI-203B5B90
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 5188
+  scale: 100
+- packet_id: PKT-1F3796
+  channel: N1
+  record_id: NOI-2685B324
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 3459
+  scale: 100
+- packet_id: PKT-1F3796
+  channel: N1
+  record_id: NOI-71F813D6
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 3044
+  scale: 100
+- packet_id: PKT-1F3796
+  channel: N1
+  record_id: NOI-91128C2D
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 3955
+  scale: 100
+- packet_id: PKT-1F3796
+  channel: N1
+  record_id: NOI-9F5A0F6B
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 6877
+  scale: 100
+- packet_id: PKT-1F3796
+  channel: T1
+  record_id: NOI-0DA735A1
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: green
+  score: 88
+  penalty: 0
+- packet_id: PKT-1F3796
+  channel: T1
+  record_id: NOI-3E9012F1
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: red
+  score: 86
+  penalty: 2
+- packet_id: PKT-1F3796
+  channel: T1
+  record_id: NOI-AF9665B8
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: amber
+  score: 84
+  penalty: 4
+- packet_id: PKT-1F3796
+  channel: T1
+  record_id: NOI-C1277BF8
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: green
+  score: 85
+  penalty: 3
+- packet_id: PKT-1F3796
+  channel: T1
+  record_id: NOI-C190D939
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: amber
+  score: 87
+  penalty: 1
+- packet_id: PKT-5288CD
+  channel: B1
+  record_id: NOI-01E7E74E
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: boolean_gate
+  expected: clear
+  observed: clear
+- packet_id: PKT-5288CD
+  channel: B1
+  record_id: NOI-594D838A
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: boolean_gate
+  expected: clear
+  observed: clear
+- packet_id: PKT-5288CD
+  channel: B1
+  record_id: NOI-C1E95966
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: boolean_gate
+  expected: clear
+  observed: blocked
+- packet_id: PKT-5288CD
+  channel: B1
+  record_id: NOI-DF3B4ECE
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: boolean_gate
+  expected: clear
+  observed: blocked
+- packet_id: PKT-5288CD
+  channel: B1
+  record_id: NOI-E5C98182
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: boolean_gate
+  expected: clear
+  observed: clear
+- packet_id: PKT-5288CD
+  channel: L1
+  record_id: NOI-6E4431A3
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: POLVIO-04-45
+- packet_id: PKT-5288CD
+  channel: L1
+  record_id: NOI-71E10619
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: POLVIO-04-98
+- packet_id: PKT-5288CD
+  channel: L1
+  record_id: NOI-71EF7D16
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: POLVIO-04-68
+- packet_id: PKT-5288CD
+  channel: L1
+  record_id: NOI-B2935FD0
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: POLVIO-04-13
+- packet_id: PKT-5288CD
+  channel: L1
+  record_id: NOI-E7835DE0
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: POLVIO-04-27
+- packet_id: PKT-5288CD
+  channel: L2
+  record_id: NOI-48374C3C
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: REQCHA-04-60
+- packet_id: PKT-5288CD
+  channel: L2
+  record_id: NOI-A76F7DEA
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: REQCHA-04-40
+- packet_id: PKT-5288CD
+  channel: L2
+  record_id: NOI-AB3F35D9
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: REQCHA-04-99
+- packet_id: PKT-5288CD
+  channel: L2
+  record_id: NOI-D54D707F
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: REQCHA-04-65
+- packet_id: PKT-5288CD
+  channel: L2
+  record_id: NOI-E31526A9
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: REQCHA-04-19
+- packet_id: PKT-5288CD
+  channel: N1
+  record_id: NOI-3606D86E
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 1600
+  scale: 100
+- packet_id: PKT-5288CD
+  channel: N1
+  record_id: NOI-36AE86AE
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 455
+  scale: 100
+- packet_id: PKT-5288CD
+  channel: N1
+  record_id: NOI-9295B685
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 1754
+  scale: 100
+- packet_id: PKT-5288CD
+  channel: N1
+  record_id: NOI-D1EDB538
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 180
+  scale: 100
+- packet_id: PKT-5288CD
+  channel: N1
+  record_id: NOI-FA73201A
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 2975
+  scale: 100
+- packet_id: PKT-5288CD
+  channel: T1
+  record_id: NOI-2AFB28A2
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: green
+  score: 85
+  penalty: 3
+- packet_id: PKT-5288CD
+  channel: T1
+  record_id: NOI-4621019C
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: amber
+  score: 84
+  penalty: 4
+- packet_id: PKT-5288CD
+  channel: T1
+  record_id: NOI-5B0C6B99
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: green
+  score: 88
+  penalty: 0
+- packet_id: PKT-5288CD
+  channel: T1
+  record_id: NOI-A243DF05
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: red
+  score: 86
+  penalty: 2
+- packet_id: PKT-5288CD
+  channel: T1
+  record_id: NOI-A736BE2B
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: amber
+  score: 87
+  penalty: 1
+- packet_id: PKT-D72D58
+  channel: B1
+  record_id: NOI-3A264ECD
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: boolean_gate
+  expected: clear
+  observed: clear
+- packet_id: PKT-D72D58
+  channel: B1
+  record_id: NOI-4EE899C0
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: boolean_gate
+  expected: clear
+  observed: clear
+- packet_id: PKT-D72D58
+  channel: B1
+  record_id: NOI-AE1DFCD9
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: boolean_gate
+  expected: clear
+  observed: blocked
+- packet_id: PKT-D72D58
+  channel: B1
+  record_id: NOI-C288ED99
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: boolean_gate
+  expected: clear
+  observed: blocked
+- packet_id: PKT-D72D58
+  channel: B1
+  record_id: NOI-D62471FB
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: boolean_gate
+  expected: clear
+  observed: clear
+- packet_id: PKT-D72D58
+  channel: L1
+  record_id: NOI-02460AF0
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: POLVIO-04-99
+- packet_id: PKT-D72D58
+  channel: L1
+  record_id: NOI-6F560D0A
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: POLVIO-04-48
+- packet_id: PKT-D72D58
+  channel: L1
+  record_id: NOI-80FCA28E
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: POLVIO-04-54
+- packet_id: PKT-D72D58
+  channel: L1
+  record_id: NOI-B9FDF0F6
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: POLVIO-04-93
+- packet_id: PKT-D72D58
+  channel: L1
+  record_id: NOI-F37D26F7
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: POLVIO-04-94
+- packet_id: PKT-D72D58
+  channel: L2
+  record_id: NOI-1FA3BDDA
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: REQCHA-04-34
+- packet_id: PKT-D72D58
+  channel: L2
+  record_id: NOI-4553DF90
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: REQCHA-04-74
+- packet_id: PKT-D72D58
+  channel: L2
+  record_id: NOI-76C5CA88
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: REQCHA-04-81
+- packet_id: PKT-D72D58
+  channel: L2
+  record_id: NOI-785D1E8A
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: REQCHA-04-32
+- packet_id: PKT-D72D58
+  channel: L2
+  record_id: NOI-F5AD99CB
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: REQCHA-04-22
+- packet_id: PKT-D72D58
+  channel: N1
+  record_id: NOI-01FEB924
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 8948
+  scale: 100
+- packet_id: PKT-D72D58
+  channel: N1
+  record_id: NOI-269EBF3E
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 4203
+  scale: 100
+- packet_id: PKT-D72D58
+  channel: N1
+  record_id: NOI-9A6E7352
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 6394
+  scale: 100
+- packet_id: PKT-D72D58
+  channel: N1
+  record_id: NOI-D8A1AE03
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 5142
+  scale: 100
+- packet_id: PKT-D72D58
+  channel: N1
+  record_id: NOI-ED7F7F03
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 6364
+  scale: 100
+- packet_id: PKT-D72D58
+  channel: T1
+  record_id: NOI-2B20A72C
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: amber
+  score: 87
+  penalty: 1
+- packet_id: PKT-D72D58
+  channel: T1
+  record_id: NOI-66402EA5
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: green
+  score: 88
+  penalty: 0
+- packet_id: PKT-D72D58
+  channel: T1
+  record_id: NOI-674EF4CA
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: amber
+  score: 84
+  penalty: 4
+- packet_id: PKT-D72D58
+  channel: T1
+  record_id: NOI-D4137A29
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: red
+  score: 86
+  penalty: 2
+- packet_id: PKT-D72D58
+  channel: T1
+  record_id: NOI-E0F1BB82
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: green
+  score: 85
+  penalty: 3
+- channel: B1
+  kind: boolean_gate
+  record_id: BOL-5B93C598
+  expected: clear
+  observed: clear
+  status: final
+  revision: 3
+  note: field is true only when all selected gates match expected
+  packet_id: PKT-E44197
+- channel: B1
+  kind: boolean_gate
+  record_id: BOL-A14EDE12
+  expected: clear
+  observed: clear
+  status: final
+  revision: 3
+  note: field is true only when all selected gates match expected
+  packet_id: PKT-E44197
+- channel: B1
+  kind: boolean_gate
+  record_id: BOL-A5F6D5DC
+  expected: clear
+  observed: blocked
+  status: final
+  revision: 3
+  note: field is true only when all selected gates match expected
+  packet_id: PKT-E44197
+- channel: B1
+  kind: boolean_gate
+  record_id: BOL-D84D7ED9
+  expected: clear
+  observed: clear
+  status: final
+  revision: 3
+  note: field is true only when all selected gates match expected
+  packet_id: PKT-E44197
+- channel: L1
+  kind: list_action
+  record_id: LST-6B0C6CEF
+  action: include
+  value: POLVIO-04-76
+  status: final
+  revision: 3
+  note: include unless a later remove or alias targets it
+  packet_id: PKT-E44197
+- channel: L1
+  kind: list_action
+  record_id: LST-B8EE7ABD
+  action: include
+  value: POLVIO-04-62
+  status: final
+  revision: 3
+  note: include unless a later remove or alias targets it
+  packet_id: PKT-E44197
+- channel: L1
+  kind: list_action
+  record_id: LST-BA08085A
+  action: include
+  value: POLVIO-04-20
+  status: final
+  revision: 3
+  note: include unless a later remove or alias targets it
+  packet_id: PKT-E44197
+- channel: L1
+  kind: list_action
+  record_id: LST-E1B70C7E
+  action: remove
+  target: POLVIO-04-DECOY
+  value: POLVIO-04-DECOY
+  status: final
+  revision: 3
+  note: remove this candidate if it appears in a lower revision
+  packet_id: PKT-E44197
+- channel: L2
+  kind: list_action
+  record_id: LST-46EB3B60
+  action: remove
+  target: REQCHA-04-DECOY
+  value: REQCHA-04-DECOY
+  status: final
+  revision: 3
+  note: remove this candidate if it appears in a lower revision
+  packet_id: PKT-E44197
+- channel: L2
+  kind: list_action
+  record_id: LST-496941D2
+  action: include
+  value: REQCHA-04-67
+  status: final
+  revision: 3
+  note: include unless a later remove or alias targets it
+  packet_id: PKT-E44197
+- channel: L2
+  kind: list_action
+  record_id: LST-C8D434E9
+  action: include
+  value: REQCHA-04-106
+  status: final
+  revision: 3
+  note: include unless a later remove or alias targets it
+  packet_id: PKT-E44197
+- channel: L2
+  kind: list_action
+  record_id: LST-F42FAB85
+  action: include
+  value: REQCHA-04-104
+  status: final
+  revision: 3
+  note: include unless a later remove or alias targets it
+  packet_id: PKT-E44197
+- channel: L2
+  kind: list_action
+  record_id: LST-F8E913C8
+  action: include
+  value: REQCHA-04-16
+  status: final
+  revision: 3
+  note: include unless a later remove or alias targets it
+  packet_id: PKT-E44197
+- channel: N1
+  kind: numeric_delta
+  record_id: NUM-1891C58B
+  operator: add
+  amount_minor: 2296
+  scale: 100
+  status: final
+  revision: 3
+  note: apply signed amount_minor divided by scale
+  packet_id: PKT-E44197
+- channel: N1
+  kind: numeric_delta
+  record_id: NUM-94C6A188
+  operator: subtract
+  amount_minor: 4285
+  scale: 100
+  status: final
+  revision: 3
+  note: apply signed amount_minor divided by scale
+  packet_id: PKT-E44197
+- channel: N1
+  kind: numeric_delta
+  record_id: NUM-AE1691ED
+  operator: add
+  amount_minor: 2344
+  scale: 100
+  status: final
+  revision: 3
+  note: apply signed amount_minor divided by scale
+  packet_id: PKT-E44197
+- channel: N1
+  kind: numeric_delta
+  record_id: NUM-C51FAA1C
+  operator: subtract
+  amount_minor: 2041
+  scale: 100
+  status: final
+  revision: 3
+  note: apply signed amount_minor divided by scale
+  packet_id: PKT-E44197
+- channel: N1
+  kind: numeric_delta
+  record_id: NUM-EA6FA907
+  operator: add
+  amount_minor: 2069
+  scale: 100
+  status: final
+  revision: 3
+  note: apply signed amount_minor divided by scale
+  packet_id: PKT-E44197
+- channel: T1
+  kind: text_candidate
+  record_id: TXT-2E4B1CD1
+  candidate: amber
+  score: 68
+  penalty: 2
+  status: final
+  revision: 3
+  note: rank by score minus penalty; tie by candidate text
+  packet_id: PKT-E44197
+- channel: T1
+  kind: text_candidate
+  record_id: TXT-70A1DD4E
+  candidate: red
+  score: 30
+  penalty: 4
+  status: final
+  revision: 3
+  note: rank by score minus penalty; tie by candidate text
+  packet_id: PKT-E44197
+- channel: T1
+  kind: text_candidate
+  record_id: TXT-CE77A943
+  candidate: green
+  score: 67
+  penalty: 14
+  status: final
+  revision: 3
+  note: rank by score minus penalty; tie by candidate text
+  packet_id: PKT-E44197
+rules_digest:
+  packet: approved, not superseded, valid checksum, then highest revision/source_weight
+  numeric: sum selected numeric_delta rows by signed amount_minor / scale
+  list: include/remove/alias selected list_action rows and sort final strings
+  dict: sum selected dict_delta rows by bucket and omit zero buckets
+  bool: true only when every selected boolean_gate observed equals expected
+  text: choose selected text_candidate with max score minus penalty

@@ -1,0 +1,74 @@
+{
+  "document_type": "Product Brief",
+  "title": "NovaPay - Embedded Payments Platform - Product Brief",
+  "product_id": "PROD-NOVAPAY-2024",
+  "date": "2024-03-20",
+  "author": "Robert Chen, VP of Product",
+  "sections": [
+    {
+      "heading": "Product Vision",
+      "level": 1,
+      "content": "NovaPay is an embedded payments platform that enables SaaS companies to add financial services to their products in days, not months. Our mission is to democratize access to fintech infrastructure."
+    },
+    {
+      "heading": "Problem Statement",
+      "level": 1,
+      "content": "Building payment features requires navigating complex regulations, establishing banking relationships, and building specialized infrastructure. This typically takes 12-18 months and costs $500K-2M."
+    },
+    {
+      "heading": "Solution",
+      "level": 1,
+      "content": "NovaPay provides pre-built payment APIs, compliance infrastructure, and banking relationships through a single integration, reducing time-to-market to 2-4 weeks."
+    },
+    {
+      "heading": "Core Features",
+      "level": 2,
+      "content": "Payment processing (cards, ACH, wire), wallet management, KYC/AML compliance, fraud detection, and real-time reporting are included out of the box."
+    },
+    {
+      "heading": "Target Market",
+      "level": 1,
+      "content": "Primary: B2B SaaS companies with $5M-50M ARR looking to monetize payments. Secondary: Marketplace platforms needing multi-party payment splits."
+    },
+    {
+      "heading": "Pricing Model",
+      "level": 1,
+      "content": "Revenue share model: 0.5% of payment volume processed through the platform, plus $0.10 per transaction. No monthly minimums for the first 12 months."
+    },
+    {
+      "heading": "Roadmap",
+      "level": 1,
+      "content": "Q2 2024: Crypto payment support. Q3 2024: International expansion (EU/UK). Q4 2024: Buy-now-pay-later integration."
+    }
+  ],
+  "tables": [
+    {
+      "title": "Competitive Analysis",
+      "headers": ["Feature", "NovaPay", "Competitor A", "Competitor B"],
+      "rows": [
+        ["Setup Time", "2-4 weeks", "3-6 months", "1-3 months"],
+        ["Transaction Fee", "0.5% + $0.10", "0.8% + $0.25", "0.6% + $0.15"],
+        ["KYC/AML Built-in", "Yes", "No", "Partial"],
+        ["Multi-currency", "Yes (45 currencies)", "Yes (12 currencies)", "No"],
+        ["24/7 Support", "Yes", "Business hours", "Yes"]
+      ]
+    },
+    {
+      "title": "Pricing Tiers",
+      "headers": ["Tier", "Monthly Volume", "Transaction Fee", "Support Level"],
+      "rows": [
+        ["Starter", "Up to $100K", "0.5% + $0.10", "Email"],
+        ["Growth", "$100K - $1M", "0.4% + $0.08", "Email + Chat"],
+        ["Scale", "$1M - $10M", "0.3% + $0.06", "Dedicated CSM"],
+        ["Enterprise", "$10M+", "Custom", "24/7 Dedicated"]
+      ]
+    }
+  ],
+  "key_metrics": {
+    "target_customers_y1": 150,
+    "target_tpv_y1_usd": 500000000,
+    "target_revenue_y1_usd": 2500000,
+    "nps_target": 70,
+    "churn_target_percent": 2
+  }
+}

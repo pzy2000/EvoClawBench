@@ -1,0 +1,21 @@
+{
+  "worker.name": "BackgroundProcessor",
+  "worker.concurrency": 8,
+  "worker.max_memory_mb": 512,
+  "worker.graceful_shutdown": true,
+  "queue.broker": "redis://queue.internal:6379/0",
+  "queue.prefix": "bg_worker",
+  "queue.max_retries": 5,
+  "queue.visibility_timeout": 1800,
+  "db.host": "db-replica.internal",
+  "db.port": 5432,
+  "db.name": "tasks_db",
+  "db.pool_size": 10,
+  "retry.max_attempts": 3,
+  "retry.backoff_factor": 2.0,
+  "retry.initial_delay": 1.5,
+  "monitoring.enabled": true,
+  "monitoring.endpoint": "https://metrics.internal/api/v1/push",
+  "monitoring.interval_seconds": 60,
+  "monitoring.include_hostname": true
+}

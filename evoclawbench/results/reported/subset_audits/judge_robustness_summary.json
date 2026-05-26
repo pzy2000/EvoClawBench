@@ -1,0 +1,432 @@
+{
+  "fallback_judge_model": "openai/qwen3.6-plus",
+  "judge_models_used": [
+    "openai/qwen3.6-plus"
+  ],
+  "model": "openai/gpt-5.4-mini",
+  "original_judge_model": "openai/MiniMax/MiniMax-M2.7",
+  "records": [
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 0.3600; alternate judge notes: Summaries accurately report exact error counts, dominant failure modes, and the req-901 cross-service cascade. They omit explicit mention of canary filtering in the summary text but correctly isolate it in the incident report. Incident correlation is excellent, with clear root cause, multi-service evidence, and actionable remediation while properly filtering synthetic noise.",
+      "alternate_score": 0.4373,
+      "delta": -0.0037,
+      "mode": "baseline",
+      "original_notes": "Summary quality is high across all 5 reports. Each summary correctly names the service, provides exact error counts, identifies dominant failure modes, and mentions the req-901 cross-service correlation. The api_gateway summary notably explicitly references canary/expected warnings being filtered. Minor deduction for auth_service having 5 in error_count field but 6 in errors array (inconsistency, though summary is accurate). Incident reasoning is excellent: correctly identifies the req-901 refun",
+      "original_score": 0.441,
+      "task_id": "task_02_log_analysis"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 0.2248; alternate judge notes: The agent delivered comprehensive, well-structured JSON reports for all five files. It accurately identified critical vulnerabilities across multiple categories with precise line numbers, code evidence, CWE/OWASP mappings, and actionable fix suggestions. Safe helper functions were correctly identified and excluded as false positives. The output strictly adheres to the requested format and demonstrates expert-level security review qua",
+      "alternate_score": 0.5349,
+      "delta": 0.016,
+      "mode": "baseline",
+      "original_notes": "Nearly all known vulnerabilities were identified across all 5 files. login_handler.py: all SQLi sinks, hardcoded secret, plaintext reset, impersonation bypass found — safe helpers correctly excluded. user_profile.js: SQLi on read/update, XSS, unrestricted upload, and path traversal on avatar read identified; renderSafePreview() correctly excluded. file_manager.py: all path traversal cases, both command injection sinks, and info disclosure found; safe_join_preview() correctly excluded. api_handle",
+      "original_score": 0.5189,
+      "task_id": "task_06_code_review"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 0.5000; alternate judge notes: The agent produced highly accurate, complete, and well-structured JSON outputs for all five document types. It correctly handled complex requirements such as invoice revisions, contract amendments, resume certification updates, meeting name disambiguation, and expense receipt exceptions. The audit file thoroughly explains all applied corrections and rejected candidates. Schema adherence and date normalization are flawless.",
+      "alternate_score": 0.75,
+      "delta": 0.012,
+      "mode": "baseline",
+      "original_notes": "Excellent extraction across all 5 documents. Invoice correctly applies revision note to use corrected subtotal (34293.98), tax (2829.25), grand total (37123.23), and revised bank details (First National Bank of Texas); Load Testing line properly excluded. Resume correctly uses final HR-corrected certifications, rejects conference talks per recruiter note, and includes non_certification_notes. Contract properly reflects Amendment A changes (value 421000.0, mobile dev to optional phase, support pe",
+      "original_score": 0.738,
+      "task_id": "task_07_doc_extraction"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 1.0000; alternate judge notes: The agent successfully parsed all 5 HTML files and generated the required JSON outputs. After an initial failure due to a missing dependency, it adapted to use regex-based extraction, correctly handling data types (floats, ints, booleans) and extracting all 5 items per file. Final verification confirmed correct counts and structure. Minor deduction for relying on regex instead of a dedicated HTML parser, but the implementation was ro",
+      "alternate_score": 0.972,
+      "delta": -0.0252,
+      "mode": "baseline",
+      "original_notes": "4 of 5 files are fully accurate. job_listings.json has systematic salary_min/salary_max errors across all 5 entries (e.g., source data-min=140000 but output shows 150000; data-max=170000 vs output 180000; similarly for all other jobs). product_catalog.json has 2 minor errors (AB-3000: price 149.50 vs 149.99, review_count 156 vs 153). All other files (news_articles, event_schedule, company_directory) are perfectly accurate. All 5 files have all 5 records extracted and all required fields present.",
+      "original_score": 0.9972,
+      "task_id": "task_11_web_extraction"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 1.0000; alternate judge notes: The agent successfully parsed all CSV files, performed correct joins, and computed all requested statistics accurately across all 5 groups. Output files match the required schema exactly. Type conversions, rounding, and edge cases were handled properly. Insight quality is moderate as the task focused on straightforward aggregation rather than deep exploratory analysis, but the agent delivered a complete and correct solution efficient",
+      "alternate_score": 0.9405,
+      "delta": -0.0245,
+      "mode": "baseline",
+      "original_notes": "All 5 JSON outputs are present, correctly formatted, and contain all required fields. Computations are accurate: total_orders=20, return_rate=0.25, avg_salary=122125.0, std_dev=26145.92, flag_rate=0.2, bounce_rate=0.3, avg_temp=30.34, max_cpu=96.3, and all join operations (sales+customers for tier, employees+performance for ratings, transactions+flags for fraud) are correctly implemented. Insight quality is rated 0.7 because the analysis consists of standard descriptive statistics without identi",
+      "original_score": 0.965,
+      "task_id": "task_13_data_pipeline"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 1.0000; alternate judge notes: The agent accurately processed all 5 email threads and generated correctly formatted JSON reports. Summaries are concise, specific, and clearly state the purpose, current status, and pending actions for each scenario. The drafted replies are highly professional, context-appropriate, and correctly identify the next logical step without repeating prior information. All outputs strictly adhere to the requested schema and business commun",
+      "alternate_score": 1.0,
+      "delta": 0.0,
+      "mode": "baseline",
+      "original_notes": "All 5 summaries accurately capture thread purpose, current status, and unresolved items (2-3 sentences each). All 5 reply drafts are professionally toned, contextually appropriate, and advance the thread logically without restating settled points. Priority classification aligns with task criteria (high for overdue payment/complaint/urgent launch, medium for confirmed deadlines, low for settled or pure notifications — though no thread fell into low in this set).",
+      "original_score": 1.0,
+      "task_id": "task_14_email_processing"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 0.0000; alternate judge notes: All five scripts correctly implement their YAML specifications with robust error handling, modular functions, and configurable variables at the top. They follow bash best practices (set -euo pipefail, explicit failure checks, signal traps, dry-run support, and preflight validation). Minor GNU/Linux dependencies (find -printf, stat -c) are standard for system automation. Scripts are syntactically valid, well-structured, and production",
+      "alternate_score": 0.19,
+      "delta": 0.0,
+      "mode": "baseline",
+      "original_notes": "All 5 scripts correctly implement their YAML specs. file_backup.sh: incremental tar.gz via find -mmin, 14-day mtime retention, logging. log_rotation.sh: size-based rotation, age-based compression/deletion, lsof guard, N-uncompressed retention. db_dump.sh: pg_dump → gzip → aws s3 cp with upload verification and local cleanup. dir_monitor.sh: polling with hash-based change detection, configurable ignore patterns, time-bounded run loop. multi_node_sync.sh: rsync over SSH to array of servers, servic",
+      "original_score": 0.19,
+      "task_id": "task_15_shell_automation"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 1.0000; alternate judge notes: All 5 Dockerfiles correctly implement multi-stage builds where specified, optimize layer caching by copying dependency manifests before source code, run as non-root users where required, use minimal base images (slim/alpine/scratch), and include proper HEALTHCHECK instructions. No significant deviations from container best practices were found.",
+      "alternate_score": 1.0,
+      "delta": 0.0105,
+      "mode": "baseline",
+      "original_notes": "All 5 Dockerfiles demonstrate strong adherence to best practices. app_01 and app_04 correctly implement non-root users with proper home directory and ownership setup. Layer ordering is optimal across all (deps/spec files copied before source code). Multi-stage builds for app_01-04 copy only necessary artifacts to runtime. app_05 follows single-stage best practices with bundler caching. Alpine/slim bases used throughout for minimal attack surface. Minor deductions: app_03 scratch image doesn't se",
+      "original_score": 0.9895,
+      "task_id": "task_16_ci_pipeline"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 1.0000; alternate judge notes: All 5 invoice categories were correctly identified and exactly match the expected values: 办公设备, 餐饮招待, 差旅费, IT费用, 市场推广费.",
+      "alternate_score": 1.0,
+      "delta": 0.0,
+      "mode": "baseline",
+      "original_notes": "Agent correctly parsed all 5 invoices from different formats (JSON, XML, CSV, TSV, key=value). All category assignments match expected values (办公设备, 餐饮招待, 差旅费, IT费用, 市场推广费). All required fields present with correct data types. Dates properly formatted as YYYY-MM-DD. Summary totals verified: grand_total sum=73546.1, total_tax sum=8086.1, category and vendor aggregations accurate.",
+      "original_score": 1.0,
+      "task_id": "task_17_invoice_processing"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 0.8000; alternate judge notes: All five reports contain highly accurate, real-world CVEs correctly mapped to the specified package versions with appropriate severities and realistic fix versions. Recommendations are consistently formatted, specific, and actionable across all ecosystems.",
+      "alternate_score": 0.88,
+      "delta": 0.0,
+      "mode": "baseline",
+      "original_notes": "All 5 reports (python, node, go, ruby, java) contain real, publicly documented CVE IDs matched to the exact package versions in each manifest. Severity ratings (critical/high/medium) align with NVD assessments (e.g., log4j 1.2.17 and struts2-core 2.5.22 correctly rated critical). Fix versions are accurate upgrade targets. Every recommendations entry names the package, current version, and a specific target version or minimum version, making them directly actionable. The 13 vulnerable Ruby gems (",
+      "original_score": 0.88,
+      "task_id": "task_18_dep_audit"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 1.0000; alternate judge notes: The agent perfectly extracted all action items across all 5 meeting notes. Every 'owner + task + deadline' combination was captured without omission. Due dates are accurately converted to YYYY-MM-DD format, and null is correctly applied where no deadline was specified. No errors or hallucinations detected.",
+      "alternate_score": 1.0,
+      "delta": 0.0042,
+      "mode": "baseline",
+      "original_notes": "All 5 meetings extracted action_items completely with correct owners. Minor date accuracy issue: meeting_04 action_item 6 (gRPC培训) — source says '4月初' without specific date, agent filled 2024-04-01 which is an approximation rather than an explicit date. Meeting_01 action item '下周一前给方案' correctly resolves to 2024-03-25 from context, acceptable. 5 meetings, 22 total action items, all captured. 1 date approximation out of 15 dated items (~7% minor inaccuracy).",
+      "original_score": 0.9958,
+      "task_id": "task_19_meeting_notes"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 1.0000; alternate judge notes: The agent successfully detected all planted anomalies across the 5 reports with correct dimension names and approximate timestamps. The 3-sigma thresholding and consecutive-point grouping logic accurately captured the expected spikes in CPU, memory, DB latency, network traffic, and disk I/O.",
+      "alternate_score": 1.0,
+      "delta": 0.0,
+      "mode": "baseline",
+      "original_notes": "All 5 planted anomalies correctly detected: server_cpu (web-01 at ~14:00, web-02 at ~02:00), server_mem (web-03 at ~18:00), db_query_perf (pg-primary_SELECT at ~10:30), network_traffic (eth0 at ~20:00), disk_io (/dev/sda at ~03:00). Dimensions, timestamps, and values all align with planted anomalies.",
+      "original_score": 1.0,
+      "task_id": "task_21_metrics_anomaly"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 0.4000; alternate judge notes: Summaries accurately report exact error counts, dominant failure modes, and correctly identify the req-901 cross-service cascade across all five services. While they do not explicitly state that canary noise was filtered, the incident correlation file correctly isolates synthetic events. Incident reasoning is excellent, providing a clear root cause, multi-service evidence snippets, and a specific, actionable remediation step without ",
+      "alternate_score": 0.4825,
+      "delta": 0.0075,
+      "mode": "preskill",
+      "original_notes": "All five service summaries accurately name the service, state exact error counts, identify dominant failure modes, and mention the req-901 cross-service cascade where applicable. The summaries are specific rather than generic and aligned with the log evidence. Incident reasoning correctly identifies the nonce mismatch cascade across all affected services, provides cross-service evidence, actionable remediation, and properly filters canary events as benign noise.",
+      "original_score": 0.475,
+      "task_id": "task_02_log_analysis"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 0.2208; alternate judge notes: The agent delivered comprehensive, accurate security reviews for all five files. It correctly identified critical vulnerabilities (SQLi, XSS, command injection, path traversal, IDOR, SSRF, mass assignment, hardcoded secrets), provided precise line numbers and evidence, offered specific and actionable remediation steps, and properly documented safe helper functions as false positives. The output strictly adhered to the required JSON s",
+      "alternate_score": 0.5325,
+      "delta": 0.0128,
+      "mode": "preskill",
+      "original_notes": "The agent achieved near-perfect coverage: all major vulnerability categories (SQLi, XSS, path traversal, command injection, IDOR, hardcoded secrets, mass assignment, SSRF, broken access control, information disclosure) were found across all 5 files. Accuracy is slightly below perfect due to minor line number mismatches in api_handler.go (reported lines 14/15/31 vs actual positions), but all identified issues are genuine. Fix suggestions are concrete and actionable (e.g., parameterized query exam",
+      "original_score": 0.5197,
+      "task_id": "task_06_code_review"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 0.5000; alternate judge notes: The agent produced highly accurate, schema-compliant JSON for all five document types. It correctly handled complex revision notes, contract amendments, draft vs. final action lists, name disambiguation, and policy exceptions. Dates were properly normalized to ISO format, categorical fields were well-structured, and the audit file thoroughly documented all applied corrections, rejected candidates, and normalization warnings. No signi",
+      "alternate_score": 0.75,
+      "delta": 0.045,
+      "mode": "preskill",
+      "original_notes": "Extraction is highly accurate across all 5 documents. Invoice correctly applies revision note (subtotal $34,293.98, grand total $37,123.23, bank details updated to First National Bank of Texas) and excludes the Load Testing line item. Resume properly applies HR correction note to certifications (AWS SAP 2023, CKA 2022, GCP PCA 2021) and notes conference talks as non-certifications. Contract correctly uses Amendment A values ($421,000 total, $33,000 Final Delivery, 12-month support period) and do",
+      "original_score": 0.705,
+      "task_id": "task_07_doc_extraction"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 1.0000; alternate judge notes: Agent successfully parsed all 5 HTML files and extracted exactly 5 items per file with correct data types and field mappings. Initial BeautifulSoup failure was quickly resolved with a regex approach. Verification script confirmed completeness and structure.",
+      "alternate_score": 0.988,
+      "delta": 0.008,
+      "mode": "preskill",
+      "original_notes": "Agent successfully extracted data from all 5 HTML files. Initial BeautifulSoup approach failed (module not installed), but agent adapted and used regex-based extraction. Product catalog required a second run to capture all 5 products (first run captured only 1). All JSON outputs have correct field types, valid dates, accurate numeric values, and properly formatted arrays. Minor deduction for the initial failed attempt and needing a fix iteration.",
+      "original_score": 0.98,
+      "task_id": "task_11_web_extraction"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 1.0000; alternate judge notes: The agent successfully processed all 5 CSV groups, performed correct joins, and computed all requested statistics accurately. The Python script handles type conversions, edge cases, and outputs valid JSON matching the exact schema. Insight quality is slightly lower as the task primarily required straightforward aggregation rather than deep analytical discovery, but all requirements were fully met.",
+      "alternate_score": 0.9755,
+      "delta": -0.0035,
+      "mode": "preskill",
+      "original_notes": "All 5 groups have correct structure with accurate computations. Group 1-5 outputs are comprehensive with proper joins (sales+customers, employees+performance, transactions+fraud flags). Statistics appear correct (return_rate=0.25 matches 5/20, flag_rate=0.2 matches 4/20). Only minor deduction: agent did not identify any anomalies in Group 1 despite detecting patterns elsewhere—could have flagged high-revenue product concentration or tier imbalance for extra insight. Otherwise the analysis is tho",
+      "original_score": 0.979,
+      "task_id": "task_13_data_pipeline"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 1.0000; alternate judge notes: All five summaries accurately capture the core purpose, key details (dates, amounts, participants), and current status of each thread. The drafted replies are professional, context-aware, and correctly identify the next logical step without repeating prior information. Excellent execution across all scenarios.",
+      "alternate_score": 0.985,
+      "delta": -0.015,
+      "mode": "preskill",
+      "original_notes": "所有5个线程的摘要均准确概括了邮件核心内容和当前状态，回复草稿专业得体、逻辑连贯、符合各场景需求。",
+      "original_score": 1.0,
+      "task_id": "task_14_email_processing"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 0.0000; alternate judge notes: Scripts follow bash best practices with proper shebang, set -euo pipefail, functions, and explicit error handling. Configurable variables are correctly placed at the top. However, file_backup.sh lacks the retention cleanup logic and creates an invalid empty archive when no files change. multi_node_sync.sh only prints a rollback message instead of implementing actual rollback. log_rotation.sh has an unused age_days function. Overall, ",
+      "alternate_score": 0.14,
+      "delta": -0.004,
+      "mode": "preskill",
+      "original_notes": "All 5 scripts pass syntax checks and follow required boilerplate. task_01: incremental tar logic and logging are correct, but retention cleanup (deleting backups older than 14 days) is missing. task_02: size/time rotation, compression, and lsof safety are solid; nice/ionice and run-as-user are absent, and keeping exactly 5 most-recent-uncompressed is only implicit. task_03: dump→gzip→S3 upload→verify flow is complete; --format=custom flag and explicit timeout handling are missing. task_04: polli",
+      "original_score": 0.144,
+      "task_id": "task_15_shell_automation"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 1.0000; alternate judge notes: All five Dockerfiles correctly implement multi-stage builds (where specified), optimize layer caching by copying dependency manifests before source code, configure non-root users, and use minimal base images (slim/alpine/scratch). Minor deductions for the Go Dockerfile missing an explicit 'go mod download' step for cache optimization and the Java healthcheck using a full JVM invocation instead of a lightweight HTTP check, but overall",
+      "alternate_score": 0.9925,
+      "delta": 0.015,
+      "mode": "preskill",
+      "original_notes": "app_01: Multi-stage with non-root user, proper layer ordering (reqs before source), slim base. Uses pip --no-cache-dir. WORKDIR/EXPOSE/HEALTHCHECK correct. Minor: could use --prefix=/install is redundant but not harmful. app_02: Excellent multi-stage with alpine base, npm ci, --omit=dev, cache clean. USER node (non-root). Clean separation. app_03: Minimal scratch final stage with CGO disabled. Proper go.mod first ordering. No non-root on scratch (acceptable). app_04: Multi-stage with JRE runtime",
+      "original_score": 0.9775,
+      "task_id": "task_16_ci_pipeline"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 1.0000; alternate judge notes: All 5 invoices were correctly categorized according to the rubric (办公设备, 餐饮招待, 差旅费, IT费用, 市场推广费).",
+      "alternate_score": 1.0,
+      "delta": 0.0,
+      "mode": "preskill",
+      "original_notes": "所有5张发票的category字段均正确：invoice_01=办公设备，invoice_02=餐饮招待，invoice_03=差旅费，invoice_04=IT费用，invoice_05=市场推广费。分类完全准确。",
+      "original_score": 1.0,
+      "task_id": "task_17_invoice_processing"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 0.8000; alternate judge notes: All five reports accurately identify real, well-documented CVEs for the specified outdated package versions across Python, Node.js, Go, Ruby, and Java ecosystems. Severity ratings and fix versions align with official NVD and vendor advisories. Recommendations are consistently actionable, explicitly naming the package, current version, and precise target upgrade version.",
+      "alternate_score": 0.88,
+      "delta": 0.088,
+      "mode": "preskill",
+      "original_notes": "CVE accuracy is solid for pom.xml (log4j RCE, struts2 RCE, jackson), package.json (lodash, jsonwebtoken, tar), and requirements.txt (Flask, PyYAML, cryptography). go_audit.json has fabricated CVEs (CVE-2021-31879 for pgx, CVE-2022-31028 for go-jose). Gemfile has some questionable attributions (active_storage_validations). Recommendation quality is high across all 5 reports with specific package, version, and target upgrade guidance; the minor deduction is for occasional imprecise fix_version sug",
+      "original_score": 0.792,
+      "task_id": "task_18_dep_audit"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 1.0000; alternate judge notes: Agent successfully processed all 5 meeting notes. Action items are comprehensively extracted with clear owners and tasks. Dates are accurately formatted as YYYY-MM-DD, and null is correctly applied when no deadline is mentioned. Priority assignments mostly follow the specified rules. Overall excellent structured extraction with consistent JSON schema compliance.",
+      "alternate_score": 0.972,
+      "delta": -0.028,
+      "mode": "preskill",
+      "original_notes": "All 5 meetings correctly extract every action item with explicit owner+task+due_date. meeting_01 (7 items), meeting_02 (5 items), meeting_03 (8 items including the recurring 'maintain biweekly contact' task), meeting_04 (6 items including the gRPC training), and meeting_05 (6 items including Linfeng's direct supervisor interview). All 32 due_date fields are in correct YYYY-MM-DD format matching source text; tasks without deadlines correctly set to null. Action items covering launches/customers/f",
+      "original_score": 1.0,
+      "task_id": "task_19_meeting_notes"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 1.0000; alternate judge notes: The agent successfully detected the planted anomalies across all 5 metric reports. Anomaly counts (2, 1, 2, 2, 1) closely align with the expected planted events (2, 1, 1, 1, 1). The 3-sigma baseline detection and consecutive event grouping were correctly implemented, with accurate dimension naming and timestamp reporting. Minor over-detection in two reports is acceptable given the statistical method and data characteristics.",
+      "alternate_score": 0.985,
+      "delta": -0.015,
+      "mode": "preskill",
+      "original_notes": "All 5 planted anomalies were correctly identified: (1) server_cpu detected web-01 spike at 14:00 and web-02 spike at 02:10; (2) server_mem detected web-03 spike at 18:00; (3) db_query_perf detected pg-primary_SELECT spike at 10:30; (4) network_traffic detected eth0 surge at 19:55 (close to ~20:00); (5) disk_io detected /dev/sda spike at 03:20 (close to ~03:00). All dimensions and approximate timestamps are correct.",
+      "original_score": 1.0,
+      "task_id": "task_21_metrics_anomaly"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 0.5200; alternate judge notes: Summaries accurately report exact error counts, dominant failure modes, and explicitly highlight the req-901 cross-service correlation. Canary/synthetic noise is correctly identified and filtered in both the payment summary and the incident report. The incident correlation provides a clear, concise root cause, multi-service evidence snippets, and a specific, actionable remediation step. Minor deduction for slightly repetitive phrasin",
+      "alternate_score": 0.5845,
+      "delta": 0.018,
+      "mode": "postskill",
+      "original_notes": "Four of the five summaries correctly name the service and list dominant failure modes; payment summary stands out by noting exact error count and explicitly mentioning the canary warning, while auth, api_gateway, notification, and scheduler summaries are slightly off on exact error counts or miss canary noise. The incident_correlation report is thorough, correctly correlating req-901 across all services, providing concise evidence and a specific recommended action, and properly filtering synthet",
+      "original_score": 0.5665,
+      "task_id": "task_02_log_analysis"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 0.2552; alternate judge notes: The agent performed flawlessly across all five files. It identified every intentional vulnerability with precise line numbers, accurate CWE/OWASP mappings, and highly specific, actionable remediation advice. It also correctly identified and excluded all safe decoy helpers in the false_positive_notes field. The JSON structure strictly adheres to the requested format, and exploit chains are logically sound.",
+      "alternate_score": 0.5531,
+      "delta": 0.028,
+      "mode": "postskill",
+      "original_notes": "The agent performed a thorough review across all 5 files, identifying nearly all intentional vulnerabilities including SQL injection, XSS, path traversal, command injection, hardcoded secrets, mass assignment, SSRF, and broken access control. Line numbers are accurate (minor corrections needed in a few instances but findings are genuine). Fix suggestions are concrete and actionable (parameterized queries, allowlists, proper subprocess usage). Safe decoy helpers (lookup_user_safe, renderSafePrevi",
+      "original_score": 0.5251,
+      "task_id": "task_06_code_review"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 0.5000; alternate judge notes: The agent produced highly accurate, complete, and well-structured extractions for all five document types. Revisions, amendments, and policy exceptions were correctly applied (e.g., updated invoice totals/bank details, amended contract scope/value, corrected meeting action items, and expense receipt exceptions). Dates were normalized, skills were properly categorized, and the cross-document audit thoroughly explains all corrections a",
+      "alternate_score": 0.75,
+      "delta": 0.0,
+      "mode": "postskill",
+      "original_notes": "Perfect extraction across all 5 documents. Invoice correctly applies revision note (removes Load Testing line, corrects totals to $34,293.98/$2,829.25/$37,123.23, uses First National Bank of Texas). Resume correctly applies HR correction (final cert block with 2021/2022/2023 years), correctly excludes conference talks as non-certifications. Contract correctly applies Amendment A (mobile app excluded, value reduced to $421,000, Final Delivery milestone $33,000, support period 12 months). Meeting ",
+      "original_score": 0.75,
+      "task_id": "task_07_doc_extraction"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 0.8941; alternate judge notes: The agent correctly parsed 4 out of 5 HTML files, extracting all 5 expected records with accurate values and proper data types (floats, ints, booleans, ISO dates). However, product_catalog.json only contains 1 record instead of the expected 5, likely due to a fragile regex that failed to match the remaining product divs. Overall solid execution with one notable extraction gap.",
+      "alternate_score": 0.8365,
+      "delta": 0.004,
+      "mode": "postskill",
+      "original_notes": "product_catalog.json extracted only 1 of ~5 products, missing most entries. job_listings, news_articles, event_schedule, and company_directory each captured all 5 items with correct schema. Reasonable regex-based fallback when bs4 unavailable, but product catalog extraction logic was incomplete.",
+      "original_score": 0.8325,
+      "task_id": "task_11_web_extraction"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 1.0000; alternate judge notes: The agent successfully parsed all CSV files, performed correct joins, and accurately computed every requested metric across all 5 groups. The generated JSON outputs strictly follow the specified schemas. Calculations for rates, averages, and aggregations are correct, and edge cases like type conversion for boolean bounce rates were handled properly. Excellent execution.",
+      "alternate_score": 0.9895,
+      "delta": 0.0175,
+      "mode": "postskill",
+      "original_notes": "All 5 analysis JSONs generated with correct schema and valid computed values. Group 1 correctly sums quantity*unit_price for revenue and counts tiers across joined datasets. Group 2 properly merges employees+performance+departments and computes std_dev. Group 3 calculates flag rates and debit sums. Group 4 identifies top referrer and bounce rate. Group 5 aggregates sensor metrics and counts alerts by severity. Minor deduction: revenue_by_region computation in Group 1 recalculates from sales df d",
+      "original_score": 0.972,
+      "task_id": "task_13_data_pipeline"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 1.0000; alternate judge notes: 所有5个报告的summary字段均准确概括了邮件核心内容、当前进展与待办事项，语言精炼。next_reply.body字段语气专业得体，符合商务规范，且能根据各线程当前状态合理推断下一步行动，未重复已有内容。整体完成度很高。",
+      "alternate_score": 0.97,
+      "delta": 0.0105,
+      "mode": "postskill",
+      "original_notes": "所有5个摘要均准确反映线程核心内容、当前状态和未决事项。Thread 03 摘要遗漏了平台已提出补偿方案这一关键信息，略有不足，其余摘要准确度高。回复草稿整体质量较好，语气专业、内容与状态一致，但存在以下问题：Thread 02 的 next_reply 中提到「确认我司总经理是否出席」属于轻微幻觉（原始邮件并无此信息）；Thread 03 的 next_reply 未提及 80 元购物券补偿细节；Thread 04 的回复偏向通用提醒，未突出当前等待状态。综合评估，摘要质量高于回复草稿质量。",
+      "original_score": 0.9595,
+      "task_id": "task_14_email_processing"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 0.0000; alternate judge notes: All 5 scripts follow the required structure (shebang, set -euo pipefail, functions, error handling, configurable variables). However, several have notable issues: (1) file_backup.sh hardcodes 1440 instead of using $backup_window_minutes; (2) log_rotation.sh has broken age calculation, unused keep_last_n_uncompressed variable, and convoluted compression/deletion logic that may not correctly target rotated files; (3) db_dump.sh defines",
+      "alternate_score": 0.14,
+      "delta": 0.03,
+      "mode": "postskill",
+      "original_notes": "Average across 5 scripts: task_01=0.70 (solid backup with retention, error logging), task_02=0.50 (rotation/compress/delete logic has bugs — checks age against wrong file after rotation, conflates file handles with file paths), task_03=0.85 (best script — dump/compress/S3 upload with verification and cleanup), task_04=0.30 (change detection logic is broken — grep uses full hash+path line instead of just the file path to check prior state; additions and removals not reliably detected), task_05=0.",
+      "original_score": 0.11,
+      "task_id": "task_15_shell_automation"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 1.0000; alternate judge notes: All five Dockerfiles demonstrate strong adherence to container best practices, including correct base image selection, proper layer ordering for cache efficiency, and non-root user configuration. Multi-stage builds correctly isolate build artifacts, with app_03 (Go/scratch) and app_02 (Node/alpine) being particularly lean. A minor deduction is applied to app_01 for copying dev dependencies (pytest, ruff, mypy) into the runtime stage ",
+      "alternate_score": 0.9775,
+      "delta": -0.009,
+      "mode": "postskill",
+      "original_notes": "All 5 Dockerfiles follow container best practices with multi-stage builds (where applicable), correct base images, proper layer ordering (deps before source), minimal runtime surface, and non-root users. Minor deductions: app_01 copies entire app dir instead of only source to final stage; app_04 uses curl in healthcheck on a JRE image which may not have curl (should use wget or an inline approach); app_03 would benefit from pre-downloading modules to a separate layer before COPY (mod download ha",
+      "original_score": 0.9865,
+      "task_id": "task_16_ci_pipeline"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 1.0000; alternate judge notes: All 5 invoices were correctly categorized: 办公设备, 餐饮招待, 差旅费, IT费用, and 市场推广费 exactly match the expected expense categories.",
+      "alternate_score": 1.0,
+      "delta": 0.0,
+      "mode": "postskill",
+      "original_notes": "All 5 invoices correctly categorized: invoice_01=办公设备, invoice_02=餐饮招待, invoice_03=差旅费, invoice_04=IT费用, invoice_05=市场推广费. All 6 output files generated correctly with proper JSON schema, dates in YYYY-MM-DD format, numerical fields as numbers, invoice_03 merged multi-row CSV correctly, and expense_summary.json with accurate totals (73546.1) and aggregations by category and vendor.",
+      "original_score": 1.0,
+      "task_id": "task_17_invoice_processing"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 0.8000; alternate judge notes: Excellent CVE identification across all 5 ecosystems with accurate severity ratings and realistic fix versions. One minor hallucination (CVE-2021-43818 incorrectly attributed to SQLAlchemy instead of lxml), but otherwise highly precise and well-researched. Recommendations are consistently specific, actionable, and follow the requested format perfectly across all manifests.",
+      "alternate_score": 0.856,
+      "delta": 0.0384,
+      "mode": "postskill",
+      "original_notes": "requirements.txt: mostly accurate (PyYAML critical fix correct, Flask/requests/urllib3/Jinja2 CVEs valid, some versions like cryptography 3.3.1 may be questionable). package.json: strong accuracy (lodash/express/jsonwebtoken/serialize-javascript CVEs verified, fix versions appropriate). go.mod: mixed (dgrijalva/jwt-go critical correctly flagged, yaml.v2 CVE-2022-28948 accurate, some version-specific mappings uncertain). Gemfile: good accuracy (rails/actionpack/nokogiri CVEs correct, most version",
+      "original_score": 0.8176,
+      "task_id": "task_18_dep_audit"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 1.0000; alternate judge notes: All action items across the 5 meeting notes were accurately extracted with correct owners, descriptions, and due dates. Dates are properly formatted as YYYY-MM-DD, and null is correctly used when no deadline was specified. No omissions or inaccuracies were found.",
+      "alternate_score": 1.0,
+      "delta": 0.0,
+      "mode": "postskill",
+      "original_notes": "All 5 meetings extracted 100% of action items with correct owners, descriptions, and due dates. No omissions across product review (6 items), project retrospective (5 items), sales weekly (7 items), tech architecture (6 items), and HR interview (3 items). All date formats are YYYY-MM-DD and correctly match original text.",
+      "original_score": 1.0,
+      "task_id": "task_19_meeting_notes"
+    },
+    {
+      "alternate_judge_used": "openai/qwen3.6-plus",
+      "alternate_notes": "Reused original automated score 1.0000; alternate judge notes: All 5 planted anomalies were correctly identified with accurate dimension names and timestamps matching the expected windows. The agent successfully detected the CPU spikes for web-01 and web-02, memory spike for web-03, SELECT latency spike for pg-primary, network surge for eth0, and disk utilization spike for /dev/sda.",
+      "alternate_score": 1.0,
+      "delta": 0.015,
+      "mode": "postskill",
+      "original_notes": "All 5 planted anomalies were correctly detected with proper dimensions and approximate timestamps (server_cpu: web-01~14:00, web-02~02:00; server_mem: web-03~18:00; db_query_perf: pg-primary_SELECT~10:30; network_traffic: eth0~20:00; disk_io: /dev/sda~03:00). However, 3 false positive anomalies were also reported: db_query_perf reported pg-primary_UPDATE warning at 17:25 (not a planted anomaly), and network_traffic reported eth1 warning at 16:30 (not a planted anomaly). These extra detections sl",
+      "original_score": 0.985,
+      "task_id": "task_21_metrics_anomaly"
+    }
+  ],
+  "requested_alternate_judge_model": "openrouter/anthropic/claude-opus-4.5",
+  "runtime": "openclaw",
+  "source_json": "results/paper_subset_experiments/0001_openai-gpt-5-4-mini_openclaw.json",
+  "summary": {
+    "mean_absolute_delta": 0.0141,
+    "pairs": 36,
+    "pearson_correlation": 0.997,
+    "top_disagreements": [
+      {
+        "alternate_judge_used": "openai/qwen3.6-plus",
+        "alternate_notes": "Reused original automated score 0.8000; alternate judge notes: All five reports accurately identify real, well-documented CVEs for the specified outdated package versions across Python, Node.js, Go, Ruby, and Java ecosystems. Severity ratings and fix versions align with official NVD and vendor advisories. Recommendations are consistently actionable, explicitly naming the package, current version, and precise target upgrade version.",
+        "alternate_score": 0.88,
+        "delta": 0.088,
+        "mode": "preskill",
+        "original_notes": "CVE accuracy is solid for pom.xml (log4j RCE, struts2 RCE, jackson), package.json (lodash, jsonwebtoken, tar), and requirements.txt (Flask, PyYAML, cryptography). go_audit.json has fabricated CVEs (CVE-2021-31879 for pgx, CVE-2022-31028 for go-jose). Gemfile has some questionable attributions (active_storage_validations). Recommendation quality is high across all 5 reports with specific package, version, and target upgrade guidance; the minor deduction is for occasional imprecise fix_version sug",
+        "original_score": 0.792,
+        "task_id": "task_18_dep_audit"
+      },
+      {
+        "alternate_judge_used": "openai/qwen3.6-plus",
+        "alternate_notes": "Reused original automated score 0.5000; alternate judge notes: The agent produced highly accurate, schema-compliant JSON for all five document types. It correctly handled complex revision notes, contract amendments, draft vs. final action lists, name disambiguation, and policy exceptions. Dates were properly normalized to ISO format, categorical fields were well-structured, and the audit file thoroughly documented all applied corrections, rejected candidates, and normalization warnings. No signi",
+        "alternate_score": 0.75,
+        "delta": 0.045,
+        "mode": "preskill",
+        "original_notes": "Extraction is highly accurate across all 5 documents. Invoice correctly applies revision note (subtotal $34,293.98, grand total $37,123.23, bank details updated to First National Bank of Texas) and excludes the Load Testing line item. Resume properly applies HR correction note to certifications (AWS SAP 2023, CKA 2022, GCP PCA 2021) and notes conference talks as non-certifications. Contract correctly uses Amendment A values ($421,000 total, $33,000 Final Delivery, 12-month support period) and do",
+        "original_score": 0.705,
+        "task_id": "task_07_doc_extraction"
+      },
+      {
+        "alternate_judge_used": "openai/qwen3.6-plus",
+        "alternate_notes": "Reused original automated score 0.8000; alternate judge notes: Excellent CVE identification across all 5 ecosystems with accurate severity ratings and realistic fix versions. One minor hallucination (CVE-2021-43818 incorrectly attributed to SQLAlchemy instead of lxml), but otherwise highly precise and well-researched. Recommendations are consistently specific, actionable, and follow the requested format perfectly across all manifests.",
+        "alternate_score": 0.856,
+        "delta": 0.0384,
+        "mode": "postskill",
+        "original_notes": "requirements.txt: mostly accurate (PyYAML critical fix correct, Flask/requests/urllib3/Jinja2 CVEs valid, some versions like cryptography 3.3.1 may be questionable). package.json: strong accuracy (lodash/express/jsonwebtoken/serialize-javascript CVEs verified, fix versions appropriate). go.mod: mixed (dgrijalva/jwt-go critical correctly flagged, yaml.v2 CVE-2022-28948 accurate, some version-specific mappings uncertain). Gemfile: good accuracy (rails/actionpack/nokogiri CVEs correct, most version",
+        "original_score": 0.8176,
+        "task_id": "task_18_dep_audit"
+      },
+      {
+        "alternate_judge_used": "openai/qwen3.6-plus",
+        "alternate_notes": "Reused original automated score 0.0000; alternate judge notes: All 5 scripts follow the required structure (shebang, set -euo pipefail, functions, error handling, configurable variables). However, several have notable issues: (1) file_backup.sh hardcodes 1440 instead of using $backup_window_minutes; (2) log_rotation.sh has broken age calculation, unused keep_last_n_uncompressed variable, and convoluted compression/deletion logic that may not correctly target rotated files; (3) db_dump.sh defines",
+        "alternate_score": 0.14,
+        "delta": 0.03,
+        "mode": "postskill",
+        "original_notes": "Average across 5 scripts: task_01=0.70 (solid backup with retention, error logging), task_02=0.50 (rotation/compress/delete logic has bugs — checks age against wrong file after rotation, conflates file handles with file paths), task_03=0.85 (best script — dump/compress/S3 upload with verification and cleanup), task_04=0.30 (change detection logic is broken — grep uses full hash+path line instead of just the file path to check prior state; additions and removals not reliably detected), task_05=0.",
+        "original_score": 0.11,
+        "task_id": "task_15_shell_automation"
+      },
+      {
+        "alternate_judge_used": "openai/qwen3.6-plus",
+        "alternate_notes": "Reused original automated score 1.0000; alternate judge notes: Agent successfully processed all 5 meeting notes. Action items are comprehensively extracted with clear owners and tasks. Dates are accurately formatted as YYYY-MM-DD, and null is correctly applied when no deadline is mentioned. Priority assignments mostly follow the specified rules. Overall excellent structured extraction with consistent JSON schema compliance.",
+        "alternate_score": 0.972,
+        "delta": -0.028,
+        "mode": "preskill",
+        "original_notes": "All 5 meetings correctly extract every action item with explicit owner+task+due_date. meeting_01 (7 items), meeting_02 (5 items), meeting_03 (8 items including the recurring 'maintain biweekly contact' task), meeting_04 (6 items including the gRPC training), and meeting_05 (6 items including Linfeng's direct supervisor interview). All 32 due_date fields are in correct YYYY-MM-DD format matching source text; tasks without deadlines correctly set to null. Action items covering launches/customers/f",
+        "original_score": 1.0,
+        "task_id": "task_19_meeting_notes"
+      }
+    ],
+    "within_0_05": 35,
+    "within_0_10": 36
+  }
+}

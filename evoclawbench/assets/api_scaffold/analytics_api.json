@@ -1,0 +1,32 @@
+{
+  "name": "AnalyticsAPI",
+  "base_url": "https://analytics.example.com/api",
+  "auth": {
+    "type": "oauth2",
+    "token_url": "https://auth.example.com/oauth/token",
+    "scopes": ["read:data", "write:reports"]
+  },
+  "endpoints": [
+    {
+      "path": "/events",
+      "method": "POST",
+      "body": ["event_type", "properties"],
+      "description": "Track an analytics event"
+    },
+    {
+      "path": "/reports/{report_id}",
+      "method": "GET",
+      "params": [],
+      "description": "Retrieve a report by ID"
+    }
+  ],
+  "rate_limit": {
+    "requests_per_minute": 30
+  },
+  "pagination": {
+    "type": "cursor",
+    "params": {
+      "cursor": "next_cursor"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Receipt>
+  <ReceiptInfo>
+    <ReceiptType>普通发票</ReceiptType>
+    <ReceiptNo>SH20240316-00892</ReceiptNo>
+    <IssueDate>2024-03-16</IssueDate>
+    <Currency>CNY</Currency>
+  </ReceiptInfo>
+  <Vendor>
+    <CompanyName>上海云朵餐饮管理有限公司</CompanyName>
+    <TaxID>91310115ABX12345P</TaxID>
+    <Address>上海市长宁区虹桥路1768号B栋3层</Address>
+    <Phone>021-62345678</Phone>
+  </Vendor>
+  <Customer>
+    <CompanyName>北京科创信息技术有限公司</CompanyName>
+    <TaxID>91110000123456789X</TaxID>
+    <Department>市场部</Department>
+    <ContactPerson>张晓丽</ContactPerson>
+  </Customer>
+  <Items>
+    <Item>
+      <Description>商务套餐（10人）</Description>
+      <Category>餐饮</Category>
+      <Quantity>1</Quantity>
+      <UnitPrice>1280.00</UnitPrice>
+      <Amount>1280.00</Amount>
+      <TaxRate>6%</TaxRate>
+      <TaxAmount>76.80</TaxAmount>
+    </Item>
+    <Item>
+      <Description>包间服务费</Description>
+      <Category>服务</Category>
+      <Quantity>1</Quantity>
+      <UnitPrice>200.00</UnitPrice>
+      <Amount>200.00</Amount>
+      <TaxRate>6%</TaxRate>
+      <TaxAmount>12.00</TaxAmount>
+    </Item>
+    <Item>
+      <Description>饮品（瓶装水、茶水）</Description>
+      <Category>餐饮</Category>
+      <Quantity>10</Quantity>
+      <UnitPrice>15.00</UnitPrice>
+      <Amount>150.00</Amount>
+      <TaxRate>6%</TaxRate>
+      <TaxAmount>9.00</TaxAmount>
+    </Item>
+  </Items>
+  <Summary>
+    <SubTotal>1630.00</SubTotal>
+    <TotalTax>97.80</TotalTax>
+    <GrandTotal>1727.80</GrandTotal>
+    <PaymentMethod>公司对公转账</PaymentMethod>
+  </Summary>
+  <Note>客户招待费 - 市场部Q1客户答谢晚宴</Note>
+</Receipt>

@@ -1,0 +1,36 @@
+task_id: task_05_multi_node_sync
+name: Multi-Node Config File Sync
+description: |
+  Create a shell script that synchronizes a local configuration directory to
+  multiple remote servers via SSH/rsync, with pre-flight checks and rollback.
+
+requirements:
+  - local_config_dir: /etc/myapp/config/
+  - remote_servers:
+      - web01.internal:22
+      - web02.internal:22
+      - web03.internal:22
+  - remote_path: /etc/myapp/config/
+  - ssh_user: deploy
+  - ssh_key: /home/deploy/.ssh/id_rsa
+  - pre_flight:
+      - check SSH connectivity to each server (timeout 5s)
+      - verify remote path exists or create it
+  - sync_options:
+      - delete files on remote that no longer exist locally
+      - preserve file permissions and timestamps
+      - exclude: ["*.bak", "*.tmp", "secrets.conf"]
+  - post_sync:
+      - run remote command: sudo systemctl reload myapp
+      - verify reload exit code is 0
+  - rollback: if reload fails on any server, print which servers need manual rollback
+  - report: output a per-server status table (server | sync_status | reload_status | duration_s)
+
+constraints:
+  - continue syncing remaining servers even if one fails
+  - exit code 0 only if all servers synced and reloaded successfully
+  - dry_run mode: if first argument is "--dry-run", print what would be done without executing
+
+expected_output:
+  script_file: outputs/multi_node_sync.sh
+  readme_file: outputs/multi_node_sync_readme.md

@@ -1,0 +1,26 @@
+Mar 15 10:23:45 auth-srv auth[1234]: INFO: Service started on port 8080
+Mar 15 10:24:01 auth-srv auth[1234]: INFO: Connected to database auth_db
+Mar 15 10:25:12 auth-srv auth[1234]: INFO: Successful login for admin@company.com from 10.0.0.1
+Mar 15 10:26:33 auth-srv auth[1234]: WARN: Rate limit approaching for IP 192.168.1.50 (45/50 requests)
+Mar 15 10:27:05 auth-srv auth[1234]: ERROR: Failed login for user@example.com from 192.168.1.1 - invalid credentials
+Mar 15 10:28:14 auth-srv auth[1234]: INFO: Successful login for jane.doe@company.com from 10.0.0.15
+Mar 15 10:29:55 auth-srv auth[1234]: INFO: Token refreshed for session sess-abc123
+Mar 15 10:30:22 auth-srv auth[1234]: ERROR: Failed login for admin@company.com from 203.0.113.5 - account locked
+Mar 15 10:31:00 auth-srv auth[1234]: WARN: SSL certificate expires in 14 days
+Mar 15 10:32:18 auth-srv auth[1234]: INFO: Password changed for user john.smith@company.com
+Mar 15 10:33:45 auth-srv auth[1234]: ERROR: LDAP connection timeout after 30s - server ldap.internal:389
+Mar 15 10:34:02 auth-srv auth[1234]: INFO: Successful login for mike.chen@company.com from 10.0.0.22
+Mar 15 10:35:19 auth-srv auth[1234]: WARN: Unusual login pattern detected for user bob@company.com - 3 countries in 1 hour
+Mar 15 10:36:44 auth-srv auth[1234]: INFO: MFA challenge issued for alice@company.com
+Mar 15 10:37:30 auth-srv auth[1234]: ERROR: OAuth callback failed for provider google - state mismatch
+Mar 15 10:38:15 auth-srv auth[1234]: INFO: Session expired for sess-def456
+Mar 15 10:39:01 auth-srv auth[1234]: INFO: Successful login for sara.lee@company.com from 10.0.0.8
+Mar 15 10:40:22 auth-srv auth[1234]: WARN: Database connection pool at 80% capacity (16/20)
+Mar 15 10:41:55 auth-srv auth[1234]: ERROR: Failed to validate JWT token - signature mismatch for user unknown
+Mar 15 10:42:30 auth-srv auth[1234]: INFO: Health check passed - all dependencies healthy
+Mar 15 10:43:02 auth-srv auth[1234]: WARN: Synthetic canary login failed for monitor@company.com - expected negative test
+Mar 15 10:43:10 auth-srv auth[1234]: ERROR: Correlation req-901 failed token exchange for user grace@company.com - upstream payment callback rejected
+Mar 15 10:43:11 auth-srv auth[1234]: ERROR: Stack trace follows for req-901
+    at TokenExchange.validate(TokenExchange.java:118)
+    at OAuthCallback.handle(OAuthCallback.java:77)
+    Caused by: NonceMismatchException: nonce n-7721 reused after 4 seconds

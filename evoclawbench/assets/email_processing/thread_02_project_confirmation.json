@@ -1,0 +1,32 @@
+{
+  "thread_id": "thread_02",
+  "subject": "Re: 「智慧园区」项目启动会确认 - 4月8日",
+  "participants": [
+    {"name": "陈建国", "email": "chen.jianguo@pm-company.com", "role": "sender"},
+    {"name": "刘芳", "email": "liu.fang@partner-tech.com", "role": "recipient"},
+    {"name": "张宇", "email": "zhang.yu@pm-company.com", "role": "cc"}
+  ],
+  "messages": [
+    {
+      "from": "liu.fang@partner-tech.com",
+      "to": "chen.jianguo@pm-company.com",
+      "cc": ["zhang.yu@pm-company.com"],
+      "date": "2024-03-18T16:20:00+08:00",
+      "body": "陈总，\n\n关于「智慧园区」项目，技术方案评审已完成，双方均确认可行。请问4月8日下午2点在贵司会议室举行项目启动会是否方便？预计参与人员：\n\n- 贵司：项目经理、技术负责人、商务各1名\n- 我司：项目总监、架构师、实施经理各1名\n\n需要我司提前准备哪些材料？\n\n刘芳\n伙伴科技 项目管理部"
+    },
+    {
+      "from": "chen.jianguo@pm-company.com",
+      "to": "liu.fang@partner-tech.com",
+      "cc": ["zhang.yu@pm-company.com"],
+      "date": "2024-03-19T09:45:00+08:00",
+      "body": "刘总，\n\n4月8日下午2点完全可以，地点确认为我司6楼会议室A。\n\n请提前准备：\n1. 项目总体规划PPT（含里程碑节点）\n2. 技术架构图\n3. 人员分工矩阵\n\n我司会准备合同草稿及盖章版本供启动会签署。会议预计2小时，会后安排晚餐。\n\n请3月29日前将上述材料发给张宇（zhang.yu@pm-company.com）。\n\n陈建国"
+    },
+    {
+      "from": "liu.fang@partner-tech.com",
+      "to": "chen.jianguo@pm-company.com",
+      "cc": ["zhang.yu@pm-company.com"],
+      "date": "2024-03-19T11:30:00+08:00",
+      "body": "收到！我司将于3月27日前发送所有准备材料。\n\n另请确认：启动会是否需要甲方高管出席？如需要，我司总经理可以参加。\n\n刘芳"
+    }
+  ]
+}

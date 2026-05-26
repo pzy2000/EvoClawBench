@@ -1,0 +1,68 @@
+{
+  "document_type": "Contract Summary",
+  "title": "Software Development Services Agreement - Contract Summary",
+  "contract_id": "CONTRACT-2024-0892",
+  "date": "2024-02-28",
+  "author": "Legal Department",
+  "sections": [
+    {
+      "heading": "Parties",
+      "level": 1,
+      "content": "This agreement is between Meridian Technologies Inc. (Service Provider) and Cascade Solutions LLC (Client). The contract was executed on February 28, 2024."
+    },
+    {
+      "heading": "Scope of Work",
+      "level": 1,
+      "content": "Service Provider agrees to deliver a custom cloud infrastructure platform including API integration, data migration services, and ongoing support as detailed in Exhibit A."
+    },
+    {
+      "heading": "Deliverables",
+      "level": 2,
+      "content": "All deliverables are subject to Client review and acceptance within 10 business days of delivery. Failure to respond within this period constitutes acceptance."
+    },
+    {
+      "heading": "Payment Terms",
+      "level": 1,
+      "content": "Total contract value is $125,000 USD payable in four equal installments of $31,250 each at project milestones."
+    },
+    {
+      "heading": "Intellectual Property",
+      "level": 1,
+      "content": "Upon final payment, all custom-developed code and associated IP transfers to Client. Pre-existing IP and general frameworks remain property of Service Provider."
+    },
+    {
+      "heading": "Termination",
+      "level": 1,
+      "content": "Either party may terminate with 30 days written notice. Client is liable for work completed to termination date plus 15% early termination fee."
+    }
+  ],
+  "tables": [
+    {
+      "title": "Payment Schedule",
+      "headers": ["Milestone", "Due Date", "Amount", "Status"],
+      "rows": [
+        ["Project Kickoff", "2024-03-01", "$31,250", "Paid"],
+        ["Design Approval", "2024-04-15", "$31,250", "Pending"],
+        ["Development Complete", "2024-06-30", "$31,250", "Pending"],
+        ["Final Acceptance", "2024-07-31", "$31,250", "Pending"]
+      ]
+    },
+    {
+      "title": "Key Dates",
+      "headers": ["Event", "Date"],
+      "rows": [
+        ["Contract Effective Date", "2024-02-28"],
+        ["Project Start Date", "2024-03-04"],
+        ["Estimated Completion", "2024-07-31"],
+        ["Warranty Period End", "2024-10-31"]
+      ]
+    }
+  ],
+  "key_terms": [
+    "Governing Law: State of California",
+    "Dispute Resolution: Binding arbitration in San Francisco, CA",
+    "Limitation of Liability: Capped at total contract value",
+    "Confidentiality: NDA in effect for 3 years post-termination",
+    "Change Orders: Must be approved in writing by both parties"
+  ]
+}

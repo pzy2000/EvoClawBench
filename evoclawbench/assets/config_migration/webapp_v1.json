@@ -1,0 +1,22 @@
+{
+  "app.name": "WebPortal",
+  "app.version": "2.4.1",
+  "app.debug": false,
+  "app.secret_key": "s3cr3t-k3y-abc123",
+  "server.host": "0.0.0.0",
+  "server.port": 8080,
+  "server.workers": 4,
+  "server.timeout": 30.5,
+  "db.host": "db-primary.internal",
+  "db.port": 5432,
+  "db.name": "webapp_prod",
+  "db.pool_size": 20,
+  "db.ssl_enabled": true,
+  "session.driver": "redis",
+  "session.lifetime": 3600,
+  "session.secure": true,
+  "logging.level": "info",
+  "logging.file": "/var/log/webapp/app.log",
+  "logging.max_size_mb": 100.0,
+  "logging.rotate": true
+}

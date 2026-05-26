@@ -1,0 +1,28 @@
+task_id: task_03_db_dump
+name: Database Dump and Upload
+description: |
+  Create a shell script that dumps a PostgreSQL database, compresses the dump,
+  and uploads it to an S3-compatible object storage bucket.
+
+requirements:
+  - db_host: localhost
+  - db_port: 5432
+  - db_name: production_db
+  - db_user: backup_user
+  - db_password_env: PGPASSWORD  # read from environment variable
+  - dump_dir: /tmp/db_dumps
+  - s3_bucket: s3://company-db-backups/postgres/
+  - s3_tool: aws cli (aws s3 cp)
+  - filename_format: production_db_YYYYMMDD_HHMMSS.sql.gz
+  - on_success: delete local dump file after successful upload
+  - on_failure: keep local dump file, send error to stderr, exit 1
+  - timeout_minutes: 60
+
+constraints:
+  - check that pg_dump and aws cli are available before starting
+  - verify the upload completed by checking S3 object size > 0
+  - log start time, end time, and dump file size to /var/log/db_backup.log
+
+expected_output:
+  script_file: outputs/db_dump.sh
+  readme_file: outputs/db_dump_readme.md

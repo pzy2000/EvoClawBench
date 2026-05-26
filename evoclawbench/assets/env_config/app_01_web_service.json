@@ -1,0 +1,64 @@
+{
+  "app_name": "web-service",
+  "description": "Customer-facing REST API for the web portal",
+  "output_format": "yaml",
+  "base_config": {
+    "server": {
+      "host": "0.0.0.0",
+      "port": 8080,
+      "workers": 4,
+      "timeout_seconds": 30
+    },
+    "database": {
+      "driver": "postgresql",
+      "host": "db.internal",
+      "port": 5432,
+      "name": "webportal",
+      "pool_size": 10,
+      "ssl": true
+    },
+    "cache": {
+      "backend": "redis",
+      "host": "redis.internal",
+      "port": 6379,
+      "ttl_seconds": 300
+    },
+    "logging": {
+      "level": "INFO",
+      "format": "json",
+      "output": "stdout"
+    },
+    "features": {
+      "rate_limiting": true,
+      "rate_limit_rpm": 100,
+      "cors_enabled": true,
+      "cors_origins": ["https://app.example.com"]
+    }
+  },
+  "environment_overrides": {
+    "dev": {
+      "server.workers": 1,
+      "server.timeout_seconds": 120,
+      "database.host": "localhost",
+      "database.ssl": false,
+      "database.pool_size": 2,
+      "cache.host": "localhost",
+      "logging.level": "DEBUG",
+      "features.rate_limiting": false,
+      "features.cors_origins": ["http://localhost:3000", "http://localhost:8080"]
+    },
+    "staging": {
+      "server.workers": 2,
+      "database.name": "webportal_staging",
+      "database.pool_size": 5,
+      "features.rate_limit_rpm": 200,
+      "features.cors_origins": ["https://staging.example.com"]
+    },
+    "prod": {
+      "server.workers": 8,
+      "database.pool_size": 20,
+      "features.rate_limit_rpm": 60,
+      "logging.level": "WARN"
+    }
+  }
+}

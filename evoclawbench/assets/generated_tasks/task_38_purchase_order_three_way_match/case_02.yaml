@@ -1,0 +1,995 @@
+difficulty_protocol: evoclawbench-hard-mode-v4
+seed_hint: evoclawbench-difficulty-hardening-20260524-v4
+task_id: task_38_purchase_order_three_way_match
+case_id: case_02
+case_title: Partner Portal Export
+channel_map:
+  T1:
+    field: selected_vendor
+    kind: text
+  L1:
+    field: match_exceptions
+    kind: list
+  L2:
+    field: late_shipments
+    kind: list
+  L3:
+    field: risk_suppliers
+    kind: list
+  N1:
+    field: savings_estimate
+    kind: numeric
+packet_manifest:
+- packet_id: PKT-69CF72
+  nonce: NON-6D8C0A77C9
+  checksum: e3611dd35b1ce495
+  state: approved
+  revision: 3
+  superseded_by: ''
+  source_weight: 90
+  note: candidate evidence packet; validate before using records
+- packet_id: PKT-067A8A
+  nonce: NON-8BF84FA589
+  checksum: be1841b701d21465
+  state: approved
+  revision: 2
+  superseded_by: PKT-69CF72
+  source_weight: 83
+  note: candidate evidence packet; validate before using records
+- packet_id: PKT-49C790
+  nonce: NON-3BDEECBF43
+  checksum: 5f2f74d1a30d6c20
+  state: approved
+  revision: 1
+  superseded_by: ''
+  source_weight: 76
+  note: candidate evidence packet; validate before using records
+- packet_id: PKT-2B5CFC
+  nonce: NON-4C75759425
+  checksum: 4b6f55c90044c227
+  state: draft
+  revision: 4
+  superseded_by: ''
+  source_weight: 69
+  note: candidate evidence packet; validate before using records
+records:
+- packet_id: PKT-067A8A
+  channel: L1
+  record_id: NOI-11456F02
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: MATEXC-02-102
+- packet_id: PKT-067A8A
+  channel: L1
+  record_id: NOI-1B0DFE27
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: MATEXC-02-81
+- packet_id: PKT-067A8A
+  channel: L1
+  record_id: NOI-31998962
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: MATEXC-02-94
+- packet_id: PKT-067A8A
+  channel: L1
+  record_id: NOI-6CEA3152
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: MATEXC-02-87
+- packet_id: PKT-067A8A
+  channel: L1
+  record_id: NOI-6F953C54
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: MATEXC-02-29
+- packet_id: PKT-067A8A
+  channel: L2
+  record_id: NOI-6F8FB757
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: LATSHI-02-84
+- packet_id: PKT-067A8A
+  channel: L2
+  record_id: NOI-9478689D
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: LATSHI-02-86
+- packet_id: PKT-067A8A
+  channel: L2
+  record_id: NOI-BEBC5F35
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: LATSHI-02-45
+- packet_id: PKT-067A8A
+  channel: L2
+  record_id: NOI-C5EB863E
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: LATSHI-02-14
+- packet_id: PKT-067A8A
+  channel: L2
+  record_id: NOI-D4A68DDF
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: LATSHI-02-30
+- packet_id: PKT-067A8A
+  channel: L3
+  record_id: NOI-08563918
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: RISSUP-02-97
+- packet_id: PKT-067A8A
+  channel: L3
+  record_id: NOI-4DD7F278
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: RISSUP-02-12
+- packet_id: PKT-067A8A
+  channel: L3
+  record_id: NOI-63CC3A2D
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: RISSUP-02-64
+- packet_id: PKT-067A8A
+  channel: L3
+  record_id: NOI-93782084
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: RISSUP-02-18
+- packet_id: PKT-067A8A
+  channel: L3
+  record_id: NOI-C93E239D
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: RISSUP-02-33
+- packet_id: PKT-067A8A
+  channel: N1
+  record_id: NOI-4597A7EE
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 8924
+  scale: 100
+- packet_id: PKT-067A8A
+  channel: N1
+  record_id: NOI-775446DF
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 4097
+  scale: 100
+- packet_id: PKT-067A8A
+  channel: N1
+  record_id: NOI-BC6057A1
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 4436
+  scale: 100
+- packet_id: PKT-067A8A
+  channel: N1
+  record_id: NOI-D3702F7B
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 3141
+  scale: 100
+- packet_id: PKT-067A8A
+  channel: N1
+  record_id: NOI-F7FB178E
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 2120
+  scale: 100
+- packet_id: PKT-067A8A
+  channel: T1
+  record_id: NOI-152EF34C
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: Vendor-Orion
+  score: 85
+  penalty: 3
+- packet_id: PKT-067A8A
+  channel: T1
+  record_id: NOI-5112DDDE
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: Vendor-Kestrel
+  score: 86
+  penalty: 2
+- packet_id: PKT-067A8A
+  channel: T1
+  record_id: NOI-BBFE85AE
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: Vendor-Nimbus
+  score: 87
+  penalty: 1
+- packet_id: PKT-067A8A
+  channel: T1
+  record_id: NOI-BF656800
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: Vendor-Nimbus
+  score: 84
+  penalty: 4
+- packet_id: PKT-067A8A
+  channel: T1
+  record_id: NOI-ED26560E
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: Vendor-Orion
+  score: 88
+  penalty: 0
+- packet_id: PKT-2B5CFC
+  channel: L1
+  record_id: NOI-37969B19
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: MATEXC-02-28
+- packet_id: PKT-2B5CFC
+  channel: L1
+  record_id: NOI-4619B066
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: MATEXC-02-26
+- packet_id: PKT-2B5CFC
+  channel: L1
+  record_id: NOI-5521078F
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: MATEXC-02-64
+- packet_id: PKT-2B5CFC
+  channel: L1
+  record_id: NOI-A66F3307
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: MATEXC-02-95
+- packet_id: PKT-2B5CFC
+  channel: L1
+  record_id: NOI-BA5B82EC
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: MATEXC-02-27
+- packet_id: PKT-2B5CFC
+  channel: L2
+  record_id: NOI-39C526A9
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: LATSHI-02-27
+- packet_id: PKT-2B5CFC
+  channel: L2
+  record_id: NOI-79E68859
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: LATSHI-02-74
+- packet_id: PKT-2B5CFC
+  channel: L2
+  record_id: NOI-A12DE9C1
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: LATSHI-02-62
+- packet_id: PKT-2B5CFC
+  channel: L2
+  record_id: NOI-E7CA133B
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: LATSHI-02-55
+- packet_id: PKT-2B5CFC
+  channel: L2
+  record_id: NOI-FA92F59D
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: LATSHI-02-12
+- packet_id: PKT-2B5CFC
+  channel: L3
+  record_id: NOI-136B0327
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: RISSUP-02-46
+- packet_id: PKT-2B5CFC
+  channel: L3
+  record_id: NOI-4AA64924
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: RISSUP-02-56
+- packet_id: PKT-2B5CFC
+  channel: L3
+  record_id: NOI-7E20D9A7
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: RISSUP-02-64
+- packet_id: PKT-2B5CFC
+  channel: L3
+  record_id: NOI-DDD7064D
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: RISSUP-02-44
+- packet_id: PKT-2B5CFC
+  channel: L3
+  record_id: NOI-F4FA00D4
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: RISSUP-02-24
+- packet_id: PKT-2B5CFC
+  channel: N1
+  record_id: NOI-48DBFE6F
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 4357
+  scale: 100
+- packet_id: PKT-2B5CFC
+  channel: N1
+  record_id: NOI-995DF309
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 828
+  scale: 100
+- packet_id: PKT-2B5CFC
+  channel: N1
+  record_id: NOI-B06AF804
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 3855
+  scale: 100
+- packet_id: PKT-2B5CFC
+  channel: N1
+  record_id: NOI-B2651A36
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 4195
+  scale: 100
+- packet_id: PKT-2B5CFC
+  channel: N1
+  record_id: NOI-DAC68A8F
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 5459
+  scale: 100
+- packet_id: PKT-2B5CFC
+  channel: T1
+  record_id: NOI-0EF82D08
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: Vendor-Nimbus
+  score: 87
+  penalty: 1
+- packet_id: PKT-2B5CFC
+  channel: T1
+  record_id: NOI-39FB2131
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: Vendor-Nimbus
+  score: 84
+  penalty: 4
+- packet_id: PKT-2B5CFC
+  channel: T1
+  record_id: NOI-CA40E7B0
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: Vendor-Orion
+  score: 88
+  penalty: 0
+- packet_id: PKT-2B5CFC
+  channel: T1
+  record_id: NOI-D92E475D
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: Vendor-Orion
+  score: 85
+  penalty: 3
+- packet_id: PKT-2B5CFC
+  channel: T1
+  record_id: NOI-FD617B53
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: Vendor-Kestrel
+  score: 86
+  penalty: 2
+- packet_id: PKT-49C790
+  channel: L1
+  record_id: NOI-0D6CEEAC
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: MATEXC-02-95
+- packet_id: PKT-49C790
+  channel: L1
+  record_id: NOI-536C9D64
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: MATEXC-02-29
+- packet_id: PKT-49C790
+  channel: L1
+  record_id: NOI-62B50058
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: MATEXC-02-75
+- packet_id: PKT-49C790
+  channel: L1
+  record_id: NOI-83747B02
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: MATEXC-02-98
+- packet_id: PKT-49C790
+  channel: L1
+  record_id: NOI-D16C4221
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: MATEXC-02-20
+- packet_id: PKT-49C790
+  channel: L2
+  record_id: NOI-188E833C
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: LATSHI-02-30
+- packet_id: PKT-49C790
+  channel: L2
+  record_id: NOI-4684C1E2
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: LATSHI-02-44
+- packet_id: PKT-49C790
+  channel: L2
+  record_id: NOI-92D6ED40
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: LATSHI-02-77
+- packet_id: PKT-49C790
+  channel: L2
+  record_id: NOI-B4D70F29
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: LATSHI-02-20
+- packet_id: PKT-49C790
+  channel: L2
+  record_id: NOI-E7738612
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: LATSHI-02-65
+- packet_id: PKT-49C790
+  channel: L3
+  record_id: NOI-50C5DFF9
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: RISSUP-02-86
+- packet_id: PKT-49C790
+  channel: L3
+  record_id: NOI-8D518831
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: RISSUP-02-31
+- packet_id: PKT-49C790
+  channel: L3
+  record_id: NOI-AEA4865E
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: RISSUP-02-40
+- packet_id: PKT-49C790
+  channel: L3
+  record_id: NOI-BBD0442A
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: RISSUP-02-18
+- packet_id: PKT-49C790
+  channel: L3
+  record_id: NOI-BE99723E
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: list_action
+  action: include
+  value: RISSUP-02-20
+- packet_id: PKT-49C790
+  channel: N1
+  record_id: NOI-18F3A387
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 5835
+  scale: 100
+- packet_id: PKT-49C790
+  channel: N1
+  record_id: NOI-28C7C49E
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 6385
+  scale: 100
+- packet_id: PKT-49C790
+  channel: N1
+  record_id: NOI-5D70B887
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 6981
+  scale: 100
+- packet_id: PKT-49C790
+  channel: N1
+  record_id: NOI-881E4F5D
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 8095
+  scale: 100
+- packet_id: PKT-49C790
+  channel: N1
+  record_id: NOI-E9597624
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: numeric_delta
+  operator: add
+  amount_minor: 5207
+  scale: 100
+- packet_id: PKT-49C790
+  channel: T1
+  record_id: NOI-10BFEE0D
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: Vendor-Orion
+  score: 85
+  penalty: 3
+- packet_id: PKT-49C790
+  channel: T1
+  record_id: NOI-93745E5F
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: Vendor-Orion
+  score: 88
+  penalty: 0
+- packet_id: PKT-49C790
+  channel: T1
+  record_id: NOI-9D0585B6
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: Vendor-Kestrel
+  score: 86
+  penalty: 2
+- packet_id: PKT-49C790
+  channel: T1
+  record_id: NOI-C1051851
+  status: draft
+  revision: 2
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: Vendor-Nimbus
+  score: 87
+  penalty: 1
+- packet_id: PKT-49C790
+  channel: T1
+  record_id: NOI-F5B135C1
+  status: final
+  revision: 1
+  note: decoy from unselected or invalid packet
+  kind: text_candidate
+  candidate: Vendor-Nimbus
+  score: 84
+  penalty: 4
+- channel: L1
+  kind: list_action
+  record_id: LST-3173B615
+  action: include
+  value: MATEXC-02-68
+  status: final
+  revision: 3
+  note: include unless a later remove or alias targets it
+  packet_id: PKT-69CF72
+- channel: L1
+  kind: list_action
+  record_id: LST-39B37388
+  action: include
+  value: MATEXC-02-65
+  status: final
+  revision: 3
+  note: include unless a later remove or alias targets it
+  packet_id: PKT-69CF72
+- channel: L1
+  kind: list_action
+  record_id: LST-3F1489D3
+  action: include
+  value: MATEXC-02-13
+  status: final
+  revision: 3
+  note: include unless a later remove or alias targets it
+  packet_id: PKT-69CF72
+- channel: L1
+  kind: list_action
+  record_id: LST-E590CE41
+  action: include
+  value: MATEXC-02-22
+  status: final
+  revision: 3
+  note: include unless a later remove or alias targets it
+  packet_id: PKT-69CF72
+- channel: L1
+  kind: list_action
+  record_id: LST-F0351E73
+  action: remove
+  target: MATEXC-02-DECOY
+  value: MATEXC-02-DECOY
+  status: final
+  revision: 3
+  note: remove this candidate if it appears in a lower revision
+  packet_id: PKT-69CF72
+- channel: L2
+  kind: list_action
+  record_id: LST-06E8E181
+  action: include
+  value: LATSHI-02-16
+  status: final
+  revision: 3
+  note: include unless a later remove or alias targets it
+  packet_id: PKT-69CF72
+- channel: L2
+  kind: list_action
+  record_id: LST-453D0326
+  action: remove
+  target: LATSHI-02-DECOY
+  value: LATSHI-02-DECOY
+  status: final
+  revision: 3
+  note: remove this candidate if it appears in a lower revision
+  packet_id: PKT-69CF72
+- channel: L2
+  kind: list_action
+  record_id: LST-6E0F644F
+  action: include
+  value: LATSHI-02-103
+  status: final
+  revision: 3
+  note: include unless a later remove or alias targets it
+  packet_id: PKT-69CF72
+- channel: L2
+  kind: list_action
+  record_id: LST-7B164A93
+  action: include
+  value: LATSHI-02-11
+  status: final
+  revision: 3
+  note: include unless a later remove or alias targets it
+  packet_id: PKT-69CF72
+- channel: L2
+  kind: list_action
+  record_id: LST-ED176683
+  action: include
+  value: LATSHI-02-30
+  status: final
+  revision: 3
+  note: include unless a later remove or alias targets it
+  packet_id: PKT-69CF72
+- channel: L3
+  kind: list_action
+  record_id: LST-1BE21B02
+  action: include
+  value: RISSUP-02-23
+  status: final
+  revision: 3
+  note: include unless a later remove or alias targets it
+  packet_id: PKT-69CF72
+- channel: L3
+  kind: list_action
+  record_id: LST-3A851BE5
+  action: remove
+  target: RISSUP-02-DECOY
+  value: RISSUP-02-DECOY
+  status: final
+  revision: 3
+  note: remove this candidate if it appears in a lower revision
+  packet_id: PKT-69CF72
+- channel: L3
+  kind: list_action
+  record_id: LST-5E9901AC
+  action: include
+  value: RISSUP-02-36
+  status: final
+  revision: 3
+  note: include unless a later remove or alias targets it
+  packet_id: PKT-69CF72
+- channel: L3
+  kind: list_action
+  record_id: LST-8B0F3A2A
+  action: include
+  value: RISSUP-02-75
+  status: final
+  revision: 3
+  note: include unless a later remove or alias targets it
+  packet_id: PKT-69CF72
+- channel: L3
+  kind: list_action
+  record_id: LST-E11B209B
+  action: include
+  value: RISSUP-02-60
+  status: final
+  revision: 3
+  note: include unless a later remove or alias targets it
+  packet_id: PKT-69CF72
+- channel: N1
+  kind: numeric_delta
+  record_id: NUM-4B0A5A56
+  operator: add
+  amount_minor: 2451
+  scale: 100
+  status: final
+  revision: 3
+  note: positive-control adjustment
+  packet_id: PKT-69CF72
+- channel: N1
+  kind: numeric_delta
+  record_id: NUM-56B3F168
+  operator: add
+  amount_minor: 632
+  scale: 100
+  status: final
+  revision: 3
+  note: apply signed amount_minor divided by scale
+  packet_id: PKT-69CF72
+- channel: N1
+  kind: numeric_delta
+  record_id: NUM-6D5F725D
+  operator: add
+  amount_minor: 329
+  scale: 100
+  status: final
+  revision: 3
+  note: apply signed amount_minor divided by scale
+  packet_id: PKT-69CF72
+- channel: N1
+  kind: numeric_delta
+  record_id: NUM-8854FF50
+  operator: subtract
+  amount_minor: 4475
+  scale: 100
+  status: final
+  revision: 3
+  note: apply signed amount_minor divided by scale
+  packet_id: PKT-69CF72
+- channel: N1
+  kind: numeric_delta
+  record_id: NUM-9AFE3194
+  operator: subtract
+  amount_minor: 314
+  scale: 100
+  status: final
+  revision: 3
+  note: apply signed amount_minor divided by scale
+  packet_id: PKT-69CF72
+- channel: N1
+  kind: numeric_delta
+  record_id: NUM-ACC5252F
+  operator: add
+  amount_minor: 2102
+  scale: 100
+  status: final
+  revision: 3
+  note: apply signed amount_minor divided by scale
+  packet_id: PKT-69CF72
+- channel: T1
+  kind: text_candidate
+  record_id: TXT-A21A39C7
+  candidate: Vendor-Kestrel
+  score: 86
+  penalty: 11
+  status: final
+  revision: 3
+  note: rank by score minus penalty; tie by candidate text
+  packet_id: PKT-69CF72
+- channel: T1
+  kind: text_candidate
+  record_id: TXT-AF148ADE
+  candidate: Vendor-Nimbus
+  score: 49
+  penalty: 4
+  status: final
+  revision: 3
+  note: rank by score minus penalty; tie by candidate text
+  packet_id: PKT-69CF72
+- channel: T1
+  kind: text_candidate
+  record_id: TXT-CFC6E295
+  candidate: Vendor-Orion
+  score: 81
+  penalty: 12
+  status: final
+  revision: 3
+  note: rank by score minus penalty; tie by candidate text
+  packet_id: PKT-69CF72
+rules_digest:
+  packet: approved, not superseded, valid checksum, then highest revision/source_weight
+  numeric: sum selected numeric_delta rows by signed amount_minor / scale
+  list: include/remove/alias selected list_action rows and sort final strings
+  dict: sum selected dict_delta rows by bucket and omit zero buckets
+  bool: true only when every selected boolean_gate observed equals expected
+  text: choose selected text_candidate with max score minus penalty

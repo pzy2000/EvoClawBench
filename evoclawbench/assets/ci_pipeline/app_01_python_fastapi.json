@@ -1,0 +1,30 @@
+{
+  "app_id": "app_01",
+  "name": "python-fastapi-service",
+  "language": "python",
+  "framework": "fastapi",
+  "python_version": "3.11",
+  "package_manager": "pip",
+  "dependencies_file": "requirements.txt",
+  "port": 8000,
+  "entry_point": "uvicorn app.main:app --host 0.0.0.0 --port 8000",
+  "test_command": "pytest tests/ -v --cov=app --cov-report=xml",
+  "lint_command": "ruff check app/ && mypy app/",
+  "build_context": ".",
+  "docker": {
+    "base_image": "python:3.11-slim",
+    "working_dir": "/app",
+    "non_root_user": "appuser",
+    "health_check": "GET /health",
+    "multi_stage": true
+  },
+  "ci": {
+    "trigger_branches": ["main", "develop"],
+    "trigger_on_pr": true,
+    "steps": ["lint", "test", "build", "push"],
+    "registry": "ghcr.io",
+    "image_name": "myorg/python-fastapi-service",
+    "deploy_on_branch": "main",
+    "deploy_command": "kubectl rollout restart deployment/python-fastapi-service -n production"
+  }
+}

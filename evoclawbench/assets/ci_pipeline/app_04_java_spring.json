@@ -1,0 +1,33 @@
+{
+  "app_id": "app_04",
+  "name": "java-spring-backend",
+  "language": "java",
+  "framework": "spring-boot",
+  "java_version": "17",
+  "package_manager": "maven",
+  "dependencies_file": "pom.xml",
+  "port": 8080,
+  "entry_point": "java -jar target/app.jar",
+  "build_command": "mvn clean package -DskipTests",
+  "test_command": "mvn test",
+  "lint_command": "mvn checkstyle:check",
+  "docker": {
+    "base_image_build": "maven:3.9-eclipse-temurin-17",
+    "base_image_run": "eclipse-temurin:17-jre-jammy",
+    "working_dir": "/app",
+    "non_root_user": "spring",
+    "health_check": "GET /actuator/health",
+    "multi_stage": true,
+    "jvm_opts": "-Xms256m -Xmx512m -XX:+UseContainerSupport"
+  },
+  "ci": {
+    "trigger_branches": ["main", "release/*"],
+    "trigger_on_pr": true,
+    "steps": ["test", "build", "push", "deploy"],
+    "registry": "docker.io",
+    "image_name": "myorg/java-spring-backend",
+    "deploy_on_branch": "main",
+    "deploy_command": "kubectl rollout restart deployment/java-spring-backend -n production",
+    "cache": ["~/.m2/repository"]
+  }
+}

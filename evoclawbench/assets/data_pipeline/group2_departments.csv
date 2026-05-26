@@ -1,0 +1,9 @@
+department_id,department_name,head_id,budget_usd,location,headcount
+DEPT-ENG,Engineering,MGR-001,5000000,SF,8
+DEPT-PROD,Product,MGR-002,2000000,SF,2
+DEPT-DES,Design,MGR-003,1500000,NYC,2
+DEPT-DATA,Data Science,MGR-004,2500000,NYC,2
+DEPT-SEC,Security,MGR-001,1200000,SF,1
+DEPT-MKT,Marketing,MGR-002,3000000,Chicago,1
+DEPT-QA,QA,MGR-001,800000,SF,1
+DEPT-OPS,DevOps,MGR-001,1800000,SF,1

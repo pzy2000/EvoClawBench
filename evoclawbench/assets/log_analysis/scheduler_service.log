@@ -1,0 +1,23 @@
+level=info ts=2024-03-15T10:23:45Z caller=scheduler.go:45 msg="scheduler service started" version=2.1.0
+level=info ts=2024-03-15T10:24:00Z caller=scheduler.go:78 msg="loaded job definitions" count=12
+level=info ts=2024-03-15T10:25:15Z caller=scheduler.go:102 msg="job started" job_id=cron-001 job_name="daily-backup"
+level=info ts=2024-03-15T10:26:30Z caller=scheduler.go:115 msg="job completed" job_id=cron-001 job_name="daily-backup" duration=75s
+level=warn ts=2024-03-15T10:27:05Z caller=scheduler.go:130 msg="job running longer than expected" job_id=cron-002 job_name="data-sync" elapsed=300s threshold=240s
+level=error ts=2024-03-15T10:28:22Z caller=scheduler.go:145 msg="job failed" job_id=cron-003 job_name="report-generation" error="database connection refused"
+level=info ts=2024-03-15T10:29:10Z caller=scheduler.go:102 msg="job started" job_id=cron-004 job_name="cache-cleanup"
+level=info ts=2024-03-15T10:30:00Z caller=scheduler.go:115 msg="job completed" job_id=cron-004 job_name="cache-cleanup" duration=50s
+level=warn ts=2024-03-15T10:31:18Z caller=scheduler.go:160 msg="job queue depth high" depth=25 threshold=20
+level=error ts=2024-03-15T10:32:33Z caller=scheduler.go:145 msg="job failed" job_id=cron-005 job_name="email-digest" error="SMTP server unreachable"
+level=info ts=2024-03-15T10:33:45Z caller=scheduler.go:102 msg="job started" job_id=cron-006 job_name="index-rebuild"
+level=info ts=2024-03-15T10:34:20Z caller=scheduler.go:175 msg="job retried" job_id=cron-003 job_name="report-generation" attempt=2
+level=error ts=2024-03-15T10:35:40Z caller=scheduler.go:145 msg="job failed" job_id=cron-003 job_name="report-generation" error="timeout after 60s" attempt=2
+level=warn ts=2024-03-15T10:36:55Z caller=scheduler.go:190 msg="disk usage high on job artifact storage" usage_pct=85 threshold_pct=80
+level=info ts=2024-03-15T10:37:10Z caller=scheduler.go:115 msg="job completed" job_id=cron-006 job_name="index-rebuild" duration=205s
+level=info ts=2024-03-15T10:38:22Z caller=scheduler.go:102 msg="job started" job_id=cron-007 job_name="metrics-aggregation"
+level=error ts=2024-03-15T10:39:35Z caller=scheduler.go:145 msg="job failed" job_id=cron-007 job_name="metrics-aggregation" error="out of memory: requested 2GB, available 512MB"
+level=warn ts=2024-03-15T10:40:15Z caller=scheduler.go:200 msg="cron expression parse warning" job_id=cron-008 expression="*/5 * * * * *" detail="6-field cron not standard"
+level=info ts=2024-03-15T10:41:30Z caller=scheduler.go:210 msg="dead letter queue processed" messages=3
+level=info ts=2024-03-15T10:42:00Z caller=scheduler.go:220 msg="health check passed" uptime=1095s jobs_running=2
+level=warn ts=2024-03-15T10:42:48Z caller=scheduler.go:230 msg="synthetic job failed as expected" job_id=cron-canary expected_failure=true
+level=error ts=2024-03-15T10:43:13Z caller=scheduler.go:145 msg="correlated refund reconciliation job failed" job_id=cron-901 request_id=req-901 order_id=ord-901 error="payment webhook unresolved"
+level=error ts=2024-03-15T10:43:28Z caller=scheduler.go:145 msg="correlated refund reconciliation retry failed" job_id=cron-901 request_id=req-901 attempt=1 error="auth nonce mismatch persisted"

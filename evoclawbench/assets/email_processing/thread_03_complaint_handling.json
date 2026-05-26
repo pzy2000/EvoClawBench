@@ -1,0 +1,35 @@
+{
+  "thread_id": "thread_03",
+  "subject": "投诉：产品质量问题及退货申请 - 订单 ORD-20240301-8821",
+  "participants": [
+    {"name": "林小慧", "email": "lin.xiaohui@customer.com", "role": "customer"},
+    {"name": "客服中心", "email": "service@ecommerce-platform.com", "role": "support"},
+    {"name": "质检部", "email": "qc@ecommerce-platform.com", "role": "internal"}
+  ],
+  "messages": [
+    {
+      "from": "lin.xiaohui@customer.com",
+      "to": "service@ecommerce-platform.com",
+      "date": "2024-03-10T20:14:00+08:00",
+      "body": "你好，\n\n我于3月1日在贵平台购买了一台「极光Pro无线蓝牙耳机」（订单号 ORD-20240301-8821，实付 ¥459），收货后发现以下问题：\n1. 左耳音量明显小于右耳，音量不平衡\n2. 充电盒盖子有明显划痕，疑似翻新品\n3. 产品内包装已开封痕迹\n\n我认为这是一个严重的质量问题，要求：全额退款 + 赔偿50元购物券。\n\n如7日内无法解决，我将向消费者协会投诉。\n\n林小慧"
+    },
+    {
+      "from": "service@ecommerce-platform.com",
+      "to": "lin.xiaohui@customer.com",
+      "date": "2024-03-11T09:30:00+08:00",
+      "body": "尊敬的林小慧女士，\n\n非常抱歉您遇到此类问题！收到您的反馈后，我们已将此订单标记为优先处理。\n\n为了快速为您解决问题，需要您配合提供：\n1. 产品开箱视频或图片（清晰展示划痕和开封痕迹）\n2. 产品SN码（位于耳机背面或充电盒底部）\n\n请在48小时内将相关材料回复至本邮件，我们会在收到材料后24小时内给出处理方案。\n\n再次为给您带来的不便致歉！\n\n客服专员 小李\n客服中心"
+    },
+    {
+      "from": "lin.xiaohui@customer.com",
+      "to": "service@ecommerce-platform.com",
+      "date": "2024-03-11T21:05:00+08:00",
+      "body": "材料已通过附件发送。SN码：AX2024BT-L88921。\n\n另外，请问我的赔偿购物券申请是否会被批准？\n\n林小慧"
+    },
+    {
+      "from": "service@ecommerce-platform.com",
+      "to": "lin.xiaohui@customer.com",
+      "date": "2024-03-12T14:00:00+08:00",
+      "body": "林小慧女士，\n\n经核实，您反映的情况属实，该批次产品确实存在质检疏漏。我们的处理方案：\n\n1. 全额退款 ¥459，预计3个工作日内退回原支付账户\n2. 额外补偿 ¥80 平台购物券（已超出您要求的¥50）\n3. 无需退货\n\n再次为您的不良体验深表歉意！\n\n客服主管 王华\n客服中心"
+    }
+  ]
+}

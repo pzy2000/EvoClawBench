@@ -1,0 +1,65 @@
+{
+  "app_name": "data-exporter",
+  "description": "Scheduled data export pipeline to S3 / object storage",
+  "output_format": "yaml",
+  "base_config": {
+    "schedule": {
+      "cron": "0 2 * * *",
+      "timezone": "Asia/Shanghai",
+      "enabled": true
+    },
+    "source": {
+      "driver": "postgresql",
+      "host": "db.internal",
+      "port": 5432,
+      "name": "analytics",
+      "query_timeout_seconds": 300
+    },
+    "destination": {
+      "type": "s3",
+      "bucket": "company-data-exports",
+      "prefix": "exports/",
+      "region": "cn-north-1",
+      "format": "parquet",
+      "compression": "snappy"
+    },
+    "export_jobs": [
+      {"name": "daily_orders", "table": "orders", "incremental": true, "date_column": "created_at"},
+      {"name": "daily_users",  "table": "users",  "incremental": true, "date_column": "updated_at"}
+    ],
+    "alerting": {
+      "on_failure": true,
+      "webhook_url": "https://hooks.company.com/alerts/data-export",
+      "slack_channel": "#data-alerts"
+    },
+    "logging": {
+      "level": "INFO",
+      "format": "json"
+    }
+  },
+  "environment_overrides": {
+    "dev": {
+      "schedule.enabled": false,
+      "source.host": "localhost",
+      "destination.bucket": "dev-data-exports",
+      "destination.prefix": "dev-exports/",
+      "destination.format": "csv",
+      "destination.compression": "none",
+      "alerting.on_failure": false,
+      "logging.level": "DEBUG"
+    },
+    "staging": {
+      "schedule.cron": "0 3 * * *",
+      "source.name": "analytics_staging",
+      "destination.bucket": "staging-data-exports",
+      "destination.prefix": "staging-exports/",
+      "alerting.slack_channel": "#data-alerts-staging"
+    },
+    "prod": {
+      "schedule.cron": "0 2 * * *",
+      "source.query_timeout_seconds": 600,
+      "destination.compression": "gzip",
+      "logging.level": "WARN"
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "summaries": [
+    {
+      "amortized_ratio_vs_direct": {
+        "postskill": {
+          "1": {
+            "total_cost_usd": 1.636,
+            "total_execution_time_seconds": 1.3631,
+            "total_tokens": 1.9855
+          },
+          "10": {
+            "total_cost_usd": 1.1788,
+            "total_execution_time_seconds": 0.9822,
+            "total_tokens": 1.4561
+          },
+          "2": {
+            "total_cost_usd": 1.4497,
+            "total_execution_time_seconds": 1.2079,
+            "total_tokens": 1.7698
+          },
+          "5": {
+            "total_cost_usd": 1.2634,
+            "total_execution_time_seconds": 1.0528,
+            "total_tokens": 1.5541
+          }
+        },
+        "preskill": {
+          "1": {
+            "total_cost_usd": 2.9685,
+            "total_execution_time_seconds": 2.2548,
+            "total_tokens": 3.639
+          },
+          "10": {
+            "total_cost_usd": 1.4271,
+            "total_execution_time_seconds": 1.0344,
+            "total_tokens": 1.635
+          },
+          "2": {
+            "total_cost_usd": 2.1122,
+            "total_execution_time_seconds": 1.5768,
+            "total_tokens": 2.5257
+          },
+          "5": {
+            "total_cost_usd": 1.5984,
+            "total_execution_time_seconds": 1.17,
+            "total_tokens": 1.8577
+          }
+        }
+      },
+      "break_even_reuse_count": {
+        "postskill": {
+          "total_cost_usd": null,
+          "total_execution_time_seconds": 9,
+          "total_tokens": null
+        },
+        "preskill": {
+          "total_cost_usd": null,
+          "total_execution_time_seconds": 14,
+          "total_tokens": null
+        }
+      },
+      "cost_rows": [
+        {
+          "delta_score_pct": 0.0,
+          "delta_score_per_1m_extra_tokens": null,
+          "mode": "baseline",
+          "request_count": 84,
+          "score_pct": 80.96,
+          "total_cost_usd": 1.261524,
+          "total_time_hours": 0.305,
+          "total_tokens": 1942737
+        },
+        {
+          "delta_score_pct": -1.19,
+          "delta_score_per_1m_extra_tokens": -0.2321,
+          "mode": "preskill",
+          "request_count": 270,
+          "score_pct": 79.77,
+          "total_cost_usd": 3.74489,
+          "total_time_hours": 0.689,
+          "total_tokens": 7069653
+        },
+        {
+          "delta_score_pct": -1.75,
+          "delta_score_per_1m_extra_tokens": -0.3032,
+          "mode": "postskill",
+          "request_count": 306,
+          "score_pct": 79.21,
+          "total_cost_usd": 4.127618,
+          "total_time_hours": 0.833,
+          "total_tokens": 7714592
+        }
+      ],
+      "judge_model": "openai/MiniMax/MiniMax-M2.7",
+      "mode": "all",
+      "model": "openai/gpt-5.4-mini",
+      "notes": [
+        "Postskill amortization gives one baseline-credit for the first execution phase.",
+        "Cost break-even is unavailable when source usage has zero or unknown USD cost."
+      ],
+      "runtime": "openclaw",
+      "source_json": "results/paper_subset_experiments/0001_openai-gpt-5-4-mini_openclaw.json",
+      "tasks": 12
+    }
+  ]
+}

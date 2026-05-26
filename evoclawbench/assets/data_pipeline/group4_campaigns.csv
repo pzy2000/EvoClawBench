@@ -1,0 +1,6 @@
+campaign_id,campaign_name,channel,budget_usd,spend_usd,impressions,clicks,start_date,end_date,target_audience
+CAM-001,Q1 Google Search,google_search,15000,12450,450000,8900,2024-01-01,2024-03-31,developers
+CAM-002,LinkedIn B2B,linkedin,8000,7800,95000,1200,2024-01-15,2024-03-15,enterprise_buyers
+CAM-003,Twitter Tech,twitter,5000,4200,280000,3500,2024-02-01,2024-02-29,tech_enthusiasts
+CAM-004,Retargeting,google_display,3000,2800,180000,2100,2024-01-01,2024-03-31,website_visitors
+CAM-005,Content SEO,organic,0,0,820000,15600,2024-01-01,2024-03-31,all

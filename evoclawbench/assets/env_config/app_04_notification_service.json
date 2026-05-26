@@ -1,0 +1,63 @@
+{
+  "app_name": "notification-service",
+  "description": "Multi-channel notification dispatcher (email, SMS, push)",
+  "output_format": "yaml",
+  "base_config": {
+    "server": {
+      "port": 8088,
+      "workers": 2
+    },
+    "email": {
+      "provider": "smtp",
+      "host": "smtp.company.com",
+      "port": 587,
+      "use_tls": true,
+      "from_address": "noreply@company.com",
+      "rate_limit_per_minute": 500
+    },
+    "sms": {
+      "provider": "twilio",
+      "api_base": "https://api.twilio.com",
+      "rate_limit_per_minute": 100
+    },
+    "push": {
+      "provider": "fcm",
+      "api_base": "https://fcm.googleapis.com",
+      "batch_size": 500
+    },
+    "queue": {
+      "backend": "redis",
+      "host": "redis.internal",
+      "port": 6379,
+      "db": 2
+    },
+    "logging": {
+      "level": "INFO",
+      "format": "json"
+    }
+  },
+  "environment_overrides": {
+    "dev": {
+      "email.host": "localhost",
+      "email.port": 1025,
+      "email.use_tls": false,
+      "email.from_address": "dev-noreply@localhost",
+      "sms.api_base": "http://localhost:4010/mock/twilio",
+      "push.api_base": "http://localhost:4010/mock/fcm",
+      "queue.host": "localhost",
+      "logging.level": "DEBUG"
+    },
+    "staging": {
+      "email.from_address": "noreply@staging.company.com",
+      "email.rate_limit_per_minute": 50,
+      "sms.api_base": "https://api.twilio.com/staging",
+      "logging.level": "DEBUG"
+    },
+    "prod": {
+      "server.workers": 4,
+      "email.rate_limit_per_minute": 1000,
+      "sms.rate_limit_per_minute": 500,
+      "push.batch_size": 1000
+    }
+  }
+}

@@ -1,0 +1,21 @@
+txn_id,account_id,txn_type,amount,currency,txn_date,merchant,category,status
+TXN-1001,ACC-201,debit,45.50,USD,2024-01-05,Amazon,Shopping,completed
+TXN-1002,ACC-202,debit,1250.00,USD,2024-01-06,Rent Payment,Housing,completed
+TXN-1003,ACC-203,credit,3500.00,USD,2024-01-07,Payroll,Income,completed
+TXN-1004,ACC-201,debit,89.99,USD,2024-01-08,Netflix,Entertainment,completed
+TXN-1005,ACC-204,debit,8500.00,USD,2024-01-09,Wire Transfer,Transfer,flagged
+TXN-1006,ACC-202,debit,62.40,USD,2024-01-10,Whole Foods,Groceries,completed
+TXN-1007,ACC-203,debit,199.99,USD,2024-01-12,Apple Store,Electronics,completed
+TXN-1008,ACC-205,debit,15000.00,USD,2024-01-13,International Wire,Transfer,flagged
+TXN-1009,ACC-201,credit,500.00,USD,2024-01-15,Tax Refund,Income,completed
+TXN-1010,ACC-204,debit,3200.00,USD,2024-01-16,Car Repair,Automotive,completed
+TXN-1011,ACC-202,debit,125.00,USD,2024-01-18,Restaurant,Dining,completed
+TXN-1012,ACC-203,debit,450.00,USD,2024-01-20,Gym Membership,Health,completed
+TXN-1013,ACC-205,debit,78.00,USD,2024-01-22,Gas Station,Transportation,completed
+TXN-1014,ACC-201,debit,9999.99,USD,2024-01-23,Unknown Merchant,Other,flagged
+TXN-1015,ACC-204,credit,4500.00,USD,2024-01-25,Freelance Payment,Income,completed
+TXN-1016,ACC-202,debit,34.99,USD,2024-01-28,Spotify,Entertainment,completed
+TXN-1017,ACC-203,debit,256.00,USD,2024-01-30,Pharmacy,Health,completed
+TXN-1018,ACC-205,debit,1800.00,USD,2024-02-01,Electronics Store,Electronics,completed
+TXN-1019,ACC-201,debit,5500.00,USD,2024-02-03,Jewelry Store,Shopping,flagged
+TXN-1020,ACC-204,debit,92.50,USD,2024-02-05,Coffee Shop,Dining,completed

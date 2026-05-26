@@ -1,0 +1,5 @@
+flag_id,txn_id,account_id,flag_reason,risk_score,flagged_at,reviewed_by,outcome
+FLAG-001,TXN-1005,ACC-204,Unusual wire transfer amount,85,2024-01-09T14:30:00,analyst_01,investigating
+FLAG-002,TXN-1008,ACC-205,International transfer exceeds threshold,92,2024-01-13T09:15:00,analyst_02,confirmed_fraud
+FLAG-003,TXN-1014,ACC-201,Unknown merchant high value,78,2024-01-23T16:45:00,analyst_01,false_positive
+FLAG-004,TXN-1019,ACC-201,Unusual category for account,72,2024-02-03T11:00:00,analyst_03,investigating

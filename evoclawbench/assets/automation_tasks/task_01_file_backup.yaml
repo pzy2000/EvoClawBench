@@ -1,0 +1,24 @@
+task_id: task_01_file_backup
+name: Scheduled File Backup
+description: |
+  Create a shell script that performs scheduled incremental backups of a source
+  directory to a destination directory.
+
+requirements:
+  - source_dir: /var/app/data
+  - dest_dir: /mnt/backups
+  - schedule: daily at 02:30 AM
+  - retention_days: 14
+  - backup_format: tar.gz with timestamp in filename (e.g., backup_20240320_023000.tar.gz)
+  - incremental: only backup files modified in the last 24 hours
+  - logging: append each run's result to /var/log/backup.log (timestamp + success/failure + file count)
+  - notification: echo a summary line to stdout on completion
+
+constraints:
+  - must work on Linux (bash)
+  - must not fail silently; exit with code 1 on errors
+  - cron expression must be included as a comment in the script
+
+expected_output:
+  script_file: outputs/file_backup.sh
+  readme_file: outputs/file_backup_readme.md

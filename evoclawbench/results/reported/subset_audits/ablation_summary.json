@@ -1,0 +1,536 @@
+{
+  "benchmark": "evoclawbench",
+  "experiment": "skill_content_ablation_subset",
+  "judge_model": "openai/MiniMax/MiniMax-M2.7",
+  "model": "openai/gpt-5.4-mini",
+  "run_id": "0002",
+  "runtime": "openclaw",
+  "summary": {
+    "task_rows": [
+      {
+        "created_skill_count": 0,
+        "notes": "",
+        "score": 0.2545,
+        "skill_quality_score": 0.0,
+        "task_id": "task_02_log_analysis",
+        "usage": {
+          "cache_read_tokens": 220544,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.0720003,
+          "input_tokens": 36002,
+          "output_tokens": 6324,
+          "request_count": 11,
+          "total_cost_usd": 0.0720003,
+          "total_execution_time_seconds": 78.46156907081604,
+          "total_tokens": 262870
+        },
+        "variant": "baseline"
+      },
+      {
+        "created_skill_count": 1,
+        "notes": "",
+        "score": 0.324,
+        "skill_quality_score": 0.7,
+        "task_id": "task_02_log_analysis",
+        "usage": {
+          "cache_read_tokens": 711808,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.18028485,
+          "input_tokens": 69617,
+          "output_tokens": 16597,
+          "request_count": 25,
+          "total_cost_usd": 0.18028485,
+          "total_execution_time_seconds": 203.4294080734253,
+          "total_tokens": 798022
+        },
+        "variant": "preskill_normal"
+      },
+      {
+        "created_skill_count": 1,
+        "notes": "",
+        "score": 0.3618,
+        "skill_quality_score": 0.0,
+        "task_id": "task_02_log_analysis",
+        "usage": {
+          "cache_read_tokens": 84096,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.0476877,
+          "input_tokens": 22966,
+          "output_tokens": 5368,
+          "request_count": 5,
+          "total_cost_usd": 0.0476877,
+          "total_execution_time_seconds": 62.61117124557495,
+          "total_tokens": 112430
+        },
+        "variant": "empty_skill_reuse"
+      },
+      {
+        "created_skill_count": 1,
+        "notes": "",
+        "score": 0.414,
+        "skill_quality_score": 0.0,
+        "task_id": "task_02_log_analysis",
+        "usage": {
+          "cache_read_tokens": 296576,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.07482794999999999,
+          "input_tokens": 24897,
+          "output_tokens": 7536,
+          "request_count": 13,
+          "total_cost_usd": 0.07482794999999999,
+          "total_execution_time_seconds": 93.08025598526001,
+          "total_tokens": 329009
+        },
+        "variant": "irrelevant_skill_reuse"
+      },
+      {
+        "created_skill_count": 1,
+        "notes": "",
+        "score": 0.5038,
+        "skill_quality_score": 0.7,
+        "task_id": "task_02_log_analysis",
+        "usage": {
+          "cache_read_tokens": 456448,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.16752360000000002,
+          "input_tokens": 81690,
+          "output_tokens": 16005,
+          "request_count": 22,
+          "total_cost_usd": 0.16752360000000002,
+          "total_execution_time_seconds": 202.1642210483551,
+          "total_tokens": 554143
+        },
+        "variant": "postskill_normal"
+      },
+      {
+        "created_skill_count": 0,
+        "notes": "Ran postskill first and summary phases, then discarded generated skills.",
+        "score": 0.392,
+        "skill_quality_score": 0.0,
+        "task_id": "task_02_log_analysis",
+        "usage": {
+          "cache_read_tokens": 415872,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.14970465,
+          "input_tokens": 70461,
+          "output_tokens": 14593,
+          "request_count": 21,
+          "total_cost_usd": 0.14970465,
+          "total_execution_time_seconds": 192.42863011360168,
+          "total_tokens": 500926
+        },
+        "variant": "postskill_summary_no_skill"
+      },
+      {
+        "created_skill_count": 0,
+        "notes": "",
+        "score": 0.725,
+        "skill_quality_score": 0.0,
+        "task_id": "task_07_doc_extraction",
+        "usage": {
+          "cache_read_tokens": 138624,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.06023204999999999,
+          "input_tokens": 21477,
+          "output_tokens": 7495,
+          "request_count": 7,
+          "total_cost_usd": 0.06023204999999999,
+          "total_execution_time_seconds": 75.40678071975708,
+          "total_tokens": 167596
+        },
+        "variant": "baseline"
+      },
+      {
+        "created_skill_count": 1,
+        "notes": "",
+        "score": 0.8333,
+        "skill_quality_score": 0.7,
+        "task_id": "task_07_doc_extraction",
+        "usage": {
+          "cache_read_tokens": 669952,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.18571214999999996,
+          "input_tokens": 66597,
+          "output_tokens": 19004,
+          "request_count": 26,
+          "total_cost_usd": 0.18571214999999996,
+          "total_execution_time_seconds": 196.50838828086853,
+          "total_tokens": 755553
+        },
+        "variant": "preskill_normal"
+      },
+      {
+        "created_skill_count": 1,
+        "notes": "",
+        "score": 0.69,
+        "skill_quality_score": 0.0,
+        "task_id": "task_07_doc_extraction",
+        "usage": {
+          "cache_read_tokens": 215808,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.06691185,
+          "input_tokens": 22089,
+          "output_tokens": 7591,
+          "request_count": 10,
+          "total_cost_usd": 0.06691185,
+          "total_execution_time_seconds": 76.35374903678894,
+          "total_tokens": 245488
+        },
+        "variant": "empty_skill_reuse"
+      },
+      {
+        "created_skill_count": 1,
+        "notes": "",
+        "score": 0.7,
+        "skill_quality_score": 0.0,
+        "task_id": "task_07_doc_extraction",
+        "usage": {
+          "cache_read_tokens": 266240,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.07164825,
+          "input_tokens": 23193,
+          "output_tokens": 7619,
+          "request_count": 12,
+          "total_cost_usd": 0.07164825,
+          "total_execution_time_seconds": 83.40783882141113,
+          "total_tokens": 297052
+        },
+        "variant": "irrelevant_skill_reuse"
+      },
+      {
+        "created_skill_count": 1,
+        "notes": "",
+        "score": 0.5483,
+        "skill_quality_score": 0.7,
+        "task_id": "task_07_doc_extraction",
+        "usage": {
+          "cache_read_tokens": 790784,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.23170905000000003,
+          "input_tokens": 81835,
+          "output_tokens": 24672,
+          "request_count": 34,
+          "total_cost_usd": 0.23170905000000003,
+          "total_execution_time_seconds": 255.02978682518005,
+          "total_tokens": 897291
+        },
+        "variant": "postskill_normal"
+      },
+      {
+        "created_skill_count": 0,
+        "notes": "Ran postskill first and summary phases, then discarded generated skills.",
+        "score": 0.4083,
+        "skill_quality_score": 0.0,
+        "task_id": "task_07_doc_extraction",
+        "usage": {
+          "cache_read_tokens": 839680,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.22964625000000002,
+          "input_tokens": 78245,
+          "output_tokens": 23997,
+          "request_count": 36,
+          "total_cost_usd": 0.22964625000000002,
+          "total_execution_time_seconds": 254.73097109794617,
+          "total_tokens": 941922
+        },
+        "variant": "postskill_summary_no_skill"
+      },
+      {
+        "created_skill_count": 0,
+        "notes": "",
+        "score": 0.19,
+        "skill_quality_score": 0.0,
+        "task_id": "task_15_shell_automation",
+        "usage": {
+          "cache_read_tokens": 201984,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.0700848,
+          "input_tokens": 27180,
+          "output_tokens": 7678,
+          "request_count": 10,
+          "total_cost_usd": 0.0700848,
+          "total_execution_time_seconds": 82.4921362400055,
+          "total_tokens": 236842
+        },
+        "variant": "baseline"
+      },
+      {
+        "created_skill_count": 1,
+        "notes": "",
+        "score": 0.174,
+        "skill_quality_score": 0.7,
+        "task_id": "task_15_shell_automation",
+        "usage": {
+          "cache_read_tokens": 670976,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.1800717,
+          "input_tokens": 60210,
+          "output_tokens": 18798,
+          "request_count": 30,
+          "total_cost_usd": 0.1800717,
+          "total_execution_time_seconds": 208.64592289924622,
+          "total_tokens": 749984
+        },
+        "variant": "preskill_normal"
+      },
+      {
+        "created_skill_count": 1,
+        "notes": "",
+        "score": 0.9413,
+        "skill_quality_score": 0.0,
+        "task_id": "task_15_shell_automation",
+        "usage": {
+          "cache_read_tokens": 83072,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.056469899999999996,
+          "input_tokens": 22370,
+          "output_tokens": 7436,
+          "request_count": 5,
+          "total_cost_usd": 0.056469899999999996,
+          "total_execution_time_seconds": 65.4957001209259,
+          "total_tokens": 112878
+        },
+        "variant": "empty_skill_reuse"
+      },
+      {
+        "created_skill_count": 1,
+        "notes": "",
+        "score": 0.16,
+        "skill_quality_score": 0.0,
+        "task_id": "task_15_shell_automation",
+        "usage": {
+          "cache_read_tokens": 157184,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.06151079999999999,
+          "input_tokens": 28286,
+          "output_tokens": 6335,
+          "request_count": 8,
+          "total_cost_usd": 0.06151079999999999,
+          "total_execution_time_seconds": 71.14091229438782,
+          "total_tokens": 191805
+        },
+        "variant": "irrelevant_skill_reuse"
+      },
+      {
+        "created_skill_count": 1,
+        "notes": "",
+        "score": 0.176,
+        "skill_quality_score": 0.7,
+        "task_id": "task_15_shell_automation",
+        "usage": {
+          "cache_read_tokens": 633600,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.27692325,
+          "input_tokens": 137775,
+          "output_tokens": 28016,
+          "request_count": 30,
+          "total_cost_usd": 0.27692325,
+          "total_execution_time_seconds": 266.87429308891296,
+          "total_tokens": 799391
+        },
+        "variant": "postskill_normal"
+      },
+      {
+        "created_skill_count": 0,
+        "notes": "Ran postskill first and summary phases, then discarded generated skills.",
+        "score": 0.2,
+        "skill_quality_score": 0.0,
+        "task_id": "task_15_shell_automation",
+        "usage": {
+          "cache_read_tokens": 479104,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.2431803,
+          "input_tokens": 111768,
+          "output_tokens": 27427,
+          "request_count": 23,
+          "total_cost_usd": 0.2431803,
+          "total_execution_time_seconds": 251.6083538532257,
+          "total_tokens": 618299
+        },
+        "variant": "postskill_summary_no_skill"
+      },
+      {
+        "created_skill_count": 0,
+        "notes": "",
+        "score": 1.0,
+        "skill_quality_score": 0.0,
+        "task_id": "task_21_metrics_anomaly",
+        "usage": {
+          "cache_read_tokens": 112512,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.033246899999999996,
+          "input_tokens": 17406,
+          "output_tokens": 2612,
+          "request_count": 7,
+          "total_cost_usd": 0.033246899999999996,
+          "total_execution_time_seconds": 50.624958992004395,
+          "total_tokens": 132530
+        },
+        "variant": "baseline"
+      },
+      {
+        "created_skill_count": 1,
+        "notes": "",
+        "score": 1.0,
+        "skill_quality_score": 0.7,
+        "task_id": "task_21_metrics_anomaly",
+        "usage": {
+          "cache_read_tokens": 437376,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.11218845,
+          "input_tokens": 49819,
+          "output_tokens": 9338,
+          "request_count": 21,
+          "total_cost_usd": 0.11218845,
+          "total_execution_time_seconds": 162.255756855011,
+          "total_tokens": 496533
+        },
+        "variant": "preskill_normal"
+      },
+      {
+        "created_skill_count": 1,
+        "notes": "",
+        "score": 0.97,
+        "skill_quality_score": 0.0,
+        "task_id": "task_21_metrics_anomaly",
+        "usage": {
+          "cache_read_tokens": 55296,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.0250842,
+          "input_tokens": 15994,
+          "output_tokens": 1987,
+          "request_count": 4,
+          "total_cost_usd": 0.0250842,
+          "total_execution_time_seconds": 42.306488037109375,
+          "total_tokens": 73277
+        },
+        "variant": "empty_skill_reuse"
+      },
+      {
+        "created_skill_count": 1,
+        "notes": "",
+        "score": 0.9565,
+        "skill_quality_score": 0.0,
+        "task_id": "task_21_metrics_anomaly",
+        "usage": {
+          "cache_read_tokens": 83584,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.03263730000000001,
+          "input_tokens": 19894,
+          "output_tokens": 2544,
+          "request_count": 5,
+          "total_cost_usd": 0.03263730000000001,
+          "total_execution_time_seconds": 48.96766686439514,
+          "total_tokens": 106022
+        },
+        "variant": "irrelevant_skill_reuse"
+      },
+      {
+        "created_skill_count": 1,
+        "notes": "",
+        "score": 1.0,
+        "skill_quality_score": 0.7,
+        "task_id": "task_21_metrics_anomaly",
+        "usage": {
+          "cache_read_tokens": 449792,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.1340304,
+          "input_tokens": 77964,
+          "output_tokens": 9294,
+          "request_count": 22,
+          "total_cost_usd": 0.1340304,
+          "total_execution_time_seconds": 170.58728075027466,
+          "total_tokens": 537050
+        },
+        "variant": "postskill_normal"
+      },
+      {
+        "created_skill_count": 0,
+        "notes": "Ran postskill first and summary phases, then discarded generated skills.",
+        "score": 1.0,
+        "skill_quality_score": 0.0,
+        "task_id": "task_21_metrics_anomaly",
+        "usage": {
+          "cache_read_tokens": 444160,
+          "cache_write_tokens": 0,
+          "cost_usd": 0.12074025,
+          "input_tokens": 72579,
+          "output_tokens": 7332,
+          "request_count": 22,
+          "total_cost_usd": 0.12074025,
+          "total_execution_time_seconds": 159.55734992027283,
+          "total_tokens": 524071
+        },
+        "variant": "postskill_summary_no_skill"
+      }
+    ],
+    "variants": {
+      "baseline": {
+        "created_skill_count": 0,
+        "mean_delta_vs_baseline_pct": 0.0,
+        "mean_score_pct": 54.24,
+        "request_count": 35,
+        "task_count": 4,
+        "total_cost_usd": 0.235564,
+        "total_time_hours": 0.08,
+        "total_tokens": 799838
+      },
+      "empty_skill_reuse": {
+        "created_skill_count": 4,
+        "mean_delta_vs_baseline_pct": 19.84,
+        "mean_score_pct": 74.08,
+        "request_count": 24,
+        "task_count": 4,
+        "total_cost_usd": 0.196154,
+        "total_time_hours": 0.069,
+        "total_tokens": 544073
+      },
+      "irrelevant_skill_reuse": {
+        "created_skill_count": 4,
+        "mean_delta_vs_baseline_pct": 1.52,
+        "mean_score_pct": 55.76,
+        "request_count": 38,
+        "task_count": 4,
+        "total_cost_usd": 0.240624,
+        "total_time_hours": 0.082,
+        "total_tokens": 923888
+      },
+      "postskill_normal": {
+        "created_skill_count": 4,
+        "mean_delta_vs_baseline_pct": 1.47,
+        "mean_score_pct": 55.7,
+        "request_count": 108,
+        "task_count": 4,
+        "total_cost_usd": 0.810186,
+        "total_time_hours": 0.249,
+        "total_tokens": 2787875
+      },
+      "postskill_summary_no_skill": {
+        "created_skill_count": 0,
+        "mean_delta_vs_baseline_pct": -4.23,
+        "mean_score_pct": 50.01,
+        "request_count": 102,
+        "task_count": 4,
+        "total_cost_usd": 0.743271,
+        "total_time_hours": 0.238,
+        "total_tokens": 2585218
+      },
+      "preskill_normal": {
+        "created_skill_count": 4,
+        "mean_delta_vs_baseline_pct": 4.05,
+        "mean_score_pct": 58.28,
+        "request_count": 102,
+        "task_count": 4,
+        "total_cost_usd": 0.658257,
+        "total_time_hours": 0.214,
+        "total_tokens": 2800092
+      }
+    }
+  },
+  "tasks": [
+    "task_02_log_analysis",
+    "task_07_doc_extraction",
+    "task_15_shell_automation",
+    "task_21_metrics_anomaly"
+  ]
+}

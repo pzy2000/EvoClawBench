@@ -1,0 +1,21 @@
+{
+  "scheduler.name": "TaskScheduler",
+  "scheduler.enabled": true,
+  "scheduler.max_concurrent": 5,
+  "scheduler.missed_job_policy": "run_once",
+  "jobs.cleanup_interval": 3600,
+  "jobs.max_runtime_seconds": 7200,
+  "jobs.log_output": true,
+  "jobs.default_priority": 5,
+  "db.host": "db-scheduler.internal",
+  "db.port": 5432,
+  "db.name": "scheduler_db",
+  "db.connection_timeout": 10.0,
+  "notification.enabled": true,
+  "notification.channels": ["email", "slack"],
+  "notification.on_failure": true,
+  "notification.on_success": false,
+  "notification.email_recipients": ["ops@example.com", "dev-alerts@example.com"],
+  "timezone.default": "UTC",
+  "timezone.display": "America/New_York"
+}

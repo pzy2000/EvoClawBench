@@ -1,0 +1,28 @@
+{
+  "thread_id": "thread_04",
+  "subject": "邀请参加：2024年Q1业务复盘暨Q2规划会议",
+  "participants": [
+    {"name": "人力资源部", "email": "hr@company-internal.com", "role": "organizer"},
+    {"name": "全体部门负责人", "email": "all-managers@company-internal.com", "role": "recipients"}
+  ],
+  "messages": [
+    {
+      "from": "hr@company-internal.com",
+      "to": "all-managers@company-internal.com",
+      "date": "2024-03-15T10:00:00+08:00",
+      "body": "各位部门负责人，\n\n定于2024年3月29日（周五）14:00-17:30召开「2024年Q1业务复盘暨Q2规划会议」，请各位确认参会。\n\n会议信息：\n- 时间：3月29日 14:00-17:30\n- 地点：总部大楼3楼多功能厅\n- 视频接入：腾讯会议 ID 855-112-3399，密码 2024q1\n\n议程安排：\n14:00-15:00  各部门Q1业绩汇报（每部门8分钟）\n15:00-15:15  茶歇\n15:15-16:30  Q2战略目标解读（CEO主讲）\n16:30-17:15  Q2部门目标讨论\n17:15-17:30  答疑与总结\n\n请各部门负责人于3月27日前通过邮件回复确认出席，并提交Q1汇报PPT至hr@company-internal.com。\n\n如有特殊情况无法出席，请提前告知并安排代表参加。\n\n人力资源部"
+    },
+    {
+      "from": "tech-dept@company-internal.com",
+      "to": "hr@company-internal.com",
+      "date": "2024-03-15T14:23:00+08:00",
+      "body": "收到！技术部确认出席，将于3月26日前提交PPT。\n\n技术部 陈磊"
+    },
+    {
+      "from": "sales-dept@company-internal.com",
+      "to": "hr@company-internal.com",
+      "date": "2024-03-16T09:10:00+08:00",
+      "body": "HR您好，销售部确认参会。3月29日当天销售总监有外地出差，改由销售副总张红出席，请知悉。PPT将在3月27日提交。\n\n销售部"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+employee_id,review_period,rating,goals_met_pct,manager_comment,promotion_recommended
+EMP-001,2023-Q4,5,98,Exceptional performance leading cloud migration,Yes
+EMP-002,2023-Q4,4,88,Strong product vision; execution could improve,No
+EMP-003,2023-Q4,4,85,Good technical leadership; mentor to juniors,Yes
+EMP-004,2023-Q4,3,72,Solid contributor; improving code quality,No
+EMP-005,2023-Q4,5,95,Outstanding design system work,Yes
+EMP-006,2023-Q4,4,82,Reliable QA; expanded automation coverage,No
+EMP-007,2023-Q4,5,97,DevOps transformation champion,Yes
+EMP-008,2023-Q4,2,58,Struggling with backend complexity; needs coaching,No
+EMP-009,2023-Q4,5,99,Exceptional data science work; ML pipeline is world class,Yes
+EMP-010,2023-Q4,4,87,Strong security posture improvements,No
+EMP-011,2023-Q4,3,75,Junior contributor showing promise,No
+EMP-012,2023-Q4,4,84,Good marketing campaigns; Q4 pipeline exceeded target,No
+MGR-001,2023-Q4,5,96,Transformed engineering culture and velocity,Yes
+MGR-002,2023-Q4,4,90,Strong cross-functional collaboration,No

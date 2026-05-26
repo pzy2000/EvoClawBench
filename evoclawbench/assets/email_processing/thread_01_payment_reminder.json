@@ -1,0 +1,28 @@
+{
+  "thread_id": "thread_01",
+  "subject": "【催款提醒】合同编号 SH2024-0312 货款逾期未付",
+  "participants": [
+    {"name": "王磊", "email": "wang.lei@supplier-co.com", "role": "sender"},
+    {"name": "赵敏", "email": "zhao.min@client-corp.com", "role": "recipient"}
+  ],
+  "messages": [
+    {
+      "from": "wang.lei@supplier-co.com",
+      "to": "zhao.min@client-corp.com",
+      "date": "2024-03-20T09:15:00+08:00",
+      "body": "赵总，您好！\n\n贵公司于2024年1月15日签订的采购合同（编号 SH2024-0312），总金额为人民币 58,000 元，付款条件为货到后30个工作日内付清。货物已于2024年1月22日签收，按约定应于2024年3月5日付款，至今已逾期15日，敬请尽快安排付款。\n\n如已汇款，请告知转账凭证，以便我司核账。如有任何疑问，欢迎电话联系。\n\n此致\n敬礼\n王磊\n华诚供应链有限公司 财务部"
+    },
+    {
+      "from": "zhao.min@client-corp.com",
+      "to": "wang.lei@supplier-co.com",
+      "date": "2024-03-20T14:32:00+08:00",
+      "body": "王总，您好！\n\n非常抱歉给贵公司造成不便。因我司近期财务系统升级，付款审批流程有所延误。目前已完成内部审批，预计本周五（3月22日）完成付款，届时会将银行回单发送给您。\n\n再次为延误道歉！\n\n赵敏\n科创集团 采购部"
+    },
+    {
+      "from": "wang.lei@supplier-co.com",
+      "to": "zhao.min@client-corp.com",
+      "date": "2024-03-21T10:05:00+08:00",
+      "body": "赵总，\n\n感谢回复。请确认付款信息：\n\n收款账户：华诚供应链有限公司\n开户行：中国银行上海分行\n账号：6222 0012 3456 7890\n\n期待3月22日收到款项，收到后我司会及时开具正式发票。谢谢！\n\n王磊"
+    }
+  ]
+}

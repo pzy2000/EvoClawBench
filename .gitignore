@@ -1,0 +1,45 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+
+# Local/editor state and private working notes.
+.claude/
+.cursor/
+.vscode/
+AGENTS.md
+benchmark.log
+claude_api.md
+export_openai_api.sh
+proxy.py
+
+# Non-artifact monorepo content intentionally excluded from anonymous review.
+data/
+mini-swe-agent/
+nanobot/
+openclaw/
+paper/
+paper_template/
+paper.zip
+
+# Runtime outputs. Only curated, sanitized reported results are tracked.
+evoclawbench/benchmark.log
+evoclawbench/CLAUDE.md
+evoclawbench/SKILL.md
+evoclawbench/TODO.md
+evoclawbench/outputs/
+evoclawbench/workspaces/
+evoclawbench/results/*
+!evoclawbench/results/reported/
+!evoclawbench/results/reported/**
+
+# ClawHub crawler dumps/state are not part of the review artifact.
+evoclawbench/benchmark_data/
+evoclawbench/scripts/.clawhub_state*.json
+evoclawbench/scripts/skills*.json
+evoclawbench/scripts/README_clawhub_crawler.md
+evoclawbench/scripts/clawhub_skill_crawler.py
+evoclawbench/scripts/test_llm_judge_integration.py

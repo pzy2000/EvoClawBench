@@ -1,0 +1,20 @@
+{
+  "gateway.name": "APIGateway",
+  "gateway.port": 443,
+  "gateway.ssl_cert": "/etc/ssl/certs/gateway.pem",
+  "gateway.ssl_key": "/etc/ssl/private/gateway.key",
+  "upstream.services": ["user-service:8001", "order-service:8002", "product-service:8003"],
+  "upstream.timeout_ms": 5000,
+  "upstream.health_check_interval": 30,
+  "auth.provider": "jwt",
+  "auth.token_expiry": 3600,
+  "auth.refresh_enabled": true,
+  "auth.issuer": "https://auth.example.com",
+  "rate_limit.enabled": true,
+  "rate_limit.requests_per_minute": 120,
+  "rate_limit.burst_size": 20,
+  "rate_limit.by_ip": true,
+  "cors.allowed_origins": ["https://app.example.com", "https://admin.example.com"],
+  "cors.allow_credentials": true,
+  "cors.max_age": 86400
+}

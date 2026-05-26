@@ -1,0 +1,6 @@
+alert_id,device_id,sensor_id,alert_type,severity,threshold,actual_value,triggered_at,acknowledged_at,resolved_at
+ALT-001,DEV-401,SEN-001,temperature_high,warning,30.0,35.2,2024-03-01T02:00:00,2024-03-01T02:05:00,2024-03-01T04:45:00
+ALT-002,DEV-401,SEN-001,temperature_critical,critical,40.0,42.1,2024-03-01T03:00:00,2024-03-01T03:02:00,2024-03-01T04:45:00
+ALT-003,DEV-402,SEN-002,cpu_high,warning,85.0,89.5,2024-03-01T02:00:00,2024-03-01T02:08:00,2024-03-01T05:00:00
+ALT-004,DEV-402,SEN-002,cpu_critical,critical,95.0,96.3,2024-03-01T03:00:00,2024-03-01T03:01:00,2024-03-01T05:00:00
+ALT-005,DEV-403,SEN-003,bandwidth_high,warning,1000.0,1200.0,2024-03-01T02:00:00,2024-03-01T02:15:00,2024-03-01T02:30:00

@@ -1,0 +1,77 @@
+{
+  "document_type": "Meeting Agenda",
+  "title": "Q2 2024 Engineering All-Hands Meeting Agenda",
+  "meeting_id": "MTG-2024-Q2-001",
+  "date": "2024-04-08",
+  "time": "10:00 AM - 12:00 PM PST",
+  "location": "Conference Room Alpha / Zoom (ID: 987-654-3210)",
+  "author": "Jennifer Walsh, CTO",
+  "sections": [
+    {
+      "heading": "Welcome and Opening Remarks",
+      "level": 1,
+      "content": "Jennifer Walsh will open the meeting with organizational updates and key priorities for Q2 2024."
+    },
+    {
+      "heading": "Q1 2024 Review",
+      "level": 1,
+      "content": "Review of Q1 accomplishments, missed targets, and key learnings across all engineering teams."
+    },
+    {
+      "heading": "Infrastructure Team Update",
+      "level": 2,
+      "content": "Carlos Mendoza will present the Kubernetes migration status and upcoming cloud cost optimization initiatives."
+    },
+    {
+      "heading": "Platform Team Update",
+      "level": 2,
+      "content": "Aisha Thompson will cover data pipeline improvements and ML model deployment automation."
+    },
+    {
+      "heading": "Q2 2024 Goals and OKRs",
+      "level": 1,
+      "content": "Presentation of engineering OKRs for Q2 with alignment to company-wide objectives."
+    },
+    {
+      "heading": "Open Discussion",
+      "level": 1,
+      "content": "Q&A session. All attendees are encouraged to submit questions in advance via the shared document."
+    }
+  ],
+  "tables": [
+    {
+      "title": "Meeting Schedule",
+      "headers": ["Time", "Topic", "Presenter", "Duration"],
+      "rows": [
+        ["10:00 AM", "Welcome & Opening", "Jennifer Walsh", "10 min"],
+        ["10:10 AM", "Q1 Review", "Jennifer Walsh", "20 min"],
+        ["10:30 AM", "Infrastructure Update", "Carlos Mendoza", "15 min"],
+        ["10:45 AM", "Platform Update", "Aisha Thompson", "15 min"],
+        ["11:00 AM", "Q2 OKRs", "Jennifer Walsh", "25 min"],
+        ["11:25 AM", "Open Discussion", "All", "35 min"]
+      ]
+    },
+    {
+      "title": "Pre-Reading Materials",
+      "headers": ["Document", "Owner", "Link"],
+      "rows": [
+        ["Q1 Engineering Metrics Dashboard", "Aisha Thompson", "internal/metrics/q1-2024"],
+        ["Infrastructure Cost Analysis", "Carlos Mendoza", "internal/infra/cost-q1"],
+        ["Q2 OKR Draft", "Jennifer Walsh", "internal/okrs/q2-2024-draft"]
+      ]
+    }
+  ],
+  "attendees": [
+    "Jennifer Walsh (Host)",
+    "Carlos Mendoza",
+    "Aisha Thompson",
+    "Sophie Laurent",
+    "Robert Chen (optional)",
+    "All Engineering Staff"
+  ],
+  "action_items_from_previous": [
+    "Resolve Kubernetes namespace quota issue (Carlos - DONE)",
+    "Complete ML model versioning spec (Aisha - IN PROGRESS)",
+    "Update hiring plan for Q2 (Jennifer - DONE)"
+  ]
+}
