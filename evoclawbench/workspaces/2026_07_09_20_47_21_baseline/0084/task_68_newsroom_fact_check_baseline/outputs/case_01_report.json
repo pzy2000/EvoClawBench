@@ -1,0 +1,21 @@
+{
+  "supported_claims": [
+    "SUPCLA-01-25",
+    "SUPCLA-01-69",
+    "SUPCLA-01-76",
+    "SUPCLA-01-82"
+  ],
+  "unsupported_claims": [
+    "UNSCLA-01-38",
+    "UNSCLA-01-60",
+    "UNSCLA-01-71",
+    "UNSCLA-01-91"
+  ],
+  "source_count": 8,
+  "duplicate_citations": [
+    "DUPCIT-01-106",
+    "DUPCIT-01-16",
+    "DUPCIT-01-22"
+  ],
+  "confidence": 19.79
+}
