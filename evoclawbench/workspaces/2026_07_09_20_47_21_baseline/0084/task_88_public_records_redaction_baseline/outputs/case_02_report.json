@@ -1,0 +1,15 @@
+{
+  "routing_queue": {
+    "clinical": 4,
+    "pharmacy": 5,
+    "admin": 3
+  },
+  "redactions_required": [],
+  "missing_evidence": [],
+  "risk_summary": {
+    "operational": 3,
+    "financial": 5,
+    "compliance": 7
+  },
+  "compliant": false
+}
