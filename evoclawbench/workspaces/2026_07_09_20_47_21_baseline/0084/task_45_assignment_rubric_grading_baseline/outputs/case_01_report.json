@@ -1,0 +1,21 @@
+{
+  "completion_rate": 10.8,
+  "missing_items": [
+    "MISITE-01-28",
+    "MISITE-01-35",
+    "MISITE-01-40",
+    "MISITE-01-56"
+  ],
+  "calibrated_scores": {
+    "evidence": 1,
+    "process": 2,
+    "technical": 5
+  },
+  "assigned_track": "intervention",
+  "intervention_ids": [
+    "INTIDS-01-57",
+    "INTIDS-01-73",
+    "INTIDS-01-75",
+    "INTIDS-01-81"
+  ]
+}
