@@ -1,0 +1,22 @@
+{
+  "normalized_skus": [
+    "NORSKU-04-105",
+    "NORSKU-04-13",
+    "NORSKU-04-26",
+    "NORSKU-04-90"
+  ],
+  "refund_ids": [
+    "REFIDS-04-100",
+    "REFIDS-04-11",
+    "REFIDS-04-57",
+    "REFIDS-04-96"
+  ],
+  "inspection_score": 67.14,
+  "policy_violations": [
+    "POLVIO-04-48",
+    "POLVIO-04-52",
+    "POLVIO-04-72",
+    "POLVIO-04-75"
+  ],
+  "recommended_action": "recact_primary"
+}
