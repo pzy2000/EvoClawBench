@@ -1,0 +1,44 @@
+{
+  "invoice_id": "SH20240316-00892",
+  "invoice_type": "普通发票",
+  "issue_date": "2024-03-16",
+  "vendor": {
+    "name": "上海云朵餐饮管理有限公司",
+    "tax_id": "91310115ABX12345P"
+  },
+  "customer": {
+    "name": "北京科创信息技术有限公司",
+    "tax_id": "91110000123456789X"
+  },
+  "items": [
+    {
+      "description": "商务套餐（10人）",
+      "quantity": 1,
+      "unit_price": 1280,
+      "amount": 1280,
+      "tax_rate": "6%",
+      "tax_amount": 76.8
+    },
+    {
+      "description": "包间服务费",
+      "quantity": 1,
+      "unit_price": 200,
+      "amount": 200,
+      "tax_rate": "6%",
+      "tax_amount": 12
+    },
+    {
+      "description": "饮品（瓶装水、茶水）",
+      "quantity": 10,
+      "unit_price": 15,
+      "amount": 150,
+      "tax_rate": "6%",
+      "tax_amount": 9
+    }
+  ],
+  "subtotal": 1630,
+  "total_tax": 97.8,
+  "grand_total": 1727.8,
+  "category": "餐饮招待",
+  "notes": "客户招待费 - 市场部Q1客户答谢晚宴"
+}

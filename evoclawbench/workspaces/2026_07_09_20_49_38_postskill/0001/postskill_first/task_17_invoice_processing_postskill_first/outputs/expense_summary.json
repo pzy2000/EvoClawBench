@@ -1,0 +1,61 @@
+{
+  "total_invoices": 5,
+  "total_amount": 63546.2,
+  "total_tax": 8086.1,
+  "by_category": {
+    "办公设备": {
+      "count": 1,
+      "amount": 50612.7
+    },
+    "餐饮招待": {
+      "count": 1,
+      "amount": 1727.8
+    },
+    "差旅费": {
+      "count": 1,
+      "amount": 1569.6
+    },
+    "IT费用": {
+      "count": 1,
+      "amount": 3816
+    },
+    "市场推广费": {
+      "count": 1,
+      "amount": 15820
+    }
+  },
+  "by_vendor": [
+    {
+      "vendor": "华东办公设备供应链有限公司",
+      "invoice_count": 1,
+      "total_amount": 50612.7
+    },
+    {
+      "vendor": "上海云朵餐饮管理有限公司",
+      "invoice_count": 1,
+      "total_amount": 1727.8
+    },
+    {
+      "vendor": "广州宜行商务出行科技有限公司",
+      "invoice_count": 1,
+      "total_amount": 1569.6
+    },
+    {
+      "vendor": "南京智联网络科技有限公司",
+      "invoice_count": 1,
+      "total_amount": 3816
+    },
+    {
+      "vendor": "成都图文设计印刷有限公司",
+      "invoice_count": 1,
+      "total_amount": 15820
+    }
+  ],
+  "invoices": [
+    "invoice_01",
+    "invoice_02",
+    "invoice_03",
+    "invoice_04",
+    "invoice_05"
+  ]
+}

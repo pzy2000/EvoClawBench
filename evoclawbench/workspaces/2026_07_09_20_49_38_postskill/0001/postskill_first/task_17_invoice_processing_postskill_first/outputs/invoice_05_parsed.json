@@ -1,0 +1,28 @@
+{
+  "invoice_id": "CD20240320-7781",
+  "invoice_type": "增值税专用发票",
+  "issue_date": "2024-03-20",
+  "vendor": {
+    "name": "成都图文设计印刷有限公司",
+    "tax_id": "91510101MNOP3456Q"
+  },
+  "customer": {
+    "name": "北京科创信息技术有限公司",
+    "tax_id": "91110000123456789X"
+  },
+  "items": [
+    {
+      "description": "企业宣传画册设计制作",
+      "quantity": 500,
+      "unit_price": 28,
+      "amount": 14000,
+      "tax_rate": "13%",
+      "tax_amount": 1820
+    }
+  ],
+  "subtotal": 14000,
+  "total_tax": 1820,
+  "grand_total": 15820,
+  "category": "市场推广费",
+  "notes": "Q2品牌推广项目用，采购申请单号PR-MKT-2024-0056；付款状态：已付款；付款日期：2024-03-21；银行流水号：ICBC20240321-0089123"
+}

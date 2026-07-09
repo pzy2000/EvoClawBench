@@ -1,0 +1,28 @@
+{
+  "invoice_id": "NJ20240319-4421",
+  "invoice_type": "增值税普通发票",
+  "issue_date": "2024-03-19",
+  "vendor": {
+    "name": "南京智联网络科技有限公司",
+    "tax_id": "91320100ABCD5678E"
+  },
+  "customer": {
+    "name": "北京科创信息技术有限公司",
+    "tax_id": "91110000123456789X"
+  },
+  "items": [
+    {
+      "description": "云服务器租用费（月度）",
+      "quantity": 3,
+      "unit_price": 1200,
+      "amount": 3600,
+      "tax_rate": "6%",
+      "tax_amount": 216
+    }
+  ],
+  "subtotal": 3600,
+  "total_tax": 216,
+  "grand_total": 3816,
+  "category": "IT费用",
+  "notes": "服务周期：2024-03-01 至 2024-03-31；续费合同，自动续期"
+}

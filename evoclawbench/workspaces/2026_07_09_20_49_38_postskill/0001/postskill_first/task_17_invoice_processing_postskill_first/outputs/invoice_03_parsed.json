@@ -1,0 +1,44 @@
+{
+  "invoice_id": "GZ2024031801",
+  "invoice_type": "增值税专用发票",
+  "issue_date": "2024-03-18",
+  "vendor": {
+    "name": "广州宜行商务出行科技有限公司",
+    "tax_id": "91440101XYZ98765B"
+  },
+  "customer": {
+    "name": "北京科创信息技术有限公司",
+    "tax_id": "91110000123456789X"
+  },
+  "items": [
+    {
+      "description": "机场接送服务",
+      "quantity": 1,
+      "unit_price": 380,
+      "amount": 380,
+      "tax_rate": "9%",
+      "tax_amount": 34.2
+    },
+    {
+      "description": "城市商务用车",
+      "quantity": 3,
+      "unit_price": 260,
+      "amount": 780,
+      "tax_rate": "9%",
+      "tax_amount": 70.2
+    },
+    {
+      "description": "高铁接送服务",
+      "quantity": 1,
+      "unit_price": 280,
+      "amount": 280,
+      "tax_rate": "9%",
+      "tax_amount": 25.2
+    }
+  ],
+  "subtotal": 1440,
+  "total_tax": 129.6,
+  "grand_total": 1569.6,
+  "category": "差旅费",
+  "notes": "出差广州-机场接送; 出差广州-市内交通; 出差广州-高铁站接送"
+}
