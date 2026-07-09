@@ -1,0 +1,47 @@
+{
+  "vendor": {
+    "name": "Meridian Technologies Inc.",
+    "address": "1420 Innovation Drive, Suite 300, Austin, TX 78701",
+    "phone": "(512) 555-0198",
+    "email": "billing@meridiantech.com",
+    "tax_id": "87-4521903"
+  },
+  "client": {
+    "name": "Cascade Solutions LLC",
+    "address": "890 Enterprise Boulevard, Denver, CO 80202",
+    "contact_person": "Sarah Mitchell, Procurement Manager"
+  },
+  "invoice_number": "INV-2024-00847",
+  "invoice_date": "2024-11-15",
+  "due_date": "2024-12-15",
+  "payment_terms": "Net 30",
+  "purchase_order": "PO-CSL-2024-1192",
+  "line_items": [
+    {"description": "Cloud Infrastructure Setup", "quantity": 1, "unit_price": 12500.0, "total": 12500.0},
+    {"description": "Monthly Hosting (Standard Plan)", "quantity": 6, "unit_price": 899.0, "total": 5394.0},
+    {"description": "SSL Certificate (Wildcard)", "quantity": 2, "unit_price": 249.99, "total": 499.98},
+    {"description": "Database Migration Service", "quantity": 1, "unit_price": 3200.0, "total": 3200.0},
+    {"description": "Technical Consultation (hours)", "quantity": 24, "unit_price": 175.0, "total": 4200.0},
+    {"description": "24/7 Support Package (months)", "quantity": 6, "unit_price": 450.0, "total": 2700.0},
+    {"description": "Custom API Integration", "quantity": 1, "unit_price": 5800.0, "total": 5800.0}
+  ],
+  "subtotal": 34293.98,
+  "tax_rate": "8.25%",
+  "tax_amount": 2829.25,
+  "grand_total": 37123.23,
+  "bank_details": {
+    "bank": "First National Bank of Texas",
+    "account_name": "Meridian Technologies Inc.",
+    "routing_number": "111000038",
+    "account_number": "4821-7593-0012"
+  },
+  "revision": "R1",
+  "excluded_line_items": ["Load Testing & Optimization"],
+  "evidence_spans": [
+    "Invoice header and client block",
+    "Invoice number/date/terms/PO",
+    "Line items section",
+    "Revision note - November 18, 2024",
+    "Bank details and payment instructions"
+  ]
+}

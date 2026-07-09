@@ -1,0 +1,35 @@
+{
+  "name": "Alexandra Chen",
+  "title": "Senior Software Engineer",
+  "contact": {
+    "email": "alexandra.chen@email.com",
+    "phone": "(415) 555-0273",
+    "location": "San Francisco, CA 94102",
+    "linkedin": "linkedin.com/in/alexandrachen",
+    "github": "github.com/achen-dev"
+  },
+  "summary": "Experienced software engineer with 8+ years of expertise in building scalable distributed systems and cloud-native applications. Proven track record of leading cross-functional teams and delivering high-impact projects. Strong background in Python, Go, and cloud infrastructure (AWS, GCP).",
+  "work_experience": [
+    {"title": "Senior Software Engineer", "company": "Stratos Cloud Inc.", "start_date": "2021-03-01", "end_date": "Present", "highlights": ["Architected and deployed a microservices platform handling 2M+ daily requests", "Led a team of 6 engineers to migrate monolithic application to Kubernetes", "Reduced infrastructure costs by 35% through auto-scaling optimization", "Implemented CI/CD pipelines reducing deployment time from 2 hours to 15 minutes", "Mentored 4 junior developers through structured onboarding program"]},
+    {"title": "Software Engineer II", "company": "DataBridge Analytics", "start_date": "2018-06-01", "end_date": "2021-02-28", "highlights": ["Designed real-time data processing pipeline using Apache Kafka and Spark", "Built RESTful APIs serving 500K+ daily active users with 99.9% uptime", "Developed automated testing framework increasing code coverage from 45% to 92%", "Contributed to open-source data validation library (1.2K GitHub stars)"]},
+    {"title": "Software Engineer", "company": "NexaPoint Solutions", "start_date": "2016-08-01", "end_date": "2018-05-31", "highlights": ["Developed backend services for e-commerce platform processing $50M+ annually", "Implemented caching layer reducing API response times by 60%", "Created internal tooling for log aggregation and monitoring dashboards"]}
+  ],
+  "education": [
+    {"degree": "Master of Science in Computer Science", "institution": "Stanford University", "year": "2016", "details": "Specialization: Distributed Systems; GPA: 3.85/4.0"},
+    {"degree": "Bachelor of Science in Computer Engineering", "institution": "UC Berkeley", "year": "2014", "details": "GPA: 3.72/4.0, Dean's List (6 semesters)"}
+  ],
+  "skills": {
+    "languages": ["Python", "Go", "Java", "TypeScript", "SQL", "Rust"],
+    "frameworks": ["Django", "FastAPI", "gRPC", "React", "Next.js"],
+    "cloud": ["AWS (ECS, Lambda, S3, RDS)", "GCP", "Kubernetes", "Docker", "Terraform"],
+    "data": ["PostgreSQL", "Redis", "MongoDB", "Kafka", "Elasticsearch", "Spark"],
+    "tools": ["Git", "GitHub Actions", "Jenkins", "Datadog", "Grafana", "Jira"]
+  },
+  "certifications": [
+    "AWS Solutions Architect Professional (2023)",
+    "Certified Kubernetes Administrator (CKA) (2022)",
+    "Google Cloud Professional Cloud Architect (2021)"
+  ],
+  "non_certification_notes": ["Conference talks at KubeCon 2023 and PyData SF 2024 are not certifications."],
+  "evidence_spans": ["Contact Information", "Professional Summary", "Work Experience", "Education", "Technical Skills", "Certification blocks", "HR correction note"]
+}

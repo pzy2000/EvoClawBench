@@ -1,0 +1,31 @@
+{
+  "title": "Service Agreement",
+  "effective_date": "2025-01-08",
+  "parties": [
+    {"name": "Pinnacle Digital Services LLC", "address": "2100 Market Street, Floor 14, Philadelphia, PA 19103", "contact_person": "Robert Vasquez, Director of Client Services", "role": "Service Provider"},
+    {"name": "Northwind Trading Corporation", "address": "4500 Commerce Way, Chicago, IL 60601", "contact_person": "Diana Kowalski, VP of Technology", "role": "Client"}
+  ],
+  "scope_of_work": [
+    "Custom web application development (e-commerce platform)",
+    "Cloud infrastructure setup and management (AWS)",
+    "Quality assurance and testing",
+    "Post-launch technical support and maintenance"
+  ],
+  "total_value": 421000.0,
+  "payment_schedule": [
+    {"milestone": "Upon signing", "percentage": "20%", "amount": 97000.0, "due_date": "2025-01-15"},
+    {"milestone": "Design Approval", "percentage": "25%", "amount": 121250.0, "due_date": "2025-03-01"},
+    {"milestone": "Beta Launch", "percentage": "25%", "amount": 121250.0, "due_date": "2025-06-01"},
+    {"milestone": "Final Delivery", "percentage": "20%", "amount": 33000.0, "due_date": "2025-08-15"},
+    {"milestone": "30-day acceptance period", "percentage": "10%", "amount": 48500.0, "due_date": "2025-09-15"}
+  ],
+  "duration": {"start_date": "2025-01-15", "end_date": "2025-08-15", "support_period": "12 months following Final Delivery"},
+  "termination_notice_days": 30,
+  "governing_law": "Pennsylvania",
+  "dispute_resolution": "Mediation first, then binding arbitration in Philadelphia, PA",
+  "amendments": [
+    "Amendment A signed 2025-01-20 removed the mobile application deliverable from initial launch scope, converted it to an optional phase, changed the contract total value to 421000.00, reduced the Final Delivery milestone to 33000.00, and extended support to 12 months following Final Delivery."
+  ],
+  "excluded_scope": ["Mobile application development (iOS and Android)"],
+  "evidence_spans": ["Effective Date and parties", "Scope of Work", "Payment Terms", "Duration", "Amendment A - Signed January 20, 2025", "Termination", "Governing Law", "Dispute Resolution"]
+}

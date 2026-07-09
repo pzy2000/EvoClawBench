@@ -1,0 +1,89 @@
+{
+  "applied_corrections": [
+    {
+      "document": "invoice_001.txt",
+      "source_note": "REVISION NOTE - November 18, 2024",
+      "field": "line_items/subtotal/tax_amount/grand_total/revision",
+      "final_value": "Removed Load Testing & Optimization; subtotal 34293.98; tax_amount 2829.25; grand_total 37123.23; revision R1",
+      "superseded_value": "Included Load Testing & Optimization; subtotal 36393.98; tax_amount 3002.50; grand_total 39396.48"
+    },
+    {
+      "document": "invoice_001.txt",
+      "source_note": "REVISION NOTE - November 18, 2024",
+      "field": "bank_details",
+      "final_value": "First National Bank of Texas / routing 111000038 / account 4821-7593-0012",
+      "superseded_value": "Lone Star Commercial Bank / routing 111000025 / account 440091827364"
+    },
+    {
+      "document": "resume_001.txt",
+      "source_note": "HR CORRECTION NOTE",
+      "field": "certifications",
+      "final_value": "AWS Solutions Architect Professional (2023); Certified Kubernetes Administrator (CKA) (2022); Google Cloud Professional Cloud Architect (2021)",
+      "superseded_value": "AWS Certified Solutions Architect - Professional (2022); Certified Kubernetes Administrator (CKA) (2023)"
+    },
+    {
+      "document": "contract_001.txt",
+      "source_note": "AMENDMENT A - SIGNED JANUARY 20, 2025",
+      "field": "scope_of_work/total_value/payment_schedule/duration.support_period",
+      "final_value": "Mobile application removed from initial scope; total_value 421000.00; Final Delivery milestone 33000.00; support period 12 months following Final Delivery",
+      "superseded_value": "Mobile application included in initial scope; total_value 485000.00; Final Delivery milestone 97000.00; support period 90 days after final delivery"
+    },
+    {
+      "document": "meeting_notes_001.txt",
+      "source_note": "FACILITATOR CLEANUP NOTE",
+      "field": "action_items",
+      "final_value": "Later numbered action list with 6 items and deadlines through 2025-02-21",
+      "superseded_value": "Earlier four-item draft action list"
+    },
+    {
+      "document": "expense_report_001.txt",
+      "source_note": "POLICY REVIEW NOTES",
+      "field": "category_totals.Supplies/total/receipts_count",
+      "final_value": "Supplies 255.97; total 2930.23; receipts_count 17 attached receipts plus one missing receipt exception R-2025-0214",
+      "superseded_value": "Supplies 255.98; total 2933.47; Receipts Attached: 18 of 18"
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "document": "invoice_001.txt",
+      "candidate": "Load Testing & Optimization as billable final line item",
+      "reason": "Revision note explicitly says to remove that line item before calculating final payable amount."
+    },
+    {
+      "document": "resume_001.txt",
+      "candidate": "KubeCon 2023 and PyData SF 2024 as certifications",
+      "reason": "Recruiter note explicitly says these are conference talks, not certifications."
+    },
+    {
+      "document": "resume_001.txt",
+      "candidate": "Earlier certification block as canonical certification years",
+      "reason": "HR correction says the final certifications block supersedes the earlier block."
+    },
+    {
+      "document": "contract_001.txt",
+      "candidate": "Original $485,000 contract value and mobile application in final scope",
+      "reason": "Amendment A changes final authoritative value to $421,000 and removes mobile from initial launch scope."
+    },
+    {
+      "document": "meeting_notes_001.txt",
+      "candidate": "Earlier four-item action list merged with later six-item list",
+      "reason": "Cleanup note says the later list replaces the earlier draft and duplicate owner/task pairs should not be merged."
+    },
+    {
+      "document": "meeting_notes_001.txt",
+      "candidate": "Marcus Johnston as the developer action-item owner",
+      "reason": "Attendee notes explicitly distinguish Marcus Johnston from Marcus Johnson; Marcus Johnson is the present developer."
+    },
+    {
+      "document": "expense_report_001.txt",
+      "candidate": "Dropping the bowling event or missing-receipt lunch from approved total",
+      "reason": "Policy notes say bowling is approved and approved exceptions remain in the correct total of 2930.23."
+    }
+  ],
+  "normalization_warnings": [
+    "Resume work_experience dates were normalized to YYYY-MM precision where only month and year were provided.",
+    "Meeting time range remained a textual time span because the schema expects a single time field rather than separate start/end values.",
+    "Expense report receipt normalization preserves 17 attached receipts and one missing receipt exception even though the footer says 18 of 18.",
+    "Invoice bank SWIFT/BIC was present in the revision note but omitted because the required schema has no SWIFT field."
+  ]
+}
