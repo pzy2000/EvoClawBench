@@ -1,0 +1,1 @@
+{"incident_ids":["INCIDS-03-11","INCIDS-03-21","INCIDS-03-64","INCIDS-03-78"],"redacted_fields":["REDFIE-03-28","REDFIE-03-62","REDFIE-03-84"],"raw_pii_present":false,"approved_exceptions":["APPEXC-03-100","APPEXC-03-35","APPEXC-03-51","APPEXC-03-86"],"severity_counts":{"critical":4,"low":6,"medium":5}}
