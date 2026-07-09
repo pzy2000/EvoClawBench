@@ -1,0 +1,26 @@
+{
+  "priority_queue": [
+    "PRIQUE-03-22",
+    "PRIQUE-03-31",
+    "PRIQUE-03-45",
+    "PRIQUE-03-86"
+  ],
+  "duplicate_groups": [
+    "DUPGRO-03-13",
+    "DUPGRO-03-32",
+    "DUPGRO-03-98"
+  ],
+  "themes": [
+    "THE-03-105",
+    "THE-03-23",
+    "THE-03-71",
+    "THE-03-85"
+  ],
+  "sla_breaches": [
+    "SLABRE-03-13",
+    "SLABRE-03-21",
+    "SLABRE-03-27",
+    "SLABRE-03-29"
+  ],
+  "reply_template": "policy_clarification"
+}
