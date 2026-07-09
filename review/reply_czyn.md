@@ -1,27 +1,33 @@
 We thank the reviewer for the careful reading and for flagging concrete, actionable issues.
 
-**W1 (single run, no CI).** This is a known limitation we already state in Limitations ("Experimental coverage"): one run per task/mode, with repeated seeds and confidence intervals left as future work. We prefer to keep this as an explicit limitation rather than paper over it with a small, non-representative multi-seed subset.
+**W1 (single run, no CI).** Agreed: Table 2 is descriptive and cannot provide full-suite CIs. Three executions of a 12-task `GPT-5.4 mini`/OpenClaw subset show SDs of about 5--6 points, but Runs 2/3 changed route, endpoint, judge, timeout, and transcript fallback, with 5/72 infrastructure-error cells. We therefore treat this only as operational sensitivity, not controlled seed variance or a substitute for full-suite repeats.
 
-**W2 (100 tasks / 12-task hybrid subset).** 88 of the 100 official tasks are graded with fully deterministic automated checks over 502 sub-problems, so the effective statistical base is larger than "100" suggests; only 12 tasks use hybrid (automated + LLM-judge) grading. We already stress-tested exactly this 12-task hybrid subset against an alternate judge (36 task-mode pairs; Pearson $r=0.997$, 35/36 pairs within 0.05 absolute score), reported in the current manuscript.
+**W2 (100 tasks / 12 hybrid).** The suite has 100 task-level units with 502 nested sub-problems; these improve grading resolution but are not 502 independent observations. Eighty-eight tasks are deterministic and 12 hybrid. Regrading the fixed 36 hybrid outputs gives \(r=0.997\), with 35/36 pairs within 0.05. This tests judge sensitivity, not task-set generalizability or execution variance.
 
 **W3 (Table 2 boldface).** Agreed — done. We now bold the best-of-three-mode score in every row so the baseline/preskill/postskill contrast is visible at a glance.
 
 **W4 (Section 3.4 code-style phrasing).** Agreed — done. The literal CLI invocation strings are moved to the appendix; Section 3.4 is now prose with a pointer to the appendix for exact syntax.
 
-**W5 (OpenClaw vs. nanobot gap).** We investigated this and traced the anomalously low OpenClaw scores to transient instability on the upstream API provider/gateway side during the original `GPT-5.4 mini` runs, rather than to any inherent runtime-capability gap. A number of OpenClaw requests during that run window failed at the provider/gateway layer, which is consistent with the reported ~19% OpenClaw scores in Table 2 being dominated by dropped/failed calls rather than genuine task failures.
+**W5 (OpenClaw vs. nanobot).** We agree that Table 2 does not support an inherent-runtime interpretation. On the eight hardened tasks below, all original `GPT-5.4 mini` executions timed out; other rows also contain empty assistant content. These are execution-chain failures, but logs cannot isolate provider/gateway, adapter, concurrency, timeout, or prompt/runtime interaction.
 
-To resolve this, we re-ran a systematic 8-task subset (every 10th hardened task: `task_22/32/42/52/62/72/82/92`) on `GPT-5.4 mini` under OpenClaw once the provider/gateway was stable, and obtained the corrected results below:
+We reran `task_22/32/42/52/62/72/82/92` diagnostically. Conditions changed, so these are not corrected full-suite scores:
 
-| Mode | Original run (unstable gateway) | Re-run (stable gateway) | nanobot (unaffected) |
+| Mode | Submission export | Diagnostic OpenClaw rerun | Nanobot comparison |
 |---|---|---|---|
-| Baseline | 0.00% (8/8 failed) | 82.81% | 92.50% |
-| Preskill | 0.00% (8/8 failed) | 99.69% | 90.00% |
-| Postskill | 0.00% (8/8 failed) | 79.69% | 92.50% |
+| Baseline | 0.00% (8/8 timed out) | 82.81% | 92.50% |
+| PreSkill | 0.00% (8/8 timed out) | 99.69% | 90.00% |
+| PostSkill | 0.00% (8/8 timed out) | 79.69% | 92.50% |
 
-After re-running under a stable gateway, OpenClaw and nanobot land in the same range (gap shrinks from ~90–100 points to ~5–13 points). We will re-run the full 100-task OpenClaw suite under a stable gateway for the camera-ready and update Table 2, Findings 1/2/4, and the abstract accordingly. We expect the qualitative conclusion (skill effects are selective and non-monotonic, not that one runtime is categorically far weaker) to survive, but the magnitude of the runtime contrast will shrink substantially. We are grateful this question led us to catch this.
+The columns are slices of full-suite runs `0065`, temporary diagnostic run `0001_venus-gpt-5-4-mini_openclaw.json`, and full-suite run `0081`; they differ in runtime, route, endpoint, workers, timeout, and transcript handling. The diagnostic is not in the anonymous artifact and will not become paper evidence until exported with provenance.
 
-**C1 (line numbers overlapping text).** This is the ACL/ARR review-mode `lineno` package (`acl.sty`'s `review` option), required for anonymous review; it disappears under the `final` option in camera-ready. Happy to adjust specific float placements if the reviewer can point to the worst pages.
+The mode gaps are 9.69/9.69/12.81 points; OpenClaw is higher in PreSkill. Two baseline cases clarify the original zeros:
+- `task_32`: run `0065` timed out after 277.6 s, produced none of the five required reports, and scored zero on all deterministic checks. The diagnostic completed with tool use, produced all reports, and passed every file/schema/field check (1.0).
+- `task_92`: run `0065` timed out after 305.8 s with no reports. The diagnostic produced five valid reports but scored 0.5: only `forecast_delta` was correct; four semantic fields were wrong. Thus the grader distinguishes partial correctness rather than rewarding file creation alone.
 
-**C2 (Figure 1/2 resolution).** We will regenerate both figures at higher resolution with fewer/larger labels for the revision.
+These cases show execution failure, not ungradable tasks, but cannot explain all five rows or exclude every interaction. We withdraw the inherent OpenClaw--nanobot interpretation, caveat contaminated rows, and replace them only with matched full-suite reruns. The narrower mixed/non-monotonic skill conclusion will rely only on valid rows.
 
-**C3 (appendix single column).** Intentional: the appendix contains several wide longtables (task inventory, grading criteria) that do not fit ACL's two-column width, so we switch to `\onecolumn` only for the appendix — a common convention for appendix-only wide tables.
+**C1.** Line numbers come from ACL review mode, but overlap is still a defect. We will adjust affected floats/lines; numbering disappears in final mode.
+
+**C2.** We will regenerate Figures 1/2 at higher resolution with fewer/larger labels.
+
+**C3.** Appendix-only `\onecolumn` keeps the wide task-inventory/grading longtables legible; we will ensure final-format compliance.

@@ -7,9 +7,11 @@ object, so this script (`phase_cost_breakdown.py`) aggregates them directly. Pro
 answer the reviewer's request to separate "first run" (≈ baseline-equivalent) cost from
 "skill creation + second run" ("reuse-only") cost for PostSkill.
 
-Token counts are total tokens (input+output) summed over all 101 tasks.
+Token counts are the harness's recorded `total_tokens` units summed over all 101 loader
+tasks. Input, output, and cache-read components remain available separately in the source
+JSON and should be reported separately when comparing provider cost.
 
-| Runtime | Model | Baseline | PreSkill: author | PreSkill: execute | PostSkill: first_execution | PostSkill: skill_summary | PostSkill: second_execution | PostSkill reuse-only (summary+second) | Reuse-only / Baseline |
+| Runtime | Model | Baseline | PreSkill: author | PreSkill: execute | PostSkill: first_execution | PostSkill: skill_summary | PostSkill: second_execution | PostSkill reuse-only (summary+second) | Baseline / reuse-only |
 |---|---|---|---|---|---|---|---|---|---|
 | OpenClaw | GPT-5.4 | 4,925,264 | 7,394,934 | 6,239,972 | 0* | 0* | 0* | 0* | n/a* |
 | OpenClaw | Qwen3.6-Plus | 5,526,752 | 9,352,731 | 5,228,487 | 4,848,001 | 7,754,522 | 5,731,045 | 13,485,567 | 0.410 |
@@ -19,7 +21,7 @@ Token counts are total tokens (input+output) summed over all 101 tasks.
 | Nanobot | GPT-5.4 / Qwen3.6-Plus / DeepSeek-V4-Pro / MiniMax-M2.7 / GPT-5.4 mini | 0** | 0** | 0** | 0** | 0** | 0** | 0** | n/a** |
 
 \* Zero because these two rows' PostSkill phases were corrupted in the original run (see
-main rebuttal text); being re-run.
+main rebuttal text). Diagnostic reruns exist but are not protocol-matched replacements.
 
 \** Nanobot's per-task `usage.total_tokens` is 0 for essentially all tasks in these five
 files even when the task is graded correct, i.e. this is a pre-existing usage-extraction
@@ -32,6 +34,6 @@ For the three OpenClaw rows with intact PostSkill data (Qwen3.6-Plus, MiniMax-M2
 mini), even when we exclude the first, baseline-equivalent execution pass entirely and only
 count "skill summarization + second (reused) execution" against a plain Baseline run, the
 reuse-only portion still uses **roughly 2.4-2.7x as many tokens as Baseline**
-(reuse-only/baseline efficiency gain 0.365-0.410, i.e. inverse ≈ 2.4-2.7). This is the
+(baseline/reuse-only token-efficiency ratio 0.365-0.410, i.e. inverse ≈ 2.4-2.7). This is the
 requested "only skill creation + second run" comparison, computed directly from the
 existing per-task `phase_usage` records without needing a new experiment.

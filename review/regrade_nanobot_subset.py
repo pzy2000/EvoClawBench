@@ -11,8 +11,10 @@ import os
 import sys
 from pathlib import Path
 
-os.environ.setdefault("OPENAI_API_KEY", "agent_res_y-sk-608581d717c1b3fd2c5473a057fc18d8")
-os.environ.setdefault("OPENAI_BASE_URL", "http://21.139.195.158:18080/v1")
+if not os.environ.get("OPENAI_API_KEY") or not os.environ.get("OPENAI_BASE_URL"):
+    raise RuntimeError(
+        "Set OPENAI_API_KEY and OPENAI_BASE_URL in the environment before regrading."
+    )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "evoclawbench" / "scripts"))

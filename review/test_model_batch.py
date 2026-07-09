@@ -1,23 +1,31 @@
+import os
 import time
 
 import requests
 from openai import OpenAI
 
-SECRET = "agent_res_y-sk-608581d717c1b3fd2c5473a057fc18d8"
-BASE = "http://21.139.195.158:18080/v1"
+API_KEY = os.environ.get("OPENAI_API_KEY")
+BASE = os.environ.get("OPENAI_BASE_URL", "").rstrip("/")
+END_USER = os.environ.get("OPENAI_END_USER")
 
-END_USER = "vortexpeng"
+if not API_KEY or not BASE:
+    raise RuntimeError(
+        "Set OPENAI_API_KEY and OPENAI_BASE_URL in the environment before testing models."
+    )
 
 client = OpenAI(
     base_url=BASE + "/",
-    api_key=SECRET,
-    default_headers={"X-End-User": END_USER},
+    api_key=API_KEY,
+    default_headers={"X-End-User": END_USER} if END_USER else {},
 )
 
 
 def list_models():
-    headers = {"Authorization": "Bearer " + SECRET, "X-End-User": END_USER}
+    headers = {"Authorization": "Bearer " + API_KEY}
+    if END_USER:
+        headers["X-End-User"] = END_USER
     resp = requests.get(f"{BASE}/models", headers=headers, timeout=30)
+    resp.raise_for_status()
     return resp.json()
 
 
