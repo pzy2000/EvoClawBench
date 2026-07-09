@@ -1,0 +1,106 @@
+{
+  "project": "Aurora Platform Redesign",
+  "meeting_type": "Weekly Sprint Review",
+  "date": "2025-02-12",
+  "time": "10:00 AM - 11:30 AM EST",
+  "location": "Conference Room B / Zoom",
+  "attendees": {
+    "present": [
+      "James Hartwell",
+      "Priya Sharma",
+      "Marcus Johnson",
+      "Elena Rodriguez",
+      "Kevin Tanaka",
+      "Lisa Park"
+    ],
+    "absent": [
+      "Tom Bradley"
+    ]
+  },
+  "agenda": [
+    "Sprint 14 progress review",
+    "Demo of new dashboard components",
+    "Performance testing results",
+    "Upcoming sprint planning",
+    "Open discussion"
+  ],
+  "discussion_points": [
+    {
+      "topic": "Sprint 14 Progress Review",
+      "summary": "18 of 22 story points completed (82% velocity); 3 stories carried over: AUTH-451, DASH-298, API-117; AUTH-451 blocked by third-party SSO provider delay; overall project is on track for March 28 beta release."
+    },
+    {
+      "topic": "Dashboard Components Demo",
+      "summary": "New analytics dashboard demonstrated with real-time data visualization; stakeholder feedback was positive with request for additional filtering; chart rendering performance improved by 40% using canvas-based approach; mobile responsive layout needs refinement for tablets."
+    },
+    {
+      "topic": "Performance Testing Results",
+      "summary": "Load test handled 5,000 concurrent users against a 3,000 target; average API response time was 142ms against a target of under 200ms; a memory leak was identified in the WebSocket connection handler; database query optimization is needed for report generation, currently 3.2s."
+    },
+    {
+      "topic": "Upcoming Sprint Planning",
+      "summary": "Sprint 15 will focus on authentication module completion and API stabilization; estimated capacity is 20 story points; priority items are SSO integration, rate limiting, and audit logging."
+    }
+  ],
+  "action_items": [
+    {
+      "assignee": "Priya Sharma",
+      "task": "Follow up with SSO provider on API access timeline",
+      "deadline": "2025-02-14"
+    },
+    {
+      "assignee": "Marcus Johnson",
+      "task": "Fix WebSocket memory leak in connection manager",
+      "deadline": "2025-02-17"
+    },
+    {
+      "assignee": "Elena Rodriguez",
+      "task": "Create tablet-optimized layouts for dashboard",
+      "deadline": "2025-02-19"
+    },
+    {
+      "assignee": "Kevin Tanaka",
+      "task": "Complete regression test suite for auth module",
+      "deadline": "2025-02-21"
+    },
+    {
+      "assignee": "Lisa Park",
+      "task": "Set up staging environment for beta testing",
+      "deadline": "2025-02-18"
+    },
+    {
+      "assignee": "James Hartwell",
+      "task": "Schedule stakeholder demo for Sprint 15 review",
+      "deadline": "2025-02-14"
+    }
+  ],
+  "decisions": [
+    "Keep March 28 beta release date unchanged.",
+    "Move tablet layout refinements into Sprint 15.",
+    "Do not add vendor QA until after the beta release.",
+    "Approved canvas-based charting approach for production.",
+    "Agreed to postpone advanced filtering to Sprint 16.",
+    "Database optimization will be prioritized in Sprint 15."
+  ],
+  "next_meeting": {
+    "date": "2025-02-19",
+    "time": "10:00 AM EST",
+    "location": "Conference Room B / Zoom"
+  },
+  "name_disambiguation_notes": [
+    "Marcus Johnston (External QA vendor) was not invited and should not be confused with Marcus Johnson (Senior Developer).",
+    "The later numbered ACTION ITEMS list replaces the earlier four-item draft list."
+  ],
+  "evidence_spans": [
+    "Project: Aurora Platform Redesign",
+    "Meeting Type: Weekly Sprint Review",
+    "Date: February 12, 2025",
+    "Marcus Johnston (External QA vendor) - not invited; do not confuse with Marcus Johnson",
+    "ACTION ITEMS:",
+    "FACILITATOR CLEANUP NOTE",
+    "The numbered ACTION ITEMS list above replaces the earlier four-item draft list.",
+    "Do not merge duplicate owner/task pairs. Use the later deadlines when they differ.",
+    "NEXT MEETING:",
+    "Date: February 19, 2025"
+  ]
+}

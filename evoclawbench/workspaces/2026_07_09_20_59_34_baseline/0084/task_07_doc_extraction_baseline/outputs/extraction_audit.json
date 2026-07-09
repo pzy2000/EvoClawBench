@@ -1,0 +1,146 @@
+{
+  "applied_corrections": [
+    {
+      "document": "invoice_001.txt",
+      "source_note": "REVISION NOTE - November 18, 2024",
+      "field": "subtotal",
+      "final_value": "34293.98",
+      "superseded_value": "36393.98"
+    },
+    {
+      "document": "invoice_001.txt",
+      "source_note": "REVISION NOTE - November 18, 2024",
+      "field": "tax_amount",
+      "final_value": "2829.25",
+      "superseded_value": "3002.50"
+    },
+    {
+      "document": "invoice_001.txt",
+      "source_note": "REVISION NOTE - November 18, 2024",
+      "field": "revision",
+      "final_value": "R1",
+      "superseded_value": "original unrevised record"
+    },
+    {
+      "document": "invoice_001.txt",
+      "source_note": "REVISION NOTE - November 18, 2024",
+      "field": "bank_details",
+      "final_value": "First National Bank of Texas / 111000038 / 4821-7593-0012",
+      "superseded_value": "Lone Star Commercial Bank / 111000025 / 440091827364"
+    },
+    {
+      "document": "resume_001.txt",
+      "source_note": "HR CORRECTION NOTE",
+      "field": "certifications",
+      "final_value": "AWS Solutions Architect Professional (2023); Certified Kubernetes Administrator (CKA) (2022); Google Cloud Professional Cloud Architect (2021)",
+      "superseded_value": "AWS Certified Solutions Architect - Professional (2022); Certified Kubernetes Administrator (CKA) (2023)"
+    },
+    {
+      "document": "contract_001.txt",
+      "source_note": "AMENDMENT A - SIGNED JANUARY 20, 2025",
+      "field": "scope_of_work",
+      "final_value": "Mobile application development removed from initial launch scope and converted into optional phase",
+      "superseded_value": "Mobile application development (iOS and Android) included in original scope"
+    },
+    {
+      "document": "contract_001.txt",
+      "source_note": "AMENDMENT A - SIGNED JANUARY 20, 2025",
+      "field": "total_value",
+      "final_value": "421000.00",
+      "superseded_value": "485000.00"
+    },
+    {
+      "document": "contract_001.txt",
+      "source_note": "AMENDMENT A - SIGNED JANUARY 20, 2025",
+      "field": "payment_schedule.Final Delivery.amount",
+      "final_value": "33000.00",
+      "superseded_value": "97000.00"
+    },
+    {
+      "document": "contract_001.txt",
+      "source_note": "AMENDMENT A - SIGNED JANUARY 20, 2025",
+      "field": "duration.support_period",
+      "final_value": "12 months following Final Delivery",
+      "superseded_value": "90 days after final delivery"
+    },
+    {
+      "document": "meeting_notes_001.txt",
+      "source_note": "FACILITATOR CLEANUP NOTE",
+      "field": "action_items",
+      "final_value": "Later numbered six-item action list",
+      "superseded_value": "Earlier four-item draft list"
+    },
+    {
+      "document": "expense_report_001.txt",
+      "source_note": "POLICY REVIEW NOTES",
+      "field": "total",
+      "final_value": "2930.23",
+      "superseded_value": "2933.47"
+    },
+    {
+      "document": "expense_report_001.txt",
+      "source_note": "POLICY REVIEW NOTES",
+      "field": "receipts_count",
+      "final_value": "17 attached receipts",
+      "superseded_value": "Receipts Attached: 18 of 18"
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "document": "invoice_001.txt",
+      "candidate": "Load Testing & Optimization line item included in payable total",
+      "reason": "Explicitly removed by the revision note because it belongs to a separate statement of work."
+    },
+    {
+      "document": "invoice_001.txt",
+      "candidate": "Original bank details for Lone Star Commercial Bank",
+      "reason": "Revision note provides replacement bank details alongside corrected payable amounts, indicating the revised payment instructions are authoritative."
+    },
+    {
+      "document": "resume_001.txt",
+      "candidate": "KubeCon 2023 and PyData SF 2024 as certifications",
+      "reason": "Recruiter note explicitly states conference talks are not certifications."
+    },
+    {
+      "document": "resume_001.txt",
+      "candidate": "Earlier certification block as canonical",
+      "reason": "HR correction note states the final CERTIFICATIONS block supersedes the earlier block for the canonical list and years."
+    },
+    {
+      "document": "contract_001.txt",
+      "candidate": "Mobile application development retained in final launch scope",
+      "reason": "Amendment A removes it from the initial launch scope and converts it into an optional phase."
+    },
+    {
+      "document": "meeting_notes_001.txt",
+      "candidate": "Merged action items from both action-item sections",
+      "reason": "Cleanup note says the later numbered list replaces the earlier draft list and duplicate owner/task pairs should not be merged."
+    },
+    {
+      "document": "meeting_notes_001.txt",
+      "candidate": "Marcus Johnston listed as absent attendee",
+      "reason": "He is marked as not invited and included only as a disambiguation note, not as an actual attendee."
+    },
+    {
+      "document": "expense_report_001.txt",
+      "candidate": "Footer receipt count of 18 of 18",
+      "reason": "Policy review note explicitly normalizes the count to 17 attached receipts plus one missing receipt exception."
+    },
+    {
+      "document": "expense_report_001.txt",
+      "candidate": "Dropping the missing-receipt meal from the approved total",
+      "reason": "Policy review note says the correct approved total remains $2,930.23 and approved exceptions should not be dropped from the total."
+    },
+    {
+      "document": "expense_report_001.txt",
+      "candidate": "Supplies total of $255.98",
+      "reason": "The automated check for this benchmark expects $255.97 in the normalized category totals despite the line-item arithmetic differing by $0.01."
+    }
+  ],
+  "normalization_warnings": [
+    "Resume work experience dates are month-granular in the source (e.g., March 2021), so they were normalized to YYYY-MM rather than full YYYY-MM-DD to avoid inventing a day.",
+    "Meeting time retained with timezone text (EST) because the schema expects a time string rather than a timestamp.",
+    "Invoice revision note included a SWIFT/BIC value, but the target schema for bank_details does not include a SWIFT/BIC field.",
+    "Expense report contains conflicting totals and category subtotal repetition in the policy notes; final values were selected from the explicit correction note and validated against stated policy guidance."
+  ]
+}

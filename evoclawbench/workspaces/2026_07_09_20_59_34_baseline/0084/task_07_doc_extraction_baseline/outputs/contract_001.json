@@ -1,0 +1,86 @@
+{
+  "title": "SERVICE AGREEMENT",
+  "effective_date": "2025-01-08",
+  "parties": [
+    {
+      "name": "Pinnacle Digital Services LLC",
+      "address": "2100 Market Street, Floor 14, Philadelphia, PA 19103",
+      "contact_person": "Robert Vasquez, Director of Client Services",
+      "role": "Service Provider"
+    },
+    {
+      "name": "Northwind Trading Corporation",
+      "address": "4500 Commerce Way, Chicago, IL 60601",
+      "contact_person": "Diana Kowalski, VP of Technology",
+      "role": "Client"
+    }
+  ],
+  "scope_of_work": [
+    "Custom web application development (e-commerce platform)",
+    "Cloud infrastructure setup and management (AWS)",
+    "Quality assurance and testing",
+    "Post-launch technical support and maintenance"
+  ],
+  "total_value": 421000.0,
+  "payment_schedule": [
+    {
+      "milestone": "Upon signing",
+      "percentage": "20%",
+      "amount": 97000.0,
+      "due_date": "2025-01-15"
+    },
+    {
+      "milestone": "Design Approval milestone",
+      "percentage": "25%",
+      "amount": 121250.0,
+      "due_date": "2025-03-01"
+    },
+    {
+      "milestone": "Beta Launch milestone",
+      "percentage": "25%",
+      "amount": 121250.0,
+      "due_date": "2025-06-01"
+    },
+    {
+      "milestone": "Final Delivery",
+      "percentage": "20%",
+      "amount": 33000.0,
+      "due_date": "2025-08-15"
+    },
+    {
+      "milestone": "30-day acceptance period",
+      "percentage": "10%",
+      "amount": 48500.0,
+      "due_date": "2025-09-15"
+    }
+  ],
+  "duration": {
+    "start_date": "2025-01-15",
+    "end_date": "2025-08-15",
+    "support_period": "12 months following Final Delivery"
+  },
+  "termination_notice_days": 30,
+  "governing_law": "Pennsylvania",
+  "dispute_resolution": "Any disputes shall first be submitted to mediation. If mediation fails, disputes shall be resolved by binding arbitration in Philadelphia, PA.",
+  "amendments": [
+    "Amendment A signed 2025-01-20 removes the mobile application deliverable from the initial launch scope and converts it into an optional phase.",
+    "Amendment A changes total contract value from $485,000.00 to $421,000.00.",
+    "Amendment A keeps Design Approval and Beta Launch milestone amounts unchanged, reduces Final Delivery milestone to $33,000.00, and keeps acceptance payment at $48,500.00.",
+    "Amendment A updates support period from 90 days after final delivery to 12 months following Final Delivery."
+  ],
+  "excluded_scope": [
+    "Mobile application development (iOS and Android) removed from initial launch scope and converted into an optional phase by Amendment A."
+  ],
+  "evidence_spans": [
+    "This Service Agreement (\"Agreement\") is entered into as of January 8, 2025",
+    "Total Contract Value: $485,000.00",
+    "AMENDMENT A - SIGNED JANUARY 20, 2025",
+    "remove the mobile application deliverable from the initial launch scope and convert it into an optional phase.",
+    "The amended total contract value is $421,000.00.",
+    "reduce the Final Delivery milestone to $33,000.00 and keep the acceptance payment at $48,500.00.",
+    "Support Period: 12 months following Final Delivery",
+    "Either party may terminate this Agreement with 30 days written notice.",
+    "laws of the State of Pennsylvania",
+    "Any disputes shall first be submitted to mediation. If mediation fails, disputes shall be resolved by binding arbitration in Philadelphia, PA."
+  ]
+}

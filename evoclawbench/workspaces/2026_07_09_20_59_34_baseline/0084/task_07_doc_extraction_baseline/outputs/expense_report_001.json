@@ -1,0 +1,153 @@
+{
+  "employee": {
+    "name": "Michael Torres",
+    "employee_id": "EMP-20198",
+    "department": "Engineering",
+    "manager": "Jennifer Walsh"
+  },
+  "period": {
+    "start_date": "2025-02-01",
+    "end_date": "2025-02-28"
+  },
+  "purpose": "Client meetings, conference attendance, and team offsite",
+  "line_items": [
+    {
+      "date": "2025-02-03",
+      "category": "Transportation",
+      "description": "Uber to client site (Acme Corp)",
+      "amount": 34.5
+    },
+    {
+      "date": "2025-02-03",
+      "category": "Meals",
+      "description": "Lunch with client (Acme Corp)",
+      "amount": 87.25
+    },
+    {
+      "date": "2025-02-05",
+      "category": "Supplies",
+      "description": "USB-C hub for presentation setup",
+      "amount": 45.99
+    },
+    {
+      "date": "2025-02-07",
+      "category": "Transportation",
+      "description": "Flight to Seattle (DevOps Con)",
+      "amount": 342.0
+    },
+    {
+      "date": "2025-02-07",
+      "category": "Lodging",
+      "description": "Hotel - Marriott Seattle (2 nts)",
+      "amount": 478.0
+    },
+    {
+      "date": "2025-02-08",
+      "category": "Meals",
+      "description": "Dinner - team networking event",
+      "amount": 62.4
+    },
+    {
+      "date": "2025-02-08",
+      "category": "Conference",
+      "description": "DevOps Con registration fee",
+      "amount": 599.0
+    },
+    {
+      "date": "2025-02-09",
+      "category": "Transportation",
+      "description": "Uber to/from conference venue",
+      "amount": 28.75
+    },
+    {
+      "date": "2025-02-09",
+      "category": "Meals",
+      "description": "Lunch at conference",
+      "amount": 21.5
+    },
+    {
+      "date": "2025-02-10",
+      "category": "Transportation",
+      "description": "Flight return from Seattle",
+      "amount": 298.0
+    },
+    {
+      "date": "2025-02-14",
+      "category": "Meals",
+      "description": "Team lunch (Valentine's sprint)",
+      "amount": 156.8
+    },
+    {
+      "date": "2025-02-18",
+      "category": "Supplies",
+      "description": "Ergonomic keyboard",
+      "amount": 129.99
+    },
+    {
+      "date": "2025-02-20",
+      "category": "Transportation",
+      "description": "Taxi to downtown office",
+      "amount": 22.0
+    },
+    {
+      "date": "2025-02-20",
+      "category": "Meals",
+      "description": "Client dinner (Northwind Corp)",
+      "amount": 195.3
+    },
+    {
+      "date": "2025-02-24",
+      "category": "Software",
+      "description": "JetBrains annual license",
+      "amount": 249.0
+    },
+    {
+      "date": "2025-02-25",
+      "category": "Transportation",
+      "description": "Parking - client visit",
+      "amount": 18.0
+    },
+    {
+      "date": "2025-02-26",
+      "category": "Team Activity",
+      "description": "Team offsite bowling event",
+      "amount": 85.0
+    },
+    {
+      "date": "2025-02-27",
+      "category": "Supplies",
+      "description": "Webcam for remote meetings",
+      "amount": 79.99
+    }
+  ],
+  "category_totals": {
+    "Transportation": 743.25,
+    "Meals": 523.25,
+    "Lodging": 478.0,
+    "Conference": 599.0,
+    "Supplies": 255.97,
+    "Software": 249.0,
+    "Team Activity": 85.0
+  },
+  "total": 2930.23,
+  "approval_status": "PENDING REVIEW",
+  "receipts_count": 17,
+  "receipt_exceptions": [
+    "Receipt R-2025-0214 for the $156.80 team lunch is missing and should be marked as a receipt exception."
+  ],
+  "approved_exceptions": [
+    "The team offsite bowling event is approved by Jennifer Walsh despite being a non-standard Team Activity category.",
+    "The missing receipt for the $156.80 team lunch remains included in the approved total.",
+    "JetBrains annual license is reimbursable and coded as Software."
+  ],
+  "evidence_spans": [
+    "Reporting Period: February 1, 2025 - February 28, 2025",
+    "Purpose: Client meetings, conference attendance, and team offsite",
+    "The JetBrains annual license is reimbursable, but must be coded as Software.",
+    "The team offsite bowling event is approved by Jennifer Walsh despite being a non-standard Team Activity category.",
+    "Receipt R-2025-0214 for the $156.80 team lunch is missing and should be marked as a receipt exception.",
+    "Correct approved total remains $2,930.23; do not drop approved exceptions from the total.",
+    "The receipt attachment count should be normalized to 17 attached receipts plus one missing receipt exception, even though the original footer says \"Receipts Attached: 18 of 18\".",
+    "Approval Status: PENDING REVIEW"
+  ]
+}
