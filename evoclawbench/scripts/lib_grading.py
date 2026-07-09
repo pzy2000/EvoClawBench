@@ -354,6 +354,12 @@ def _format_grading_criteria(task: Task) -> str:
 
 
 def _summarize_transcript(transcript: List[Dict[str, Any]]) -> str:
+    """Build a compact text summary of a transcript for LLM-judge prompts.
+
+    Some runtimes (e.g. nanobot) serialize a plain-text assistant/user message as a bare
+    string in ``message.content`` instead of the list-of-content-block form OpenClaw uses.
+    Normalize both shapes here instead of assuming a list.
+    """
     summary_parts: List[str] = []
     for event in transcript:
         if event.get("type") != "message":
@@ -361,19 +367,32 @@ def _summarize_transcript(transcript: List[Dict[str, Any]]) -> str:
         msg = event.get("message", {})
         role = msg.get("role")
         if role == "assistant":
-            for item in msg.get("content", []):
+            content = msg.get("content", [])
+            if isinstance(content, str):
+                if content:
+                    summary_parts.append(f"Text: {content[:200]}")
+                continue
+            for item in content:
+                if not isinstance(item, dict):
+                    continue
                 if item.get("type") == "toolCall":
                     summary_parts.append(
                         f"Tool: {item.get('name')}({json.dumps(item.get('arguments', {}))})"
                     )
         elif role == "toolResult":
             content = msg.get("content", [])
-            if content:
+            if isinstance(content, str):
+                if content:
+                    summary_parts.append(f"Result: {content[:200]}")
+            elif content:
                 result_preview = str(content[0])[:200]
                 summary_parts.append(f"Result: {result_preview}")
         elif role == "user":
             content = msg.get("content", [])
-            if content:
+            if isinstance(content, str):
+                if content:
+                    summary_parts.append(f"User: {content[:200]}")
+            elif content:
                 summary_parts.append(f"User: {content[0]}")
     return "\n".join(summary_parts)
 
