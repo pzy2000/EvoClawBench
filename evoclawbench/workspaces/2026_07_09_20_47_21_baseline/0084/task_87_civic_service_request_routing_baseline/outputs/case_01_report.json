@@ -1,0 +1,24 @@
+{
+  "routing_queue": {
+    "admin": 6,
+    "clinical": 2,
+    "pharmacy": 5
+  },
+  "redactions_required": [
+    "escalate",
+    "hold",
+    "manual_review"
+  ],
+  "missing_evidence": [
+    "MISEVI-01-20",
+    "MISEVI-01-75",
+    "MISEVI-01-84",
+    "MISEVI-01-97"
+  ],
+  "risk_summary": {
+    "compliance": 4,
+    "financial": 1,
+    "operational": 6
+  },
+  "compliant": true
+}
