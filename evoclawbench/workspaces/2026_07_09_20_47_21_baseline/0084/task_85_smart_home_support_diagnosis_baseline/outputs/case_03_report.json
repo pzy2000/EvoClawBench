@@ -1,0 +1,27 @@
+{
+  "priority_assets": [
+    "PRIASS-03-13",
+    "PRIASS-03-22",
+    "PRIASS-03-52",
+    "PRIASS-03-70"
+  ],
+  "maintenance_due": [
+    "MAIDUE-03-28",
+    "MAIDUE-03-41",
+    "MAIDUE-03-74",
+    "MAIDUE-03-86"
+  ],
+  "anomaly_ids": [
+    "ANOIDS-03-26",
+    "ANOIDS-03-41",
+    "ANOIDS-03-57",
+    "ANOIDS-03-78"
+  ],
+  "diagnostic_codes": [
+    "DIACOD-03-11",
+    "DIACOD-03-21",
+    "DIACOD-03-61",
+    "DIACOD-03-90"
+  ],
+  "dispatch_required": true
+}
