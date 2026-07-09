@@ -1,0 +1,27 @@
+{
+  "priority_queue": [
+    "PRIQUE-04-30",
+    "PRIQUE-04-53",
+    "PRIQUE-04-71",
+    "PRIQUE-04-93"
+  ],
+  "duplicate_groups": [
+    "DUPGRO-04-26",
+    "DUPGRO-04-31",
+    "DUPGRO-04-75",
+    "DUPGRO-04-81"
+  ],
+  "themes": [
+    "THE-04-25",
+    "THE-04-44",
+    "THE-04-51",
+    "THE-04-70"
+  ],
+  "sla_breaches": [
+    "SLABRE-04-61",
+    "SLABRE-04-78",
+    "SLABRE-04-84",
+    "SLABRE-04-90"
+  ],
+  "reply_template": "technical_escalation"
+}

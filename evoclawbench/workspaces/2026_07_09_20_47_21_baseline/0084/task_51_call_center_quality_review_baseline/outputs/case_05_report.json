@@ -1,0 +1,27 @@
+{
+  "priority_queue": [
+    "PRIQUE-05-30",
+    "PRIQUE-05-53",
+    "PRIQUE-05-71",
+    "PRIQUE-05-93"
+  ],
+  "duplicate_groups": [
+    "DUPGRO-05-26",
+    "DUPGRO-05-31",
+    "DUPGRO-05-75",
+    "DUPGRO-05-81"
+  ],
+  "themes": [
+    "THE-05-25",
+    "THE-05-44",
+    "THE-05-51",
+    "THE-05-70"
+  ],
+  "sla_breaches": [
+    "SLABRE-05-61",
+    "SLABRE-05-78",
+    "SLABRE-05-84",
+    "SLABRE-05-90"
+  ],
+  "reply_template": "apology_credit"
+}
