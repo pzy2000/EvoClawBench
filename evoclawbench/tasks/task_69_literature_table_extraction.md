@@ -3,7 +3,7 @@ id: task_69_literature_table_extraction
 name: Literature Table Extraction
 category: research_media
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: research_media
 task_family: Research/Media

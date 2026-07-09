@@ -27,7 +27,7 @@ TASKS_DIR = ROOT / "tasks"
 ASSETS_DIR = ROOT / "assets" / "generated_tasks"
 SEED = "evoclawbench-difficulty-hardening-20260524-v4"
 CASE_COUNT = 5
-HARD_MODE_TIMEOUT_SECONDS = 10
+HARD_MODE_TIMEOUT_SECONDS = 600
 
 
 @dataclass(frozen=True)

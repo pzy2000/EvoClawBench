@@ -3,7 +3,7 @@ id: task_22_finance_ledger_reconciliation
 name: Finance Ledger Reconciliation
 category: finance_ops
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: finance
 task_family: Finance

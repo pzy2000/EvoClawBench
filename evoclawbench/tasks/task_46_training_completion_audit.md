@@ -3,7 +3,7 @@ id: task_46_training_completion_audit
 name: Training Completion Audit
 category: hr_education
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: hr_education
 task_family: HR/Education

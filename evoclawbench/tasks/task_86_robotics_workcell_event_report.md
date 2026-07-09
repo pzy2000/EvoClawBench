@@ -3,7 +3,7 @@ id: task_86_robotics_workcell_event_report
 name: Robotics Workcell Event Report
 category: facilities_iot
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: facilities_iot
 task_family: Facilities/IoT

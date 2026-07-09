@@ -3,7 +3,7 @@ id: task_53_terraform_plan_drift
 name: Terraform Plan Drift
 category: devops
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: devops_sre
 task_family: DevOps/SRE

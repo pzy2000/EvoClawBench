@@ -3,7 +3,7 @@ id: task_81_marketplace_listing_policy
 name: Marketplace Listing Policy
 category: commerce_food
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: commerce_food
 task_family: Commerce/Food

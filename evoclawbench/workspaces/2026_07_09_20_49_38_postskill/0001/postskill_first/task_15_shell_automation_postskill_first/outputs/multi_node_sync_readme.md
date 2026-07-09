@@ -1,25 +1,26 @@
-# Multi-Node Config File Sync
+# Multi-Server Config Sync via rsync/SSH
 
 ## Purpose
-Synchronizes `/etc/myapp/config/` to multiple remote servers over SSH/rsync, reloads `myapp` on each host, and reports failures for manual rollback.
+Synchronizes a configuration directory from one source node to multiple remote nodes using `rsync` over SSH, with a simple rollback mechanism if a sync fails.
 
 ## Usage
 ```bash
-./outputs/multi_node_sync.sh
-./outputs/multi_node_sync.sh --dry-run
+bash outputs/multi_node_sync.sh
 ```
 
-## Required environment variables
-None.
-
-## Notes
-- Uses SSH key `/home/deploy/.ssh/id_rsa`.
-- Excludes `*.bak`, `*.tmp`, and `secrets.conf`.
+## Required env vars
+- `SOURCE_DIR` (default: `/etc/myapp`)
+- `TARGETS` (default: `server1:/etc/myapp server2:/etc/myapp`)
+- `SSH_OPTS` (default: `-o BatchMode=yes`)
+- `RSYNC_OPTS` (default: `-aH --delete --numeric-ids`)
+- `BACKUP_SUFFIX` (default: `.backup`)
+- `ROLLBACK_ON_FAILURE` (default: `1`)
 
 ## Example output
 ```text
-server             sync_status  reload_status duration_s
-web01.internal     ok           ok           4
-web02.internal     ok           fail         5
-Manual rollback needed for: web02.internal
+Syncing to server1:/etc/myapp
+Sync succeeded for server1
+Syncing to server2:/etc/myapp
+Sync succeeded for server2
+All sync operations completed successfully
 ```

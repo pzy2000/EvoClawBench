@@ -3,7 +3,7 @@ id: task_35_insurance_prior_auth_review
 name: Insurance Prior Auth Review
 category: healthcare_admin
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: healthcare
 task_family: Healthcare

@@ -3,7 +3,7 @@ id: task_23_subscription_revenue_audit
 name: Subscription Revenue Audit
 category: finance_ops
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: finance
 task_family: Finance

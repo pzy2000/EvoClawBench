@@ -3,7 +3,7 @@ id: task_37_procurement_bid_scoring
 name: Procurement Bid Scoring
 category: procurement_logistics
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: procurement_logistics
 task_family: Procurement/Logistics

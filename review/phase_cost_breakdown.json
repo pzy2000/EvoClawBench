@@ -1,0 +1,122 @@
+[
+  {
+    "runtime": "openclaw",
+    "model": "GPT-5.4",
+    "baseline_tokens": 4925264,
+    "preskill_author_tokens": 7394934,
+    "preskill_execute_tokens": 6239972,
+    "postskill_first_execution_tokens": 0,
+    "postskill_skill_summary_tokens": 0,
+    "postskill_second_execution_tokens": 0,
+    "postskill_reuse_only_tokens": 0,
+    "reuse_only_token_efficiency_gain_vs_baseline": NaN
+  },
+  {
+    "runtime": "openclaw",
+    "model": "Qwen3.6-Plus",
+    "baseline_tokens": 5526752,
+    "preskill_author_tokens": 9352731,
+    "preskill_execute_tokens": 5228487,
+    "postskill_first_execution_tokens": 4848001,
+    "postskill_skill_summary_tokens": 7754522,
+    "postskill_second_execution_tokens": 5731045,
+    "postskill_reuse_only_tokens": 13485567,
+    "reuse_only_token_efficiency_gain_vs_baseline": 0.4098271878371892
+  },
+  {
+    "runtime": "openclaw",
+    "model": "DeepSeek-V4-Pro",
+    "baseline_tokens": 5198191,
+    "preskill_author_tokens": 7661468,
+    "preskill_execute_tokens": 5200278,
+    "postskill_first_execution_tokens": 0,
+    "postskill_skill_summary_tokens": 0,
+    "postskill_second_execution_tokens": 0,
+    "postskill_reuse_only_tokens": 0,
+    "reuse_only_token_efficiency_gain_vs_baseline": NaN
+  },
+  {
+    "runtime": "openclaw",
+    "model": "MiniMax-M2.7",
+    "baseline_tokens": 4059607,
+    "preskill_author_tokens": 11224760,
+    "preskill_execute_tokens": 8106279,
+    "postskill_first_execution_tokens": 4263403,
+    "postskill_skill_summary_tokens": 4702735,
+    "postskill_second_execution_tokens": 6433952,
+    "postskill_reuse_only_tokens": 11136687,
+    "reuse_only_token_efficiency_gain_vs_baseline": 0.3645255541437054
+  },
+  {
+    "runtime": "openclaw",
+    "model": "GPT-5.4 mini",
+    "baseline_tokens": 3904034,
+    "preskill_author_tokens": 7350407,
+    "preskill_execute_tokens": 4997946,
+    "postskill_first_execution_tokens": 3850169,
+    "postskill_skill_summary_tokens": 5361288,
+    "postskill_second_execution_tokens": 4875251,
+    "postskill_reuse_only_tokens": 10236539,
+    "reuse_only_token_efficiency_gain_vs_baseline": 0.38138222303456276
+  },
+  {
+    "runtime": "nanobot",
+    "model": "GPT-5.4",
+    "baseline_tokens": 0,
+    "preskill_author_tokens": 0,
+    "preskill_execute_tokens": 0,
+    "postskill_first_execution_tokens": 0,
+    "postskill_skill_summary_tokens": 0,
+    "postskill_second_execution_tokens": 0,
+    "postskill_reuse_only_tokens": 0,
+    "reuse_only_token_efficiency_gain_vs_baseline": NaN
+  },
+  {
+    "runtime": "nanobot",
+    "model": "Qwen3.6-Plus",
+    "baseline_tokens": 0,
+    "preskill_author_tokens": 0,
+    "preskill_execute_tokens": 0,
+    "postskill_first_execution_tokens": 0,
+    "postskill_skill_summary_tokens": 0,
+    "postskill_second_execution_tokens": 0,
+    "postskill_reuse_only_tokens": 0,
+    "reuse_only_token_efficiency_gain_vs_baseline": NaN
+  },
+  {
+    "runtime": "nanobot",
+    "model": "DeepSeek-V4-Pro",
+    "baseline_tokens": 0,
+    "preskill_author_tokens": 0,
+    "preskill_execute_tokens": 0,
+    "postskill_first_execution_tokens": 0,
+    "postskill_skill_summary_tokens": 0,
+    "postskill_second_execution_tokens": 0,
+    "postskill_reuse_only_tokens": 0,
+    "reuse_only_token_efficiency_gain_vs_baseline": NaN
+  },
+  {
+    "runtime": "nanobot",
+    "model": "MiniMax-M2.7",
+    "baseline_tokens": 0,
+    "preskill_author_tokens": 0,
+    "preskill_execute_tokens": 0,
+    "postskill_first_execution_tokens": 0,
+    "postskill_skill_summary_tokens": 0,
+    "postskill_second_execution_tokens": 0,
+    "postskill_reuse_only_tokens": 0,
+    "reuse_only_token_efficiency_gain_vs_baseline": NaN
+  },
+  {
+    "runtime": "nanobot",
+    "model": "GPT-5.4 mini",
+    "baseline_tokens": 0,
+    "preskill_author_tokens": 0,
+    "preskill_execute_tokens": 0,
+    "postskill_first_execution_tokens": 0,
+    "postskill_skill_summary_tokens": 0,
+    "postskill_second_execution_tokens": 0,
+    "postskill_reuse_only_tokens": 0,
+    "reuse_only_token_efficiency_gain_vs_baseline": NaN
+  }
+]

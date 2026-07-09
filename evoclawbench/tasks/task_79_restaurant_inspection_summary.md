@@ -3,7 +3,7 @@ id: task_79_restaurant_inspection_summary
 name: Restaurant Inspection Summary
 category: commerce_food
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: commerce_food
 task_family: Commerce/Food

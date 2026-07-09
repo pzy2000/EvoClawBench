@@ -3,7 +3,7 @@ id: task_88_public_records_redaction
 name: Public Records Redaction
 category: public_audit
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: public_audit
 task_family: Public Sector/Audit

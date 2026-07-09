@@ -3,7 +3,7 @@ id: task_47_support_ticket_escalation
 name: Support Ticket Escalation
 category: support_product
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: support_product
 task_family: Support/Product

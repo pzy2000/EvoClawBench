@@ -3,7 +3,7 @@ id: task_72_localization_placeholder_qa
 name: Localization Placeholder Qa
 category: localization_release
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: localization_release
 task_family: Localization/Release

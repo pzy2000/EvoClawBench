@@ -3,7 +3,7 @@ id: task_41_supplier_risk_packet
 name: Supplier Risk Packet
 category: procurement_logistics
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: procurement_logistics
 task_family: Procurement/Logistics

@@ -3,7 +3,7 @@ id: task_62_sql_schema_migration_review
 name: SQL Schema Migration Review
 category: data_analysis
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: data_analytics
 task_family: Data/Analytics

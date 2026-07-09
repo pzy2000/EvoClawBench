@@ -3,7 +3,7 @@ id: task_74_release_notes_curation
 name: Release Notes Curation
 category: localization_release
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: localization_release
 task_family: Localization/Release

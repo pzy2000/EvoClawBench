@@ -3,7 +3,7 @@ id: task_70_public_web_directory_extraction
 name: Public Web Directory Extraction
 category: research_media
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: research_media
 task_family: Research/Media

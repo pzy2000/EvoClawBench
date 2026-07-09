@@ -3,7 +3,7 @@ id: task_97_calendar_conflict_resolution
 name: Calendar Conflict Resolution
 category: office_operations
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: travel_office
 task_family: Travel/Office

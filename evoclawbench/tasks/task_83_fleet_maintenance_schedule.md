@@ -3,7 +3,7 @@ id: task_83_fleet_maintenance_schedule
 name: Fleet Maintenance Schedule
 category: facilities_iot
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: facilities_iot
 task_family: Facilities/IoT

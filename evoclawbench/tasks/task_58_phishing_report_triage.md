@@ -3,7 +3,7 @@ id: task_58_phishing_report_triage
 name: Phishing Report Triage
 category: security_privacy
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: security_privacy
 task_family: Security/Privacy

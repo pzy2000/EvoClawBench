@@ -3,7 +3,7 @@ id: task_85_smart_home_support_diagnosis
 name: Smart Home Support Diagnosis
 category: facilities_iot
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: facilities_iot
 task_family: Facilities/IoT

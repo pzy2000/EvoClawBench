@@ -1,22 +1,25 @@
-# Database Dump and Upload
+# PostgreSQL Dump, Compression, and S3 Upload
 
 ## Purpose
-Dumps the PostgreSQL database `production_db`, compresses the dump, uploads it to S3-compatible storage, verifies the upload, and removes the local dump on success.
+Creates a PostgreSQL dump, compresses it with gzip, and uploads the archive to S3.
 
 ## Usage
 ```bash
-export PGPASSWORD='your-password'
-./outputs/db_dump.sh
+bash outputs/db_dump.sh
 ```
 
-## Required environment variables
-- `PGPASSWORD`
-
-## Notes
-- Requires `pg_dump` and `aws` CLI.
-- Logs to `/var/log/db_backup.log`.
+## Required env vars
+- `PGHOST` (default: `localhost`)
+- `PGPORT` (default: `5432`)
+- `PGDATABASE` (default: `postgres`)
+- `PGUSER` (default: `postgres`)
+- `BACKUP_DIR` (default: `./db_backups`)
+- `S3_BUCKET` (required)
+- `S3_KEY_PREFIX` (default: `database-dumps`)
+- `AWS_REGION` (default: `us-east-1`)
 
 ## Example output
 ```text
-Backup complete: uploaded and removed local dump (1843200 bytes)
+Running pg_dump for appdb...
+Backup complete: ./db_backups/appdb_20260709_214500.sql.gz uploaded to s3://my-bucket/database-dumps/appdb_20260709_214500.sql.gz
 ```

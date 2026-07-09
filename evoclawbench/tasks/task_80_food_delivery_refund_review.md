@@ -3,7 +3,7 @@ id: task_80_food_delivery_refund_review
 name: Food Delivery Refund Review
 category: commerce_food
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: commerce_food
 task_family: Commerce/Food

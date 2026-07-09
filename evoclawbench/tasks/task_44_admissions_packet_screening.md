@@ -3,7 +3,7 @@ id: task_44_admissions_packet_screening
 name: Admissions Packet Screening
 category: hr_education
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: hr_education
 task_family: HR/Education

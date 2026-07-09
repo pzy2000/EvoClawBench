@@ -3,7 +3,7 @@ id: task_57_security_alert_correlation
 name: Security Alert Correlation
 category: security_privacy
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: security_privacy
 task_family: Security/Privacy

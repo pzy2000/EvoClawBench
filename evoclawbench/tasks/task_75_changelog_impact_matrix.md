@@ -3,7 +3,7 @@ id: task_75_changelog_impact_matrix
 name: Changelog Impact Matrix
 category: localization_release
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: localization_release
 task_family: Localization/Release

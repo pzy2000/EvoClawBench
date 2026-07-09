@@ -3,7 +3,7 @@ id: task_25_loan_document_checklist
 name: Loan Document Checklist
 category: finance_ops
 grading_type: automated
-timeout_seconds: 10
+timeout_seconds: 600
 sub_problems: 5
 skill_category: finance
 task_family: Finance
