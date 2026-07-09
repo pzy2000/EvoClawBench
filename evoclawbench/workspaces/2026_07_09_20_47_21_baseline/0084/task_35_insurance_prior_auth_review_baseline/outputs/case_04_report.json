@@ -1,0 +1,1 @@
+{"eligible_ids":["ELIIDS-04-11","ELIIDS-04-12","ELIIDS-04-13","ELIIDS-04-59"],"routing_queue":{"admin":5,"clinical":6,"pharmacy":8},"followup_ids":["FOLIDS-04-28","FOLIDS-04-51","FOLIDS-04-66","FOLIDS-04-85"],"stockout_ids":["STOIDS-04-31","STOIDS-04-88","STOIDS-04-92","STOIDS-04-98"],"urgent_count":13}
