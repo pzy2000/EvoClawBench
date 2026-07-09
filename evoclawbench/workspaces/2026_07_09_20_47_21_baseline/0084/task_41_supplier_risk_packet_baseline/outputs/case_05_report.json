@@ -1,0 +1,21 @@
+{
+  "selected_vendor": "Vendor-Orion",
+  "match_exceptions": [
+    "MATEXC-05-33",
+    "MATEXC-05-37",
+    "MATEXC-05-70",
+    "MATEXC-05-97"
+  ],
+  "late_shipments": [
+    "LATSHI-05-30",
+    "LATSHI-05-43",
+    "LATSHI-05-64",
+    "LATSHI-05-78"
+  ],
+  "risk_suppliers": [
+    "RISSUP-05-35",
+    "RISSUP-05-69",
+    "RISSUP-05-94"
+  ],
+  "savings_estimate": 7.25
+}

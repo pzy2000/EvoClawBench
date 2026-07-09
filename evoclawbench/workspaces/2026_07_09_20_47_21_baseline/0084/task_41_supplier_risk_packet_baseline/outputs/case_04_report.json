@@ -1,0 +1,21 @@
+{
+  "selected_vendor": "Vendor-Nimbus",
+  "match_exceptions": [
+    "MATEXC-04-33",
+    "MATEXC-04-37",
+    "MATEXC-04-70",
+    "MATEXC-04-97"
+  ],
+  "late_shipments": [
+    "LATSHI-04-30",
+    "LATSHI-04-43",
+    "LATSHI-04-64",
+    "LATSHI-04-78"
+  ],
+  "risk_suppliers": [
+    "RISSUP-04-35",
+    "RISSUP-04-69",
+    "RISSUP-04-94"
+  ],
+  "savings_estimate": 5.2
+}

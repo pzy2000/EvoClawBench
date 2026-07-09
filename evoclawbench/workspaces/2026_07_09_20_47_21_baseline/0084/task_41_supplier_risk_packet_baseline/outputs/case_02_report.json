@@ -1,0 +1,21 @@
+{
+  "selected_vendor": "Vendor-Kestrel",
+  "match_exceptions": [
+    "MATEXC-02-33",
+    "MATEXC-02-37",
+    "MATEXC-02-70",
+    "MATEXC-02-97"
+  ],
+  "late_shipments": [
+    "LATSHI-02-30",
+    "LATSHI-02-43",
+    "LATSHI-02-64",
+    "LATSHI-02-78"
+  ],
+  "risk_suppliers": [
+    "RISSUP-02-35",
+    "RISSUP-02-69",
+    "RISSUP-02-94"
+  ],
+  "savings_estimate": 24.32
+}
