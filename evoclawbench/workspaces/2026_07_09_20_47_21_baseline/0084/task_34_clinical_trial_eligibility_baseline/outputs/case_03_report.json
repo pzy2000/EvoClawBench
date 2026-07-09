@@ -1,0 +1,26 @@
+{
+  "eligible_ids": [
+    "ELIIDS-03-15",
+    "ELIIDS-03-79",
+    "ELIIDS-03-83",
+    "ELIIDS-03-97"
+  ],
+  "routing_queue": {
+    "admin": 7,
+    "clinical": 8,
+    "pharmacy": 5
+  },
+  "followup_ids": [
+    "FOLIDS-03-72",
+    "FOLIDS-03-75",
+    "FOLIDS-03-91",
+    "FOLIDS-03-97"
+  ],
+  "stockout_ids": [
+    "STOIDS-03-101",
+    "STOIDS-03-23",
+    "STOIDS-03-69",
+    "STOIDS-03-93"
+  ],
+  "urgent_count": 21
+}
