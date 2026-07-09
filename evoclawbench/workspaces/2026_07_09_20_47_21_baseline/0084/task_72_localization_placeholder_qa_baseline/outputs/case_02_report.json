@@ -1,0 +1,25 @@
+{
+  "placeholder_errors": [
+    "PLAERR-02-15",
+    "PLAERR-02-36",
+    "PLAERR-02-51",
+    "PLAERR-02-72"
+  ],
+  "glossary_violations": [
+    "GLOVIO-02-16",
+    "GLOVIO-02-59",
+    "GLOVIO-02-75",
+    "GLOVIO-02-99"
+  ],
+  "release_sections": [
+    "launch",
+    "overview",
+    "owner"
+  ],
+  "flag_actions": [
+    "approve_with_note",
+    "escalate",
+    "reject"
+  ],
+  "publish_ready": false
+}
