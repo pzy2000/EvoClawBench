@@ -6,8 +6,6 @@ We thank the reviewer for the concrete suggestions.
 
 **W2b (zero-skill collapse).** In PostSkill second executions, every recorded assistant message is empty for 90/101 GPT-5.4 and 86/101 DeepSeek-V4-Pro tasks, versus 0/101 and 1/101 in comparison rows. Nanobot DeepSeek-V4-Pro PreSkill hits its fallback in 89/101 tasks.
 
-This identifies execution-pipeline failure, not its cause, and does not answer W2a. We will exclude these rows from skill-quality and runtime-capability claims.
-
 **W3 (limited coverage).** We added two `GPT-5.4 mini`/OpenClaw executions on the same 12 hybrid tasks. Runs 2/3 changed route, endpoint, judge, timeout, and transcript handling, so they are operational repetitions, not controlled seeds:
 
 | Run | Baseline | PreSkill | PostSkill |
