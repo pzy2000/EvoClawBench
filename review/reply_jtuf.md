@@ -1,6 +1,6 @@
 We thank the reviewer for the concrete suggestions.
 
-**W1 (skill content vs. wrapper).** The four-task ablation gives +4.05 points for normal \preskill{}, +19.84 for an empty scaffold, and +1.52 for an irrelevant skill. For \postskill{}, normal reuse is +1.47; discarding the skill gives −4.23. This single-run diagnostic shows material wrapper/reset confounding, not skill content's causal contribution.
+**W1 (skill content vs. wrapper).** The four-task ablation gives +4.05 points for normal PreSkill, +19.84 for an empty scaffold, and +1.52 for an irrelevant skill. For PostSkill, normal reuse is +1.47; discarding the skill gives −4.23. This single-run diagnostic shows material wrapper/reset confounding, not skill content's causal contribution.
 
 **W2a (task-specific patching).** Correct: PostSkill summarizes grading/output evidence and reruns the same fixtures. It measures same-task repair, not held-out transfer. We will narrow "reusable" accordingly; generalization requires a train/eval split.
 
@@ -19,4 +19,4 @@ The 5--6-point SDs mix configuration variation and stochasticity; 5/72 rerun cel
 
 **S1 (authoring failures).** Current logs cannot distinguish failed authoring from opt-out. We will add explicit statuses and mark existing zero counts ambiguous.
 
-**S2 (absolute changes).** We will add percentage-point deltas from Baseline and keep \(R_p,R_q\) secondary.
+**S2 (absolute changes).** We will add percentage-point deltas from Baseline and keep the ratio metrics \(R_p, R_q\) (PreSkill/Baseline, PostSkill/Baseline score ratios) secondary.
