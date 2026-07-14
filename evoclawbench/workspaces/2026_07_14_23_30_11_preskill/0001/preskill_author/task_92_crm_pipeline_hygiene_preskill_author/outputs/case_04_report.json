@@ -1,0 +1,22 @@
+{
+  "stale_opportunities": [
+    "STAOPP-04-101",
+    "STAOPP-04-13",
+    "STAOPP-04-45",
+    "STAOPP-04-80"
+  ],
+  "forecast_delta": 39.84,
+  "campaign_errors": [
+    "CAMERR-04-37",
+    "CAMERR-04-39",
+    "CAMERR-04-42",
+    "CAMERR-04-71"
+  ],
+  "action_items": [
+    "ACTITE-04-102",
+    "ACTITE-04-106",
+    "ACTITE-04-52",
+    "ACTITE-04-70"
+  ],
+  "executive_summary": "exec_escalation"
+}
