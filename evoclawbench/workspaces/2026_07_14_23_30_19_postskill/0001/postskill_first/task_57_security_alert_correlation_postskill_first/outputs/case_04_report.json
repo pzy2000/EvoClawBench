@@ -1,0 +1,27 @@
+{
+  "incident_ids": [
+    "INCIDS-04-15",
+    "INCIDS-04-38",
+    "INCIDS-04-74",
+    "INCIDS-04-84"
+  ],
+  "redacted_fields": [
+    "REDFIE-04-31",
+    "REDFIE-04-46",
+    "REDFIE-04-62",
+    "REDFIE-04-66"
+  ],
+  "raw_pii_present": false,
+  "approved_exceptions": [
+    "APPEXC-04-24",
+    "APPEXC-04-62",
+    "APPEXC-04-68",
+    "APPEXC-04-80"
+  ],
+  "severity_counts": {
+    "critical": 2,
+    "high": 10,
+    "low": 12,
+    "medium": 2
+  }
+}
