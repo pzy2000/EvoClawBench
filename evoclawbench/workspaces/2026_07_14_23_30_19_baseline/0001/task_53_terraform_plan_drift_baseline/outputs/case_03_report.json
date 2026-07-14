@@ -1,0 +1,16 @@
+{
+  "backup_passed": true,
+  "policy_violations": [
+    "POLVIO-03-102",
+    "POLVIO-03-80",
+    "POLVIO-03-88",
+    "POLVIO-03-95"
+  ],
+  "required_changes": [
+    "REQCHA-03-15",
+    "REQCHA-03-59",
+    "REQCHA-03-85"
+  ],
+  "risk_score": 18.11,
+  "slo_status": "green"
+}
