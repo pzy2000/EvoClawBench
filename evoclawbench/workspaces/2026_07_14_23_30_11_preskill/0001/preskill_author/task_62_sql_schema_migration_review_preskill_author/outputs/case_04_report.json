@@ -1,0 +1,16 @@
+{
+  "row_count": 7,
+  "quality_failures": [
+    "QUAFAI-04-30",
+    "QUAFAI-04-45",
+    "QUAFAI-04-83",
+    "QUAFAI-04-93"
+  ],
+  "metric_delta": 32.48,
+  "rule_ids": [
+    "RULIDS-04-27",
+    "RULIDS-04-86",
+    "RULIDS-04-88"
+  ],
+  "experiment_winner": "variant_a"
+}
