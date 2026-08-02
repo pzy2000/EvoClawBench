@@ -2,7 +2,7 @@ We thank the reviewer for the concrete suggestions.
 
 **W1 (single run).** Agreed: Table 2 is descriptive and lacks full-suite CIs. Three 12-task executions show 5--6-point SDs, but Runs 2/3 changed execution settings and 5/72 cells had infrastructure errors. This measures operational sensitivity, not seed variance.
 
-**W2 (100 tasks / 12 hybrid).** The 502 sub-problems improve grading resolution but are nested within 100 task-level units. Eighty-eight tasks are deterministic; regrading the 36 outputs from 12 hybrid tasks gives \(r=0.997\), with 35/36 differences below 0.05. This tests judge sensitivity only.
+**W2 (100 tasks / 12 hybrid).** We agree: 100 tasks, and especially 12 hybrid-graded tasks, is a real limit on the generalizability of any single-subset quantitative claim, and no amount of judge-agreement checking on that subset substitutes for a larger sample. We will state this explicitly as a limitation rather than let the 502 sub-problem count imply broader coverage than the task-level sample supports. Separately, and only to address whether the *hybrid grader itself* is reliable (a different question from sample size), we regraded the 36 outputs from the 12 hybrid tasks with a second judge: \(r=0.997\), mean \(|\Delta|=0.014\), 35/36 differences below 0.05. This shows the hybrid grader is not the source of noise in that subset; it does not address the small-\(N\) concern, which we will flag directly and treat as motivation for expanding the hybrid subset in future work.
 
 **W3.** Done: Table 2 now bolds the best mode per row.
 
@@ -23,6 +23,8 @@ The gaps are 9.69/9.69/12.81 points; OpenClaw is higher in PreSkill. Two cases e
 - `task_92`: run `0065` failed under upstream API instability with no reports; the diagnostic produced valid reports but scored 0.5 because four semantic fields were wrong. The grader therefore distinguishes partial correctness.
  
 We withdraw the inherent runtime-gap interpretation and will replace contaminated rows only with matched full-suite reruns.
+
+To be clear about scope: `task_22/32/42/52/62/72/82/92` are a distinct sample of generated tasks, separate from the 12 hybrid-graded tasks discussed in W2, and the failure pattern found here is specific to the affected `GPT-5.4 mini`/OpenClaw cells (and the analogous `GPT-5.4`/`DeepSeek-V4-Pro` PostSkill rows discussed with Reviewer 23ii). It is not evidence that Table 2 as a whole is unreliable; we will audit and caveat only the affected rows rather than the full table.
 
 **C1.** Review-mode line numbers caused the overlap; we will adjust affected layout. They disappear in final mode.
 
