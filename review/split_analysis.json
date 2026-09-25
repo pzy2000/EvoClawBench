@@ -1,0 +1,2946 @@
+[
+  {
+    "runtime": "OpenClaw",
+    "model": "GPT-5.4",
+    "source": "0061_openai-gpt-5-4_openclaw.json",
+    "splits": {
+      "official": {
+        "n_tasks": 100,
+        "baseline": {
+          "n": 100,
+          "mean_pct": 17.81948333333333,
+          "status": {
+            "success": 21,
+            "timeout": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 100,
+          "mean_pct": 17.253378787878788,
+          "status": {
+            "timeout": 18,
+            "success": 82
+          },
+          "fully_empty_transcripts": 62,
+          "fallback_hits": 0,
+          "created_skills": 21,
+          "delta_pp": -0.5661045454545456,
+          "delta_ci95_pp": [
+            -1.6120545454545459,
+            0.19399999999999973
+          ]
+        },
+        "postskill": {
+          "n": 100,
+          "mean_pct": 1.154,
+          "status": {
+            "success": 86,
+            "timeout": 14
+          },
+          "fully_empty_transcripts": 89,
+          "fallback_hits": 0,
+          "created_skills": 0,
+          "delta_pp": -16.665483333333334,
+          "delta_ci95_pp": [
+            -23.689466666666668,
+            -10.089733333333333
+          ],
+          "first_pass_mean_pct": 0.7217,
+          "first_pass_minus_baseline_pp": -17.097783333333332,
+          "first_pass_minus_baseline_ci95_pp": [
+            -24.37681666666667,
+            -10.162783333333334
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 17.097783333333332,
+          "second_minus_first_pp": 0.4323
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 2525913,
+            "output_tokens": 104645,
+            "cache_read_tokens": 2279552,
+            "total_tokens": 4910110,
+            "time_s": 25635.91030550003
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 3912847,
+            "output_tokens": 111428,
+            "cache_read_tokens": 3108224,
+            "total_tokens": 7132499,
+            "time_s": 25706.836699962616
+          },
+          "preskill:execution": {
+            "input_tokens": 3574460,
+            "output_tokens": 105134,
+            "cache_read_tokens": 2528768,
+            "total_tokens": 6208362,
+            "time_s": 27998.60976457596
+          },
+          "postskill:first_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 25187.867611408234
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 27960.1510117054
+          },
+          "postskill:second_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 28111.590641736984
+          }
+        }
+      },
+      "seed": {
+        "n_tasks": 21,
+        "baseline": {
+          "n": 21,
+          "mean_pct": 84.85468253968253,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 21,
+          "mean_pct": 82.15894660894661,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 21,
+          "delta_pp": -2.6957359307359314,
+          "delta_ci95_pp": [
+            -7.420259740259741,
+            0.9599567099567085
+          ]
+        },
+        "postskill": {
+          "n": 21,
+          "mean_pct": 5.495238095238094,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 21,
+          "fallback_hits": 0,
+          "created_skills": 0,
+          "delta_pp": -79.35944444444445,
+          "delta_ci95_pp": [
+            -91.39238095238095,
+            -65.3125396825397
+          ],
+          "first_pass_mean_pct": 3.436666666666667,
+          "first_pass_minus_baseline_pp": -81.41801587301586,
+          "first_pass_minus_baseline_ci95_pp": [
+            -93.58492063492065,
+            -66.80801587301588
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 81.41801587301586,
+          "second_minus_first_pp": 2.0585714285714287
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 2440960,
+            "output_tokens": 102789,
+            "cache_read_tokens": 2255360,
+            "total_tokens": 4799109,
+            "time_s": 4556.69560956955
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 3900024,
+            "output_tokens": 111148,
+            "cache_read_tokens": 3105408,
+            "total_tokens": 7116580,
+            "time_s": 4894.2919800281525
+          },
+          "preskill:execution": {
+            "input_tokens": 3574460,
+            "output_tokens": 105134,
+            "cache_read_tokens": 2528768,
+            "total_tokens": 6208362,
+            "time_s": 6852.425776481628
+          },
+          "postskill:first_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 3177.978238105774
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 6053.660129785538
+          },
+          "postskill:second_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 6115.705461502075
+          }
+        }
+      },
+      "generated": {
+        "n_tasks": 79,
+        "baseline": {
+          "n": 79,
+          "mean_pct": 0.0,
+          "status": {
+            "timeout": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 79,
+          "mean_pct": 0.0,
+          "status": {
+            "timeout": 18,
+            "success": 61
+          },
+          "fully_empty_transcripts": 62,
+          "fallback_hits": 0,
+          "created_skills": 0,
+          "delta_pp": 0.0,
+          "delta_ci95_pp": [
+            0.0,
+            0.0
+          ]
+        },
+        "postskill": {
+          "n": 79,
+          "mean_pct": 0.0,
+          "status": {
+            "success": 65,
+            "timeout": 14
+          },
+          "fully_empty_transcripts": 68,
+          "fallback_hits": 0,
+          "created_skills": 0,
+          "delta_pp": 0.0,
+          "delta_ci95_pp": [
+            0.0,
+            0.0
+          ],
+          "first_pass_mean_pct": 0.0,
+          "first_pass_minus_baseline_pp": 0.0,
+          "first_pass_minus_baseline_ci95_pp": [
+            0.0,
+            0.0
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 0.0,
+          "second_minus_first_pp": 0.0
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 84953,
+            "output_tokens": 1856,
+            "cache_read_tokens": 24192,
+            "total_tokens": 111001,
+            "time_s": 21079.21469593048
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 12823,
+            "output_tokens": 280,
+            "cache_read_tokens": 2816,
+            "total_tokens": 15919,
+            "time_s": 20812.544719934464
+          },
+          "preskill:execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 21146.18398809433
+          },
+          "postskill:first_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 22009.88937330246
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 21906.49088191986
+          },
+          "postskill:second_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 21995.88518023491
+          }
+        }
+      }
+    }
+  },
+  {
+    "runtime": "OpenClaw",
+    "model": "Qwen3.6-Plus",
+    "source": "0062_openai-qwen3-6-plus_openclaw.json",
+    "splits": {
+      "official": {
+        "n_tasks": 100,
+        "baseline": {
+          "n": 100,
+          "mean_pct": 18.346910952380956,
+          "status": {
+            "timeout": 79,
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 100,
+          "mean_pct": 16.554463333333334,
+          "status": {
+            "timeout": 76,
+            "success": 24
+          },
+          "fully_empty_transcripts": 4,
+          "fallback_hits": 0,
+          "created_skills": 21,
+          "delta_pp": -1.792447619047619,
+          "delta_ci95_pp": [
+            -4.548233333333333,
+            0.26715476190476195
+          ]
+        },
+        "postskill": {
+          "n": 100,
+          "mean_pct": 18.31573,
+          "status": {
+            "timeout": 78,
+            "success": 22
+          },
+          "fully_empty_transcripts": 1,
+          "fallback_hits": 0,
+          "created_skills": 21,
+          "delta_pp": -0.031180952380952434,
+          "delta_ci95_pp": [
+            -0.7202309523809524,
+            0.8437904761904761
+          ],
+          "first_pass_mean_pct": 18.972303333333333,
+          "first_pass_minus_baseline_pp": 0.6253923809523811,
+          "first_pass_minus_baseline_ci95_pp": [
+            -0.8203166666666664,
+            2.594892380952382
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 1.5967790476190478,
+          "second_minus_first_pp": -0.6565733333333335
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 5314588,
+            "output_tokens": 192916,
+            "cache_read_tokens": 0,
+            "total_tokens": 5507504,
+            "time_s": 25686.52981209755
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 9085437,
+            "output_tokens": 247704,
+            "cache_read_tokens": 0,
+            "total_tokens": 9333141,
+            "time_s": 27117.74001264572
+          },
+          "preskill:execution": {
+            "input_tokens": 5002092,
+            "output_tokens": 207027,
+            "cache_read_tokens": 0,
+            "total_tokens": 5209119,
+            "time_s": 26799.33436536789
+          },
+          "postskill:first_execution": {
+            "input_tokens": 4655379,
+            "output_tokens": 173284,
+            "cache_read_tokens": 0,
+            "total_tokens": 4828663,
+            "time_s": 26887.695155382156
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 7559218,
+            "output_tokens": 135224,
+            "cache_read_tokens": 0,
+            "total_tokens": 7694442,
+            "time_s": 27420.763806581497
+          },
+          "postskill:second_execution": {
+            "input_tokens": 5453865,
+            "output_tokens": 194006,
+            "cache_read_tokens": 0,
+            "total_tokens": 5647871,
+            "time_s": 27665.269469976425
+          }
+        }
+      },
+      "seed": {
+        "n_tasks": 21,
+        "baseline": {
+          "n": 21,
+          "mean_pct": 87.3662426303855,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 21,
+          "mean_pct": 78.83077777777778,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 1,
+          "fallback_hits": 0,
+          "created_skills": 21,
+          "delta_pp": -8.53546485260771,
+          "delta_ci95_pp": [
+            -20.91071428571428,
+            1.2626417233560103
+          ]
+        },
+        "postskill": {
+          "n": 21,
+          "mean_pct": 87.21776190476189,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 21,
+          "delta_pp": -0.14848072562358303,
+          "delta_ci95_pp": [
+            -3.334761904761905,
+            3.9554308390022674
+          ],
+          "first_pass_mean_pct": 90.34430158730157,
+          "first_pass_minus_baseline_pp": 2.9780589569161005,
+          "first_pass_minus_baseline_ci95_pp": [
+            -3.902301587301587,
+            11.922709750566897
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 7.603709750566894,
+          "second_minus_first_pp": -3.1265396825396827
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 4897736,
+            "output_tokens": 189970,
+            "cache_read_tokens": 0,
+            "total_tokens": 5087706,
+            "time_s": 6048.833920955658
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 8547583,
+            "output_tokens": 244200,
+            "cache_read_tokens": 0,
+            "total_tokens": 8791783,
+            "time_s": 7102.702238559723
+          },
+          "preskill:execution": {
+            "input_tokens": 4763020,
+            "output_tokens": 205190,
+            "cache_read_tokens": 0,
+            "total_tokens": 4968210,
+            "time_s": 7513.550425291061
+          },
+          "postskill:first_execution": {
+            "input_tokens": 4237432,
+            "output_tokens": 170739,
+            "cache_read_tokens": 0,
+            "total_tokens": 4408171,
+            "time_s": 5881.944913625717
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 7280286,
+            "output_tokens": 133300,
+            "cache_read_tokens": 0,
+            "total_tokens": 7413586,
+            "time_s": 6922.606929779053
+          },
+          "postskill:second_execution": {
+            "input_tokens": 5294591,
+            "output_tokens": 192632,
+            "cache_read_tokens": 0,
+            "total_tokens": 5487223,
+            "time_s": 8005.023379325867
+          }
+        }
+      },
+      "generated": {
+        "n_tasks": 79,
+        "baseline": {
+          "n": 79,
+          "mean_pct": 0.0,
+          "status": {
+            "timeout": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 79,
+          "mean_pct": 0.0,
+          "status": {
+            "timeout": 76,
+            "success": 3
+          },
+          "fully_empty_transcripts": 3,
+          "fallback_hits": 0,
+          "created_skills": 0,
+          "delta_pp": 0.0,
+          "delta_ci95_pp": [
+            0.0,
+            0.0
+          ]
+        },
+        "postskill": {
+          "n": 79,
+          "mean_pct": 0.0,
+          "status": {
+            "timeout": 78,
+            "success": 1
+          },
+          "fully_empty_transcripts": 1,
+          "fallback_hits": 0,
+          "created_skills": 0,
+          "delta_pp": 0.0,
+          "delta_ci95_pp": [
+            0.0,
+            0.0
+          ],
+          "first_pass_mean_pct": 0.0,
+          "first_pass_minus_baseline_pp": 0.0,
+          "first_pass_minus_baseline_ci95_pp": [
+            0.0,
+            0.0
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 0.0,
+          "second_minus_first_pp": 0.0
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 416852,
+            "output_tokens": 2946,
+            "cache_read_tokens": 0,
+            "total_tokens": 419798,
+            "time_s": 19637.69589114189
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 537854,
+            "output_tokens": 3504,
+            "cache_read_tokens": 0,
+            "total_tokens": 541358,
+            "time_s": 20015.037774086
+          },
+          "preskill:execution": {
+            "input_tokens": 239072,
+            "output_tokens": 1837,
+            "cache_read_tokens": 0,
+            "total_tokens": 240909,
+            "time_s": 19285.783940076828
+          },
+          "postskill:first_execution": {
+            "input_tokens": 417947,
+            "output_tokens": 2545,
+            "cache_read_tokens": 0,
+            "total_tokens": 420492,
+            "time_s": 21005.75024175644
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 278932,
+            "output_tokens": 1924,
+            "cache_read_tokens": 0,
+            "total_tokens": 280856,
+            "time_s": 20498.156876802444
+          },
+          "postskill:second_execution": {
+            "input_tokens": 159274,
+            "output_tokens": 1374,
+            "cache_read_tokens": 0,
+            "total_tokens": 160648,
+            "time_s": 19660.24609065056
+          }
+        }
+      }
+    }
+  },
+  {
+    "runtime": "OpenClaw",
+    "model": "DeepSeek-V4-Pro",
+    "source": "0063_openai-deepseek-v4-pro_openclaw.json",
+    "splits": {
+      "official": {
+        "n_tasks": 100,
+        "baseline": {
+          "n": 100,
+          "mean_pct": 19.184958787878788,
+          "status": {
+            "success": 22,
+            "timeout": 78
+          },
+          "fully_empty_transcripts": 1,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 100,
+          "mean_pct": 14.212750216450218,
+          "status": {
+            "timeout": 34,
+            "success": 66
+          },
+          "fully_empty_transcripts": 48,
+          "fallback_hits": 0,
+          "created_skills": 21,
+          "delta_pp": -4.972208571428571,
+          "delta_ci95_pp": [
+            -9.23458380952381,
+            -1.5476666666666667
+          ]
+        },
+        "postskill": {
+          "n": 100,
+          "mean_pct": 0.0,
+          "status": {
+            "success": 83,
+            "timeout": 17
+          },
+          "fully_empty_transcripts": 85,
+          "fallback_hits": 0,
+          "created_skills": 0,
+          "delta_pp": -19.184958787878788,
+          "delta_ci95_pp": [
+            -26.80058,
+            -11.891413333333334
+          ],
+          "first_pass_mean_pct": 0.0,
+          "first_pass_minus_baseline_pp": -19.184958787878788,
+          "first_pass_minus_baseline_ci95_pp": [
+            -26.809757575757576,
+            -11.946212121212122
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 19.184958787878788,
+          "second_minus_first_pp": 0.0
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 1268309,
+            "output_tokens": 223998,
+            "cache_read_tokens": 3686656,
+            "total_tokens": 5178963,
+            "time_s": 25808.250709056854
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 1510269,
+            "output_tokens": 193407,
+            "cache_read_tokens": 5820288,
+            "total_tokens": 7523964,
+            "time_s": 26210.73415994644
+          },
+          "preskill:execution": {
+            "input_tokens": 1245101,
+            "output_tokens": 240537,
+            "cache_read_tokens": 3694976,
+            "total_tokens": 5180614,
+            "time_s": 28050.029721736908
+          },
+          "postskill:first_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 25482.030477046967
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 28399.533873558044
+          },
+          "postskill:second_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 28312.56303834915
+          }
+        }
+      },
+      "seed": {
+        "n_tasks": 21,
+        "baseline": {
+          "n": 21,
+          "mean_pct": 91.35694660894661,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 21,
+          "mean_pct": 67.67976293547723,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 21,
+          "delta_pp": -23.677183673469386,
+          "delta_ci95_pp": [
+            -40.260716553287985,
+            -8.761111111111113
+          ]
+        },
+        "postskill": {
+          "n": 21,
+          "mean_pct": 0.0,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 21,
+          "fallback_hits": 0,
+          "created_skills": 0,
+          "delta_pp": -91.35694660894661,
+          "delta_ci95_pp": [
+            -97.8627186147186,
+            -83.23768253968254
+          ],
+          "first_pass_mean_pct": 0.0,
+          "first_pass_minus_baseline_pp": -91.35694660894661,
+          "first_pass_minus_baseline_ci95_pp": [
+            -97.85714285714286,
+            -83.0994227994228
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 91.35694660894661,
+          "second_minus_first_pp": 0.0
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 1268309,
+            "output_tokens": 223998,
+            "cache_read_tokens": 3686656,
+            "total_tokens": 5178963,
+            "time_s": 6338.97528386116
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 1510269,
+            "output_tokens": 193407,
+            "cache_read_tokens": 5820288,
+            "total_tokens": 7523964,
+            "time_s": 6096.019184827805
+          },
+          "preskill:execution": {
+            "input_tokens": 1245101,
+            "output_tokens": 240537,
+            "cache_read_tokens": 3694976,
+            "total_tokens": 5180614,
+            "time_s": 8171.946042776108
+          },
+          "postskill:first_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 3193.8410058021545
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 6172.446644067764
+          },
+          "postskill:second_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 6194.980739593506
+          }
+        }
+      },
+      "generated": {
+        "n_tasks": 79,
+        "baseline": {
+          "n": 79,
+          "mean_pct": 0.0,
+          "status": {
+            "timeout": 78,
+            "success": 1
+          },
+          "fully_empty_transcripts": 1,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 79,
+          "mean_pct": 0.0,
+          "status": {
+            "timeout": 34,
+            "success": 45
+          },
+          "fully_empty_transcripts": 48,
+          "fallback_hits": 0,
+          "created_skills": 0,
+          "delta_pp": 0.0,
+          "delta_ci95_pp": [
+            0.0,
+            0.0
+          ]
+        },
+        "postskill": {
+          "n": 79,
+          "mean_pct": 0.0,
+          "status": {
+            "success": 62,
+            "timeout": 17
+          },
+          "fully_empty_transcripts": 64,
+          "fallback_hits": 0,
+          "created_skills": 0,
+          "delta_pp": 0.0,
+          "delta_ci95_pp": [
+            0.0,
+            0.0
+          ],
+          "first_pass_mean_pct": 0.0,
+          "first_pass_minus_baseline_pp": 0.0,
+          "first_pass_minus_baseline_ci95_pp": [
+            0.0,
+            0.0
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 0.0,
+          "second_minus_first_pp": 0.0
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 19469.275425195694
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 20114.714975118637
+          },
+          "preskill:execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 19878.0836789608
+          },
+          "postskill:first_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 22288.189471244812
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 22227.08722949028
+          },
+          "postskill:second_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 22117.582298755646
+          }
+        }
+      }
+    }
+  },
+  {
+    "runtime": "OpenClaw",
+    "model": "MiniMax-M2.7",
+    "source": "0064_openai-minimax-minimax-m2-7_openclaw.json",
+    "splits": {
+      "official": {
+        "n_tasks": 100,
+        "baseline": {
+          "n": 100,
+          "mean_pct": 18.06760333333333,
+          "status": {
+            "success": 21,
+            "timeout": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 100,
+          "mean_pct": 17.165426666666665,
+          "status": {
+            "timeout": 79,
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 26,
+          "delta_pp": -0.9021766666666666,
+          "delta_ci95_pp": [
+            -3.0717600000000003,
+            0.34550000000000025
+          ]
+        },
+        "postskill": {
+          "n": 100,
+          "mean_pct": 18.29365333333333,
+          "status": {
+            "success": 21,
+            "timeout": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 20,
+          "delta_pp": 0.22604999999999983,
+          "delta_ci95_pp": [
+            -0.16900000000000034,
+            0.81675
+          ],
+          "first_pass_mean_pct": 17.054186666666666,
+          "first_pass_minus_baseline_pp": -1.0134166666666664,
+          "first_pass_minus_baseline_ci95_pp": [
+            -3.1559999999999997,
+            0.20300000000000007
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 1.2619166666666666,
+          "second_minus_first_pp": 1.2394666666666663
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 693758,
+            "output_tokens": 140159,
+            "cache_read_tokens": 3207056,
+            "total_tokens": 4040973,
+            "time_s": 27493.51867723465
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 1370746,
+            "output_tokens": 150873,
+            "cache_read_tokens": 9523947,
+            "total_tokens": 11045566,
+            "time_s": 27052.619965553284
+          },
+          "preskill:execution": {
+            "input_tokens": 971981,
+            "output_tokens": 182885,
+            "cache_read_tokens": 6809267,
+            "total_tokens": 7964133,
+            "time_s": 28824.68767595291
+          },
+          "postskill:first_execution": {
+            "input_tokens": 789818,
+            "output_tokens": 123991,
+            "cache_read_tokens": 3330930,
+            "total_tokens": 4244739,
+            "time_s": 26356.06717824936
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 1125689,
+            "output_tokens": 68704,
+            "cache_read_tokens": 3470898,
+            "total_tokens": 4665291,
+            "time_s": 27292.751809597015
+          },
+          "postskill:second_execution": {
+            "input_tokens": 950585,
+            "output_tokens": 167893,
+            "cache_read_tokens": 5296920,
+            "total_tokens": 6415398,
+            "time_s": 30118.817415714264
+          }
+        }
+      },
+      "seed": {
+        "n_tasks": 21,
+        "baseline": {
+          "n": 21,
+          "mean_pct": 86.03620634920634,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 21,
+          "mean_pct": 81.74012698412699,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 26,
+          "delta_pp": -4.296079365079365,
+          "delta_ci95_pp": [
+            -14.606,
+            1.7892380952380968
+          ]
+        },
+        "postskill": {
+          "n": 21,
+          "mean_pct": 87.11263492063492,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 20,
+          "delta_pp": 1.0764285714285706,
+          "delta_ci95_pp": [
+            -0.810476190476191,
+            3.783571428571428
+          ],
+          "first_pass_mean_pct": 81.2104126984127,
+          "first_pass_minus_baseline_pp": -4.825793650793649,
+          "first_pass_minus_baseline_ci95_pp": [
+            -14.791269841269841,
+            0.9476190476190484
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 6.009126984126984,
+          "second_minus_first_pp": 5.90222222222222
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 582247,
+            "output_tokens": 139093,
+            "cache_read_tokens": 3203344,
+            "total_tokens": 3924684,
+            "time_s": 5059.759321212769
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 1030841,
+            "output_tokens": 148247,
+            "cache_read_tokens": 9517099,
+            "total_tokens": 10696187,
+            "time_s": 5368.551010847092
+          },
+          "preskill:execution": {
+            "input_tokens": 689206,
+            "output_tokens": 180334,
+            "cache_read_tokens": 6802643,
+            "total_tokens": 7672183,
+            "time_s": 7544.692988872528
+          },
+          "postskill:first_execution": {
+            "input_tokens": 601378,
+            "output_tokens": 122456,
+            "cache_read_tokens": 3327058,
+            "total_tokens": 4050892,
+            "time_s": 4452.586404323578
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 763888,
+            "output_tokens": 67207,
+            "cache_read_tokens": 3467122,
+            "total_tokens": 4298217,
+            "time_s": 6159.740241765976
+          },
+          "postskill:second_execution": {
+            "input_tokens": 685077,
+            "output_tokens": 165384,
+            "cache_read_tokens": 5292856,
+            "total_tokens": 6143317,
+            "time_s": 8632.578093528748
+          }
+        }
+      },
+      "generated": {
+        "n_tasks": 79,
+        "baseline": {
+          "n": 79,
+          "mean_pct": 0.0,
+          "status": {
+            "timeout": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 79,
+          "mean_pct": 0.0,
+          "status": {
+            "timeout": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0,
+          "delta_pp": 0.0,
+          "delta_ci95_pp": [
+            0.0,
+            0.0
+          ]
+        },
+        "postskill": {
+          "n": 79,
+          "mean_pct": 0.0,
+          "status": {
+            "timeout": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0,
+          "delta_pp": 0.0,
+          "delta_ci95_pp": [
+            0.0,
+            0.0
+          ],
+          "first_pass_mean_pct": 0.0,
+          "first_pass_minus_baseline_pp": 0.0,
+          "first_pass_minus_baseline_ci95_pp": [
+            0.0,
+            0.0
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 0.0,
+          "second_minus_first_pp": 0.0
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 111511,
+            "output_tokens": 1066,
+            "cache_read_tokens": 3712,
+            "total_tokens": 116289,
+            "time_s": 22433.75935602188
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 339905,
+            "output_tokens": 2626,
+            "cache_read_tokens": 6848,
+            "total_tokens": 349379,
+            "time_s": 21684.068954706192
+          },
+          "preskill:execution": {
+            "input_tokens": 282775,
+            "output_tokens": 2551,
+            "cache_read_tokens": 6624,
+            "total_tokens": 291950,
+            "time_s": 21279.994687080383
+          },
+          "postskill:first_execution": {
+            "input_tokens": 188440,
+            "output_tokens": 1535,
+            "cache_read_tokens": 3872,
+            "total_tokens": 193847,
+            "time_s": 21903.48077392578
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 361801,
+            "output_tokens": 1497,
+            "cache_read_tokens": 3776,
+            "total_tokens": 367074,
+            "time_s": 21133.01156783104
+          },
+          "postskill:second_execution": {
+            "input_tokens": 265508,
+            "output_tokens": 2509,
+            "cache_read_tokens": 4064,
+            "total_tokens": 272081,
+            "time_s": 21486.239322185516
+          }
+        }
+      }
+    }
+  },
+  {
+    "runtime": "OpenClaw",
+    "model": "GPT-5.4 mini",
+    "source": "0065_openai-gpt-5-4-mini_openclaw.json",
+    "splits": {
+      "official": {
+        "n_tasks": 100,
+        "baseline": {
+          "n": 100,
+          "mean_pct": 18.30358,
+          "status": {
+            "success": 21,
+            "timeout": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 100,
+          "mean_pct": 18.61601333333334,
+          "status": {
+            "success": 21,
+            "timeout": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 21,
+          "delta_pp": 0.31243333333333345,
+          "delta_ci95_pp": [
+            -0.031799999999999724,
+            0.7450666666666664
+          ]
+        },
+        "postskill": {
+          "n": 100,
+          "mean_pct": 18.558592549019604,
+          "status": {
+            "timeout": 79,
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 20,
+          "delta_pp": 0.2550125490196079,
+          "delta_ci95_pp": [
+            -0.260682352941176,
+            0.8447058823529412
+          ],
+          "first_pass_mean_pct": 18.286583921568624,
+          "first_pass_minus_baseline_pp": -0.016996078431372547,
+          "first_pass_minus_baseline_ci95_pp": [
+            -0.6119549019607843,
+            0.5447411764705881
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 0.6336627450980392,
+          "second_minus_first_pp": 0.2720086274509806
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 2368870,
+            "output_tokens": 112931,
+            "cache_read_tokens": 1407232,
+            "total_tokens": 3889033,
+            "time_s": 26128.272478103638
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 4513991,
+            "output_tokens": 178405,
+            "cache_read_tokens": 2542720,
+            "total_tokens": 7235116,
+            "time_s": 26190.272910118103
+          },
+          "preskill:execution": {
+            "input_tokens": 2829925,
+            "output_tokens": 115780,
+            "cache_read_tokens": 2036992,
+            "total_tokens": 4982697,
+            "time_s": 27841.3457300663
+          },
+          "postskill:first_execution": {
+            "input_tokens": 2483759,
+            "output_tokens": 113869,
+            "cache_read_tokens": 1237504,
+            "total_tokens": 3835132,
+            "time_s": 25419.228350877762
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 3488281,
+            "output_tokens": 85391,
+            "cache_read_tokens": 1727360,
+            "total_tokens": 5301032,
+            "time_s": 28025.889556646347
+          },
+          "postskill:second_execution": {
+            "input_tokens": 2826025,
+            "output_tokens": 117356,
+            "cache_read_tokens": 1916800,
+            "total_tokens": 4860181,
+            "time_s": 28220.731871843338
+          }
+        }
+      },
+      "seed": {
+        "n_tasks": 21,
+        "baseline": {
+          "n": 21,
+          "mean_pct": 87.15990476190476,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 21,
+          "mean_pct": 88.64768253968256,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 21,
+          "delta_pp": 1.4877777777777783,
+          "delta_ci95_pp": [
+            -0.16873015873015867,
+            3.40142857142857
+          ]
+        },
+        "postskill": {
+          "n": 21,
+          "mean_pct": 88.3742502334267,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 20,
+          "delta_pp": 1.2143454715219424,
+          "delta_ci95_pp": [
+            -1.2337217553688125,
+            3.9989523809523813
+          ],
+          "first_pass_mean_pct": 87.07897105508869,
+          "first_pass_minus_baseline_pp": -0.08093370681605974,
+          "first_pass_minus_baseline_ci95_pp": [
+            -2.949467787114846,
+            2.5619794584500446
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 3.017441643323996,
+          "second_minus_first_pp": 1.2952791783380029
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 2040164,
+            "output_tokens": 105992,
+            "cache_read_tokens": 1330432,
+            "total_tokens": 3476588,
+            "time_s": 3565.0697598457336
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 3980268,
+            "output_tokens": 169809,
+            "cache_read_tokens": 2435200,
+            "total_tokens": 6585277,
+            "time_s": 4444.163271188736
+          },
+          "preskill:execution": {
+            "input_tokens": 2330768,
+            "output_tokens": 105442,
+            "cache_read_tokens": 1910016,
+            "total_tokens": 4346226,
+            "time_s": 6152.692646980286
+          },
+          "postskill:first_execution": {
+            "input_tokens": 2023281,
+            "output_tokens": 103625,
+            "cache_read_tokens": 1119616,
+            "total_tokens": 3246522,
+            "time_s": 3582.2539763450623
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 2995863,
+            "output_tokens": 75806,
+            "cache_read_tokens": 1625216,
+            "total_tokens": 4696885,
+            "time_s": 6247.893249750137
+          },
+          "postskill:second_execution": {
+            "input_tokens": 2386244,
+            "output_tokens": 108980,
+            "cache_read_tokens": 1809024,
+            "total_tokens": 4304248,
+            "time_s": 6484.487902402878
+          }
+        }
+      },
+      "generated": {
+        "n_tasks": 79,
+        "baseline": {
+          "n": 79,
+          "mean_pct": 0.0,
+          "status": {
+            "timeout": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 79,
+          "mean_pct": 0.0,
+          "status": {
+            "timeout": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0,
+          "delta_pp": 0.0,
+          "delta_ci95_pp": [
+            0.0,
+            0.0
+          ]
+        },
+        "postskill": {
+          "n": 79,
+          "mean_pct": 0.0,
+          "status": {
+            "timeout": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0,
+          "delta_pp": 0.0,
+          "delta_ci95_pp": [
+            0.0,
+            0.0
+          ],
+          "first_pass_mean_pct": 0.0,
+          "first_pass_minus_baseline_pp": 0.0,
+          "first_pass_minus_baseline_ci95_pp": [
+            0.0,
+            0.0
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 0.0,
+          "second_minus_first_pp": 0.0
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 328706,
+            "output_tokens": 6939,
+            "cache_read_tokens": 76800,
+            "total_tokens": 412445,
+            "time_s": 22563.202718257904
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 533723,
+            "output_tokens": 8596,
+            "cache_read_tokens": 107520,
+            "total_tokens": 649839,
+            "time_s": 21746.109638929367
+          },
+          "preskill:execution": {
+            "input_tokens": 499157,
+            "output_tokens": 10338,
+            "cache_read_tokens": 126976,
+            "total_tokens": 636471,
+            "time_s": 21688.653083086014
+          },
+          "postskill:first_execution": {
+            "input_tokens": 460478,
+            "output_tokens": 10244,
+            "cache_read_tokens": 117888,
+            "total_tokens": 588610,
+            "time_s": 21836.9743745327
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 492418,
+            "output_tokens": 9585,
+            "cache_read_tokens": 102144,
+            "total_tokens": 604147,
+            "time_s": 21777.99630689621
+          },
+          "postskill:second_execution": {
+            "input_tokens": 439781,
+            "output_tokens": 8376,
+            "cache_read_tokens": 107776,
+            "total_tokens": 555933,
+            "time_s": 21736.24396944046
+          }
+        }
+      }
+    }
+  },
+  {
+    "runtime": "nanobot",
+    "model": "GPT-5.4",
+    "source": "0079_openai-gpt-5-4_nanobot.json",
+    "splits": {
+      "official": {
+        "n_tasks": 100,
+        "baseline": {
+          "n": 100,
+          "mean_pct": 96.09388000000001,
+          "status": {
+            "success": 100
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 100,
+          "mean_pct": 96.69830878787879,
+          "status": {
+            "success": 100
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 100,
+          "delta_pp": 0.6044287878787877,
+          "delta_ci95_pp": [
+            -0.3053333333333334,
+            1.9885909090909086
+          ]
+        },
+        "postskill": {
+          "n": 100,
+          "mean_pct": 96.12678,
+          "status": {
+            "success": 100
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 100,
+          "delta_pp": 0.03289999999999971,
+          "delta_ci95_pp": [
+            -2.1461,
+            2.1789999999999994
+          ],
+          "first_pass_mean_pct": 95.67774666666668,
+          "first_pass_minus_baseline_pp": -0.41613333333333363,
+          "first_pass_minus_baseline_ci95_pp": [
+            -1.9672666666666665,
+            1.2689999999999995
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 2.1521333333333335,
+          "second_minus_first_pp": 0.44903333333333306
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 4580.0034420490265
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 5672.8332262039185
+          },
+          "preskill:execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 4311.622836828232
+          },
+          "postskill:first_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 5544.383852958679
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 4835.199465274811
+          },
+          "postskill:second_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 4976.447966337204
+          }
+        }
+      },
+      "seed": {
+        "n_tasks": 21,
+        "baseline": {
+          "n": 21,
+          "mean_pct": 84.85180952380951,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 21,
+          "mean_pct": 84.27766089466088,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 21,
+          "delta_pp": -0.5741486291486302,
+          "delta_ci95_pp": [
+            -2.5281385281385305,
+            1.1532900432900417
+          ]
+        },
+        "postskill": {
+          "n": 21,
+          "mean_pct": 87.7465714285714,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 21,
+          "delta_pp": 2.8947619047619035,
+          "delta_ci95_pp": [
+            -0.6695238095238099,
+            7.99190476190476
+          ],
+          "first_pass_mean_pct": 84.77498412698411,
+          "first_pass_minus_baseline_pp": -0.07682539682539742,
+          "first_pass_minus_baseline_ci95_pp": [
+            -2.0109523809523813,
+            2.0199999999999996
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 2.1530158730158733,
+          "second_minus_first_pp": 2.9715873015873013
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 1627.2447564601898
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 1427.8225910663605
+          },
+          "preskill:execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 1711.1888406276703
+          },
+          "postskill:first_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 2010.4654881954193
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 1219.655793428421
+          },
+          "postskill:second_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 1758.1628866195679
+          }
+        }
+      },
+      "generated": {
+        "n_tasks": 79,
+        "baseline": {
+          "n": 79,
+          "mean_pct": 99.08227848101266,
+          "status": {
+            "success": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 79,
+          "mean_pct": 100.0,
+          "status": {
+            "success": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 79,
+          "delta_pp": 0.9177215189873418,
+          "delta_ci95_pp": [
+            0.06329113924050639,
+            2.531645569620253
+          ]
+        },
+        "postskill": {
+          "n": 79,
+          "mean_pct": 98.35443037974684,
+          "status": {
+            "success": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 79,
+          "delta_pp": -0.7278481012658227,
+          "delta_ci95_pp": [
+            -3.259493670886076,
+            1.6455696202531647
+          ],
+          "first_pass_mean_pct": 98.57594936708861,
+          "first_pass_minus_baseline_pp": -0.5063291139240509,
+          "first_pass_minus_baseline_ci95_pp": [
+            -2.4050632911392404,
+            1.5822784810126582
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 2.151898734177215,
+          "second_minus_first_pp": -0.22151898734177214
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 2952.7586855888367
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 4245.010635137558
+          },
+          "preskill:execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 2600.4339962005615
+          },
+          "postskill:first_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 3533.91836476326
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 3615.5436718463898
+          },
+          "postskill:second_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 3218.285079717636
+          }
+        }
+      }
+    }
+  },
+  {
+    "runtime": "nanobot",
+    "model": "Qwen3.6-Plus",
+    "source": "0075_openai-qwen3-6-plus_nanobot.json",
+    "splits": {
+      "official": {
+        "n_tasks": 100,
+        "baseline": {
+          "n": 100,
+          "mean_pct": 56.01418,
+          "status": {
+            "success": 100
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 34,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 100,
+          "mean_pct": 59.50044666666666,
+          "status": {
+            "success": 100
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 25,
+          "created_skills": 69,
+          "delta_pp": 3.4862666666666655,
+          "delta_ci95_pp": [
+            -9.002666666666666,
+            15.765500000000001
+          ]
+        },
+        "postskill": {
+          "n": 100,
+          "mean_pct": 53.8756,
+          "status": {
+            "success": 100
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 32,
+          "created_skills": 38,
+          "delta_pp": -2.1385799999999993,
+          "delta_ci95_pp": [
+            -15.5569,
+            11.217740000000001
+          ],
+          "first_pass_mean_pct": 54.88143666666666,
+          "first_pass_minus_baseline_pp": -1.132743333333333,
+          "first_pass_minus_baseline_ci95_pp": [
+            -10.663616666666664,
+            8.060250000000002
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 22.984843333333334,
+          "second_minus_first_pp": -1.0058366666666665
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 7250.910399198532
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 10617.765986442566
+          },
+          "preskill:execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 7219.90394282341
+          },
+          "postskill:first_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 7971.256090402603
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 6962.207993030548
+          },
+          "postskill:second_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 6175.448007583618
+          }
+        }
+      },
+      "seed": {
+        "n_tasks": 21,
+        "baseline": {
+          "n": 21,
+          "mean_pct": 81.01990476190475,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 21,
+          "mean_pct": 69.04974603174603,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 2,
+          "created_skills": 19,
+          "delta_pp": -11.97015873015873,
+          "delta_ci95_pp": [
+            -24.98761904761905,
+            -1.0931746031746041
+          ]
+        },
+        "postskill": {
+          "n": 21,
+          "mean_pct": 61.31238095238095,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 5,
+          "created_skills": 16,
+          "delta_pp": -19.70752380952381,
+          "delta_ci95_pp": [
+            -37.345841269841266,
+            -4.259047619047619
+          ],
+          "first_pass_mean_pct": 85.1496984126984,
+          "first_pass_minus_baseline_pp": 4.129793650793651,
+          "first_pass_minus_baseline_ci95_pp": [
+            -0.23453968253968296,
+            11.898253968253968
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 4.689730158730159,
+          "second_minus_first_pp": -23.83731746031746
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 2917.4379234313965
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 4106.463308334351
+          },
+          "preskill:execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 2485.26331448555
+          },
+          "postskill:first_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 3716.9960265159607
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 1983.8191843032837
+          },
+          "postskill:second_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 1753.1739127635956
+          }
+        }
+      },
+      "generated": {
+        "n_tasks": 79,
+        "baseline": {
+          "n": 79,
+          "mean_pct": 49.36708860759494,
+          "status": {
+            "success": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 34,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 79,
+          "mean_pct": 56.9620253164557,
+          "status": {
+            "success": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 23,
+          "created_skills": 50,
+          "delta_pp": 7.594936708860759,
+          "delta_ci95_pp": [
+            -7.594936708860759,
+            22.78481012658228
+          ]
+        },
+        "postskill": {
+          "n": 79,
+          "mean_pct": 51.89873417721519,
+          "status": {
+            "success": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 27,
+          "created_skills": 22,
+          "delta_pp": 2.5316455696202533,
+          "delta_ci95_pp": [
+            -13.924050632911392,
+            18.9873417721519
+          ],
+          "first_pass_mean_pct": 46.835443037974684,
+          "first_pass_minus_baseline_pp": -2.5316455696202533,
+          "first_pass_minus_baseline_ci95_pp": [
+            -13.924050632911392,
+            8.860759493670885
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 27.848101265822784,
+          "second_minus_first_pp": 5.063291139240507
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 4333.472475767136
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 6511.302678108215
+          },
+          "preskill:execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 4734.64062833786
+          },
+          "postskill:first_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 4254.2600638866425
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 4978.388808727264
+          },
+          "postskill:second_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 4422.274094820023
+          }
+        }
+      }
+    }
+  },
+  {
+    "runtime": "nanobot",
+    "model": "DeepSeek-V4-Pro",
+    "source": "0076_openai-deepseek-v4-pro_nanobot.json",
+    "splits": {
+      "official": {
+        "n_tasks": 100,
+        "baseline": {
+          "n": 100,
+          "mean_pct": 77.54602,
+          "status": {
+            "success": 100
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 8,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 100,
+          "mean_pct": 3.8438095238095245,
+          "status": {
+            "success": 100
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 89,
+          "created_skills": 27,
+          "delta_pp": -73.70221047619047,
+          "delta_ci95_pp": [
+            -81.93571428571427,
+            -65.24235333333334
+          ]
+        },
+        "postskill": {
+          "n": 100,
+          "mean_pct": 0.0,
+          "status": {
+            "success": 100
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 20,
+          "created_skills": 0,
+          "delta_pp": -77.54602,
+          "delta_ci95_pp": [
+            -85.29202000000001,
+            -69.38287333333334
+          ],
+          "first_pass_mean_pct": 0.0,
+          "first_pass_minus_baseline_pp": -77.54602,
+          "first_pass_minus_baseline_ci95_pp": [
+            -85.4,
+            -69.37587333333335
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 77.54602,
+          "second_minus_first_pp": 0.0
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 12659.613830327988
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 5283.327264070511
+          },
+          "preskill:execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 2244.2601928710938
+          },
+          "postskill:first_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 1575.8424344062805
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 1713.0231022834778
+          },
+          "postskill:second_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 1704.1182010173798
+          }
+        }
+      },
+      "seed": {
+        "n_tasks": 21,
+        "baseline": {
+          "n": 21,
+          "mean_pct": 84.74295238095237,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 21,
+          "mean_pct": 13.541950113378686,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 11,
+          "created_skills": 16,
+          "delta_pp": -71.20100226757368,
+          "delta_ci95_pp": [
+            -87.7135873015873,
+            -53.651777777777774
+          ]
+        },
+        "postskill": {
+          "n": 21,
+          "mean_pct": 0.0,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 9,
+          "created_skills": 0,
+          "delta_pp": -84.74295238095237,
+          "delta_ci95_pp": [
+            -95.85079365079365,
+            -70.72796825396824
+          ],
+          "first_pass_mean_pct": 0.0,
+          "first_pass_minus_baseline_pp": -84.74295238095237,
+          "first_pass_minus_baseline_ci95_pp": [
+            -95.9452380952381,
+            -70.84771428571428
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 84.74295238095237,
+          "second_minus_first_pp": 0.0
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 3557.5549173355103
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 2391.3313660621643
+          },
+          "preskill:execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 1038.3169362545013
+          },
+          "postskill:first_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 255.31081414222717
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 285.01826763153076
+          },
+          "postskill:second_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 273.54772686958313
+          }
+        }
+      },
+      "generated": {
+        "n_tasks": 79,
+        "baseline": {
+          "n": 79,
+          "mean_pct": 75.63291139240506,
+          "status": {
+            "success": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 8,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 79,
+          "mean_pct": 1.2658227848101267,
+          "status": {
+            "success": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 78,
+          "created_skills": 11,
+          "delta_pp": -74.36708860759494,
+          "delta_ci95_pp": [
+            -83.38607594936708,
+            -65.03164556962025
+          ]
+        },
+        "postskill": {
+          "n": 79,
+          "mean_pct": 0.0,
+          "status": {
+            "success": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 11,
+          "created_skills": 0,
+          "delta_pp": -75.63291139240506,
+          "delta_ci95_pp": [
+            -84.65189873417721,
+            -65.66455696202532
+          ],
+          "first_pass_mean_pct": 0.0,
+          "first_pass_minus_baseline_pp": -75.63291139240506,
+          "first_pass_minus_baseline_ci95_pp": [
+            -84.49367088607595,
+            -65.82278481012658
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 75.63291139240506,
+          "second_minus_first_pp": 0.0
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 9102.058912992477
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 2891.9958980083466
+          },
+          "preskill:execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 1205.9432566165924
+          },
+          "postskill:first_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 1320.5316202640533
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 1428.004834651947
+          },
+          "postskill:second_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 1430.5704741477966
+          }
+        }
+      }
+    }
+  },
+  {
+    "runtime": "nanobot",
+    "model": "MiniMax-M2.7",
+    "source": "0080_openai-minimax-minimax-m2-7_nanobot.json",
+    "splits": {
+      "official": {
+        "n_tasks": 100,
+        "baseline": {
+          "n": 100,
+          "mean_pct": 90.87638000000001,
+          "status": {
+            "success": 97,
+            "timeout": 3
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 100,
+          "mean_pct": 92.82834666666668,
+          "status": {
+            "success": 100
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 1,
+          "created_skills": 98,
+          "delta_pp": 1.9519666666666666,
+          "delta_ci95_pp": [
+            -4.046866666666668,
+            7.972300000000001
+          ]
+        },
+        "postskill": {
+          "n": 99,
+          "mean_pct": 94.44049494949496,
+          "status": {
+            "success": 99
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 99,
+          "delta_pp": 3.6562727272727273,
+          "delta_ci95_pp": [
+            -1.9322289562289563,
+            9.618683501683503
+          ],
+          "first_pass_mean_pct": 93.88119191919192,
+          "first_pass_minus_baseline_pp": 3.096969696969697,
+          "first_pass_minus_baseline_ci95_pp": [
+            -2.8507070707070703,
+            9.125555555555556
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 9.575252525252525,
+          "second_minus_first_pp": 0.5593030303030304
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 14152.543708562851
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 14505.673068523407
+          },
+          "preskill:execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 8316.840713500977
+          },
+          "postskill:first_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 11353.479185819626
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 8807.087762832642
+          },
+          "postskill:second_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 9362.749451637268
+          }
+        }
+      },
+      "seed": {
+        "n_tasks": 21,
+        "baseline": {
+          "n": 21,
+          "mean_pct": 80.95895238095237,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 21,
+          "mean_pct": 76.8016507936508,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 1,
+          "created_skills": 22,
+          "delta_pp": -4.157301587301587,
+          "delta_ci95_pp": [
+            -19.992619047619048,
+            11.10404761904762
+          ]
+        },
+        "postskill": {
+          "n": 21,
+          "mean_pct": 86.529,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 21,
+          "delta_pp": 5.570047619047618,
+          "delta_ci95_pp": [
+            -3.2754126984127008,
+            18.059619047619048
+          ],
+          "first_pass_mean_pct": 80.91609523809524,
+          "first_pass_minus_baseline_pp": -0.04285714285714313,
+          "first_pass_minus_baseline_ci95_pp": [
+            -14.12833333333333,
+            14.240714285714288
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 10.973809523809523,
+          "second_minus_first_pp": 5.612904761904763
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 2393.5941200256348
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 3316.325123310089
+          },
+          "preskill:execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 1857.1843864917755
+          },
+          "postskill:first_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 1548.5524852275848
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 2025.284788608551
+          },
+          "postskill:second_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 1884.7882659435272
+          }
+        }
+      },
+      "generated": {
+        "n_tasks": 79,
+        "baseline": {
+          "n": 79,
+          "mean_pct": 93.5126582278481,
+          "status": {
+            "success": 76,
+            "timeout": 3
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 79,
+          "mean_pct": 97.08860759493672,
+          "status": {
+            "success": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 76,
+          "delta_pp": 3.5759493670886076,
+          "delta_ci95_pp": [
+            -2.689873417721519,
+            10.284810126582279
+          ]
+        },
+        "postskill": {
+          "n": 78,
+          "mean_pct": 96.57051282051282,
+          "status": {
+            "success": 78
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 78,
+          "delta_pp": 3.141025641025641,
+          "delta_ci95_pp": [
+            -3.4935897435897436,
+            10.256410256410257
+          ],
+          "first_pass_mean_pct": 97.37179487179488,
+          "first_pass_minus_baseline_pp": 3.9423076923076925,
+          "first_pass_minus_baseline_ci95_pp": [
+            -2.5641025641025643,
+            10.512820512820513
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 9.198717948717949,
+          "second_minus_first_pp": -0.8012820512820513
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 11758.949588537216
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 11189.347945213318
+          },
+          "preskill:execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 6459.656327009201
+          },
+          "postskill:first_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 9804.926700592041
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 6781.802974224091
+          },
+          "postskill:second_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 7477.961185693741
+          }
+        }
+      }
+    }
+  },
+  {
+    "runtime": "nanobot",
+    "model": "GPT-5.4 mini",
+    "source": "0081_openai-gpt-5-4-mini_nanobot.json",
+    "splits": {
+      "official": {
+        "n_tasks": 100,
+        "baseline": {
+          "n": 100,
+          "mean_pct": 88.59467999999997,
+          "status": {
+            "success": 100
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 100,
+          "mean_pct": 87.28587999999999,
+          "status": {
+            "success": 100
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 99,
+          "delta_pp": -1.3088000000000006,
+          "delta_ci95_pp": [
+            -5.549733333333335,
+            3.051533333333333
+          ]
+        },
+        "postskill": {
+          "n": 100,
+          "mean_pct": 89.66553,
+          "status": {
+            "success": 100
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 81,
+          "delta_pp": 1.0708499999999992,
+          "delta_ci95_pp": [
+            -2.804900000000001,
+            5.000766666666666
+          ],
+          "first_pass_mean_pct": 85.31073943705418,
+          "first_pass_minus_baseline_pp": -3.2839405629458263,
+          "first_pass_minus_baseline_ci95_pp": [
+            -8.205463909774435,
+            1.3297865432812792
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 12.278607229612494,
+          "second_minus_first_pp": 4.354790562945826
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 2985.15359044075
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 3658.6346158981323
+          },
+          "preskill:execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 3070.166259288788
+          },
+          "postskill:first_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 3474.4707083702087
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 3788.077163696289
+          },
+          "postskill:second_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 3690.5614914894104
+          }
+        }
+      },
+      "seed": {
+        "n_tasks": 21,
+        "baseline": {
+          "n": 21,
+          "mean_pct": 84.37942857142856,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 21,
+          "mean_pct": 83.38514285714285,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 21,
+          "delta_pp": -0.9942857142857154,
+          "delta_ci95_pp": [
+            -6.032539682539682,
+            6.066190476190473
+          ]
+        },
+        "postskill": {
+          "n": 21,
+          "mean_pct": 86.62157142857141,
+          "status": {
+            "success": 21
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 20,
+          "delta_pp": 2.2421428571428557,
+          "delta_ci95_pp": [
+            -2.1404761904761918,
+            8.818730158730157
+          ],
+          "first_pass_mean_pct": 83.86636734693879,
+          "first_pass_minus_baseline_pp": -0.5130612244897967,
+          "first_pass_minus_baseline_ci95_pp": [
+            -8.373628117913833,
+            7.658412698412695
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 6.201950113378685,
+          "second_minus_first_pp": 2.7552040816326526
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 889.3532152175903
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 1048.008428812027
+          },
+          "preskill:execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 885.1282615661621
+          },
+          "postskill:first_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 949.606493473053
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 951.1114988327026
+          },
+          "postskill:second_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 1086.5710804462433
+          }
+        }
+      },
+      "generated": {
+        "n_tasks": 79,
+        "baseline": {
+          "n": 79,
+          "mean_pct": 89.71518987341773,
+          "status": {
+            "success": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 0
+        },
+        "preskill": {
+          "n": 79,
+          "mean_pct": 88.32278481012659,
+          "status": {
+            "success": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 78,
+          "delta_pp": -1.39240506329114,
+          "delta_ci95_pp": [
+            -6.550632911392405,
+            3.7341772151898733
+          ]
+        },
+        "postskill": {
+          "n": 79,
+          "mean_pct": 90.47468354430379,
+          "status": {
+            "success": 79
+          },
+          "fully_empty_transcripts": 0,
+          "fallback_hits": 0,
+          "created_skills": 61,
+          "delta_pp": 0.759493670886076,
+          "delta_ci95_pp": [
+            -3.8607594936708862,
+            5.4113924050632916
+          ],
+          "first_pass_mean_pct": 85.69468644835068,
+          "first_pass_minus_baseline_pp": -4.02050342506705,
+          "first_pass_minus_baseline_ci95_pp": [
+            -9.784160986692633,
+            1.4873417721518987
+          ],
+          "first_pass_vs_baseline_mean_abs_task_diff_pp": 13.893921146586038,
+          "second_minus_first_pp": 4.779997095953125
+        },
+        "usage": {
+          "baseline": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 2095.80037522316
+          },
+          "preskill:skill_generation": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 2610.6261870861053
+          },
+          "preskill:execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 2185.0379977226257
+          },
+          "postskill:first_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 2524.8642148971558
+          },
+          "postskill:skill_summary": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 2836.9656648635864
+          },
+          "postskill:second_execution": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_tokens": 0,
+            "total_tokens": 0,
+            "time_s": 2603.990411043167
+          }
+        }
+      }
+    }
+  }
+]

@@ -146,100 +146,69 @@ def _plot(
     light_blue = "#9bb7e5"
     grid = "#e5e5e5"
 
+    # Horizontal bars keep the 17 family names upright and legible at column width.
     fig, axes = plt.subplots(
         1,
         2,
-        figsize=(12.0, 4.65),
-        gridspec_kw={"width_ratios": [1.55, 1.0], "wspace": 0.28},
+        figsize=(10.0, 4.4),
+        gridspec_kw={"width_ratios": [1.25, 1.0], "wspace": 0.55},
     )
 
     ax_family, ax_fixture = axes
+    label_size = 12.5
+    value_size = 12.0
 
     family_labels = list(ordered_families)
     family_values = [family_counts[label] for label in family_labels]
     family_colors = [light_blue if label == "Seed workflows" else blue for label in family_labels]
     family_positions = list(range(len(family_labels)))
 
-    ax_family.bar(
+    ax_family.barh(
         family_positions,
         family_values,
         color=family_colors,
         edgecolor="white",
-        width=0.76,
+        height=0.78,
     )
-    ax_family.set_ylabel("Number of tasks", fontsize=13.6)
-    ax_family.set_ylim(0, 23.5)
-    ax_family.set_xticks(family_positions)
-    ax_family.set_xticklabels(
-        family_labels,
-        rotation=88,
-        ha="right",
-        rotation_mode="anchor",
-        fontsize=8.8,
-    )
-    ax_family.grid(axis="y", color=grid, linewidth=0.8)
+    ax_family.set_xlabel("Number of tasks", fontsize=label_size)
+    ax_family.set_xlim(0, 24.5)
+    ax_family.set_yticks(family_positions)
+    ax_family.set_yticklabels(family_labels, fontsize=label_size)
+    ax_family.invert_yaxis()
+    ax_family.grid(axis="x", color=grid, linewidth=0.8)
     ax_family.set_axisbelow(True)
-    ax_family.tick_params(axis="x", length=0, pad=1)
-    ax_family.tick_params(axis="y", labelsize=11.4)
+    ax_family.tick_params(axis="y", length=0, pad=3)
+    ax_family.tick_params(axis="x", labelsize=label_size - 1)
     ax_family.spines["top"].set_visible(False)
     ax_family.spines["right"].set_visible(False)
+    ax_family.set_title("(a) Official tasks by family", fontsize=label_size + 1, fontweight="bold")
 
     for index, tasks in enumerate(family_values):
-        ax_family.text(
-            index,
-            tasks + 0.38,
-            f"{tasks}",
-            va="bottom",
-            ha="center",
-            fontsize=11.0,
-        )
+        ax_family.text(tasks + 0.35, index, f"{tasks}", va="center", ha="left", fontsize=value_size)
 
     fixture_order = ["JSON", "CSV/TSV", "YAML", "Text/log", "HTML", "Code/script/SQL", "Other"]
     fixture_labels = list(fixture_order)
     fixture_values = [fixture_counts[label] for label in fixture_labels]
     fixture_positions = list(range(len(fixture_labels)))
 
-    ax_fixture.bar(fixture_positions, fixture_values, color=blue, edgecolor="white", width=0.76)
-    ax_fixture.set_ylabel("Number of fixture files", fontsize=13.6)
-    ax_fixture.set_ylim(0, 248)
-    ax_fixture.set_xticks(fixture_positions)
-    ax_fixture.set_xticklabels(
-        fixture_labels,
-        rotation=88,
-        ha="right",
-        rotation_mode="anchor",
-        fontsize=10.0,
-    )
-    ax_fixture.grid(axis="y", color=grid, linewidth=0.8)
+    ax_fixture.barh(fixture_positions, fixture_values, color=blue, edgecolor="white", height=0.72)
+    ax_fixture.set_xlabel("Number of fixture files", fontsize=label_size)
+    ax_fixture.set_xlim(0, 262)
+    ax_fixture.set_yticks(fixture_positions)
+    ax_fixture.set_yticklabels(fixture_labels, fontsize=label_size)
+    ax_fixture.invert_yaxis()
+    ax_fixture.grid(axis="x", color=grid, linewidth=0.8)
     ax_fixture.set_axisbelow(True)
-    ax_fixture.tick_params(axis="x", length=0, pad=1)
-    ax_fixture.tick_params(axis="y", labelsize=11.4)
+    ax_fixture.tick_params(axis="y", length=0, pad=3)
+    ax_fixture.tick_params(axis="x", labelsize=label_size - 1)
     ax_fixture.spines["top"].set_visible(False)
     ax_fixture.spines["right"].set_visible(False)
+    ax_fixture.set_title("(b) Fixture files by format", fontsize=label_size + 1, fontweight="bold")
 
     for index, value in enumerate(fixture_values):
-        ax_fixture.text(index, value + 3.5, f"{value}", va="bottom", ha="center", fontsize=11.0)
+        ax_fixture.text(value + 3.5, index, f"{value}", va="center", ha="left", fontsize=value_size)
 
-    fig.text(
-        0.24,
-        0.060,
-        "(a) Official tasks across benchmark families",
-        ha="center",
-        va="bottom",
-        fontsize=13.6,
-        fontweight="bold",
-    )
-    fig.text(
-        0.74,
-        0.060,
-        "(b) Repository-local fixture files across formats",
-        ha="center",
-        va="bottom",
-        fontsize=13.6,
-        fontweight="bold",
-    )
-
-    fig.subplots_adjust(left=0.07, right=0.985, top=0.95, bottom=0.36)
+    fig.subplots_adjust(left=0.2, right=0.985, top=0.92, bottom=0.12)
     output_dir.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_dir / f"{FIGURE_BASENAME}.pdf", bbox_inches="tight")
     fig.savefig(output_dir / f"{FIGURE_BASENAME}.png", dpi=260, bbox_inches="tight")
